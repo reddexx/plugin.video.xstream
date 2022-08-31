@@ -1,3 +1,7 @@
+3.5.36~nightly4
+  31.08.22
+  - xCine.top hinzugefügt
+
 3.5.36~nightly3
   26.08.22
   - [Flimmerstube] Einige Filme konnten nicht abgespielt werden
