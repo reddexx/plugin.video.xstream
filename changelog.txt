@@ -1,3 +1,7 @@
+3.5.36~nightly5
+  06.09.22
+  - [hdfilme.top] Menüpunkt Kategorien gefixt THX @litti_19928
+
 3.5.36~nightly4
   31.08.22
   - xCine.top hinzugefügt
