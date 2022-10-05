@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # 2022-08-26 Heptamer - Regex Fix Zeile 117
+# 2022-10-05 Heptamer - Fix für Filme mit Direktlink Zeile  Zeile 128-136
 
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
@@ -9,6 +10,8 @@ from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
+
+
 
 SITE_IDENTIFIER = 'flimmerstube'
 SITE_NAME = 'Flimmerstube'
@@ -77,8 +80,9 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
             oRequest.addParameters('c', '')
     sHtmlContent = oRequest.request()
     pattern = 've-screen.*?title="([^"]+).*?url[^>]([^")]+).*?href="([^">]+)'
+    #pattern = 'vep-title.*?">([^"]+)</h1.*?src=\\\'([^\\]+).*?img src="([^"]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
-
+    
     if not isMatch:
         if not sGui: oGui.showInfo()
         return
@@ -119,6 +123,15 @@ def showHosters():
         for sUrl in aResult:
             if sUrl.startswith('//'):
                 sUrl = 'https:' + sUrl
+            hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
+            hosters.append(hoster)
+    if not isMatch:
+        pattern = 'vep-title.*?</h1.*?src=.*?http..([\S]+)'
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
+        if isMatch:
+            for sUrl in aResult:
+                if sUrl.startswith('//'):
+                    sUrl = 'https:' + sUrl
             hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
             hosters.append(hoster)
     if hosters:
