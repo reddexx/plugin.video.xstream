@@ -14,8 +14,8 @@ Diese werden auch als Site-Plugins bezeichnet, welche auf die eigentlichen Quell
 Wir suchen derzeit noch Entwickler die das Projekt unterstützen möchten:
 
 Jeder der mithelfen kann und möchte, wird gebeten seine fertigen Fixes einzureichen.
-Wird ein Fix zu einer Seite eingereicht oder ein neuer Scrapper zu einer Seite, so werden diese weiterhin eingepflegt.
-Fixes an Seiten bzw. neue Seiten am besten als PullRequest einreichen (oder auf Gitter).
+Wird ein Fix zu einer Seite eingereicht oder ein neuer Scraper zu einer Seite, so werden diese weiterhin eingepflegt.
+Fixes zu Seiten bzw. neue Seiten am besten als PullRequest einreichen (oder auf Gitter).
 
 ***
 
