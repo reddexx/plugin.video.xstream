@@ -1,7 +1,27 @@
+3.5.36~nightly6
+  05.10.22
+  -[Flimmerstube]Erweiterter Fix für Filme mit Direktlink
+  
+3.5.36~nightly5
+  06.09.22
+  - [hdfilme.top] Menüpunkt Kategorien gefixt THX @Litti_19928
+
+3.5.36~nightly4
+  31.08.22
+  - xCine.top hinzugefügt
+
+3.5.36~nightly3
+  26.08.22
+  - [Flimmerstube] Einige Filme konnten nicht abgespielt werden
+  - XCine entfernt
+
+3.5.36~nightly2
+  19.08.22
+  - Domain Updates von HDFilme, Kinomax, KKiste
+
 3.5.36~nightly1
   08.08.22
   - Einige Site-Icons erneuert. Alle Icons sind jetzt 512x512px. THX @peat80
-
 
 3.5.35
   18.07.2022

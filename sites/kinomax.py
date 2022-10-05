@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # 2022-04-27 Heptamer
-
+# 2022-08-19 DWH Domain Update
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -13,7 +13,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kinomax'
 SITE_NAME = 'Kinomax.me'
 SITE_ICON = 'kinomax.png'
-URL_MAIN = 'https://kinomax.me'
+URL_MAIN = 'https://kinomax.click'
 URL_KINO = URL_MAIN + '/aktuelle-kinofilme-im-kino/'
 URL_MOVIE = URL_MAIN + '/kinofilme-online'
 URL_SERIEN = URL_MAIN + '/serienstream-deutsch/'

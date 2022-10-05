@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# 2022-02-01 Hep
-# 2022-08-19 DWH Domain Update
+#   2022.08.31 DWH
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -10,13 +9,13 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-SITE_IDENTIFIER = 'hdfilme_top'
-SITE_NAME = 'HD Filme Top'
-SITE_ICON = 'hdfilmetop.png'
-URL_MAIN = 'https://hdfilme.cloud/'
+SITE_IDENTIFIER = 'xcine_top'
+SITE_NAME = 'XCine Top'
+SITE_ICON = 'xcinetop.png'
+URL_MAIN = 'https://xcine.top/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
-URL_SEARCH = URL_MAIN + 'index.php?story=%s&do=search&subaction=search'
+URL_SEARCH = URL_MAIN + 'index.php?do=search'
 
 
 def load():
@@ -25,9 +24,9 @@ def load():
     params.setParam('sUrl', URL_KINO)
     cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Kategorien', SITE_IDENTIFIER, 'showGenre'), params)
+    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showGenre'), params)
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Release Jahre', SITE_IDENTIFIER, 'showYears'), params)
+    cGui().addFolder(cGuiElement('Release Jahre/Land', SITE_IDENTIFIER, 'showYears'), params)
     params.setParam('sUrl', URL_SERIEN)
     cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)
     cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
@@ -38,7 +37,7 @@ def showGenre(entryUrl=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     sHtmlContent = cRequestHandler(entryUrl).request()
-    pattern = '">KATEGORIE.*?</ul>'
+    pattern = 'Genre.*?</ul>'
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
         isMatch, aResult = cParser.parse(sHtmlContainer, 'href="([^"]+).*?>([^<]+)')
@@ -79,8 +78,18 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    iPage = int(params.getValue('page'))
+    oRequest = cRequestHandler(entryUrl + 'page/' + str(iPage) if iPage > 0 else entryUrl, ignoreErrors=(sGui is not False))
+    if sSearchText:
+        oRequest.addParameters('do', 'search')
+        oRequest.addParameters('subaction', 'search')
+        oRequest.addParameters('search_start', '0')
+        oRequest.addParameters('full_search', '1')
+        oRequest.addParameters('result_from', '1')
+        oRequest.addParameters('story', sSearchText)
+        oRequest.addParameters('titleonly', '3')
     sHtmlContent = oRequest.request()
-    pattern = 'data-src="([^"]+).*?film-item-quality">([^<]+).*?href="([^"]+).*?-title">([^<]+)'
+    pattern = 'item__link.*?href="([^"]+).*?<img src="([^"]+).*?movie-item__label">([^<]+).*?movie-item__title ws-nowrap">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
 
     if not isMatch:
@@ -88,7 +97,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         return
 
     total = len(aResult)
-    for sThumbnail, sQuality, sUrl, sName in aResult:
+    for sUrl, sThumbnail, sQuality, sName in aResult:
         if sSearchText and not cParser.search(sSearchText, sName):
             continue
         if sThumbnail[0] == '/':
@@ -104,13 +113,19 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
         oGui.addFolder(oGuiElement, params, isTvshow, total)
         
+
     if not sGui and not sSearchText:
-        isMatchNextPage, sNextUrl = cParser().parseSingleResult(sHtmlContent, '"nav_ext.*?>\d[1-9]+<.*?href="([^"]+).*?</div>')
-        if isMatchNextPage:
-            params.setParam('sUrl', sNextUrl)
-            oGui.addNextPage(SITE_IDENTIFIER, 'showEntries', params)
+        sPageNr = int(params.getValue('page'))
+        if sPageNr == 0:
+            sPageNr = 2
+        else:
+            sPageNr += 1
+        params.setParam('page', int(sPageNr))
+        params.setParam('sUrl', entryUrl)
+        oGui.addNextPage(SITE_IDENTIFIER, 'showEntries', params)
         oGui.setView('tvshows' if isTvshow else 'movies')
         oGui.setEndOfDirectory()
+
 
 
 def showEpisodes():
@@ -176,4 +191,4 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showEntries(URL_SEARCH % cParser.quotePlus(sSearchText), oGui, sSearchText)
+    showEntries(URL_SEARCH, oGui, sSearchText)

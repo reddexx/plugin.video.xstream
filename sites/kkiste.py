@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+# 2022-08-19 DWH Domain Update
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -9,7 +12,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
-URL_MAIN = 'https://kkiste.film/'
+URL_MAIN = 'https://kkiste.show/'
 
 
 def load():

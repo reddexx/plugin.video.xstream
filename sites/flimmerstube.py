@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# 2022-04-26
+# 2022-08-26 Heptamer - Regex Fix Zeile 117
+
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -113,7 +114,7 @@ def showHosters():
     isMatch, sUrl = cParser().parse(sHtmlContent, 'class="link"[^>]href="([^"]+)')
     if isMatch:
         sHtmlContent2 = cRequestHandler(sUrl[0]).request()
-        isMatch, aResult = cParser().parse(sHtmlContent2, '<p><iframe.*?src="([^"]+)')
+        isMatch, aResult = cParser().parse(sHtmlContent2, 'p><iframe.*?src="([^"]+)')
     if isMatch:
         for sUrl in aResult:
             if sUrl.startswith('//'):
