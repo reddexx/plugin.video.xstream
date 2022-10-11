@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# Python 3
 
 from xstream import run
 from os.path import join
@@ -13,7 +14,7 @@ path.append(join(_addonPath_, 'resources', 'lib', 'gui'))
 path.append(join(_addonPath_, 'resources', 'lib', 'handler'))
 path.append(join(_addonPath_, 'resources', 'art', 'sites'))
 path.append(join(_addonPath_, 'sites'))
-logger.info('*---- Running xStream, version %s ----*' % common.addon.getAddonInfo('version'))
+logger.info('*---- Starte xStream Log, Version %s ----*' % common.addon.getAddonInfo('version'))
 logger.info('Python-Version: %s' % platform.python_version())
 
 try:

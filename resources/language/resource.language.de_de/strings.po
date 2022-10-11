@@ -1,0 +1,357 @@
+# Addon Name: xStream
+# Addon id: plugin.video.xStream
+# Addon Provider: xStream
+# Benutze folgenden Eintrag für die Übersetzung
+# getLocalizedString(30041)	
+
+msgid ""
+msgstr ""
+
+msgctxt "#30000"
+msgid "Debug-Mode"
+msgstr "Debug Modus"
+
+msgctxt "#30001"
+msgid "Video-Player"
+msgstr "Video Abspieler"
+
+msgctxt "#30002"
+msgid "Preferred language"
+msgstr "Bevorzugte Sprache"
+
+msgctxt "#30003"
+msgid "Show XXX-Content for adult users"
+msgstr "XXX-Inhalte für volljährige Benutzer anzeigen"
+
+msgctxt "#30004"
+msgid "Use metahandler"
+msgstr "Metahandler verwenden"
+
+msgctxt "#30005"
+msgid "Hoster selection"
+msgstr "Hoster-Auswahl"
+
+msgctxt "#30006"
+msgid "Cachetime for websites in seconds"
+msgstr "Cachezeit für Webseiten in Sekunden"
+
+msgctxt "#30007"
+msgid "Maximum number in hosterlist"
+msgstr "Maximale Anzahl von Einträgen in der Hoster-Liste"
+
+msgctxt "#30008"
+msgid "Metahandler replaces information of websites"
+msgstr "Metahandler ersetzt Informationen der Webseiten"
+
+msgctxt "#30009"
+msgid "Pre-validate and sort hosterlist (slow on weak systems)"
+msgstr "Hoster-Liste prüfen und sortieren (langsam auf schwachen Systemen)"
+
+msgctxt "#30010"
+msgid "Enable automatic xStream nightly update"
+msgstr "Automatisches xStream Nightly Update aktivieren"
+
+msgctxt "#30011"
+msgid "Global Search at first position"
+msgstr "Globale Suche an erster Position"
+
+msgctxt "#30012"
+msgid "Show centralized settings"
+msgstr "Zentralisierte Einstellungen anzeigen"
+
+msgctxt "#30013"
+msgid "Prefered Auto-Play quality (if available)"
+msgstr "Bevorzugte Qualität bei Auto-Play Funktion"
+
+msgctxt "#30014"
+msgid "Timeout for HTTP requests in seconds"
+msgstr "Timeout für HTTP-Anfragen in Sekunden"
+
+msgctxt "#30015"
+msgid "Enable automatic ResolveURL update"
+msgstr "Automatisches ResolveURL Update aktivieren"
+
+msgctxt "#30019"
+msgid "use Cover as fanart"
+msgstr "Benutze Cover als Fanart"
+
+msgctxt "#30020"
+msgid "General"
+msgstr "Allgemein"
+
+msgctxt "#30021"
+msgid "Site-Plugins"
+msgstr "Indexseiten"
+
+msgctxt "#30022"
+msgid "Views"
+msgstr "Ansichten"
+
+msgctxt "#30023"
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "#30024"
+msgid "Accounts"
+msgstr "Konten"
+
+msgctxt "#30030"
+msgid "Updates"
+msgstr "Aktualisierungen"
+
+msgctxt "#30031"
+msgid "Presentation"
+msgstr "Darstellung"
+
+msgctxt "#30032"
+msgid "Content"
+msgstr "Inhalt"
+
+msgctxt "#30033"
+msgid "Metadata"
+msgstr "Metadaten"
+
+msgctxt "#30034"
+msgid "Hoster"
+msgstr "Hoster"
+
+msgctxt "#30035"
+msgid "Network"
+msgstr "Netzwerk"
+
+msgctxt "#30040"
+msgid "Global Search"
+msgstr "Globale Suche"
+
+msgctxt "#30041"
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgctxt "#30042"
+msgid "xStream settings"
+msgstr "xStream Einstellungen"
+
+msgctxt "#30043"
+msgid "ResolverURL settings"
+msgstr "Resolver Einstellungen"
+
+msgctxt "#30044"
+msgid "Metahandler settings"
+msgstr "Metahandler-Einstellungen"
+
+msgctxt "#30050"
+msgid "Use Site-Plugin"
+msgstr "Site-Plugin verwenden"
+
+msgctxt "#30051"
+msgid "Select Domain"
+msgstr "Domain auswählen"
+
+msgctxt "#30052"
+msgid "Use for Global Search"
+msgstr "Für die Globale Suche benutzen"
+
+msgctxt "#30060"
+msgid "Use automatically generated views"
+msgstr "Automatisch erzeugte Ansichten verwenden"
+
+msgctxt "#30061"
+msgid "Default-View"
+msgstr "Standard-Ansicht"
+
+msgctxt "#30062"
+msgid "Movie-View"
+msgstr "Film-Ansicht"
+
+msgctxt "#30063"
+msgid "Series-View"
+msgstr "Serien-Ansicht"
+
+msgctxt "#30064"
+msgid "Season-View"
+msgstr "Staffel-Ansicht"
+
+msgctxt "#30065"
+msgid "Episode-View"
+msgstr "Episoden-Ansicht"
+
+msgctxt "#30070"
+msgid "JDownloader"
+msgstr "JDownloader"
+
+msgctxt "#30071"
+msgid "JDownloader on/off"
+msgstr "JDownloader an/aus"
+
+msgctxt "#30072"
+msgid "Host"
+msgstr "Host"
+
+msgctxt "#30073"
+msgid "Port"
+msgstr "Port"
+
+msgctxt "#30074"
+msgid "Start download automatically"
+msgstr "Download automatisch starten"
+
+msgctxt "#30075"
+msgid "Send to LinkGrabber only"
+msgstr "Sende nur an LinkGrabber"
+
+msgctxt "#30076"
+msgid "JDownloader2"
+msgstr "JDownloader2"
+
+msgctxt "#30077"
+msgid "JDownloader2 on/off"
+msgstr "JDownloader2 an/aus"
+
+msgctxt "#30080"
+msgid "Kodi-Download"
+msgstr "Kodi-Download"
+
+msgctxt "#30081"
+msgid "Download-Folder"
+msgstr "Download-Verzeichnis"
+
+msgctxt "#30082"
+msgid "PyLoad on/off"
+msgstr "PyLoad an/aus"
+
+msgctxt "#30083"
+msgid "E-Mail"
+msgstr "E-Mail"
+
+msgctxt "#30084"
+msgid "Password"
+msgstr "Passwort"
+
+msgctxt "#30090"
+msgid "My.JDownloader"
+msgstr "My.JDownloader"
+
+msgctxt "#30091"
+msgid "My.JDownloader on/off"
+msgstr "My.JDownloader an/aus"
+
+msgctxt "#30092"
+msgid "Device Name"
+msgstr "Geräte Name"
+
+msgctxt "#30093"
+msgid "Start manuel nightly update"
+msgstr "Starte manuelles Nightly Update"
+
+msgctxt "#30094"
+msgid "Site-Plugins 1"
+msgstr "Indexseiten 1"
+
+msgctxt "#30095"
+msgid "Site-Plugins 2"
+msgstr "Indexseiten 2"
+
+msgctxt "#30096"
+msgid "Enable automatic updates"
+msgstr "Aktiviere automatische Aktualisierungen"
+
+msgctxt "#30097"
+msgid "[COLOR red]Nightly - version can contain new functions but also bugs.[/COLOR]"
+msgstr "[COLOR red]Nightly - Version kann neue Funktionen aber auch Fehler enthalten.[/COLOR]"
+
+msgctxt "#30098"
+msgid "Choose Resolver Github Branch"
+msgstr "Wähle Resolver Github Branch"
+
+msgctxt "#30099"
+msgid "[COLOR green]Release - Version[/COLOR]"
+msgstr "[COLOR green]Release - Version[/COLOR]"
+
+msgctxt "#30100"
+msgid "[COLOR orange]Nightly - Version[/COLOR]"
+msgstr "[COLOR orange]Nightly - Version[/COLOR]"
+
+msgctxt "#30101"
+msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgstr "[COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
+
+msgctxt "#30102"
+msgid "Perform manual update (only once)"
+msgstr "Manuelles Update durchführen (nur einmalig)"
+
+msgctxt "#30103"
+msgid "German"
+msgstr "Deutsch"
+
+msgctxt "#30104"
+msgid "English"
+msgstr "Englisch"
+
+msgctxt "#30105"
+msgid "All"
+msgstr "Alle Sprachen"
+
+msgctxt "#30106"
+msgid "SD 240p"
+msgstr "SD 240p"
+
+msgctxt "#30107"
+msgid "SD 360p"
+msgstr "SD 360p"
+
+msgctxt "#30108"
+msgid "SD 480p"
+msgstr "SD 480p"
+
+msgctxt "#30109"
+msgid "HD 720p"
+msgstr "HD 720p"
+
+msgctxt "#30110"
+msgid "Full HD 1080p"
+msgstr "Full HD 1080p"
+
+msgctxt "#30111"
+msgid "Best Resolution"
+msgstr "Beste Auflösung"
+
+
+
+
+
+
+msgctxt "#30302"
+msgid ""
+msgstr "Staffeln Deutsch"
+
+msgctxt "#30303"
+msgid ""
+msgstr "Staffeln Englisch"
+
+msgctxt "#30304"
+msgid ""
+msgstr "Suche"
+
+msgctxt "#30305"
+msgid ""
+msgstr "Staffel %s"
+
+msgctxt "#30306"
+msgid ""
+msgstr "%s bis %s Sekunde"
+
+msgctxt "#30307"
+msgid ""
+msgstr "Alle abspielen"
+
+msgctxt "#30308"
+msgid ""
+msgstr "Wartezeit"
+
+msgctxt "#30309"
+msgid ""
+msgstr "Bitte warte %s Sekunden"
+
+msgctxt "#30402"
+msgid ""
+msgstr "Länder"

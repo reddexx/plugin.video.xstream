@@ -5,6 +5,7 @@
 from resources.lib.config import cConfig
 from resources.lib.tools import logger
 from resources.lib import common
+from resources.lib.config import cConfig
 import json, os, sys
 
 
@@ -103,9 +104,9 @@ class cPluginHandler:
         import xml.etree.ElementTree as ET
         tree = ET.parse(self.settingsFile)
         # find Element for plugin Settings
-        for i in ('Indexseiten 1', 'Indexseiten 2'):
+        for i in (cConfig().getLocalizedString(30094), cConfig().getLocalizedString(30095)):
             index = index1
-            if i == 'Indexseiten 2': index = index2
+            if i == cConfig().getLocalizedString(30095): index = index2
 
             pluginElem = False
             for elem in tree.findall('category'):

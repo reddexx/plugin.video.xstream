@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Muss überarbeitet werden!!!!!
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.handler.pluginHandler import cPluginHandler
@@ -6,12 +9,14 @@ from resources.lib.tools import logger
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
-import sys, xbmc, xbmcgui
+import sys
+import xbmc
+import xbmcgui
 
 try:
     import resolveurl as resolver
 except ImportError:
-    xbmcgui.Dialog().ok('ResolveUrl Error', 'Sie haben keinen funktionierenden ResolveUrl installiert, es können keine Videos abgespielt werden bitte neu installieren.')
+    xbmcgui.Dialog().ok('ResolveUrl Fehler', 'Sie haben keinen funktionierenden ResolveUrl installiert, es können keine Videos abgespielt werden bitte installieren Sie den Resolver erneut.')
 
 
 def run():
@@ -155,32 +160,32 @@ def showMainMenu(sFunction):
     else:
         for folder in settingsGuiElements():
             oGui.addFolder(folder)
-    # ka add - Create a gui element for updateManager
+    # GUI Nightly Updatemanager
     if cConfig().getSetting('DevUpdateAuto') == 'false':
         oGuiElement = cGuiElement()
-        oGuiElement.setTitle('Nightly Update')
+        oGuiElement.setTitle('Starte manuelles Nightly Update')
         oGuiElement.setSiteName('devUpdates')
         oGuiElement.setFunction(sFunction)
-        oGuiElement.setThumbnail('DefaultAddonProgram.png')
+        oGuiElement.setThumbnail('DefaultNetwork.png')
         oGui.addFolder(oGuiElement)
     oGui.setEndOfDirectory()
 
 
 def settingsGuiElements():
-    # Create a gui element for addon settings
+    # GUI xStream Einstellungen
     oGuiElement = cGuiElement()
     oGuiElement.setTitle(cConfig().getLocalizedString(30042))
     oGuiElement.setSiteName('xStream')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('DefaultAddonProgram.png')
+    oGuiElement.setThumbnail('DefaultAddonService.png')
     xStreamSettings = oGuiElement
 
-    # Create a gui element for resolver settings
+    # GUI Resolver Einstellungen
     oGuiElement = cGuiElement()
     oGuiElement.setTitle(cConfig().getLocalizedString(30043))
     oGuiElement.setSiteName('resolver')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('DefaultAddonRepository.png')
+    oGuiElement.setThumbnail('DefaultAddonService.png')
     resolveurlSettings = oGuiElement
     return xStreamSettings, resolveurlSettings
 
@@ -191,7 +196,7 @@ def globalSearchGuiElement():
     oGuiElement.setTitle(cConfig().getLocalizedString(30040))
     oGuiElement.setSiteName('globalSearch')
     oGuiElement.setFunction('globalSearch')
-    oGuiElement.setThumbnail('DefaultAddonWebSkin.png')
+    oGuiElement.setThumbnail('DefaultAddonsSearch.png')
     return oGuiElement
 
 

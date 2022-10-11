@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
-#
-# 2022-06-21 Heptamer - Änderung siehe Zeile 72ff
-#
-import sys, os, json, re, xbmc, xbmcaddon, xbmcgui
+# Python 3
+
+import sys
+import os
+import json
+import re
+import xbmc
+import xbmcaddon
+import xbmcgui
 from xbmc import LOGDEBUG, LOGERROR
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
-# xbmcaddon.Addon().getAddonInfo('id')
+# xStream = xbmcaddon.Addon().getAddonInfo('id')
 
-if sys.version_info[0] == 2:
-    from xbmc import translatePath
-    NIGHTLY_VERSION_CONTROL = os.path.join(translatePath(xbmcaddon.Addon().getAddonInfo('profile')).decode('utf-8'), "update_sha")
-    ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s')).decode('utf-8')
-else:
-    from xbmcvfs import translatePath
-    NIGHTLY_VERSION_CONTROL = os.path.join(translatePath(xbmcaddon.Addon().getAddonInfo('profile')), "update_sha")
-    ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s'))
+from xbmcvfs import translatePath
+# Pfad der update.sha
+NIGHTLY_UPDATE = os.path.join(translatePath(xbmcaddon.Addon().getAddonInfo('profile')), "update_sha")
+# xStream Installationspfad
+ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s'))    
 
-
+# Update Info beim Kodi Start
 def infoDialog(message, heading=AddonName, icon='', time=5000, sound=False):
     if icon == '': icon = xbmcaddon.Addon().getAddonInfo('icon')
     elif icon == 'INFO': icon = xbmcgui.NOTIFICATION_INFO
@@ -25,6 +27,7 @@ def infoDialog(message, heading=AddonName, icon='', time=5000, sound=False):
     elif icon == 'ERROR': icon = xbmcgui.NOTIFICATION_ERROR
     xbmcgui.Dialog().notification(heading, message, icon, time, sound=sound)
 
+# Aktiviere xStream Addon
 def enableAddon(ADDONID):
     struktur = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.GetAddonDetails","id":1,"params": {"addonid":"%s", "properties": ["enabled"]}}' % ADDONID))
     if 'error' in struktur or struktur["result"]["addon"]["enabled"] != True:
@@ -42,7 +45,7 @@ def enableAddon(ADDONID):
             except:
                 pass
 
-
+# Überprüfe Abhängigkeiten
 def checkDependence(ADDONID):
     isdebug = True
     if isdebug: xbmc.log(__name__ + ' - %s - checkDependence ' % ADDONID, xbmc.LOGDEBUG)
@@ -71,7 +74,8 @@ def checkDependence(ADDONID):
 
 # check if Autoupdate is activated before installing updates
 if xbmcaddon.Addon().getSetting('DevUpdateAuto') == 'true' or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
-    if os.path.isfile(NIGHTLY_VERSION_CONTROL) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true':
+    if os.path.isfile(NIGHTLY_UPDATE) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true':
+    
 # Status Dialog der Auto Updates    
         from resources.lib import updateManager
         status1 = updateManager.xStreamUpdate(True)
