@@ -24,7 +24,7 @@ msgid "Show XXX-Content for adult users"
 msgstr ""
 
 msgctxt "#30004"
-msgid "Use metahandler"
+msgid "Use TMDb handler"
 msgstr ""
 
 msgctxt "#30005"
@@ -40,7 +40,7 @@ msgid "Maximum number in hosterlist"
 msgstr ""
 
 msgctxt "#30008"
-msgid "Metahandler replaces information of websites"
+msgid "TMDb handler replaces information of websites"
 msgstr ""
 
 msgctxt "#30009"
@@ -108,7 +108,7 @@ msgid "Content"
 msgstr ""
 
 msgctxt "#30033"
-msgid "Metadata"
+msgid "TMDb Handler"
 msgstr ""
 
 msgctxt "#30034"
@@ -315,6 +315,33 @@ msgctxt "#30111"
 msgid "Best Resolution"
 msgstr ""
 
+msgctxt "#30112"
+msgid "Search for updates ..."
+msgstr ""
+
+msgctxt "#30113"
+msgid "xStream update installed successfully."
+msgstr ""
+
+msgctxt "#30114"
+msgid "xStream update finished with errors."
+msgstr ""
+
+msgctxt "#30115"
+msgid "No xStream update available."
+msgstr ""
+
+msgctxt "#30116"
+msgid " update installed successfully."
+msgstr ""
+
+msgctxt "#30117"
+msgid "Resolver update finished with errors."
+msgstr ""
+
+msgctxt "#30118"
+msgid "No Resolver update available."
+msgstr ""
 
 
 

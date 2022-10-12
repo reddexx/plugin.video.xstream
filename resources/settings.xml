@@ -113,9 +113,9 @@
 	</category>
     <category label="TMDB">
 		<setting type="sep" />
-		<setting label="TMDB-Handler" type="lsep" />
-		<setting default="false" id="TMDBMETA" label="TMDB verwenden" type="bool" />
-		<setting default="true" enable="!eq(-1,false)" id="metaOverwrite" label="TMDB ersetzt Informationen der Webseiten" type="bool" />
+		<setting label="30033" type="lsep" />
+		<setting default="false" id="TMDBMETA" label="30004" type="bool" />
+		<setting default="true" enable="!eq(-1,false)" id="metaOverwrite" label="30008" type="bool" />
 		<setting default="false" enable="!eq(-2,false)" id="advanced" label="TMDB erweiterte Informationen(slow)" type="bool" />
 		<setting default="w342" id="poster_tmdb" label="Posters Size" type="select" values="w92|w154|w185|w342|w500|w780|original" />
 		<setting default="w1280" id="backdrop_tmdb" label="Fanarts Size" type="select" values="w300|w780|w1280|original" />

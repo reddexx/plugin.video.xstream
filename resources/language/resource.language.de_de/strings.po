@@ -24,8 +24,8 @@ msgid "Show XXX-Content for adult users"
 msgstr "XXX-Inhalte für volljährige Benutzer anzeigen"
 
 msgctxt "#30004"
-msgid "Use metahandler"
-msgstr "Metahandler verwenden"
+msgid "Use TMDb handler"
+msgstr "TMDb Handler verwenden"
 
 msgctxt "#30005"
 msgid "Hoster selection"
@@ -40,8 +40,8 @@ msgid "Maximum number in hosterlist"
 msgstr "Maximale Anzahl von Einträgen in der Hoster-Liste"
 
 msgctxt "#30008"
-msgid "Metahandler replaces information of websites"
-msgstr "Metahandler ersetzt Informationen der Webseiten"
+msgid "TMDb handler replaces information of websites"
+msgstr "TMDb Handler ersetzt Informationen der Webseiten"
 
 msgctxt "#30009"
 msgid "Pre-validate and sort hosterlist (slow on weak systems)"
@@ -108,8 +108,8 @@ msgid "Content"
 msgstr "Inhalt"
 
 msgctxt "#30033"
-msgid "Metadata"
-msgstr "Metadaten"
+msgid "TMDb Handler"
+msgstr "TMDb Handler"
 
 msgctxt "#30034"
 msgid "Hoster"
@@ -315,7 +315,33 @@ msgctxt "#30111"
 msgid "Best Resolution"
 msgstr "Beste Auflösung"
 
+msgctxt "#30112"
+msgid "Search for updates ..."
+msgstr "Suche nach Aktualisierungen ..."
 
+msgctxt "#30113"
+msgid "xStream update installed successfully."
+msgstr "xStream Aktualisierung erfolgreich installiert."
+
+msgctxt "#30114"
+msgid "xStream update finished with errors."
+msgstr "xStream Aktualisierung mit Fehlern beendet."
+
+msgctxt "#30115"
+msgid "No xStream update available."
+msgstr "Keine xStream Aktualisierung verfügbar."
+
+msgctxt "#30116"
+msgid " update installed successfully."
+msgstr " Aktualisierung erfolgreich installiert."
+
+msgctxt "#30117"
+msgid "Resolver update finished with errors."
+msgstr "Resolver Aktualisierung mit Fehlern beendet."
+
+msgctxt "#30118"
+msgid "No Resolver update available."
+msgstr "Keine Resolver Aktualisierung verfügbar."
 
 
 

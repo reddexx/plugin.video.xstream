@@ -9,6 +9,7 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 from xbmc import LOGDEBUG, LOGERROR
+from resources.lib.config import cConfig
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
 # xStream = xbmcaddon.Addon().getAddonInfo('id')
@@ -80,13 +81,13 @@ if xbmcaddon.Addon().getSetting('DevUpdateAuto') == 'true' or xbmcaddon.Addon().
         from resources.lib import updateManager
         status1 = updateManager.xStreamUpdate(True)
         status2 = updateManager.resolverUpdate(True)
-        infoDialog("Suche nach Updates ...", sound=False, icon='INFO', time=10000)
-        if status1 == True: infoDialog('xStream Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
-        if status1 == False: infoDialog('xStream Update mit Fehlern beendet.', sound=True, icon='ERROR')
-        if status1 == None: infoDialog('Kein xStream Update verfügbar.', sound=False, icon='INFO', time=6000)
-        if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + ' Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
-        if status2 == False: infoDialog('Resolver Update mit Fehlern beendet.', sound=True, icon='ERROR')
-        if status2 == None: infoDialog('Kein Resolver Update verfügbar.', sound=False, icon='INFO', time=6000)
+        infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)
+        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
+        if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
+        if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
+        if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + cConfig().getLocalizedString(30116), sound=False, icon='INFO', time=6000)
+        if status2 == False: infoDialog(cConfig().getLocalizedString(30117), sound=True, icon='ERROR')
+        if status2 == None: infoDialog(cConfig().getLocalizedString(30118), sound=False, icon='INFO', time=6000)
         if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
 
 # "setting.xml" wenn notwendig Indexseiten aktualisieren
