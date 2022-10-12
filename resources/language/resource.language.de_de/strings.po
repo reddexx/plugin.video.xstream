@@ -2,7 +2,7 @@
 # Addon id: plugin.video.xStream
 # Addon Provider: xStream
 # Benutze folgenden Eintrag für die Übersetzung
-# getLocalizedString(30041)	
+# from resources.lib.config import cConfig + cConfig().getLocalizedString(30041)	
 
 msgid ""
 msgstr ""
@@ -264,12 +264,12 @@ msgid "Choose Resolver Github Branch"
 msgstr "Wähle Resolver Github Branch"
 
 msgctxt "#30099"
-msgid "[COLOR green]Release - Version[/COLOR]"
-msgstr "[COLOR green]Release - Version[/COLOR]"
+msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
+msgstr "[COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR]"
 
 msgctxt "#30100"
-msgid "[COLOR orange]Nightly - Version[/COLOR]"
-msgstr "[COLOR orange]Nightly - Version[/COLOR]"
+msgid "[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgstr "[COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
 
 msgctxt "#30101"
 msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
@@ -342,6 +342,54 @@ msgstr "Resolver Aktualisierung mit Fehlern beendet."
 msgctxt "#30118"
 msgid "No Resolver update available."
 msgstr "Keine Resolver Aktualisierung verfügbar."
+
+msgctxt "#30119"
+msgid "ResolveUrl Error"
+msgstr "ResolveURL Fehler"
+
+msgctxt "#30120"
+msgid "You don't have a working ResolveUrl installed, no videos can be played please reinstall the resolver."
+msgstr "Sie haben keinen funktionierenden ResolveUrl installiert, es können keine Videos abgespielt werden bitte installieren Sie den Resolver erneut."
+
+msgctxt "#30121"
+msgid "Start manual update"
+msgstr "Manuelle Aktualisierung starten"
+
+msgctxt "#30122"
+msgid "xStream search started ..."
+msgstr "xStream Suche gestartet ..."
+
+msgctxt "#30123"
+msgid "Searching ..."
+msgstr "Suche ..."
+
+msgctxt "#30124"
+msgid "Browse index pages:   "
+msgstr "Durchsuche Indexseiten:   "
+
+msgctxt "#30125"
+msgid " search complete"
+msgstr " Suche abgeschlossen"
+
+msgctxt "#30126"
+msgid "xStream search complete !"
+msgstr "xStream Suche abgeschlossen !"
+
+msgctxt "#30127"
+msgid "Gathering info..."
+msgstr "Informationen sammeln..."
+
+msgctxt "#30128"
+msgid " of "
+msgstr " von "
+
+
+
+
+
+
+
+
 
 
 

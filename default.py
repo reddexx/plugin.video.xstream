@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.12
+
 from xstream import run
 from os.path import join
 from sys import path
 import platform
+
 from resources.lib import common
 from resources.lib.tools import logger
 
@@ -14,7 +17,7 @@ path.append(join(_addonPath_, 'resources', 'lib', 'gui'))
 path.append(join(_addonPath_, 'resources', 'lib', 'handler'))
 path.append(join(_addonPath_, 'resources', 'art', 'sites'))
 path.append(join(_addonPath_, 'sites'))
-logger.info('*---- Starte xStream Log, Version %s ----*' % common.addon.getAddonInfo('version'))
+logger.info('*---- Start xStream Log, Version %s ----*' % common.addon.getAddonInfo('version'))
 logger.info('Python-Version: %s' % platform.python_version())
 
 try:

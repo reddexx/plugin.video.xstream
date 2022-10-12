@@ -2,7 +2,7 @@
 # Addon id: plugin.video.xStream
 # Addon Provider: xStream
 # Use the following entry for the translation
-# getLocalizedString(30041)	
+# from resources.lib.config import cConfig + cConfig().getLocalizedString(30041)	
 
 msgid ""
 msgstr ""
@@ -264,11 +264,11 @@ msgid "Choose Resolver Github Branch"
 msgstr ""
 
 msgctxt "#30099"
-msgid "[COLOR green]Release - Version[/COLOR]"
+msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
 msgstr ""
 
 msgctxt "#30100"
-msgid "[COLOR orange]Nightly - Version[/COLOR]"
+msgid "[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
 msgstr ""
 
 msgctxt "#30101"
@@ -343,8 +343,45 @@ msgctxt "#30118"
 msgid "No Resolver update available."
 msgstr ""
 
+msgctxt "#30119"
+msgid "ResolveUrl Error"
+msgstr ""
 
+msgctxt "#30120"
+msgid "You don't have a working ResolveUrl installed, no videos can be played please reinstall the resolver."
+msgstr ""
 
+msgctxt "#30121"
+msgid "Start manual update"
+msgstr ""
+
+msgctxt "#30122"
+msgid "xStream search started ..."
+msgstr ""
+
+msgctxt "#30123"
+msgid "Searching ..."
+msgstr ""
+
+msgctxt "#30124"
+msgid "Browse index pages:   "
+msgstr ""
+
+msgctxt "#30125"
+msgid " search complete"
+msgstr ""
+
+msgctxt "#30126"
+msgid "xStream search complete !"
+msgstr ""
+
+msgctxt "#30127"
+msgid "Gathering info..."
+msgstr ""
+
+msgctxt "#30128"
+msgid " of "
+msgstr ""
 
 
 

@@ -1,27 +1,25 @@
 # -*- coding: utf-8 -*-
+# Python 3
 
-# 2022.05.26 DWH-WFC
+# ToDo Updatemanger lädt beide Plugins wenn id="DevUpdateAuto in den settings aktiv ist
+# Überarbeitung der Sprache from resources.lib.config import cConfig + cConfig().getLocalizedString(30041)
+
 
 import os, base64, sys
 import shutil
 import json
 import requests
 import xbmc, xbmcvfs
+import zipfile
 
 from xbmcaddon import Addon
 from requests.auth import HTTPBasicAuth
 from xbmcgui import Dialog
+from resources.lib.config import cConfig
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
+from xbmcvfs import translatePath
 
-if sys.version_info[0] == 2:
-    from xbmc import translatePath, LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
-else:
-    from xbmc import LOGINFO as LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
-    from xbmcvfs import translatePath
-# Android K18 ZIP Fix.
-if getCondVisibility('system.platform.android') and int(getInfoLabel('System.BuildVersion')[:2]) == 18:
-    import fixetzipfile as zipfile
-else:
-    import zipfile
+
 # Text/Überschrift im Dialog
 PLUGIN_NAME = Addon().getAddonInfo('name')  # ist z.B. 'xstream'
 PLUGIN_ID = Addon().getAddonInfo('id')
@@ -32,7 +30,12 @@ def resolverUpdate(silent=False):
     username = 'fetchdevteam'
     resolve_dir = 'snipsolver'
     resolve_id = 'script.module.resolveurl'
-    branch = Addon().getSettingString('resolver.branch')
+    sbranch = cConfig().getSetting('resolver.branch')   # kann mit neuer settings ganz einfach mit id/label gesetzt werden     branch = Addon().getSettingString('resolver.branch')!
+    if sbranch == 'Release':
+        sbranch = 'release'
+    elif sbranch == 'Nightly':
+        sbranch = 'nightly'
+    branch = sbranch
     token = ''
 
     try:
@@ -85,10 +88,7 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
             if isTrue is True:
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird heruntergeladen.' % resolve_id, LOGNOTICE)
                 shutil.make_archive(ADDON_PATH, 'zip', ADDON_PATH)
-                unpack_archive = zipfile.ZipFile(ADDON_PATH + '.zip')   # Py2/Py3
-                unpack_archive.extractall(INSTALL_PATH)                 # Py2/Py3
-                unpack_archive.close()                                  # Py2/Py3
-                #shutil.unpack_archive(ADDON_PATH + '.zip', INSTALL_PATH)   # Py3
+                shutil.unpack_archive(ADDON_PATH + '.zip', INSTALL_PATH)
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird installiert.' % resolve_id, LOGNOTICE)
                 if os.path.exists(ADDON_PATH + '.zip'): os.remove(ADDON_PATH + '.zip')                
                 if silent is False: Dialog().ok(HEADERMESSAGE, resolve_id + ' - Update erfolgreich.')

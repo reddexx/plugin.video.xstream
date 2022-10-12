@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.12
 
 import sys
 import os
@@ -73,7 +74,7 @@ def checkDependence(ADDONID):
     except Exception as e:
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
 
-# check if Autoupdate is activated before installing updates
+# Überprüfe ob Autoupdate oder manuelles Update aktiv bevor Plugins aktualisiert werden
 if xbmcaddon.Addon().getSetting('DevUpdateAuto') == 'true' or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
     if os.path.isfile(NIGHTLY_UPDATE) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true':
     
