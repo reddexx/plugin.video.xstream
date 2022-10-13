@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-from resources.lib import common
+# Python 3
+
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.13
+
 import xbmcaddon
+from resources.lib import common
 
 
 class cConfig:

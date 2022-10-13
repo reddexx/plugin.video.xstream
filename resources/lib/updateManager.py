@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# ToDo Updatemanger lädt beide Plugins wenn id="DevUpdateAuto in den settings aktiv ist
+# ToDo Updatemanger lädt beide Plugins wenn nur id="DevUpdateAuto in den settings aktiv ist
 # Überarbeitung der Sprache from resources.lib.config import cConfig + cConfig().getLocalizedString(30041)
 
 

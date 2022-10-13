@@ -1,20 +1,26 @@
 # -*- coding: utf-8 -*-
-import os, time, xbmcgui
+# Python 3
+
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.13
+
+import os
+import time
+import xbmcgui
+
 from resources.lib import common
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from resources.lib.tools import logger
-try:
-    from xbmc import translatePath
-    from urllib2 import Request, urlopen
-except ImportError:
-    from xbmcvfs import translatePath
-    from urllib.request import Request, urlopen
+from xbmcvfs import translatePath
+from urllib.request import Request, urlopen
 
 
 class cDownload:
     def __createProcessDialog(self, downloadDialogTitle):
-        oDialog = xbmcgui.DialogProgress()
+        if cConfig().getSetting('backgrounddownload') == 'true':
+            oDialog = xbmcgui.DialogProgressBG()
+        else:
+            oDialog = xbmcgui.DialogProgress()
         oDialog.create(downloadDialogTitle)
         self.__oDialog = oDialog
 
@@ -96,7 +102,7 @@ class cDownload:
             avgSpd = 5
         value = self.__sTitle, str('%s/%s@%dKB/s' % (self.__formatFileSize(currentLoaded), self.__formatFileSize(iTotalSize), avgSpd))
         self.__oDialog.update(iPercent, str(value))
-        if self.__oDialog.iscanceled():
+        if cConfig().getSetting('backgrounddownload') == 'false' and self.__oDialog.iscanceled():
             self.__processIsCanceled = True
             self.__oDialog.close()
 

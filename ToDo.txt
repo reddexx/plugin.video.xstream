@@ -1,0 +1,18 @@
+Alle ToDos sind nicht debuggt es könnte also auch an Kodi 20 liegen!!!
+
+* Aufbau der neuen settings.xml
+* Plugin Handler.py für settings.xml überarbeiten
+* Updatemanger.py lädt beide Plugins wenn nur id="DevUpdateAuto in den settings aktiv ist
+* Hoster.py Auto Play Hoster wenn Übergabe an Resolver Link nicht verfügbar nächsten nehmen funktioniert nicht.
+* Hoster.py def Download defekt es ploppt die Tastatur auf
+* Einbau in die settigs.xml bei preferedQuality HDCAM|HD|WEB|BLUERAY|BRRIP|DVD|TS|SD|CAM|2K|4K diverse andere dafür raus
+* Versuchen in den Indexseiten Einträge Sprache aus der settinges.xml filtern
+
+* Einbau in Indexseiten
+	-	sLanguage = cConfig().getSetting('prefLanguage')	# Sprachauswahl aus settings.xml daraus eine Standard def schreiben
+		params.setParam('sLanguage', sLanguage)
+	-	sQuality = cConfig().getSetting('preferedQuality')	# Qualitätsauswahl aus settings.xml daraus eine Standard def schreiben
+		params.setParam('sQuality', sQuality)
+	-	sAdult = cConfig().getSetting('showAdult')			# Adult An / Aus aus settings.xml daraus eine Standard def schreiben wie bei SITE_GLOBAL_SEARCH z.B.
+		params.setParam('sAdult', sAdult)
+	-	SITE_GLOBAL_SEARCH = False/True	

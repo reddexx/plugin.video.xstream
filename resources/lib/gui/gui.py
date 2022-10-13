@@ -58,7 +58,7 @@ class cGui:
             pass
 
         listitem = self.createListItem(oGuiElement)
-        if not bIsFolder and cConfig().getSetting('hosterSelect') == 'List':
+        if not bIsFolder and cConfig().getSetting('hosterSelect') == cConfig().getLocalizedString(30131):
             bIsFolder = True
         if isHoster:
             bIsFolder = False
@@ -162,7 +162,7 @@ class cGui:
             if cConfig().getSetting('pyload_enabled') == 'true':
                 contextitem.setTitle("send to PyLoad")
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=pyload)" % (sUrl,),)]
-            if cConfig().getSetting('hosterSelect') == 'Auto':
+            if cConfig().getSetting('hosterSelect') == cConfig().getLocalizedString(30130):
                 contextitem.setTitle("select hoster")
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=play&manual=1)" % (sUrl,),)]
         listitem.addContextMenuItems(contextmenus)

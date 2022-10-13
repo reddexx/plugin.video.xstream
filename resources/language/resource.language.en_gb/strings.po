@@ -24,7 +24,7 @@ msgid "Show XXX-Content for adult users"
 msgstr ""
 
 msgctxt "#30004"
-msgid "Use TMDb handler"
+msgid "Use TMDB handler"
 msgstr ""
 
 msgctxt "#30005"
@@ -40,7 +40,7 @@ msgid "Maximum number in hosterlist"
 msgstr ""
 
 msgctxt "#30008"
-msgid "TMDb handler replaces information of websites"
+msgid "TMDB handler replaces information of websites"
 msgstr ""
 
 msgctxt "#30009"
@@ -48,7 +48,7 @@ msgid "Pre-validate and sort hosterlist (slow on weak systems)"
 msgstr ""
 
 msgctxt "#30010"
-msgid "Enable automatic xStream Nightly Update"
+msgid "Enable automatic xStream nightly Update"
 msgstr ""
 
 msgctxt "#30011"
@@ -108,15 +108,15 @@ msgid "Content"
 msgstr ""
 
 msgctxt "#30033"
-msgid "TMDb Handler"
+msgid "TMDB Handler"
 msgstr ""
 
 msgctxt "#30034"
-msgid "Hoster"
+msgid "Hoster Settings"
 msgstr ""
 
 msgctxt "#30035"
-msgid "Network"
+msgid "Network Settings"
 msgstr ""
 
 msgctxt "#30040"
@@ -128,16 +128,18 @@ msgid "Settings"
 msgstr ""
 
 msgctxt "#30042"
-msgid "xStream settings"
+msgid "xStream Settings"
 msgstr ""
 
 msgctxt "#30043"
-msgid "ResolverURL settings"
+msgid "ResolverURL Settings"
 msgstr ""
 
 msgctxt "#30044"
-msgid "Metahandler settings"
+msgid "TMDB extended information (slow)"
 msgstr ""
+
+# Platzhalter
 
 msgctxt "#30050"
 msgid "Use Site-Plugin"
@@ -208,7 +210,7 @@ msgid "JDownloader2 on/off"
 msgstr ""
 
 msgctxt "#30080"
-msgid "Kodi-Download"
+msgid "Extended TMDB information"
 msgstr ""
 
 msgctxt "#30081"
@@ -382,6 +384,159 @@ msgstr ""
 msgctxt "#30128"
 msgid " of "
 msgstr ""
+
+msgctxt "#30129"
+msgid "Dialog view"
+msgstr ""
+
+msgctxt "#30130"
+msgid "Automatic play"
+msgstr ""
+
+msgctxt "#30131"
+msgid "List view"
+msgstr ""
+
+msgctxt "#30132"
+msgid "Load files in the background"
+msgstr ""
+
+msgctxt "#30133"
+msgid "Color"
+msgstr ""
+
+msgctxt "#30134"
+msgid "No hoster link was passed!"
+msgstr ""
+
+msgctxt "#30135"
+msgid "Stream no longer available or broken link"
+msgstr ""
+
+msgctxt "#30136"
+msgid "Playlist"
+msgstr ""
+
+msgctxt "#30137"
+msgid "Stream has been added to the playlist"
+msgstr ""
+
+msgctxt "#30138"
+msgid "Load stream or hoster"
+msgstr ""
+
+msgctxt "#30139"
+msgid "Importing index page entries ..."
+msgstr ""
+
+msgctxt "#30140"
+msgid "Passing index page entries ..."
+msgstr ""
+
+msgctxt "#30141"
+msgid "Stream or hoster not available"
+msgstr ""
+
+msgctxt "#30142"
+msgid "no hoster available"
+msgstr ""
+
+msgctxt "#30143"
+msgid "Create hoster list ..."
+msgstr ""
+
+msgctxt "#30144"
+msgid "no supported hoster available"
+msgstr ""
+
+msgctxt "#30145"
+msgid "Hoster link"
+msgstr ""
+
+msgctxt "#30146"
+msgid "Start transferred hoster link"
+msgstr ""
+
+msgctxt "#30147"
+msgid "Trying to start hoster ..."
+msgstr ""
+
+msgctxt "#30148"
+msgid "Failed to start hoster %s"
+msgstr ""
+
+msgctxt "#30149"
+msgid "Please select hoster"
+msgstr ""
+
+msgctxt "#30150"
+msgid "Please select part"
+msgstr ""
+
+msgctxt "#30151"
+msgid ""
+msgstr ""
+
+msgctxt "#30152"
+msgid ""
+msgstr ""
+
+msgctxt "#30153"
+msgid ""
+msgstr ""
+
+msgctxt "#30154"
+msgid ""
+msgstr ""
+
+msgctxt "#30155"
+msgid ""
+msgstr ""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

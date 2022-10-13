@@ -16,19 +16,20 @@
 		<setting default="true" id="replacefanart" label="30019" type="bool" />
 		<setting type="sep" />
 		<setting label="30032" type="lsep" />
-		<setting default="2" id="prefLanguage" label="30002" type="enum" values="German|English|All" />
-		<setting default="5" id="preferedQuality" label="30013" type="enum" values="240p|360p|480p|720p|1080p|Best" />
+		<setting default="2" id="prefLanguage" label="30002" type="enum" lvalues="30103|30104|30105" />
+		<setting default="5" id="preferedQuality" label="30013" type="enum" lvalues="30106|30107|30108|30109|30110|30111" />
 		<setting default="false" id="showAdult" label="30003" type="bool" />
 		<setting type="sep" />
 		<setting label="30034" type="lsep" />
-		<setting default="dialog" id="hosterSelect" label="30005" type="labelenum" values="Dialog|Auto|List" />
+		<setting default="30129" id="hosterSelect" label="30005" type="labelenum" lvalues="30129|30130|30131" />
 		<setting default="100" id="maxHoster" label="30007" option="int" range="10,1,1000" type="slider" />
 		<setting default="false" enable="!eq(-2,1)" id="presortHoster" label="30009" type="bool" />
 		<setting type="sep" />
 		<setting label="30035" type="lsep" />
 		<setting default="600" id="cacheTime" label="30006" option="int" range="0,60,1800" type="slider" />
 		<setting default="10" id="requestTimeout" label="30014" option="int" range="1,1,60" type="slider" />
-	</category> 
+	</category>
+	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->	
 	<category label="30094">
 		<setting type="lsep" label="AniWorld" />
         <setting default="true" type="bool" id="plugin_anicloud_io" label="30050" />
@@ -118,12 +119,12 @@
 		<setting label="30033" type="lsep" />
 		<setting default="false" id="TMDBMETA" label="30004" type="bool" />
 		<setting default="true" enable="!eq(-1,false)" id="metaOverwrite" label="30008" type="bool" />
-		<setting default="false" enable="!eq(-2,false)" id="advanced" label="TMDB erweiterte Informationen(slow)" type="bool" />
+		<setting default="false" enable="!eq(-2,false)" id="advanced" label="30044" type="bool" />
 		<setting default="w342" id="poster_tmdb" label="Posters Size" type="select" values="w92|w154|w185|w342|w500|w780|original" />
 		<setting default="w1280" id="backdrop_tmdb" label="Fanarts Size" type="select" values="w300|w780|w1280|original" />
 		<setting type="sep" />
-		<setting label="Erweiterte Info (TMDB)" type="lsep" />
-		<setting default="lightblue" id="Color" label="Farbe" type="select" values="lightblue|lightcoral|lightcyan|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightsteelblue|lightyellow|aliceblue|coral|lavender|lemonchiffon|moccasin|pink|plum|powderblue|seashell" />
+		<setting label="30080" type="lsep" />
+		<setting default="lightblue" id="Color" label="30133" type="select" values="lightblue|lightcoral|lightcyan|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightsteelblue|lightyellow|aliceblue|coral|lavender|lemonchiffon|moccasin|pink|plum|powderblue|seashell" />
 	</category>
     <category label="30022">
 		<setting default="false" id="auto-view" label="30060" type="bool" />
@@ -135,8 +136,8 @@
 		<setting default="504" enable="!eq(-6,false)" id="episodes-view" label="30065" type="number" />
 	</category>
 	<category label="30023">
-		<setting label="30080" />
 		<setting default="" id="download-folder" label="30081" type="folder" />
+		<setting default="false" id="backgrounddownload" label="30132" type="bool" />
 		<setting label="30070" type="sep" />
 		<setting default="false" id="jd_enabled" label="30071" type="bool" />
 		<setting default="127.0.0.1" enable="!eq(-1,false)" id="jd_host" label="30072" type="text" />
