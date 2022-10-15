@@ -2,6 +2,7 @@
 	<category label="30020">
 		<setting label="30096" type="lsep" />
 		<setting default="false" id="githubUpdateXstream" label="30010" type="bool" />
+		<setting default="" id="xstream.branch" label="" type="labelenum" values="Release|Nightly" visible="false" />		
 		<setting type="sep" />
 		<setting label="30030" type="lsep" />		
 		<setting default="false" id="githubUpdateResolver" label="30015" type="bool" />
@@ -30,7 +31,7 @@
 		<setting default="600" id="cacheTime" label="30006" option="int" range="0,60,1800" type="slider" />
 		<setting default="10" id="requestTimeout" label="30014" option="int" range="1,1,60" type="slider" />
 	</category>
-	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->	
+	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->			
 	<category label="30094">
 		<setting type="lsep" label="AniWorld" />
         <setting default="true" type="bool" id="plugin_anicloud_io" label="30050" />

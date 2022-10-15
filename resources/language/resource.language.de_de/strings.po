@@ -256,8 +256,8 @@ msgid "xStream updates"
 msgstr "xStream Aktualisierung"
 
 msgctxt "#30097"
-msgid "[COLOR red]Nightly - version can contain new functions but also bugs.[/COLOR]"
-msgstr "[COLOR red]Nightly - Version kann neue Funktionen aber auch Fehler enthalten.[/COLOR]"
+msgid "[COLOR red]Nightly versions can contain new functions, but also bugs."
+msgstr "[COLOR red]Nightly - Versionen können neue Funktionen, aber auch Fehler enthalten.[/COLOR]"
 
 msgctxt "#30098"
 msgid "Choose Resolver Github Branch"
@@ -488,8 +488,63 @@ msgid "perform"
 msgstr "durchführen"
 
 msgctxt "#30155"
-msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! In the next step please select what should be updated."
-msgstr "Der Aktualisierungsmanager überschreibt vorhandene Installationen. Bitte setzen Sie die gewünschte Branch Auswahl in den Einstellungen! Im nächsten Schritt wählen Sie bitte aus, was aktualisiert werden soll."
+msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! [COLOR red]Nightly versions can contain new functions, but also bugs.[/COLOR] In the next step please select what should be updated."
+msgstr "Der Aktualisierungsmanager überschreibt vorhandene Installationen. Bitte setzen Sie die gewünschte Branch Auswahl in den Einstellungen! [COLOR red]Nightly - Versionen können neue Funktionen, aber auch Fehler enthalten.[/COLOR] Im nächsten Schritt wählen Sie bitte aus, was aktualisiert werden soll."
+
+msgctxt "#30156"
+msgid "When updating "
+msgstr "Bei der Aktualisierung von "
+
+msgctxt "#30157"
+msgid " an error has occurred."
+msgstr " ist ein Fehler aufgetreten."
+
+msgctxt "#30158"
+msgid "The installation is now complete![CR]"
+msgstr "Die Installation ist nun abgeschlossen![CR]"
+
+msgctxt "#30159"
+msgid " - has been updated successfully."
+msgstr " - wurde erfolgreich aktualisiert."
+
+msgctxt "#30160"
+msgid "The search is now complete![CR]"
+msgstr "Die Suche ist nun abgeschlossen![CR]"
+
+msgctxt "#30161"
+msgid " - No update available."
+msgstr " - Keine Aktualisierung verfügbar."
+
+msgctxt "#30162"
+msgid "Use xStream Release Branch"
+msgstr "xStream Release Branch benutzen"
+
+msgctxt "#30163"
+msgid "Use xStream Nightly Branch"
+msgstr "xStream Nightly Branch benutzen"
+
+msgctxt "#30164"
+msgid "Which branch to use?"
+msgstr "Welcher Branch soll verwendet werden?"
+
+msgctxt "#30165"
+msgid "Use ResolveURL Release Branch"
+msgstr "ResolveURL Release Branch benutzen"
+
+msgctxt "#30166"
+msgid "Use ResolveURL Nightly Branch"
+msgstr "ResolveURL Nightly Branch benutzen"
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -258,7 +258,7 @@ msgid "xStream updates"
 msgstr ""
 
 msgctxt "#30097"
-msgid "[COLOR red]Nightly - version can contain new functions but also bugs.[/COLOR]"
+msgid "[COLOR red]Nightly versions can contain new functions, but also bugs.[/COLOR]"
 msgstr ""
 
 msgctxt "#30098"
@@ -490,14 +490,72 @@ msgid "perform"
 msgstr ""
 
 msgctxt "#30155"
-msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! In the next step please select what should be updated."
+msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! [COLOR red]Nightly versions can contain new functions, but also bugs.[/COLOR] In the next step please select what should be updated."
 msgstr ""
 
+msgctxt "#30156"
+msgid "When updating "
+msgstr ""
 
+msgctxt "#30157"
+msgid " an error has occurred."
+msgstr ""
 
+msgctxt "#30158"
+msgid "The installation is now complete![CR]"
+msgstr ""
 
+msgctxt "#30159"
+msgid " - has been updated successfully."
+msgstr ""
 
+msgctxt "#30160"
+msgid "The search is now complete![CR]"
+msgstr ""
 
+msgctxt "#30161"
+msgid " - No update available."
+msgstr ""
+
+msgctxt "#30162"
+msgid "Use xStream Release Branch"
+msgstr ""
+
+msgctxt "#30163"
+msgid "Use xStream Nightly Branch"
+msgstr ""
+
+msgctxt "#30164"
+msgid "Which branch to use?"
+msgstr ""
+
+msgctxt "#30165"
+msgid "Use ResolveURL Release Branch"
+msgstr ""
+
+msgctxt "#30166"
+msgid "Use ResolveURL Nightly Branch"
+msgstr ""
+
+msgctxt "#30167"
+msgid ""
+msgstr ""
+
+msgctxt "#30168"
+msgid ""
+msgstr ""
+
+msgctxt "#30169"
+msgid ""
+msgstr ""
+
+msgctxt "#30170"
+msgid ""
+msgstr ""
+
+msgctxt "#30171"
+msgid ""
+msgstr ""
 
 
 

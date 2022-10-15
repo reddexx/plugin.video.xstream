@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Überarbeitung der Sprache from resources.lib.config import cConfig + cConfig().getLocalizedString(30041)
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.15
 
 
 import os, base64, sys
@@ -29,32 +29,40 @@ def resolverUpdate(silent=False):
     username = 'fetchdevteam'
     resolve_dir = 'snipsolver'
     resolve_id = 'script.module.resolveurl'
-    sbranch = cConfig().getSetting('resolver.branch')   # kann mit neuer settings ganz einfach mit id/label gesetzt werden     branch = Addon().getSettingString('resolver.branch')!
-    if sbranch == 'Release':
-        sbranch = 'release'
-    elif sbranch == 'Nightly':
-        sbranch = 'nightly'
-    branch = sbranch
+    # Abfrage aus den Einstellungen welcher Branch
+    sbranchResolver = cConfig().getSetting('resolver.branch')   # kann mit neuer settings ganz einfach mit id/label gesetzt werden     branch = Addon().getSettingString('resolver.branch')!
+    if sbranchResolver == 'Release':
+        sbranchResolver = 'release'
+    elif sbranchResolver == 'Nightly':
+        sbranchResolver = 'nightly'
+    branch = sbranchResolver
     token = ''
 
     try:
         return UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent)
     except Exception as e:
         log('Exception Raised: %s' % str(e), LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + resolve_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
         return
 
 # xStream
 def xStreamUpdate(silent=False):
     username = 'streamxstream'
     plugin_id = 'plugin.video.xstream'
-    branch = 'nexus'
+    # Abfrage aus den Einstellungen welcher Branch
+    sbranchxStream = cConfig().getSetting('xstream.branch')   # kann mit neuer settings ganz einfach mit id/label gesetzt werden     branch = Addon().getSettingString('resolver.branch')!
+    if sbranchxStream == 'Release':
+        sbranchxStream = 'release'
+    elif sbranchxStream == 'Nightly':
+        sbranchxStream = 'nightly'
+    #branch = sbranchxStream    
+    branch = 'nexus'    # nexus wird beim release dieser Version dann zu nightly und kann dann somit raus ist jetzt zu Testzwecken drin!
     token = ''
     try:
         return Update(username, plugin_id, branch, token, silent)
     except Exception as e:
         log('Exception Raised: %s' % str(e), LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + plugin_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
         return False
 
 # Update Resolver
@@ -68,12 +76,8 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
     auth = HTTPBasicAuth(username, token)
     log(HEADERMESSAGE + ' - %s - Suche nach Aktualisierungen.' % resolve_id, LOGNOTICE)
     try:
-        if sys.version_info[0] == 2:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id).decode('utf-8')
-        else:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id)
-
-        LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")
+        ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id) # Pfad von ResolveURL Daten
+        LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")    # Pfad der update.sha in den ResolveURL Daten
         LOCAL_FILE_NAME_PLUGIN = os.path.join(ADDON_DIR, 'update-' + resolve_id + '.zip')
         if not os.path.exists(ADDON_DIR): os.mkdir(ADDON_DIR)
         
@@ -90,20 +94,20 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
                 shutil.unpack_archive(ADDON_PATH + '.zip', INSTALL_PATH)
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird installiert.' % resolve_id, LOGNOTICE)
                 if os.path.exists(ADDON_PATH + '.zip'): os.remove(ADDON_PATH + '.zip')                
-                if silent is False: Dialog().ok(HEADERMESSAGE, resolve_id + ' - Update erfolgreich.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30158) + resolve_id + cConfig().getLocalizedString(30159))
                 log(HEADERMESSAGE + ' - %s - Aktualisierung abgeschlossen.' % resolve_id, LOGNOTICE)
                 return True
             elif isTrue is None:
                 log(HEADERMESSAGE + ' - %s - Keine Aktualisierung verfügbar.' % resolve_id, LOGNOTICE)
-                if silent is False: Dialog().ok(HEADERMESSAGE, resolve_id + ' - Kein Update verfügbar.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30160) + resolve_id + cConfig().getLocalizedString(30161))
                 return None
 
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % resolve_id, LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + resolve_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
         return False
     except:
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % resolve_id, LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + resolve_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
 
 # xStream Update
 def Update(username, plugin_id, branch, token, silent):
@@ -131,20 +135,20 @@ def Update(username, plugin_id, branch, token, silent):
                                   LOCAL_FILE_NAME_PLUGIN, silent, auth)
             if isTrue is True:
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird installiert.' % plugin_id, LOGNOTICE)
-                if silent is False: Dialog().ok(PLUGIN_NAME, plugin_id + ' - Update erfolgreich.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30158) + plugin_id + cConfig().getLocalizedString(30159))
                 log(HEADERMESSAGE + ' - %s - Aktualisierung abgeschlossen.' % plugin_id, LOGNOTICE)
                 return True
             elif isTrue is None:
                 log(HEADERMESSAGE + ' - %s - Keine Aktualisierung verfügbar.' % plugin_id, LOGNOTICE)
-                if silent is False: Dialog().ok(PLUGIN_NAME, plugin_id + ' - Kein Update verfügbar.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30160) + plugin_id + cConfig().getLocalizedString(30161))
                 return None
 
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % plugin_id, LOGERROR)
-        Dialog().ok(PLUGIN_NAME, 'Fehler bei der Aktualisierung von ' + plugin_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
         return False
     except:
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % plugin_id, LOGERROR)
-        Dialog().ok(PLUGIN_NAME, 'Fehler bei der Aktualisierung von ' + plugin_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
 
 
 def commitUpdate(onlineFile, offlineFile, downloadLink, LocalDir, plugin_id, localFileName, silent, auth):
@@ -253,13 +257,34 @@ def devAutoUpdates(silent=False):
         log(e)
 
 
-def devUpdates():  # für manuelles Updates vorgesehen vorerst deaktiviert in der settings.xml
+def devUpdates():  # für manuelles Updates vorgesehen
     try:
         resolverupdate = False
         pluginupdate = False
-        sbranch = cConfig().getSetting('resolver.branch')
-        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30155))        
-        options = [cConfig().getLocalizedString(30153), cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), sbranch + ' ' + cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
+        sbranchxStream = cConfig().getSetting('xstream.branch')     # für zukünftige Branch Auswahl
+        sbranchResolver = cConfig().getSetting('resolver.branch')
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30155))
+    
+        # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
+        sbranchxStreams = [cConfig().getLocalizedString(30162), cConfig().getLocalizedString(30163)]
+        result = Dialog().select(cConfig().getLocalizedString(30164), sbranchxStreams)
+        
+        if result == 0:
+            sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'Release')   
+        elif result == 1:
+            sBranchxStreamNightly = Addon().setSetting('xstream.branch', 'Nightly')
+
+        # Abfrage ob ResolveURL Release oder Nightly Branch (kann erweitert werden)
+        sbranchResolvers = [cConfig().getLocalizedString(30165), cConfig().getLocalizedString(30166)]
+        result = Dialog().select(cConfig().getLocalizedString(30164), sbranchResolvers)        
+        
+        if result == 0:
+            sBranchResolverRelease = Addon().setSetting('resolver.branch', 'Release')    
+        elif result == 1:
+            sBranchResolverNightly = Addon().setSetting('resolver.branch', 'Nightly')
+        
+        # Abfrage welches Plugin aktualisiert werden soll (kann erweitert werden)
+        options = [cConfig().getLocalizedString(30153), cConfig().getSetting('xstream.branch') + ' ' + cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), cConfig().getSetting('resolver.branch') + ' ' + cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
 
         result = Dialog().select(HEADERMESSAGE, options)
 
@@ -281,8 +306,10 @@ def devUpdates():  # für manuelles Updates vorgesehen vorerst deaktiviert in de
                 resolverUpdate(False)
             except:
                 pass
-        # ka - reset enforce Update
+            
+        # Zurücksetzten der Update.sha
         if Addon().getSetting('enforceUpdate') == 'true': Addon().setSetting('enforceUpdate', 'false')
         return
     except Exception as e:
         log(e)
+

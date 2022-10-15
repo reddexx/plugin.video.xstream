@@ -2,7 +2,6 @@ Alle ToDos sind nicht debuggt es könnte also auch an Kodi 20 liegen!!!
 
 * Aufbau der neuen settings.xml
 * Plugin Handler.py für settings.xml überarbeiten
-* Updatemanger.py lädt beide Plugins wenn nur id="DevUpdateAuto in den settings aktiv ist
 * Hoster.py Auto Play Hoster wenn Übergabe an Resolver Link nicht verfügbar nächsten nehmen funktioniert nicht.
 * Hoster.py def Download defekt es ploppt die Tastatur auf
 * Einbau in die settigs.xml bei preferedQuality HDCAM|HD|WEB|BLUERAY|BRRIP|DVD|TS|SD|CAM|2K|4K diverse andere dafür raus
