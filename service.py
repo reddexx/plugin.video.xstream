@@ -75,7 +75,7 @@ def checkDependence(ADDONID):
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
 
 # Überprüfe ob Autoupdate oder manuelles Update aktiv bevor Plugins aktualisiert werden
-if xbmcaddon.Addon().getSetting('DevUpdateAuto') == 'true' or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
+if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
     if os.path.isfile(NIGHTLY_UPDATE) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true':
     
 # Status Dialog der Auto Updates    

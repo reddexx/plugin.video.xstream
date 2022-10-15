@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.13
+# Check DWH 2022.10.15
 
 import xbmcaddon
 import sys

@@ -48,7 +48,7 @@ msgid "Pre-validate and sort hosterlist (slow on weak systems)"
 msgstr "Hoster-Liste prüfen und sortieren (langsam auf schwachen Systemen)"
 
 msgctxt "#30010"
-msgid "Enable automatic xStream nightly update"
+msgid "Enable automatic xStream Nightly Update"
 msgstr "Automatisches xStream Nightly Update aktivieren"
 
 msgctxt "#30011"
@@ -96,8 +96,8 @@ msgid "Accounts"
 msgstr "Konten"
 
 msgctxt "#30030"
-msgid "Updates"
-msgstr "Aktualisierungen"
+msgid "ResolveURL Updates"
+msgstr "ResolveURL Aktualisierung"
 
 msgctxt "#30031"
 msgid "Presentation"
@@ -252,8 +252,8 @@ msgid "Site-Plugins 2"
 msgstr "Indexseiten 2"
 
 msgctxt "#30096"
-msgid "Enable automatic updates"
-msgstr "Aktiviere automatische Aktualisierungen"
+msgid "xStream updates"
+msgstr "xStream Aktualisierung"
 
 msgctxt "#30097"
 msgid "[COLOR red]Nightly - version can contain new functions but also bugs.[/COLOR]"
@@ -265,11 +265,11 @@ msgstr "Wähle Resolver Github Branch"
 
 msgctxt "#30099"
 msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
-msgstr "[COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR]"
+msgstr "Branch Info:		[COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR]"
 
 msgctxt "#30100"
 msgid "[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
-msgstr "[COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
+msgstr "Branch Info:		[COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
 
 msgctxt "#30101"
 msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
@@ -472,24 +472,24 @@ msgid "Please select part"
 msgstr "Bitte Teil auswählen"
 
 msgctxt "#30151"
-msgid ""
-msgstr ""
+msgid "xStream Update Manager"
+msgstr "xStream Aktualisierungsmanager"
 
 msgctxt "#30152"
-msgid ""
-msgstr ""
+msgid "What do you want to update?"
+msgstr "Was wollen Sie aktualisieren?"
 
 msgctxt "#30153"
-msgid ""
-msgstr ""
+msgid "Update all addons"
+msgstr "Alle Addons aktualisieren"
 
 msgctxt "#30154"
-msgid ""
-msgstr ""
+msgid "perform"
+msgstr "durchführen"
 
 msgctxt "#30155"
-msgid ""
-msgstr ""
+msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! In the next step please select what should be updated."
+msgstr "Der Aktualisierungsmanager überschreibt vorhandene Installationen. Bitte setzen Sie die gewünschte Branch Auswahl in den Einstellungen! Im nächsten Schritt wählen Sie bitte aus, was aktualisiert werden soll."
 
 
 

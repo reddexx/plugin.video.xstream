@@ -1,13 +1,14 @@
 <settings> 
 	<category label="30020">
-		<setting label="30030" type="lsep" />
-		<setting default="false" id="DevUpdateAuto" label="30096" type="bool" />
-		<setting default="false" id="githubUpdateXstream" label="30010" type="bool" visible="eq(-1,true)" />
-		<setting default="false" id="githubUpdateResolver" label="30015" type="bool" visible="eq(-2,true)" />
-		<setting default="Release" id="resolver.branch" label="30098" type="labelenum" values="Release|Nightly" visible="eq(-1,true)" />
-		<setting type="text" label="30099" enable="eq(-1,0)" visible="eq(-2,true)" />
-		<setting type="text" label="30100" enable="eq(-2,1)" visible="eq(-3,true)" />
-		<setting default="false" id="enforceUpdate" label="30102" type="bool" />
+		<setting label="30096" type="lsep" />
+		<setting default="false" id="githubUpdateXstream" label="30010" type="bool"/>
+		<setting type="sep" />
+		<setting label="30030" type="lsep" />		
+		<setting default="false" id="githubUpdateResolver" label="30015" type="bool"/>
+		<setting default="Release" id="resolver.branch" label="30098" type="labelenum" values="Release|Nightly" />
+		<setting type="text" label="30099" enable="eq(-1,0)"/>
+		<setting type="text" label="30100" enable="eq(-2,1)"/>
+		<setting default="false" id="enforceUpdate" label="30102" type="bool" visible="false" />
 		<setting default="true" id="newSetting" label="newSetting" type="bool" visible="false" />
 		<setting type="sep" />
 		<setting label="30031" type="lsep" />
@@ -57,26 +58,17 @@
         <setting default="true" type="bool" id="plugin_kinofox" label="30050" />
         <setting default="true" type="bool" id="global_search_kinofox" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
-        <setting type="lsep" label="Kinoger" />
-        <setting default="true" type="bool" id="plugin_kinoger" label="30050" />
-        <setting default="true" type="bool" id="global_search_kinoger" label="30052" enable="!eq(-1,false)" />
-        <setting default="kinoger.com" enable="!eq(-2,false)" id="kinoger-domain" label="30051" type="labelenum" values="kinoger.com|kinoger.to" />
-        <setting type="sep" />
-        <setting type="lsep" label="KinoKiste" />
-        <setting default="true" type="bool" id="plugin_kinokiste" label="30050" />
-        <setting default="true" type="bool" id="global_search_kinokiste" label="30052" enable="!eq(-1,false)" />
-        <setting type="sep" />
         <setting type="lsep" label="Kinokiste Tech" />
         <setting default="true" type="bool" id="plugin_kinokiste_tech" label="30050" />
         <setting default="true" type="bool" id="global_search_kinokiste_tech" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
-    </category> 
-	<category label="30095">
-		<setting type="lsep" label="Kinomax.me" />
+        <setting type="lsep" label="Kinomax.me" />
         <setting default="true" type="bool" id="plugin_kinomax" label="30050" />
         <setting default="true" type="bool" id="global_search_kinomax" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
-        <setting type="lsep" label="KinoX" />
+    </category> 
+	<category label="30095">
+		<setting type="lsep" label="KinoX" />
         <setting default="true" type="bool" id="plugin_kinox_to" label="30050" />
         <setting default="true" type="bool" id="global_search_kinox_to" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />

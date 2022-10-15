@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import json, re
+
+import json
+import re
+
 from requestHandler import cRequestHandler
 from resources.lib.config import cConfig
-try:
-    from urllib import quote_plus
-except ImportError:
-    from urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class cTMDB:

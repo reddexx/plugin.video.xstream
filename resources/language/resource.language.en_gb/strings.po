@@ -48,7 +48,7 @@ msgid "Pre-validate and sort hosterlist (slow on weak systems)"
 msgstr ""
 
 msgctxt "#30010"
-msgid "Enable automatic xStream nightly Update"
+msgid "Enable automatic xStream Nightly Update"
 msgstr ""
 
 msgctxt "#30011"
@@ -96,7 +96,7 @@ msgid "Accounts"
 msgstr ""
 
 msgctxt "#30030"
-msgid "Updates"
+msgid "ResolveURL Updates"
 msgstr ""
 
 msgctxt "#30031"
@@ -254,7 +254,7 @@ msgid "Site-Plugins 2"
 msgstr ""
 
 msgctxt "#30096"
-msgid "Enable automatic updates"
+msgid "xStream updates"
 msgstr ""
 
 msgctxt "#30097"
@@ -474,23 +474,23 @@ msgid "Please select part"
 msgstr ""
 
 msgctxt "#30151"
-msgid ""
+msgid "xStream Update Manager"
 msgstr ""
 
 msgctxt "#30152"
-msgid ""
+msgid "What do you want to update?"
 msgstr ""
 
 msgctxt "#30153"
-msgid ""
+msgid "Update all addons"
 msgstr ""
 
 msgctxt "#30154"
-msgid ""
+msgid "perform"
 msgstr ""
 
 msgctxt "#30155"
-msgid ""
+msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! In the next step please select what should be updated."
 msgstr ""
 
 

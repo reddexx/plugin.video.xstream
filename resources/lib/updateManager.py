@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# ToDo Updatemanger lädt beide Plugins wenn nur id="DevUpdateAuto in den settings aktiv ist
 # Überarbeitung der Sprache from resources.lib.config import cConfig + cConfig().getLocalizedString(30041)
 
 
@@ -23,7 +22,7 @@ from xbmcvfs import translatePath
 # Text/Überschrift im Dialog
 PLUGIN_NAME = Addon().getAddonInfo('name')  # ist z.B. 'xstream'
 PLUGIN_ID = Addon().getAddonInfo('id')
-HEADERMESSAGE = 'xStream Update Manager'
+HEADERMESSAGE = cConfig().getLocalizedString(30151)
 
 # Resolver
 def resolverUpdate(silent=False):
@@ -258,8 +257,10 @@ def devUpdates():  # für manuelles Updates vorgesehen vorerst deaktiviert in de
     try:
         resolverupdate = False
         pluginupdate = False
+        sbranch = cConfig().getSetting('resolver.branch')
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30155))        
+        options = [cConfig().getLocalizedString(30153), cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), sbranch + ' ' + cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
 
-        options = ['Beide Addons aktualisieren', PLUGIN_NAME + ' aktualisieren', 'ResolveUrl aktualisieren']
         result = Dialog().select(HEADERMESSAGE, options)
 
         if result == 0:

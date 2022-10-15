@@ -164,14 +164,6 @@ def showMainMenu(sFunction):
     else:
         for folder in settingsGuiElements():
             oGui.addFolder(folder)
-    # GUI Nightly Updatemanager
-    if cConfig().getSetting('DevUpdateAuto') == 'false':
-        oGuiElement = cGuiElement()
-        oGuiElement.setTitle(cConfig().getLocalizedString(30121))
-        oGuiElement.setSiteName('devUpdates')
-        oGuiElement.setFunction(sFunction)
-        oGuiElement.setThumbnail('DefaultNetwork.png')
-        oGui.addFolder(oGuiElement)
     oGui.setEndOfDirectory()
 
 
@@ -191,7 +183,15 @@ def settingsGuiElements():
     oGuiElement.setFunction('display_settings')
     oGuiElement.setThumbnail('DefaultAddonService.png')
     resolveurlSettings = oGuiElement
-    return xStreamSettings, resolveurlSettings
+    
+    # GUI Nightly Updatemanager
+    oGuiElement = cGuiElement()
+    oGuiElement.setTitle(cConfig().getLocalizedString(30121))
+    oGuiElement.setSiteName('devUpdates')
+    oGuiElement.setFunction('devUpdates')
+    oGuiElement.setThumbnail('DefaultNetwork.png')
+    DevUpdateMan = oGuiElement       
+    return xStreamSettings, resolveurlSettings, DevUpdateMan
 
 
 def globalSearchGuiElement():
