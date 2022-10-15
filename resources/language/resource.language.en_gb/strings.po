@@ -266,11 +266,11 @@ msgid "Choose Resolver Github Branch"
 msgstr ""
 
 msgctxt "#30099"
-msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
+msgid "Branch Info:		[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
 msgstr ""
 
 msgctxt "#30100"
-msgid "[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgid "Branch Info:		[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
 msgstr ""
 
 msgctxt "#30101"
@@ -538,26 +538,28 @@ msgid "Use ResolveURL Nightly Branch"
 msgstr ""
 
 msgctxt "#30167"
-msgid ""
+msgid "Choose xStream Github Branch"
 msgstr ""
 
 msgctxt "#30168"
-msgid ""
+msgid "Branch Info:		[COLOR green]Release - Version directly from xStream Github.[/COLOR]"
 msgstr ""
 
 msgctxt "#30169"
-msgid ""
+msgid "Branch Info:		[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
 msgstr ""
 
 msgctxt "#30170"
-msgid ""
+msgid "Posters Size"
 msgstr ""
 
 msgctxt "#30171"
-msgid ""
+msgid "Fanarts Size"
 msgstr ""
 
-
+msgctxt "#30172"
+msgid "TMDB language setting"
+msgstr ""
 
 
 
@@ -636,4 +638,92 @@ msgstr ""
 
 msgctxt "#30402"
 msgid "Countries"
+msgstr ""
+
+
+
+############### Scaper Language ###############
+
+msgctxt "#30500"
+msgid "New"
+msgstr ""
+
+msgctxt "#30501"
+msgid "Current films in the cinema"
+msgstr ""
+
+msgctxt "#30502"
+msgid "Movies"
+msgstr ""
+
+msgctxt "#30503"
+msgid "Films for Children"
+msgstr ""
+
+msgctxt "#30504"
+msgid "Animated Films"
+msgstr ""
+
+msgctxt "#30505"
+msgid "Documentations"
+msgstr ""
+
+msgctxt "#30506"
+msgid "Genre"
+msgstr ""
+
+msgctxt "#30507"
+msgid "Categories"
+msgstr ""
+
+msgctxt "#30508"
+msgid "Release Year"
+msgstr ""
+
+msgctxt "#30509"
+msgid ""
+msgstr ""
+
+msgctxt "#30510"
+msgid ""
+msgstr ""
+
+msgctxt "#30511"
+msgid "Series"
+msgstr ""
+
+msgctxt "#30512"
+msgid "Season"
+msgstr ""
+
+msgctxt "#30513"
+msgid "Episode"
+msgstr ""
+
+msgctxt "#30514"
+msgid "New Series"
+msgstr ""
+
+msgctxt "#30515"
+msgid "New Season"
+msgstr ""
+
+msgctxt "#30516"
+msgid "New Episodes"
+msgstr ""
+
+msgctxt "#30517"
+msgid "From A-Z"
+msgstr ""
+
+msgctxt "#30518"
+msgid "All Series"
+msgstr ""
+
+msgctxt "#30519"
+msgid "Popular Series"
+msgstr ""
+
+msgctxt "#30520"
+msgid "Search"
 msgstr ""

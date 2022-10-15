@@ -264,11 +264,11 @@ msgid "Choose Resolver Github Branch"
 msgstr "Wähle Resolver Github Branch"
 
 msgctxt "#30099"
-msgid "[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
+msgid "Branch Info:		[COLOR green]Release - Version directly from Guial00´s Github.[/COLOR]"
 msgstr "Branch Info:		[COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR]"
 
 msgctxt "#30100"
-msgid "[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgid "Branch Info:		[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
 msgstr "Branch Info:		[COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
 
 msgctxt "#30101"
@@ -535,14 +535,116 @@ msgctxt "#30166"
 msgid "Use ResolveURL Nightly Branch"
 msgstr "ResolveURL Nightly Branch benutzen"
 
+msgctxt "#30167"
+msgid "Choose xStream Github Branch"
+msgstr "Wähle xStream Github Branch"
+
+msgctxt "#30168"
+msgid "Branch Info:		[COLOR green]Release - Version directly from xStream Github.[/COLOR]"
+msgstr "Branch Info:		[COLOR green]Release - Version direkt vom xStream Github.[/COLOR]"
+
+msgctxt "#30169"
+msgid "Branch Info:		[COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgstr "Branch Info:		[COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
+
+msgctxt "#30170"
+msgid "Posters Size"
+msgstr "Größe des Posters"
+
+msgctxt "#30171"
+msgid "Fanarts Size"
+msgstr "Größe der Fanart"
+
+msgctxt "#30172"
+msgid "TMDB language setting"
+msgstr "TMDB Spracheinstellung"
 
 
+############### Scaper Language ###############
 
+msgctxt "#30500"
+msgid "New"
+msgstr "Neues"
 
+msgctxt "#30501"
+msgid "Current films in the cinema"
+msgstr "Aktuelle Filme im Kino"
 
+msgctxt "#30502"
+msgid "Movies"
+msgstr "Filme"
 
+msgctxt "#30503"
+msgid "Films for Children"
+msgstr "Filme für Kinder"
 
+msgctxt "#30504"
+msgid "Animated Films"
+msgstr "Animationsfilme"
 
+msgctxt "#30505"
+msgid "Documentations"
+msgstr "Dokumentationen"
+
+msgctxt "#30506"
+msgid "Genre"
+msgstr "Genre"
+
+msgctxt "#30507"
+msgid "Categories"
+msgstr "Kategorien"
+
+msgctxt "#30508"
+msgid "Release Year"
+msgstr "Veröffentlichungsjahre"
+
+msgctxt "#30509"
+msgid ""
+msgstr ""
+
+msgctxt "#30510"
+msgid ""
+msgstr ""
+
+msgctxt "#30511"
+msgid "Series"
+msgstr "Serien"
+
+msgctxt "#30512"
+msgid "Season"
+msgstr "Staffel"
+
+msgctxt "#30513"
+msgid "Episode"
+msgstr "Folge"
+
+msgctxt "#30514"
+msgid "New Series"
+msgstr "Neue Serien"
+
+msgctxt "#30515"
+msgid "New Season"
+msgstr "Neue Staffel"
+
+msgctxt "#30516"
+msgid "New Episodes"
+msgstr "Neue Folgen"
+
+msgctxt "#30517"
+msgid "From A-Z"
+msgstr "Von A-Z"
+
+msgctxt "#30518"
+msgid "All Series"
+msgstr "Alle Serien"
+
+msgctxt "#30519"
+msgid "Popular Series"
+msgstr "Populäre Serien"
+
+msgctxt "#30520"
+msgid "Search"
+msgstr "Suche"
 
 
 

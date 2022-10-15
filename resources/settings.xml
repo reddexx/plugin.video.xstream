@@ -1,14 +1,16 @@
-<settings> 
+<settings>		 
 	<category label="30020">
 		<setting label="30096" type="lsep" />
 		<setting default="false" id="githubUpdateXstream" label="30010" type="bool" />
-		<setting default="" id="xstream.branch" label="" type="labelenum" values="Release|Nightly" visible="false" />		
+		<setting default="" id="xstream.branch" label="30167" type="labelenum" values="Release|Nightly" visible="eq(-1,true)" />
+		<setting type="text" label="30168" enable="eq(-1,0)" visible="eq(-2,true)" />
+		<setting type="text" label="30169" enable="eq(-2,1)" visible="eq(-3,true)" />
 		<setting type="sep" />
 		<setting label="30030" type="lsep" />		
-		<setting default="false" id="githubUpdateResolver" label="30015" type="bool" />
-		<setting default="Release" id="resolver.branch" label="30098" type="labelenum" values="Release|Nightly" />
-		<setting type="text" label="30099" enable="eq(-1,0)" />
-		<setting type="text" label="30100" enable="eq(-2,1)" />
+		<setting default="false" id="githubUpdateResolver" label="30015" type="bool" visible="eq(-1,true)" />
+		<setting default="Release" id="resolver.branch" label="30098" type="labelenum" values="Release|Nightly" visible="eq(-1,true)" />
+		<setting type="text" label="30099" enable="eq(-1,0)" visible="eq(-2,true)" />
+		<setting type="text" label="30100" enable="eq(-2,1)" visible="eq(-3,true)" />
 		<setting default="false" id="enforceUpdate" label="30102" type="bool" visible="false" />
 		<setting default="true" id="newSetting" label="newSetting" type="bool" visible="false" />
 		<setting type="sep" />
@@ -31,7 +33,7 @@
 		<setting default="600" id="cacheTime" label="30006" option="int" range="0,60,1800" type="slider" />
 		<setting default="10" id="requestTimeout" label="30014" option="int" range="1,1,60" type="slider" />
 	</category>
-	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->			
+	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->		
 	<category label="30094">
 		<setting type="lsep" label="AniWorld" />
         <setting default="true" type="bool" id="plugin_anicloud_io" label="30050" />
@@ -113,8 +115,9 @@
 		<setting default="false" id="TMDBMETA" label="30004" type="bool" />
 		<setting default="true" enable="!eq(-1,false)" id="metaOverwrite" label="30008" type="bool" />
 		<setting default="false" enable="!eq(-2,false)" id="advanced" label="30044" type="bool" />
-		<setting default="w342" id="poster_tmdb" label="Posters Size" type="select" values="w92|w154|w185|w342|w500|w780|original" />
-		<setting default="w1280" id="backdrop_tmdb" label="Fanarts Size" type="select" values="w300|w780|w1280|original" />
+		<setting default="w342" id="poster_tmdb" label="30170" type="select" values="w92|w154|w185|w342|w500|w780|original" />
+		<setting default="w1280" id="backdrop_tmdb" label="30171" type="select" values="w300|w780|w1280|original" />
+		<setting default="de" id="tmdb_lang" label="30172" type="select" values="en|de|fr|it|nl|sv|cs|da|fi|pl|es|el|tr|uk|ru|kn|ga|hr|hu|ja|no|id|ko|pt|lv|lt|ro|sk|sl|sq|sr|th|vi|bg|fa|hy|ka|ar|af|bs|zh|cn|hi" />
 		<setting type="sep" />
 		<setting label="30080" type="lsep" />
 		<setting default="lightblue" id="Color" label="30133" type="select" values="lightblue|lightcoral|lightcyan|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightsteelblue|lightyellow|aliceblue|coral|lavender|lemonchiffon|moccasin|pink|plum|powderblue|seashell" />

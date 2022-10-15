@@ -1,0 +1,32 @@
+Scaper Aufbau
+-------------
+
+from resources.lib.handler.ParameterHandler import ParameterHandler
+from resources.lib.handler.requestHandler import cRequestHandler
+from resources.lib.tools import logger, cParser, cUtil
+from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
+from resources.lib.gui.gui import cGui
+
+
+
+
+
+SITE_IDENTIFIER = 				''
+SITE_NAME = 					''
+SITE_ICON = 					''
+URL_MAIN = 						''
+URL_MOVIES = 					''
+URL_KINO = URL_MAIN + 			''
+URL_SERIES = URL_MAIN + 		''
+URL_GENRE = URL_MAIN + 			''
+URL_SEARCH = URL_MAIN + 		''
+
+usw....
+
+def load():
+    logger.info('Load %s' % SITE_NAME)
+    params = ParameterHandler()
+    params.setParam('sUrl', URL_KINO)
+    cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params) # cConfig().getLocalizedString(30500) setzen für den jeweiligen Eintrag
+	cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)

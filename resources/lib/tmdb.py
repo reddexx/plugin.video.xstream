@@ -6,18 +6,20 @@ import re
 from requestHandler import cRequestHandler
 from resources.lib.config import cConfig
 from urllib.parse import quote_plus
-
+from xbmcaddon import Addon
 
 class cTMDB:
     TMDB_GENRES = {12: 'Abenteuer', 14: 'Fantasy', 16: 'Animation', 18: 'Drama', 27: 'Horror', 28: 'Action', 35: 'Komödie', 36: 'Historie', 37: 'Western', 53: 'Thriller', 80: 'Krimi', 99: 'Dokumentarfilm', 878: 'Science Fiction', 9648: 'Mystery', 10402: 'Musik', 10749: 'Liebesfilm', 10751: 'Familie', 10752: 'Kriegsfilm', 10759: 'Action & Adventure', 10762: 'Kids', 10763: 'News', 10764: 'Reality', 10765: 'Sci-Fi & Fantasy', 10766: 'Soap', 10767: 'Talk', 10768: 'War & Politics', 10770: 'TV-Film'}
     URL = 'https://api.themoviedb.org/3/'
     URL_TRAILER = 'plugin://plugin.video.youtube/play/?video_id=%s'
-
-    def __init__(self, api_key='', lang='de'):
+    TMDB_LANGUAGE = Addon().getSetting('tmdb_lang')
+    
+    def __init__(self, api_key='', lang=TMDB_LANGUAGE):
         self.api_key = '86dd18b04874d9c94afadde7993d94e3'
         self.lang = lang
         self.poster = 'https://image.tmdb.org/t/p/%s' % cConfig().getSetting('poster_tmdb')
         self.fanart = 'https://image.tmdb.org/t/p/%s' % cConfig().getSetting('backdrop_tmdb')
+        
 
     def search_movie_name(self, name, year='', page=1, advanced='false'):
         name = re.sub(' +', ' ', name)
