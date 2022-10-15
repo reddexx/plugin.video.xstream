@@ -74,22 +74,21 @@ def checkDependence(ADDONID):
     except Exception as e:
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
 
-# Überprüfe ob Autoupdate oder manuelles Update aktiv bevor Plugins aktualisiert werden
-if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
-    if os.path.isfile(NIGHTLY_UPDATE) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true':
+
+if os.path.isfile(NIGHTLY_UPDATE) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true' or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
     
 # Status Dialog der Auto Updates    
-        from resources.lib import updateManager
-        status1 = updateManager.xStreamUpdate(True)
-        status2 = updateManager.resolverUpdate(True)
-        infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)
-        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
-        if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
-        if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
-        if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + cConfig().getLocalizedString(30116), sound=False, icon='INFO', time=6000)
-        if status2 == False: infoDialog(cConfig().getLocalizedString(30117), sound=True, icon='ERROR')
-        if status2 == None: infoDialog(cConfig().getLocalizedString(30118), sound=False, icon='INFO', time=6000)
-        if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
+    from resources.lib import updateManager
+    status1 = updateManager.xStreamUpdate(True)
+    status2 = updateManager.resolverUpdate(True)
+    infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)
+    if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
+    if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
+    if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
+    if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + cConfig().getLocalizedString(30116), sound=False, icon='INFO', time=6000)
+    if status2 == False: infoDialog(cConfig().getLocalizedString(30117), sound=True, icon='ERROR')
+    if status2 == None: infoDialog(cConfig().getLocalizedString(30118), sound=False, icon='INFO', time=6000)
+    if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
 
 # "setting.xml" wenn notwendig Indexseiten aktualisieren
 try:

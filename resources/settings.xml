@@ -1,13 +1,13 @@
 <settings> 
 	<category label="30020">
 		<setting label="30096" type="lsep" />
-		<setting default="false" id="githubUpdateXstream" label="30010" type="bool"/>
+		<setting default="false" id="githubUpdateXstream" label="30010" type="bool" />
 		<setting type="sep" />
 		<setting label="30030" type="lsep" />		
-		<setting default="false" id="githubUpdateResolver" label="30015" type="bool"/>
+		<setting default="false" id="githubUpdateResolver" label="30015" type="bool" />
 		<setting default="Release" id="resolver.branch" label="30098" type="labelenum" values="Release|Nightly" />
-		<setting type="text" label="30099" enable="eq(-1,0)"/>
-		<setting type="text" label="30100" enable="eq(-2,1)"/>
+		<setting type="text" label="30099" enable="eq(-1,0)" />
+		<setting type="text" label="30100" enable="eq(-2,1)" />
 		<setting default="false" id="enforceUpdate" label="30102" type="bool" visible="false" />
 		<setting default="true" id="newSetting" label="newSetting" type="bool" visible="false" />
 		<setting type="sep" />
