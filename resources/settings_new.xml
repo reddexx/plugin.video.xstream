@@ -2,12 +2,28 @@
 <settings version="1">
 	<section id="plugin.video.xstream">
 		<category id="general" label="30020" help="">		
-			<group id="1" label="30030">
-				<setting id="githubUpdateXstream" type="boolean" label="30010" help="30097">
+			<group id="xstream.updates" label="30096">
+				<setting id="githubUpdateXstream" type="boolean" label="30010" help="">
 					<level>0</level>
 					<default>False</default>
 					<control type="toggle"/>					
 				</setting>
+				<setting id="xstream.branch" type="string" label="30167" help="30173">
+					<level>0</level>
+					<default>release</default>
+					<constraints>
+						<options>
+							<option label="Release">release</option>
+							<option label="Nightly">nightly</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="visible" setting="githubUpdateXstream">true</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>					
+				</setting>							
+			</group>		
+			<group id="resolver.updates" label="30030">				
 				<setting id="githubUpdateResolver" type="boolean" label="30015" help="">
 					<level>0</level>
 					<default>False</default>
@@ -18,36 +34,29 @@
 					<default>release</default>
 					<constraints>
 						<options>
-							<option label="30099">release</option>
-							<option label="30100">nightly</option>
+							<option label="Release">release</option>
+							<option label="Nightly">nightly</option>
 						</options>
 					</constraints>
 					<dependencies>
-						<dependency type="enable">
-							<and>
-								<condition operator="is" setting="githubUpdateResolver">True</condition>
-							</and>
-						</dependency>
+						<dependency type="visible" setting="githubUpdateResolver">true</dependency>
 					</dependencies>					
 					<control type="spinner" format="string"/>
 				</setting>
 				<setting id="enforceUpdate" type="boolean" label="30102" help="">
 					<level>0</level>
 					<default>False</default>
+					<visible>False</visible>
 					<control type="toggle"/>					
-				</setting>	
-				<setting id="newSetting" type="boolean" help="">
+				</setting>
+				<setting id="newSetting" type="boolean" label="newSetting" help="">
 					<level>0</level>
 					<default>True</default>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">false</condition>
-						</dependency>
-					</dependencies>
-					<control type="toggle"/>
+					<visible>False</visible>
+					<control type="toggle"/>					
 				</setting>
 			</group>		
-			<group id="2" label="30031">
+			<group id="presentation" label="30031">
 				<setting id="GlobalSearchPosition" type="boolean" label="30011" help="">
 					<level>0</level>
 					<default>True</default>				
@@ -64,7 +73,7 @@
 					<control type="toggle"/>
 				</setting>				
 			</group>
-			<group id="3" label="30032">
+			<group id="content" label="30032">
 				<setting id="prefLanguage" type="string" label="30002" help="">
 					<level>0</level>
 					<default>2</default>
@@ -98,13 +107,539 @@
 					<control type="toggle"/>
 				</setting>
 			</group>		
-			<group id="4" label="30034">
-			
+			<group id="hoster" label="30034">
+				<setting id="hosterSelect" type="string" label="30005" help="">
+					<level>0</level>
+					<default>30129</default>
+					<constraints>
+						<options>
+							<option label="30129">30129</option>
+							<option label="30130">30130</option>
+							<option label="30131">30131</option>
+						</options>
+					<allowempty>true</allowempty>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>			
+				<setting id="maxHoster" type="integer" label="30007" help="">
+					<level>0</level>
+					<default>100</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>1</step>
+						<maximum>1000</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>			
+				<setting id="presortHoster" type="boolean" label="30009" help="">
+					<level>0</level>
+					<default>False</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="hosterSelect">30130</dependency>
+					</dependencies>					
+					<control type="toggle"/>
+				</setting>			
 			</group>
-
-
-
+			<group id="networkSettings" label="30035">
+				<setting id="cacheTime" type="integer" label="30006" help="">
+					<level>0</level>
+					<default>600</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>60</step>
+						<maximum>1800</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="requestTimeout" type="integer" label="30014" help="">
+					<level>0</level>
+					<default>10</default>
+					<constraints>
+						<minimum>1</minimum>
+						<step>1</step>
+						<maximum>60</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>	
+			</group>
 		</category>
-
+		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
+		<category id="indexsite1" label="30094" help="">		
+			<group id="aniworld" label="30700">
+				<setting id="plugin_anicloud_io" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_anicloud_io" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_anicloud_io">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="dokus4" label="30701">
+				<setting id="plugin_dokus4" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_dokus4" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>False</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_dokus4">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>			
+			<group id="filmpalast" label="30702">
+				<setting id="plugin_filmpalast_to" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_filmpalast_to" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_filmpalast_to">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_flimmerstube" label="30703">
+				<setting id="plugin_flimmerstube" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_flimmerstube" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>False</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_flimmerstube">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_hdfilme_top" label="30704">
+				<setting id="plugin_hdfilme_top" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_hdfilme_top" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_hdfilme_top">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>					
+			</group>
+			<group id="plugin_kinofox" label="30705">
+				<setting id="plugin_kinofox" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kinofox" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinofox">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>					
+			</group>
+			<group id="plugin_kinoger" label="30717">
+				<setting id="plugin_kinoger" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kinoger" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinoger">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>
+				<setting id="kinoger-domain" type="string" label="30051" help="">
+					<level>0</level>
+					<default>kinoger.com</default>
+					<constraints>
+						<options>
+							<option label="kinoger.com">kinoger.com</option>
+							<option label="kinoger.to">kinoger.to</option>
+						</options>	
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinoger">False</dependency>
+					</dependencies>							
+					<allowempty>true</allowempty>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>					
+			</group>			
+			<group id="plugin_kinokiste_tech" label="30706">
+				<setting id="plugin_kinokiste_tech" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kinokiste_tech" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinokiste_tech">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_kinomax" label="30707">
+				<setting id="plugin_kinomax" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kinomax" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinomax">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+		</category>
+		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
+		<category id="indexsite2" label="30095" help="">			
+			<group id="plugin_kinox_to" label="30708">
+				<setting id="plugin_kinox_to" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kinox_to" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinox_to">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_kkiste" label="30709">
+				<setting id="plugin_kkiste" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kkiste" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kkiste">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_megakino" label="30710">
+				<setting id="plugin_megakino" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_megakino" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_megakino">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_movie4k_click" label="30711">
+				<setting id="plugin_movie4k_click" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_movie4k_click" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_movie4k_click">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_movieking" label="30712">
+				<setting id="plugin_movieking" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_movieking" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_movieking">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_netzkino" label="30713">
+				<setting id="plugin_netzkino" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_netzkino" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>False</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_netzkino">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_serienstream_to" label="30714">
+				<setting id="plugin_serienstream_to" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_serienstream_to" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_serienstream_to">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>
+				<setting id="serienstream_to-domain" type="string" label="30051" help="">
+					<level>0</level>
+					<default>190.115.18.20</default>
+					<constraints>
+						<options>
+							<option label="s.to">s.to</option>
+							<option label="kinoger.to">serienstream.to</option>
+							<option label="kinoger.to">serien.cam</option>
+							<option label="kinoger.to">190.115.18.20</option>
+						</options>	
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_serienstream_to">False</dependency>
+					</dependencies>							
+					<allowempty>true</allowempty>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>	
+			</group>
+			<group id="plugin_streamworld" label="30715">
+				<setting id="plugin_streamworld" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_streamworld" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_streamworld">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_xcine_top" label="30716">
+				<setting id="plugin_xcine_top" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_xcine_top" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_xcine_top">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>
+			<group id="plugin_xcine_top" label="30717">
+				<setting id="plugin_xcine_top" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_xcine_top" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_xcine_top">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>	
+		</category>
+		<category id="tmdb" label="30174" help="">			
+			<group id="tmdbhandler" label="30033">		
+				<setting id="TMDBMETA" type="boolean" label="30004" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="metaOverwrite" type="boolean" label="30008" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="TMDBMETA">False</dependency>
+					</dependencies>					
+					<control type="toggle"/>					
+				</setting>
+				<setting id="advanced" type="boolean" label="30044" help="">
+					<level>0</level>
+					<default>False</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="TMDBMETA">False</dependency>
+					</dependencies>					
+					<control type="toggle"/>					
+				</setting>
+				<setting id="poster_tmdb" type="string" label="30170" help="">
+					<level>0</level>
+					<default>w342</default>
+					<constraints>
+						<options>
+							<option label="w92">w92</option>
+							<option label="w154">w154</option>
+							<option label="w185">w185</option>
+							<option label="w342">w342</option>
+							<option label="w500">w500</option>
+							<option label="w780">w780</option>
+							<option label="original">original</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>32009</heading>
+					</control>
+				</setting>
+				<setting id="backdrop_tmdb" type="string" label="30171" help="">
+					<level>0</level>
+					<default>w1280</default>
+					<constraints>
+						<options>
+							<option label="w300">w300</option>
+							<option label="w780">w780</option>
+							<option label="w1280">w1280</option>
+							<option label="original">original</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>32009</heading>
+					</control>
+				</setting>
+			</group>
+			<group id="extentedtmdbhandler" label="30080">		
+				<setting id="tmdb_lang" type="string" label="30172" help="">
+					<level>0</level>
+					<default>de</default>
+					<constraints>
+						<options>
+							<option label="30175">en</option>
+							<option label="30176">de</option>
+							<option label="30177">fr</option>
+							<option label="30178">it</option>
+							<option label="30179">nl</option>
+							<option label="30180">sv</option>
+							<option label="30181">cs</option>
+							<option label="30182">da</option>
+							<option label="30183">fi</option>
+							<option label="30184">pl</option>
+							<option label="30185">es</option>
+							<option label="30186">el</option>
+							<option label="30187">tr</option>
+							<option label="30188">uk</option>
+							<option label="30189">ru</option>
+							<option label="30190">kn</option>
+							<option label="30191">ga</option>
+							<option label="30192">hr</option>
+							<option label="30193">hu</option>
+							<option label="30194">ja</option>
+							<option label="30195">no</option>
+							<option label="30196">id</option>
+							<option label="30197">ko</option>
+							<option label="30198">pt</option>
+							<option label="30199">lv</option>
+							<option label="30200">lt</option>
+							<option label="30201">ro</option>
+							<option label="30202">sk</option>
+							<option label="30203">sl</option>
+							<option label="30204">sq</option>
+							<option label="30205">sr</option>
+							<option label="30206">th</option>
+							<option label="30207">vi</option>
+							<option label="30208">bg</option>
+							<option label="30209">fa</option>
+							<option label="30210">hy</option>
+							<option label="30211">ka</option>
+							<option label="30212">ar</option>
+							<option label="30213">af</option>
+							<option label="30214">bs</option>
+							<option label="30215">zh</option>
+							<option label="30216">cn</option>
+							<option label="30217">hi</option>		
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>32009</heading>
+					</control>
+				</setting>	
+				<setting id="Color" type="string" label="30133" help="">
+					<level>0</level>
+					<default>lightblue</default>
+					<constraints>
+						<options>
+							<option label="30218">lightblue</option>
+							<option label="30219">lightcoral</option>
+							<option label="30220">lightcyan</option>
+							<option label="30221">lightgreen</option>
+							<option label="30222">lightgrey</option>
+							<option label="30223">lightpink</option>
+							<option label="30224">lightsalmon</option>
+							<option label="30225">lightseagreen</option>
+							<option label="30226">lightskyblue</option>
+							<option label="30227">lightslategray</option>
+							<option label="30228">lightsteelblue</option>
+							<option label="30229">lightyellow</option>
+							<option label="30230">aliceblue</option>
+							<option label="30231">coral</option>
+							<option label="30232">lavender</option>
+							<option label="30233">lemonchiffon</option>
+							<option label="30234">moccasin</option>
+							<option label="30235">pink</option>
+							<option label="30236">plum</option>
+							<option label="30237">powderblue</option>
+							<option label="30238">seashell</option>	
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>32009</heading>
+					</control>
+				</setting>
+			</group>
+		</category>	
+	
+	
+	
 	</section>
 </settings>

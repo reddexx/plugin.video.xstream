@@ -254,7 +254,7 @@ msgid "Site-Plugins 2"
 msgstr ""
 
 msgctxt "#30096"
-msgid "xStream updates"
+msgid "xStream Updates"
 msgstr ""
 
 msgctxt "#30097"
@@ -561,12 +561,273 @@ msgctxt "#30172"
 msgid "TMDB language setting"
 msgstr ""
 
+msgctxt "#30173"
+msgid "[COLOR green]Release - Version directly from xStream Github.[/COLOR][CR][COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgstr ""
 
+msgctxt "#30174"
+msgid "TMDB"
+msgstr ""
 
+msgctxt "#30175"
+msgid "English"
+msgstr ""
 
+msgctxt "#30176"
+msgid "German"
+msgstr ""
 
+msgctxt "#30177"
+msgid "French"
+msgstr ""
 
+msgctxt "#30178"
+msgid "Italian"
+msgstr ""
 
+msgctxt "#30179"
+msgid "Nederlands"
+msgstr ""
+
+msgctxt "#30180"
+msgid "Swedish"
+msgstr ""
+
+msgctxt "#30181"
+msgid "Czech"
+msgstr ""
+
+msgctxt "#30182"
+msgid "Danish"
+msgstr ""
+
+msgctxt "#30183"
+msgid "Finnish"
+msgstr ""
+
+msgctxt "#30184"
+msgid "Polish"
+msgstr ""
+
+msgctxt "#30185"
+msgid "Spanish"
+msgstr ""
+
+msgctxt "#30186"
+msgid "Greek"
+msgstr ""
+
+msgctxt "#30187"
+msgid "Turkish"
+msgstr ""
+
+msgctxt "#30188"
+msgid "Ukrainian"
+msgstr ""
+
+msgctxt "#30189"
+msgid "Russian"
+msgstr ""
+
+msgctxt "#30190"
+msgid "Kannada"
+msgstr ""
+
+msgctxt "#30191"
+msgid "Irish"
+msgstr ""
+
+msgctxt "#30192"
+msgid "Croatian"
+msgstr ""
+
+msgctxt "#30193"
+msgid "Hungarian"
+msgstr ""
+
+msgctxt "#30194"
+msgid "Japanese"
+msgstr ""
+
+msgctxt "#30195"
+msgid "Norwegian"
+msgstr ""
+
+msgctxt "#30196"
+msgid "Indonesian"
+msgstr ""
+
+msgctxt "#30197"
+msgid "Korean"
+msgstr ""
+
+msgctxt "#30198"
+msgid "Portuguese"
+msgstr ""
+
+msgctxt "#30199"
+msgid "Latvian"
+msgstr ""
+
+msgctxt "#30200"
+msgid "Lithuanian"
+msgstr ""
+
+msgctxt "#30201"
+msgid "Romanian"
+msgstr ""
+
+msgctxt "#30202"
+msgid "Slovak"
+msgstr ""
+
+msgctxt "#30203"
+msgid "Slovenian"
+msgstr ""
+
+msgctxt "#30204"
+msgid "Albanian"
+msgstr ""
+
+msgctxt "#30205"
+msgid "Serbian"
+msgstr ""
+
+msgctxt "#30206"
+msgid "Thai"
+msgstr ""
+
+msgctxt "#30207"
+msgid "Vietnamese"
+msgstr ""
+
+msgctxt "#30208"
+msgid "Bulgarian"
+msgstr ""
+
+msgctxt "#30209"
+msgid "Persian"
+msgstr ""
+
+msgctxt "#30210"
+msgid "Armenian"
+msgstr ""
+
+msgctxt "#30211"
+msgid "Georgian"
+msgstr ""
+
+msgctxt "#30212"
+msgid "Arabic"
+msgstr ""
+
+msgctxt "#30213"
+msgid "Afrikaans"
+msgstr ""
+
+msgctxt "#30214"
+msgid "Bosnian"
+msgstr ""
+
+msgctxt "#30215"
+msgid "Chinese"
+msgstr ""
+
+msgctxt "#30216"
+msgid "Chinese"
+msgstr ""
+
+msgctxt "#30217"
+msgid "Hindi"
+msgstr ""
+
+msgctxt "#30218"
+msgid "lightblue"
+msgstr ""
+
+msgctxt "#30219"
+msgid "lightcoral"
+msgstr ""
+
+msgctxt "#30220"
+msgid "lightcyan"
+msgstr ""
+
+msgctxt "#30221"
+msgid "lightgreen"
+msgstr ""
+
+msgctxt "#30222"
+msgid "lightgrey"
+msgstr ""
+
+msgctxt "#30223"
+msgid "lightpink"
+msgstr ""
+
+msgctxt "#30224"
+msgid "lightsalmon"
+msgstr ""
+
+msgctxt "#30225"
+msgid "lightseagreen"
+msgstr ""
+
+msgctxt "#30226"
+msgid "lightskyblue"
+msgstr ""
+
+msgctxt "#30227"
+msgid "lightslategray"
+msgstr ""
+
+msgctxt "#30228"
+msgid "lightsteelblue"
+msgstr ""
+
+msgctxt "#30229"
+msgid "lightyellow"
+msgstr ""
+
+msgctxt "#30230"
+msgid "aliceblue"
+msgstr ""
+
+msgctxt "#30231"
+msgid "coral"
+msgstr ""
+
+msgctxt "#30232"
+msgid "lavender"
+msgstr ""
+
+msgctxt "#30233"
+msgid "lemonchiffon"
+msgstr ""
+
+msgctxt "#30234"
+msgid "moccasin"
+msgstr ""
+
+msgctxt "#30235"
+msgid "pink"
+msgstr ""
+
+msgctxt "#30236"
+msgid "plum"
+msgstr ""
+
+msgctxt "#30237"
+msgid "powderblue"
+msgstr ""
+
+msgctxt "#30238"
+msgid "seashell"
+msgstr ""
+
+msgctxt "#30239"
+msgid ""
+msgstr ""
 
 
 
@@ -727,3 +988,103 @@ msgstr ""
 msgctxt "#30520"
 msgid "Search"
 msgstr ""
+
+
+
+
+############### Site Plugins 1 ###############
+
+msgctxt "#30700"
+msgid "Aniworld"
+msgstr ""
+
+msgctxt "#30701"
+msgid "Dokus4"
+msgstr ""
+
+msgctxt "#30702"
+msgid "FilmPalast"
+msgstr ""
+
+msgctxt "#30703"
+msgid "Flimmerstube"
+msgstr ""
+
+msgctxt "#30704"
+msgid "HD-Filme Top"
+msgstr ""
+
+msgctxt "#30705"
+msgid "KinoFox"
+msgstr ""
+
+msgctxt "#30706"
+msgid "Kinokiste Tech"
+msgstr ""
+
+msgctxt "#30707"
+msgid "Kinomax.me"
+msgstr ""
+
+msgctxt "#30708"
+msgid "KinoX"
+msgstr ""
+
+msgctxt "#30709"
+msgid "KKiste"
+msgstr ""
+
+msgctxt "#30710"
+msgid "Megakino"
+msgstr ""
+
+msgctxt "#30711"
+msgid "Movie4k Click"
+msgstr ""
+
+msgctxt "#30712"
+msgid "MovieKing"
+msgstr ""
+
+msgctxt "#30713"
+msgid "NetzKino"
+msgstr ""
+
+msgctxt "#30714"
+msgid "SerienStream"
+msgstr ""
+
+msgctxt "#30715"
+msgid "Streamworld"
+msgstr ""
+
+msgctxt "#30716"
+msgid "XCine Top"
+msgstr ""
+
+msgctxt "#30717"
+msgid "KinoGer"
+msgstr ""
+
+msgctxt "#30718"
+msgid ""
+msgstr ""
+
+msgctxt "#30719"
+msgid ""
+msgstr ""
+
+msgctxt "#30720"
+msgid ""
+msgstr ""
+
+
+
+
+
+
+
+
+
+
+

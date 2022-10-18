@@ -252,7 +252,7 @@ msgid "Site-Plugins 2"
 msgstr "Indexseiten 2"
 
 msgctxt "#30096"
-msgid "xStream updates"
+msgid "xStream Updates"
 msgstr "xStream Aktualisierung"
 
 msgctxt "#30097"
