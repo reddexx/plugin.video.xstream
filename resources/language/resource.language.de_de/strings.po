@@ -560,6 +560,322 @@ msgid "TMDB language setting"
 msgstr "TMDB Spracheinstellung"
 
 
+msgctxt "#30173"
+msgid "[COLOR green]Release - Version directly from xStream Github.[/COLOR][CR][COLOR orange]Nightly - Version with hotfixes from the xStream team.[/COLOR]"
+msgstr "[COLOR green]Release - Version direkt vom xStream Github.[/COLOR][CR][COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
+
+msgctxt "#30174"
+msgid "TMDB"
+msgstr "TMDB"
+
+msgctxt "#30175"
+msgid "English"
+msgstr "Englisch"
+
+msgctxt "#30176"
+msgid "German"
+msgstr "Deutsch"
+
+msgctxt "#30177"
+msgid "French"
+msgstr "Französisch"
+
+msgctxt "#30178"
+msgid "Italian"
+msgstr "Italienisch"
+
+msgctxt "#30179"
+msgid "Nederlands"
+msgstr "Niederlande"
+
+msgctxt "#30180"
+msgid "Swedish"
+msgstr "Schwedisch"
+
+msgctxt "#30181"
+msgid "Czech"
+msgstr "Tschechisch"
+
+msgctxt "#30182"
+msgid "Danish"
+msgstr "Dänisch"
+
+msgctxt "#30183"
+msgid "Finnish"
+msgstr "Finnisch"
+
+msgctxt "#30184"
+msgid "Polish"
+msgstr "Polnisch"
+
+msgctxt "#30185"
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgctxt "#30186"
+msgid "Greek"
+msgstr "Griechisch"
+
+msgctxt "#30187"
+msgid "Turkish"
+msgstr "Türkisch"
+
+msgctxt "#30188"
+msgid "Ukrainian"
+msgstr "Ukrainisch"
+
+msgctxt "#30189"
+msgid "Russian"
+msgstr "Russisch"
+
+msgctxt "#30190"
+msgid "Kannada"
+msgstr "Kannada"
+
+msgctxt "#30191"
+msgid "Irish"
+msgstr "Irisch"
+
+msgctxt "#30192"
+msgid "Croatian"
+msgstr "Kroatisch"
+
+msgctxt "#30193"
+msgid "Hungarian"
+msgstr "Ungarisch"
+
+msgctxt "#30194"
+msgid "Japanese"
+msgstr "Japanisch"
+
+msgctxt "#30195"
+msgid "Norwegian"
+msgstr "Norwegisch"
+
+msgctxt "#30196"
+msgid "Indonesian"
+msgstr "Indonesisch"
+
+msgctxt "#30197"
+msgid "Korean"
+msgstr "Koreanisch"
+
+msgctxt "#30198"
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+msgctxt "#30199"
+msgid "Latvian"
+msgstr "Lettisch"
+
+msgctxt "#30200"
+msgid "Lithuanian"
+msgstr "Litauisch"
+
+msgctxt "#30201"
+msgid "Romanian"
+msgstr "Rumänisch"
+
+msgctxt "#30202"
+msgid "Slovak"
+msgstr "Slowakisch"
+
+msgctxt "#30203"
+msgid "Slovenian"
+msgstr "Slowenisch"
+
+msgctxt "#30204"
+msgid "Albanian"
+msgstr "Albanisch"
+
+msgctxt "#30205"
+msgid "Serbian"
+msgstr "Serbisch"
+
+msgctxt "#30206"
+msgid "Thai"
+msgstr "Thailändisch"
+
+msgctxt "#30207"
+msgid "Vietnamese"
+msgstr "Vietnamesisch"
+
+msgctxt "#30208"
+msgid "Bulgarian"
+msgstr "Bulgarisch"
+
+msgctxt "#30209"
+msgid "Persian"
+msgstr "Persisch"
+
+msgctxt "#30210"
+msgid "Armenian"
+msgstr "Armenisch"
+
+msgctxt "#30211"
+msgid "Georgian"
+msgstr "Georgisch"
+
+msgctxt "#30212"
+msgid "Arabic"
+msgstr "Arabisch"
+
+msgctxt "#30213"
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+msgctxt "#30214"
+msgid "Bosnian"
+msgstr "Bosnisch"
+
+msgctxt "#30215"
+msgid "Chinese"
+msgstr "Chinesisch"
+
+msgctxt "#30216"
+msgid "Chinese"
+msgstr "Chinesisch"
+
+msgctxt "#30217"
+msgid "Hindi"
+msgstr "Hindi"
+
+msgctxt "#30218"
+msgid "lightblue"
+msgstr "Hellblau"
+
+msgctxt "#30219"
+msgid "lightcoral"
+msgstr "Hellkoralle"
+
+msgctxt "#30220"
+msgid "lightcyan"
+msgstr "Hellcyan"
+
+msgctxt "#30221"
+msgid "lightgreen"
+msgstr "Hellgrün"
+
+msgctxt "#30222"
+msgid "lightgrey"
+msgstr "Hellgrau"
+
+msgctxt "#30223"
+msgid "lightpink"
+msgstr "Hellpink"
+
+msgctxt "#30224"
+msgid "lightsalmon"
+msgstr "Lichtlachs"
+
+msgctxt "#30225"
+msgid "lightseagreen"
+msgstr "Hellmeergrün"
+
+msgctxt "#30226"
+msgid "lightskyblue"
+msgstr "Hellhimmelblau"
+
+msgctxt "#30227"
+msgid "lightslategray"
+msgstr "Lichtschiefergrau"
+
+msgctxt "#30228"
+msgid "lightsteelblue"
+msgstr "Hellstahlblau"
+
+msgctxt "#30229"
+msgid "lightyellow"
+msgstr "Hellgelb"
+
+msgctxt "#30230"
+msgid "aliceblue"
+msgstr "Alice blau"
+
+msgctxt "#30231"
+msgid "coral"
+msgstr "Koralle"
+
+msgctxt "#30232"
+msgid "lavender"
+msgstr "Lavendel"
+
+msgctxt "#30233"
+msgid "lemonchiffon"
+msgstr "Zitronenchiffon"
+
+msgctxt "#30234"
+msgid "moccasin"
+msgstr "Mokassin"
+
+msgctxt "#30235"
+msgid "pink"
+msgstr "Rosa"
+
+msgctxt "#30236"
+msgid "plum"
+msgstr "Pflaume"
+
+msgctxt "#30237"
+msgid "powderblue"
+msgstr "Puderblau"
+
+msgctxt "#30238"
+msgid "seashell"
+msgstr "Muschelfarben"
+
+msgctxt "#30239"
+msgid ""
+msgstr ""
+
+
+
+
+
+
+
+
+
+
+
+msgctxt "#30302"
+msgid "Seasons german"
+msgstr "Staffeln Deutsch"
+
+msgctxt "#30303"
+msgid "Seasons english"
+msgstr "Staffeln Englisch"
+
+msgctxt "#30304"
+msgid "Search"
+msgstr "Suche"
+
+msgctxt "#30305"
+msgid "Season %s"
+msgstr "Staffel %s"
+
+msgctxt "#30306"
+msgid "%s to %s second"
+msgstr "%s bis %s Sekunde"
+
+msgctxt "#30307"
+msgid "Play all"
+msgstr "Alle abspielen"
+
+msgctxt "#30308"
+msgid "Waiting time"
+msgstr "Wartezeit"
+
+msgctxt "#30309"
+msgid "Please wait %s seconds"
+msgstr "Bitte warte %s Sekunden"
+
+msgctxt "#30402"
+msgid "Countries"
+msgstr "Länder"
+
+
+
 ############### Scaper Language ###############
 
 msgctxt "#30500"
@@ -646,46 +962,88 @@ msgctxt "#30520"
 msgid "Search"
 msgstr "Suche"
 
+############### Site Plugins 1 ###############
 
+msgctxt "#30700"
+msgid "Aniworld"
+msgstr ""
 
+msgctxt "#30701"
+msgid "Dokus4"
+msgstr ""
 
+msgctxt "#30702"
+msgid "FilmPalast"
+msgstr ""
 
+msgctxt "#30703"
+msgid "Flimmerstube"
+msgstr ""
 
+msgctxt "#30704"
+msgid "HD-Filme Top"
+msgstr ""
 
+msgctxt "#30705"
+msgid "KinoFox"
+msgstr ""
 
+msgctxt "#30706"
+msgid "Kinokiste Tech"
+msgstr ""
 
-msgctxt "#30302"
-msgid "Seasons german"
-msgstr "Staffeln Deutsch"
+msgctxt "#30707"
+msgid "Kinomax.me"
+msgstr ""
 
-msgctxt "#30303"
-msgid "Seasons english"
-msgstr "Staffeln Englisch"
+msgctxt "#30708"
+msgid "KinoX"
+msgstr ""
 
-msgctxt "#30304"
-msgid "Search"
-msgstr "Suche"
+msgctxt "#30709"
+msgid "KKiste"
+msgstr ""
 
-msgctxt "#30305"
-msgid "Season %s"
-msgstr "Staffel %s"
+msgctxt "#30710"
+msgid "Megakino"
+msgstr ""
 
-msgctxt "#30306"
-msgid "%s to %s second"
-msgstr "%s bis %s Sekunde"
+msgctxt "#30711"
+msgid "Movie4k Click"
+msgstr ""
 
-msgctxt "#30307"
-msgid "Play all"
-msgstr "Alle abspielen"
+msgctxt "#30712"
+msgid "MovieKing"
+msgstr ""
 
-msgctxt "#30308"
-msgid "Waiting time"
-msgstr "Wartezeit"
+msgctxt "#30713"
+msgid "NetzKino"
+msgstr ""
 
-msgctxt "#30309"
-msgid "Please wait %s seconds"
-msgstr "Bitte warte %s Sekunden"
+msgctxt "#30714"
+msgid "SerienStream"
+msgstr ""
 
-msgctxt "#30402"
-msgid "Countries"
-msgstr "Länder"
+msgctxt "#30715"
+msgid "Streamworld"
+msgstr ""
+
+msgctxt "#30716"
+msgid "XCine Top"
+msgstr ""
+
+msgctxt "#30717"
+msgid "KinoGer"
+msgstr ""
+
+msgctxt "#30718"
+msgid ""
+msgstr ""
+
+msgctxt "#30719"
+msgid ""
+msgstr ""
+
+msgctxt "#30720"
+msgid ""
+msgstr ""

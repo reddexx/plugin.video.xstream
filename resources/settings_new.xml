@@ -530,7 +530,7 @@
 						</options>
 					</constraints>
 					<control type="list" format="string">
-						<heading>32009</heading>
+						<heading>30170</heading>
 					</control>
 				</setting>
 				<setting id="backdrop_tmdb" type="string" label="30171" help="">
@@ -545,7 +545,7 @@
 						</options>
 					</constraints>
 					<control type="list" format="string">
-						<heading>32009</heading>
+						<heading>30171</heading>
 					</control>
 				</setting>
 			</group>
@@ -601,7 +601,7 @@
 						</options>
 					</constraints>
 					<control type="list" format="string">
-						<heading>32009</heading>
+						<heading>30172</heading>
 					</control>
 				</setting>	
 				<setting id="Color" type="string" label="30133" help="">
@@ -633,13 +633,324 @@
 						</options>
 					</constraints>
 					<control type="list" format="string">
-						<heading>32009</heading>
+						<heading>30133</heading>
 					</control>
 				</setting>
 			</group>
 		</category>	
-	
-	
-	
+		<category id="view" label="30022" help="">			
+			<group id="views" label="30022">			
+				<setting id="auto-view" type="boolean" label="30060" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>	
+				<setting id="files-view" type="integer" label="30061" help="">
+					<level>0</level>
+					<default>55</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="auto-view">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30061</heading>
+					</control>
+				</setting>
+				<setting id="movies-view" type="integer" label="30062" help="">
+					<level>0</level>
+					<default>503</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="auto-view">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30062</heading>
+					</control>
+				</setting>
+				<setting id="tvshows-view" type="integer" label="30063" help="">
+					<level>0</level>
+					<default>503</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="auto-view">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30063</heading>
+					</control>
+				</setting>
+				<setting id="seasons-view" type="integer" label="30064" help="">
+					<level>0</level>
+					<default>504</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="auto-view">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30064</heading>
+					</control>
+				</setting>
+				<setting id="episodes-view" type="integer" label="30065" help="">
+					<level>0</level>
+					<default>504</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="auto-view">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30065</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category id="download" label="30023" help="">			
+			<group id="downloads" label="30023">	
+				<setting id="download-folder" type="path" label="30081" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="path">
+						<heading>30081</heading>
+					</control>
+				</setting>
+				<setting id="backgrounddownload" type="boolean" label="30132" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>			
+			</group>
+			<group id="downloadplugins" label="30070">
+				<setting id="jd_enabled" type="boolean" label="30071" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>				
+				<setting id="jd_host" type="string" label="30072" help="">
+					<level>0</level>
+					<default>127.0.0.1</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="jd_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="string">
+						<heading>30072</heading>
+					</control>
+				</setting>			
+				<setting id="jd_port" type="integer" label="30073" help="">
+					<level>0</level>
+					<default>10025</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="jd_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30073</heading>
+					</control>
+				</setting>
+			</group>
+			<group id="downloadplugins1" label="30076">
+				<setting id="jd2_enabled" type="boolean" label="30077" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>				
+				<setting id="jd2_host" type="string" label="30072" help="">
+					<level>0</level>
+					<default>127.0.0.1</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="jd2_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="string">
+						<heading>30072</heading>
+					</control>
+				</setting>			
+				<setting id="jd2_port" type="integer" label="30073" help="">
+					<level>0</level>
+					<default>9666</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="jd2_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30073</heading>
+					</control>
+				</setting>
+			</group>	
+			<group id="downloadplugins2" label="30090">
+				<setting id="myjd_enabled" type="boolean" label="30091" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>				
+				<setting id="myjd_device" type="string" label="30092" help="">
+					<level>0</level>
+					<default>JDownloader@Device</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="myjd_enabled">False</dependency>
+					</dependencies>						
+					<control type="edit" format="string">
+						<heading>30092</heading>
+					</control>
+				</setting>
+				<setting id="myjd_user" type="string" label="30083" help="">
+					<level>0</level>
+					<default>example@example.com</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="myjd_enabled">False</dependency>
+					</dependencies>						
+					<control type="edit" format="string">
+						<heading>30083</heading>
+					</control>
+				</setting>
+				<setting id="myjd_pass" type="string" label="30084" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="myjd_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="string">
+						<heading>30084</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>
+			</group>	
+			<group id="downloadplugins3" label="30082">
+				<setting id="pyload_enabled" type="boolean" label="30082" help="">			
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>				
+				<setting id="pyload_host" type="string" label="30072" help="">
+					<level>0</level>
+					<default>127.0.0.1</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="pyload_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="string">
+						<heading>30072</heading>
+					</control>
+				</setting>			
+				<setting id="pyload_port" type="integer" label="30073" help="">
+					<level>0</level>
+					<default>8000</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="pyload_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="integer">
+						<heading>30073</heading>
+					</control>
+				</setting>
+				<setting id="pyload_user" type="string" label="30083" help="">
+					<level>0</level>
+					<default>user</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="pyload_enabled">False</dependency>
+					</dependencies>						
+					<control type="edit" format="string">
+						<heading>30083</heading>
+					</control>
+				</setting>				
+				<setting id="pyload_passwd" type="string" label="30084" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="pyload_enabled">False</dependency>
+					</dependencies>	
+					<control type="edit" format="string">
+						<heading>30084</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>					
+			</group>	
+		</category>
+		<category id="account" label="30024" help="">			
+			<group id="aniworldacc" label="30700">
+				<setting id="anicloud.user" type="string" label="30083" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>					
+					<control type="edit" format="string">
+						<heading>30083</heading>
+					</control>
+				</setting>				
+				<setting id="anicloud.pass" type="string" label="30084" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>30084</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>	
+			</group>
+			<group id="flimmerstubeacc" label="30703">
+				<setting id="flimmerstube.user" type="string" label="30083" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>					
+					<control type="edit" format="string">
+						<heading>30083</heading>
+					</control>
+				</setting>				
+				<setting id="flimmerstube.pass" type="string" label="30084" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>30084</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>	
+			</group>			
+			<group id="serienstreamacc" label="30714">
+				<setting id="serienstream.user" type="string" label="30083" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>					
+					<control type="edit" format="string">
+						<heading>30083</heading>
+					</control>
+				</setting>				
+				<setting id="serienstream.pass" type="string" label="30084" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>30084</heading>
+						<hidden>true</hidden>
+					</control>
+				</setting>	
+			</group>						
+		</category> 	
 	</section>
 </settings>
