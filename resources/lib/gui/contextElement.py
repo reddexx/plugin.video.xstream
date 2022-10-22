@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+# Check DWH 2022.10.20
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 
 

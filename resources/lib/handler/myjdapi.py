@@ -1,11 +1,13 @@
-# -*- encoding: utf-8 -*-
-from resources.lib import pyaes
+# -*- coding: utf-8 -*-
+# Python 3
+
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.22
+
 import hashlib, hmac, json, time, base64
 import requests
-try:
-    from urllib import quote
-except ImportError:
-    from urllib.parse import quote
+
+from resources.lib import pyaes
+from urllib.parse import quote
 
 
 class MYJDException(BaseException):

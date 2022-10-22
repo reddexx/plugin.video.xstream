@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+# Check DWH 2022.10.20
+
+
 from resources.lib.tools import logger, cParser, cUtil
 from resources.lib.config import cConfig
 from resources.lib.common import addon

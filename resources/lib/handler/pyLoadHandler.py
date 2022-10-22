@@ -20,9 +20,9 @@ class cPyLoadHandler:
     def sendToPyLoad(self, sPackage, sUrl):
         logger.info('PyLoad package: ' + str(sPackage) + ', ' + str(sUrl))
         if self.__sendLinkToCore(sPackage, sUrl):
-            cGui().showInfo('PyLoad', 'Link gesendet', 5)
+            cGui().showInfo(cConfig().getLocalizedString(30257), cConfig().getLocalizedString(30256), 5)
         else:
-            cGui().showInfo('PyLoad', 'Fehler beim Senden des Links!', 5)
+            cGui().showInfo(cConfig().getLocalizedString(30257), cConfig().getLocalizedString(30258), 5)
 
     def __sendLinkToCore(self, sPackage, sUrl):
         logger.info('Sending link...')

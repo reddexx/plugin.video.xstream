@@ -28,7 +28,7 @@ class cDownload:
         filename = filename.replace(' ', '_')
         return filename
 
-    def download(self, url, sTitle, showDialog=True, downloadDialogTitle='Download'):
+    def download(self, url, sTitle, showDialog=True, downloadDialogTitle=cConfig().getLocalizedString(30245)):
         sTitle = '%s' % sTitle
         self.__processIsCanceled = False
         try:

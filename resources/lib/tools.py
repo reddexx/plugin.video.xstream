@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
+# Python 3
 
-# 2022-01-21
+# Check DWH 2022.10.20
+
+import xbmc
+import sys
+import hashlib
+import re
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib import common
 from resources.lib import pyaes
-import re, hashlib, sys, xbmc
-try:
-    from urlparse import urlparse
-    from htmlentitydefs import name2codepoint
-    from urllib import quote, unquote, quote_plus, unquote_plus
-except ImportError:
-    from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
-    from html.entities import name2codepoint
+from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
+from html.entities import name2codepoint
 
 
 class cParser:
@@ -106,20 +106,14 @@ class cParser:
     @staticmethod
     def B64decode(text):
         import base64
-        if sys.version_info[0] == 2:
-            b = base64.b64decode(text)
-        else:
-            b = base64.b64decode(text).decode('utf-8')
+        b = base64.b64decode(text).decode('utf-8')
         return b
 
 
 class logger:
     @staticmethod
     def info(sInfo):
-        if sys.version_info[0] == 2:
-            logger.__writeLog(sInfo, cLogLevel=xbmc.LOGNOTICE)
-        else:
-            logger.__writeLog(sInfo, cLogLevel=xbmc.LOGINFO)
+        logger.__writeLog(sInfo, cLogLevel=xbmc.LOGINFO)
 
     @staticmethod
     def debug(sInfo):
@@ -137,9 +131,6 @@ class logger:
     def __writeLog(sLog, cLogLevel=xbmc.LOGDEBUG):
         params = ParameterHandler()
         try:
-            if sys.version_info[0] == 2:
-                if isinstance(sLog, unicode):
-                    sLog = '%s (ENCODED)' % (sLog.encode('utf-8'))
             if params.exist('site'):
                 site = params.getValue('site')
                 sLog = "\t[%s] -> %s: %s" % (common.addonName, site, sLog)
@@ -191,10 +182,6 @@ class cUtil:
     def cleanse_text(text):
         if text is None: text = ''
         text = cUtil.removeHtmlTags(text)
-        if sys.version_info[0] == 2:
-            text = cUtil.unescape(text)
-            if isinstance(text, unicode):
-                text = text.encode('utf-8')
         return text
 
     @staticmethod

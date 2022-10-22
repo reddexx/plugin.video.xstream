@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.22
+
+import io
+import gzip
+import time
+import xbmcgui
+import re
+import socket
+import os
+import sys
+import hashlib
+import json
+
 from resources.lib.config import cConfig
 from resources.lib.tools import logger
 from resources.lib import common
-import io, gzip, time, xbmcgui, re
-import socket, os, sys, hashlib, json
-try:
-    from urlparse import urlparse
-    from urllib import quote, urlencode
-    from urllib2 import HTTPError, URLError, HTTPHandler, HTTPSHandler, HTTPCookieProcessor, build_opener, Request, HTTPRedirectHandler
-    from cookielib import LWPCookieJar, Cookie
-    from httplib import HTTPException
-except ImportError:
-    from urllib.parse import quote, urlencode, urlparse
-    from urllib.error import HTTPError, URLError
-    from urllib.request import HTTPHandler, HTTPSHandler, HTTPCookieProcessor, build_opener, Request, HTTPRedirectHandler
-    from http.cookiejar import LWPCookieJar, Cookie
-    from http.client import HTTPException
+from urllib.parse import quote, urlencode, urlparse
+from urllib.error import HTTPError, URLError
+from urllib.request import HTTPHandler, HTTPSHandler, HTTPCookieProcessor, build_opener, Request, HTTPRedirectHandler
+from http.cookiejar import LWPCookieJar, Cookie
+from http.client import HTTPException
 
 
 class cRequestHandler:
@@ -97,26 +103,17 @@ class cRequestHandler:
         except Exception as e:
             logger.debug(e)
         if self.jspost:
-            if sys.version_info[0] == 2:
-                sParameters = json.dumps(self._aParameters)
-            else:
-                sParameters = json.dumps(self._aParameters).encode()
+            sParameters = json.dumps(self._aParameters).encode()
         else:
-            if sys.version_info[0] == 2:
-                sParameters = urlencode(self._aParameters, True)
-            else:
-                sParameters = urlencode(self._aParameters, True).encode()
+            sParameters = urlencode(self._aParameters, True).encode()
 
         if self._ssl_verify:
             handlers = [HTTPSHandler()]
         else:
             import ssl
-            if sys.version_info[0] == 2:
-                ssl_context = ssl.create_default_context()
-            else:
-                ssl_context = ssl.create_default_context()
-                ssl_context.check_hostname = False
-                ssl_context.verify_mode = ssl.CERT_NONE
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
             handlers = [HTTPSHandler(context=ssl_context)]
 
         handlers += [HTTPHandler(), HTTPCookieProcessor(cookiejar=cookieJar), RedirectFilter()]
@@ -139,10 +136,7 @@ class cRequestHandler:
                     opener = build_opener(HTTPCookieProcessor(cookieJar))
                     opener.addheaders = [('User-agent', self._USER_AGENT), ('Referer', self._sUrl)]
                     response = opener.open('https://check.ddos-guard.net/check.js')
-                    if sys.version_info[0] == 2:
-                        content = response.read()
-                    else:
-                        content = response.read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
+                    content = response.read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
                     url2 = re.findall("Image.*?'([^']+)'; new", content)
                     url3 = urlparse(self._sUrl)
                     url3 = '%s://%s/%s' % (url3.scheme, url3.netloc, url2[0])
@@ -160,7 +154,7 @@ class cRequestHandler:
                     return 'CF-DDOS-GUARD aktiv'
                 else:
                     if not self.ignoreErrors:
-                        xbmcgui.Dialog().ok('xStream', 'Fehler beim Abrufen der Url: {0} {1}'.format(self._sUrl, str(e)))
+                        xbmcgui.Dialog().ok('xStream', cConfig().getLocalizedString(30259) + ' {0} {1}'.format(self._sUrl, str(e)))
                         logger.error('HTTPError ' + str(e) + ' Url: ' + self._sUrl)
                     return ''
             else:
@@ -179,13 +173,9 @@ class cRequestHandler:
         self._sResponseHeader = oResponse.info()
         if self._sResponseHeader.get('Content-Encoding') == 'gzip':
             sContent = gzip.GzipFile(fileobj=io.BytesIO(oResponse.read())).read()
-            if sys.version_info[0] == 3:
-                sContent = sContent.decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
+            sContent = sContent.decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
         else:
-            if sys.version_info[0] == 2:
-                sContent = oResponse.read()
-            else:
-                sContent = oResponse.read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
+            sContent = oResponse.read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
         if 'lazingfast' in sContent:
             bf = cBF().resolve(self._sUrl, sContent, cookieJar, self._USER_AGENT, sParameters)
             if bf:
@@ -254,19 +244,12 @@ class cRequestHandler:
 
     def readCache(self, url):
         content = ''
-        if sys.version_info[0] == 2:
-            h = hashlib.md5(url).hexdigest()
-        else:
-            h = hashlib.md5(url.encode('utf8')).hexdigest()
+        h = hashlib.md5(url.encode('utf8')).hexdigest()
         cacheFile = os.path.join(self._cachePath, h)
         fileAge = self.getFileAge(cacheFile)
         if 0 < fileAge < self.cacheTime:
             try:
-                if sys.version_info[0] == 2:
-                    with open(cacheFile, 'r') as f:
-                        content = f.read()
-                else:
-                    with open(cacheFile, 'rb') as f:
+                with open(cacheFile, 'rb') as f:
                         content = f.read().decode('utf8')
             except Exception:
                 logger.error('Could not read Cache')
@@ -277,14 +260,9 @@ class cRequestHandler:
 
     def writeCache(self, url, content):
         try:
-            if sys.version_info[0] == 2:
-                h = hashlib.md5(url).hexdigest()
-                with open(os.path.join(self._cachePath, h), 'w') as f:
-                    f.write(content)
-            else:
-                h = hashlib.md5(url.encode('utf8')).hexdigest()
-                with open(os.path.join(self._cachePath, h), 'wb') as f:
-                    f.write(content.encode('utf8'))
+            h = hashlib.md5(url.encode('utf8')).hexdigest()
+            with open(os.path.join(self._cachePath, h), 'wb') as f:
+                f.write(content.encode('utf8'))
         except Exception:
             logger.error('Could not write Cache')
 
@@ -315,10 +293,7 @@ class cBF:
             aespage = page + a[0].replace('" + ww +"', str(random.randint(700, 1500)))
             opener = build_opener(HTTPCookieProcessor(cookie_jar))
             opener.addheaders = [('User-agent', user_agent), ('Referer', url)]
-            if sys.version_info[0] == 2:
-                html = opener.open(aespage).read()
-            else:
-                html = opener.open(aespage).read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
+            html = opener.open(aespage).read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
             cval = self.aes_decode(html)
             cdata = re.findall('cookie="([^="]+).*?domain[^>]=([^;]+)', html)
             if cval and cdata:
@@ -326,10 +301,7 @@ class cBF:
                 cookie_jar.set_cookie(c)
                 opener = build_opener(HTTPCookieProcessor(cookie_jar))
                 opener.addheaders = [('User-agent', user_agent), ('Referer', url)]
-                if sys.version_info[0] == 2:
-                    return opener.open(url, sParameters if len(sParameters) > 0 else None).read()
-                else:
-                    return opener.open(url, sParameters if len(sParameters) > 0 else None).read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
+                return opener.open(url, sParameters if len(sParameters) > 0 else None).read().decode('utf-8', 'replace').encode('utf-8', 'replace').decode('utf-8', 'replace')
 
     def aes_decode(self, html):
         try:
@@ -351,6 +323,6 @@ class cBF:
 class RedirectFilter(HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, hdrs, newurl):
         if 'notice.cuii' in newurl:
-            xbmcgui.Dialog().ok('Ihr Internetanbieter zensiert ihren Internetzugang', 'Um sich vor der Zensur zu schützen, empfehlen wir euren DNS Server auf die von Google 8.8.8.8 und 8.8.4.4 oder Cloudflare 1.1.1.1 und 1.0.0.1 umzustellen. Anleitungen finden sie per Googlesuche z.B. "Fritzbox DNS Server ändern"')
+            xbmcgui.Dialog().ok(cConfig().getLocalizedString(30260), cConfig().getLocalizedString(30261))
             return None
         return HTTPRedirectHandler.redirect_request(self, req, fp, code, msg, hdrs, newurl)

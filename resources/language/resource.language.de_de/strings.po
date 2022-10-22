@@ -825,9 +825,108 @@ msgid "seashell"
 msgstr "Muschelfarben"
 
 msgctxt "#30239"
+msgid "Extended information (TMDB)"
+msgstr "Erweiterte Informationen (TMDB)"
+
+msgctxt "#30240"
+msgid ">>> Next page >>>"
+msgstr ">>> Nächste Seite >>>"
+
+msgctxt "#30241"
+msgid "Info"
+msgstr "Informationen"
+
+msgctxt "#30242"
+msgid "Action(info)"
+msgstr "Action(Informationen)"
+
+msgctxt "#30243"
+msgid "More sources"
+msgstr "Weitere Quellen"
+
+msgctxt "#30244"
+msgid "Add to Playlist"
+msgstr "Zur Abspielliste hinzufügen"
+
+msgctxt "#30245"
+msgid "Download"
+msgstr "Herunterladen"
+
+msgctxt "#30246"
+msgid "Send to JDownloader"
+msgstr "Sende zum JDownloader"
+
+msgctxt "#30247"
+msgid "Send to JDownloader2"
+msgstr "Sende zum JDownloader2"
+
+msgctxt "#30248"
+msgid "Send to My.JDownloader"
+msgstr "Sende zu My.JDownloader"
+
+msgctxt "#30250"
+msgid "Send to PyLoad"
+msgstr "Sende zu Pyload"
+
+msgctxt "#30251"
+msgid "Choose page"
+msgstr "Seite auswählen"
+
+msgctxt "#30252"
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+msgctxt "#30253"
+msgid "No entry was found"
+msgstr "Es wurde kein Eintrag gefunden"
+
+msgctxt "#30254"
+msgid "Please check settings"
+msgstr "Einstellungen bitte überprüfen"
+
+msgctxt "#30255"
+msgid "Connection failed (JD or external CNL port support disabled?)"
+msgstr "Verbindung fehlgeschlagen (JD oder externe CNL Port Unterstützung ausgeschaltet?)"
+
+msgctxt "#30256"
+msgid "Link sent"
+msgstr "Link gesendet"
+
+msgctxt "#30257"
+msgid "PyLoad"
+msgstr "PyLoad"
+
+msgctxt "#30258"
+msgid "Error sending link!"
+msgstr "Fehler beim Senden des Links!"
+
+msgctxt "#30259"
+msgid "Error getting url:"
+msgstr "Fehler beim Abrufen der Url:"
+
+msgctxt "#30260"
+msgid "Your ISP censors your Internet access"
+msgstr "Ihr Internetanbieter zensiert ihren Internetzugang"
+
+msgctxt "#30261"
+msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. "Change Fritzbox DNS Server""
+msgstr "Um sich vor der Zensur zu schützen, empfehlen wir euren DNS Server auf die von Google 8.8.8.8 und 8.8.4.4 oder Cloudflare 1.1.1.1 und 1.0.0.1 umzustellen. Anleitungen finden sie per Googlesuche z.B. "Fritzbox DNS Server ändern""
+
+msgctxt "#30262"
 msgid ""
 msgstr ""
 
+msgctxt "#30263"
+msgid ""
+msgstr ""
+
+msgctxt "#30264"
+msgid ""
+msgstr ""
+
+msgctxt "#30265"
+msgid ""
+msgstr ""
 
 
 
@@ -873,8 +972,6 @@ msgstr "Bitte warte %s Sekunden"
 msgctxt "#30402"
 msgid "Countries"
 msgstr "Länder"
-
-
 
 ############### Scaper Language ###############
 
@@ -962,7 +1059,7 @@ msgctxt "#30520"
 msgid "Search"
 msgstr "Suche"
 
-############### Site Plugins 1 ###############
+############### Site Plugins ###############
 
 msgctxt "#30700"
 msgid "Aniworld"

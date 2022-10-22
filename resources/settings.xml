@@ -33,7 +33,7 @@
 		<setting default="600" id="cacheTime" label="30006" option="int" range="0,60,1800" type="slider" />
 		<setting default="10" id="requestTimeout" label="30014" option="int" range="1,1,60" type="slider" />
 	</category>
-	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->		
+			
 	<category label="30094">
 		<setting type="lsep" label="AniWorld" />
         <setting default="true" type="bool" id="plugin_anicloud_io" label="30050" />
@@ -60,6 +60,11 @@
         <setting type="lsep" label="KinoFox" />
         <setting default="true" type="bool" id="plugin_kinofox" label="30050" />
         <setting default="true" type="bool" id="global_search_kinofox" label="30052" enable="!eq(-1,false)" />
+        <setting type="sep" />
+        <setting type="lsep" label="Kinoger" />
+        <setting default="true" type="bool" id="plugin_kinoger" label="30050" />
+        <setting default="true" type="bool" id="global_search_kinoger" label="30052" enable="!eq(-1,false)" />
+        <setting default="kinoger.com" enable="!eq(-2,false)" id="kinoger-domain" label="30051" type="labelenum" values="kinoger.com|kinoger.to" />
         <setting type="sep" />
         <setting type="lsep" label="Kinokiste Tech" />
         <setting default="true" type="bool" id="plugin_kinokiste_tech" label="30050" />

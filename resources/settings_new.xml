@@ -823,7 +823,7 @@
 					</control>
 				</setting>
 			</group>	
-			<group id="downloadplugins3" label="30082">
+			<group id="downloadplugins3" label="30257">
 				<setting id="pyload_enabled" type="boolean" label="30082" help="">			
 					<level>0</level>
 					<default>False</default>

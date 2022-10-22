@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+# Fertig muss aber noch debuggt werden !    DWH 2022.10.22
+
+
 from resources.lib.tools import logger
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
@@ -8,16 +13,16 @@ from resources.lib.handler.requestHandler import cRequestHandler
 class cJDownloaderHandler:
     def sendToJDownloader(self, sUrl):
         if self.__checkConfig() == False:
-            cGui().showError('JDownloader', 'Settings ueberpruefen (XBMC)', 5)
+            cGui().showError(cConfig().getLocalizedString(30070), cConfig().getLocalizedString(30254), 5)
             return False
 
         if self.__checkConnection() == False:
-            cGui().showError('JDownloader', 'Verbindung fehlgeschlagen (JD aus?)', 5)
+            cGui().showError(cConfig().getLocalizedString(30070), cConfig().getLocalizedString(30255), 5)
             return False
 
         bDownload = self.__download(sUrl)
         if bDownload == True:
-            cGui().showInfo('JDownloader', 'Link gesendet', 5)
+            cGui().showInfo(cConfig().getLocalizedString(30070), cConfig().getLocalizedString(30256), 5)
 
     def __checkConfig(self):
         logger.info('check JD Addon setings')
