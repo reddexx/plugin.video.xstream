@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
+
 
 SITE_IDENTIFIER = 'dokus4'
 SITE_NAME = 'Dokus4'
@@ -13,13 +18,13 @@ URL_MAIN = 'http://www.dokus4.me/'
 URL_SEARCH = URL_MAIN + '?s=%s'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Dokus', SITE_IDENTIFIER, 'showEntries'), params)
-    cGui().addFolder(cGuiElement('Kategorien', SITE_IDENTIFIER, 'showGenre'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cGuiElement(cConfig().getLocalizedString(30505), SITE_IDENTIFIER, 'showEntries'), params)  # Documentations
+    cGui().addFolder(cGuiElement(cGuiElement(cConfig().getLocalizedString(30507), SITE_IDENTIFIER, 'showGenre'), params)   # Categories
+    cGui().addFolder(cGuiElement(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 

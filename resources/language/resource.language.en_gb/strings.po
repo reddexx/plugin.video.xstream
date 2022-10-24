@@ -914,15 +914,15 @@ msgid "To protect yourself from censorship, we recommend changing your DNS serve
 msgstr ""
 
 msgctxt "#30262"
-msgid ""
+msgid "[COLOR red]This page requires a free user account. Please register at http://flimmerstube.com and enter your account details in the xStream settings.[/COLOR]"
 msgstr ""
 
 msgctxt "#30263"
-msgid ""
+msgid "[COLOR red]This page requires a free user account. Please register at https://aniworld.to/ and enter your account details in the xStream settings.[/COLOR]"
 msgstr ""
 
 msgctxt "#30264"
-msgid ""
+msgid "[COLOR red]This page requires a free user account. Please register at https://s.to/ and enter your account details in the xStream settings.[/COLOR]"
 msgstr ""
 
 msgctxt "#30265"
@@ -1008,11 +1008,11 @@ msgid "Release Year"
 msgstr ""
 
 msgctxt "#30509"
-msgid ""
+msgid "Top Movies"
 msgstr ""
 
 msgctxt "#30510"
-msgid ""
+msgid "IMDB rating"
 msgstr ""
 
 msgctxt "#30511"
@@ -1053,6 +1053,18 @@ msgstr ""
 
 msgctxt "#30520"
 msgid "Search"
+msgstr ""
+
+msgctxt "#30521"
+msgid "Popular Movies"
+msgstr ""
+
+msgctxt "#30522"
+msgid "Popular Documentations"
+msgstr ""
+
+msgctxt "#30523"
+msgid "New Documentations"
 msgstr ""
 
 ############### Site Plugins ###############
@@ -1130,7 +1142,7 @@ msgid "KinoGer"
 msgstr ""
 
 msgctxt "#30718"
-msgid ""
+msgid "KinoKiste"
 msgstr ""
 
 msgctxt "#30719"

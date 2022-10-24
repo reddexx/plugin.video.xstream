@@ -17,10 +17,17 @@ SITE_NAME = 					''
 SITE_ICON = 					''
 URL_MAIN = 						''
 URL_MOVIES = 					''
+URL_POPULAR_MOVIES = URL_MAIN + ''
 URL_KINO = URL_MAIN + 			''
 URL_SERIES = URL_MAIN + 		''
+URL_POPULAR_SERIES = URL_MAIN + ''
+URL_POPULAR = URL_MAIN + 		''
 URL_GENRE = URL_MAIN + 			''
 URL_SEARCH = URL_MAIN + 		''
+URL_LOGIN = URL_MAIN + 			''
+URL_ENGLISH = URL_MAIN + 		''
+URL_NEW = URL_MAIN + 			''
+URL_ANIMATION = URL_MAIN + 		''
 
 usw....
 

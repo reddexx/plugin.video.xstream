@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
 
 # 2022-02-01 Hep
-# 2022-08-19 DWH Domain Update
+# 2022-10-24 DWH Domain Update
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -13,24 +15,25 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'hdfilme_top'
 SITE_NAME = 'HD Filme Top'
 SITE_ICON = 'hdfilmetop.png'
-URL_MAIN = 'https://hdfilme.cloud/'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+URL_MAIN = 'https://hdfilme.media/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
-URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
+URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?story=%s&do=search&subaction=search'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
     params.setParam('sUrl', URL_KINO)
-    cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Kategorien', SITE_IDENTIFIER, 'showGenre'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30507), SITE_IDENTIFIER, 'showGenre'), params)    # Categories
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Release Jahre', SITE_IDENTIFIER, 'showYears'), params)
-    params.setParam('sUrl', URL_SERIEN)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showYears'), params)    # Release Year
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 
@@ -80,6 +83,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     sHtmlContent = oRequest.request()
+    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
+        cConfig().setSetting('hdfilme_topurl', oRequest.getRealUrl()) 
     pattern = 'data-src="([^"]+).*?film-item-quality">([^<]+).*?href="([^"]+).*?-title">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
 

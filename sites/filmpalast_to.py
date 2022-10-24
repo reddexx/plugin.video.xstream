@@ -1,57 +1,61 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
+
 
 SITE_IDENTIFIER = 'filmpalast_to'
 SITE_NAME = 'FilmPalast'
 SITE_ICON = 'filmpalast.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://filmpalast.to'
 URL_MOVIES = URL_MAIN + '/movies/%s'
-URL_SHOWS = URL_MAIN + '/serien/view'
+URL_SERIES = URL_MAIN + '/serien/view'
 URL_ENGLISH = URL_MAIN + '/search/genre/Englisch'
 URL_SEARCH = URL_MAIN + '/search/title/%s'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Neues', SITE_IDENTIFIER, 'showEntries'), params)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showMovieMenu'), params)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showSeriesMenu'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)  # New
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showMovieMenu'), params)    # Movies
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showSeriesMenu'), params)  # Series
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), params)   # Search
     cGui().setEndOfDirectory()
 
 
-def showMovieMenu():
+def showMovieMenu():    # Menu structure of movie menu
     params = ParameterHandler()
     params.setParam('sUrl', URL_MOVIES % 'new')
-    cGui().addFolder(cGuiElement('Neuesten', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)   # New
     params.setParam('sUrl', URL_MOVIES % 'top')
-    cGui().addFolder(cGuiElement('Hits', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_MOVIES % 'votes')
-    cGui().addFolder(cGuiElement('Votes', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30509), SITE_IDENTIFIER, 'showEntries'), params)  # Top movies
     params.setParam('sUrl', URL_MOVIES % 'imdb')
-    cGui().addFolder(cGuiElement('IMDB-Bewertung', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30510), SITE_IDENTIFIER, 'showEntries'), params) # IMDB rating
     params.setParam('sUrl', URL_ENGLISH)
-    cGui().addFolder(cGuiElement('Englisch', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
     params.setParam('sUrl', URL_MOVIES % 'new')
     params.setParam('value', 'genre')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
     params.setParam('value', 'movietitle')
-    cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
     cGui().setEndOfDirectory()
 
 
-def showSeriesMenu():
+def showSeriesMenu():   # Menu structure of series menu
     params = ParameterHandler()
-    params.setParam('sUrl', URL_SHOWS)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series
     params.setParam('value', 'movietitle')
-    cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
     cGui().setEndOfDirectory()
 
 

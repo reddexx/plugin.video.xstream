@@ -186,6 +186,21 @@
 					<control type="toggle"/>					
 				</setting>				
 			</group>
+			<group id="cinemathek" label="Cinemathek">
+				<setting id="plugin_cinemathek" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_cinemathek" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>False</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_cinemathek">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>	
 			<group id="dokus4" label="30701">
 				<setting id="plugin_dokus4" type="boolean" label="30050" help="">
 					<level>0</level>
@@ -290,6 +305,21 @@
 					</constraints>
 					<control type="spinner" format="string"/>
 				</setting>					
+			</group>
+			<group id="plugin_kinokiste" label="30718">
+				<setting id="plugin_kinokiste" type="boolean" label="30050" help="">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_kinokiste" type="boolean" label="30052" help="">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_kinokiste">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
 			</group>			
 			<group id="plugin_kinokiste_tech" label="30706">
 				<setting id="plugin_kinokiste_tech" type="boolean" label="30050" help="">
@@ -434,9 +464,9 @@
 					<constraints>
 						<options>
 							<option label="s.to">s.to</option>
-							<option label="kinoger.to">serienstream.to</option>
-							<option label="kinoger.to">serien.cam</option>
-							<option label="kinoger.to">190.115.18.20</option>
+							<option label="serienstream.to">serienstream.to</option>
+							<option label="serien.cam">serien.cam</option>
+							<option label="190.115.18.20">190.115.18.20</option>
 						</options>	
 					<dependencies>
 						<dependency type="enable" operator="!is" setting="plugin_serienstream_to">False</dependency>

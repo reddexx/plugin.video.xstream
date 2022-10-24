@@ -913,16 +913,16 @@ msgid "To protect yourself from censorship, we recommend changing your DNS serve
 msgstr "Um sich vor der Zensur zu schützen, empfehlen wir euren DNS Server auf die von Google 8.8.8.8 und 8.8.4.4 oder Cloudflare 1.1.1.1 und 1.0.0.1 umzustellen. Anleitungen finden sie per Googlesuche z.B. "Fritzbox DNS Server ändern""
 
 msgctxt "#30262"
-msgid ""
-msgstr ""
+msgid "[COLOR red]This page requires a free user account. Please register at http://flimmerstube.com and enter your account details in the xStream settings.[/COLOR]"
+msgstr "[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter http://flimmerstube.com und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]"
 
 msgctxt "#30263"
-msgid ""
-msgstr ""
+msgid "[COLOR red]This page requires a free user account. Please register at https://aniworld.to/ and enter your account details in the xStream settings.[/COLOR]"
+msgstr "[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://aniworld.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]"
 
 msgctxt "#30264"
-msgid ""
-msgstr ""
+msgid "[COLOR red]This page requires a free user account. Please register at https://s.to/ and enter your account details in the xStream settings.[/COLOR]"
+msgstr "[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://s.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]"
 
 msgctxt "#30265"
 msgid ""
@@ -1012,12 +1012,12 @@ msgid "Release Year"
 msgstr "Veröffentlichungsjahre"
 
 msgctxt "#30509"
-msgid ""
-msgstr ""
+msgid "Top Movies"
+msgstr "Blockbuster / Top Filme"
 
 msgctxt "#30510"
-msgid ""
-msgstr ""
+msgid "IMDB rating"
+msgstr "IMDB-Bewertung"
 
 msgctxt "#30511"
 msgid "Series"
@@ -1053,11 +1053,23 @@ msgstr "Alle Serien"
 
 msgctxt "#30519"
 msgid "Popular Series"
-msgstr "Populäre Serien"
+msgstr "Beliebte Serien"
 
 msgctxt "#30520"
 msgid "Search"
 msgstr "Suche"
+
+msgctxt "#30521"
+msgid "Popular Movies"
+msgstr "Beliebte Filme"
+
+msgctxt "#30522"
+msgid "Popular Documentations"
+msgstr "Beliebte Dokumentationen"
+
+msgctxt "#30523"
+msgid "New Documentations"
+msgstr "Neue Dokumentationen"
 
 ############### Site Plugins ###############
 
@@ -1134,7 +1146,7 @@ msgid "KinoGer"
 msgstr ""
 
 msgctxt "#30718"
-msgid ""
+msgid "KinoKiste"
 msgstr ""
 
 msgctxt "#30719"

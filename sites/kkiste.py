@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
-# 2022.10.14 DWH
+# Python 3
+# Always pay attention to the translations in the menu!
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,12 +12,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://kkiste.network/'
+URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
-URL_FILME = URL_MAIN + 'kinofilme-online/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
-URL_DOKU = URL_MAIN + 'dokumentation/'
+
 
 
 def load():
@@ -27,14 +28,12 @@ def load():
     cGui().addFolder(cGuiElement('Neues', SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_KINO)
     cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_FILME)
+    params.setParam('sUrl', URL_NEW)
     cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_SERIEN)
     cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)    
     params.setParam('sUrl', URL_ANIMATION)
-    cGui().addFolder(cGuiElement('Animation', SITE_IDENTIFIER, 'showEntries'), params)    
-    params.setParam('sUrl', URL_DOKU)
-    cGui().addFolder(cGuiElement('Dokumentationen', SITE_IDENTIFIER, 'showEntries'), params)      
+    cGui().addFolder(cGuiElement('Animation', SITE_IDENTIFIER, 'showEntries'), params)         
     params.setParam('Value', 'Genres')
     cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
     params.setParam('Value', 'Release Jahre')
@@ -72,7 +71,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('subaction', 'search')
         oRequest.addParameters('story', sSearchText)
     sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':
+    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
         cConfig().setSetting('kkisteurl', oRequest.getRealUrl())
     pattern = 'class="short">.*?href="([^"]+)">([^<]+).*?img src="([^"]+).*?desc">([^<]+).*?Jahr.*?([\d]+).*?s-red">([\d]+)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
