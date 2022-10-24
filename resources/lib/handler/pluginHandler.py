@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # Muss komplett für die neue settings.xml umgeschrieben werden.
+# Zeile 52 deaktiviert die def __updateSettings
+# Ab Zeile 94 def __updateSettings muss überarbeitet werden
 
 from resources.lib.config import cConfig
 from resources.lib.tools import logger
@@ -49,8 +51,8 @@ class cPluginHandler:
         for id in deletions:
             del pluginDB[id]
         if update or deletions:
-            self.__updateSettings(pluginDB)
-            self.__updatePluginDB(pluginDB)
+            #self.__updateSettings(pluginDB) # Verursacht erstmal Fehler weil die def __updateSettings nicht überarbeitet ist !!!!
+            self.__updatePluginDB(pluginDB) # Erstellt PluginDB in Addon_data
         return self.getAvailablePluginsFromDB()
 
     def getAvailablePluginsFromDB(self):
