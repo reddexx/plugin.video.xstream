@@ -237,9 +237,7 @@ def devAutoUpdates(silent=False):
             status1 = xStreamUpdate(silent)
         if Addon().getSetting('githubUpdateResolver') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
             status2 = resolverUpdate(silent)
-        if status1 == status2:
-            return status1
-        elif status1 is False or status2 is False:
+        if status1 is False or status2 is False:
             return False
         elif (status1 is True or status2 is True) and (status1 is None or status2 is None):
             return True
