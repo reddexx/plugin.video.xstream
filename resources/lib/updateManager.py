@@ -230,27 +230,27 @@ def devUpdates():  # für manuelles Updates vorgesehen
     try:
         resolverupdate = False
         pluginupdate = False
-        sbranchxStream = cConfig().getSetting('xstream.branch')     # für zukünftige Branch Auswahl
-        sbranchResolver = cConfig().getSetting('resolver.branch')
+        sbranchxStream = Addon().getSettingString('xstream.branch')     # für zukünftige Branch Auswahl
+        sbranchResolver = Addon().getSettingString('resolver.branch')
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30155))
     
         # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
-        sbranchxStreams = [cConfig().getLocalizedString(30162), cConfig().getLocalizedString(30163)]
-        result = Dialog().select(cConfig().getLocalizedString(30164), sbranchxStreams)
-        
+        sbranchxStream = [cConfig().getLocalizedString(30162), cConfig().getLocalizedString(30163)]
+        result = Dialog().select(cConfig().getLocalizedString(30164), sbranchxStream)
+
         if result == 0:
-            sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'Release')   
+            sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'release')   
         elif result == 1:
-            sBranchxStreamNightly = Addon().setSetting('xstream.branch', 'Nightly')
+            sBranchxStreamNightly = Addon().setSetting('xstream.branch', 'nightly')
 
         # Abfrage ob ResolveURL Release oder Nightly Branch (kann erweitert werden)
-        sbranchResolvers = [cConfig().getLocalizedString(30165), cConfig().getLocalizedString(30166)]
-        result = Dialog().select(cConfig().getLocalizedString(30164), sbranchResolvers)        
+        sbranchResolver = [cConfig().getLocalizedString(30165), cConfig().getLocalizedString(30166)]
+        result = Dialog().select(cConfig().getLocalizedString(30164), sbranchResolver)        
         
         if result == 0:
-            sBranchResolverRelease = Addon().setSetting('resolver.branch', 'Release')    
+            sBranchResolverRelease = Addon().setSetting('resolver.branch', 'release')    
         elif result == 1:
-            sBranchResolverNightly = Addon().setSetting('resolver.branch', 'Nightly')
+            sBranchResolverNightly = Addon().setSetting('resolver.branch', 'nightly')
         
         # Abfrage welches Plugin aktualisiert werden soll (kann erweitert werden)
         options = [cConfig().getLocalizedString(30153), cConfig().getSetting('xstream.branch') + ' ' + cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), cConfig().getSetting('resolver.branch') + ' ' + cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
