@@ -1,29 +1,37 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 SITE_IDENTIFIER = 'movieking'
 SITE_NAME = 'MovieKing'
 SITE_ICON = 'movieking.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://movieking.cc/'
-URL_FILME = URL_MAIN + 'movies.html'
-URL_SEARCH = URL_MAIN + 'search?q=%s'
+URL_KINO = URL_MAIN + 'cinema'
+URL_MOVIES = URL_MAIN + 'movies.html'
 URL_YEAR = URL_MAIN + 'year.html'
+URL_SEARCH = URL_MAIN + 'search?q=%s'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    params.setParam('sUrl', URL_FILME)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showGenre'), params)
+    params.setParam('sUrl', URL_KINO)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema     
+    params.setParam('sUrl', URL_MOVIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies
     params.setParam('sUrl', URL_YEAR)
-    cGui().addFolder(cGuiElement('Jahr', SITE_IDENTIFIER, 'showGenre'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showGenre'), params)    # Release Year
+    params.setParam('sUrl', URL_MAIN)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showGenre'), params)    # Genre
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 

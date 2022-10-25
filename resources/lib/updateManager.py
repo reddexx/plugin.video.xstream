@@ -30,12 +30,7 @@ def resolverUpdate(silent=False):
     resolve_dir = 'snipsolver'
     resolve_id = 'script.module.resolveurl'
     # Abfrage aus den Einstellungen welcher Branch
-    sbranchResolver = cConfig().getSetting('resolver.branch')   # kann mit neuer settings ganz einfach mit id/label gesetzt werden     branch = Addon().getSettingString('resolver.branch')!
-    if sbranchResolver == 'Release':
-        sbranchResolver = 'release'
-    elif sbranchResolver == 'Nightly':
-        sbranchResolver = 'nightly'
-    branch = sbranchResolver
+    branch = Addon().getSettingString('resolver.branch')
     token = ''
 
     try:
@@ -50,12 +45,7 @@ def xStreamUpdate(silent=False):
     username = 'streamxstream'
     plugin_id = 'plugin.video.xstream'
     # Abfrage aus den Einstellungen welcher Branch
-    sbranchxStream = cConfig().getSetting('xstream.branch')   # kann mit neuer settings ganz einfach mit id/label gesetzt werden     branch = Addon().getSettingString('resolver.branch')!
-    if sbranchxStream == 'Release':
-        sbranchxStream = 'release'
-    elif sbranchxStream == 'Nightly':
-        sbranchxStream = 'nightly'
-    #branch = sbranchxStream    
+    #branch = Addon().getSettingString('xstream.branch')   
     branch = 'nexus'    # nexus wird beim release dieser Version dann zu nightly und kann dann somit raus ist jetzt zu Testzwecken drin!
     token = ''
     try:

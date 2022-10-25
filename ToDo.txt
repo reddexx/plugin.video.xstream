@@ -1,6 +1,6 @@
 Alle ToDos sind nicht debuggt es könnte also auch an Kodi 20 liegen!!!
 
-* Aufbau der neuen settings.xml
+
 * Plugin Handler.py für settings.xml überarbeiten
 * Hoster.py Auto Play Hoster wenn Übergabe an Resolver Link nicht verfügbar nächsten nehmen funktioniert nicht.
 * Hoster.py def Download defekt es ploppt die Tastatur auf
@@ -15,3 +15,9 @@ Alle ToDos sind nicht debuggt es könnte also auch an Kodi 20 liegen!!!
 	-	sAdult = cConfig().getSetting('showAdult')			# Adult An / Aus aus settings.xml daraus eine Standard def schreiben wie bei SITE_GLOBAL_SEARCH z.B.
 		params.setParam('sAdult', sAdult)
 	-	SITE_GLOBAL_SEARCH = False/True	
+	
+* Scraper
+	-	Kinoger Hoster .ru
+	- 	Cinemathek
+	-	Streamworld.in Serien
+	

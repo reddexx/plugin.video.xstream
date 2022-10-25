@@ -16,29 +16,27 @@ SITE_ICON = 'kkiste.png'
 URL_MAIN = 'https://kkiste.network/'
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
-URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
+URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
 
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Neues', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_KINO)
-    cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_NEW)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_SERIEN)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)    
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)  # New
+    params.setParam('sUrl', URL_KINO)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema  
     params.setParam('sUrl', URL_ANIMATION)
-    cGui().addFolder(cGuiElement('Animation', SITE_IDENTIFIER, 'showEntries'), params)         
-    params.setParam('Value', 'Genres')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30504), SITE_IDENTIFIER, 'showEntries'), params)  # Animated Films
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series  
     params.setParam('Value', 'Release Jahre')
-    cGui().addFolder(cGuiElement('Release Jahre', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showValue'), params)    # Release Year    
+    params.setParam('Value', 'Genres')
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 

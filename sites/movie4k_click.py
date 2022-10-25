@@ -1,39 +1,40 @@
 # -*- coding: utf-8 -*-
-
-# 2022.10.14 DWH
+# Python 3
+# Always pay attention to the translations in the menu!
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 SITE_IDENTIFIER = 'movie4k_click'
 SITE_NAME = 'Movie4k Click'
 SITE_ICON = 'movie4k_click.png'
-
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://movie4k.homes'
 URL_KINO = URL_MAIN + '/aktuelle-kinofilme-im-kino'
-URL_FILME = URL_MAIN + '/kinofilme-online'
-URL_SERIE = URL_MAIN + '/serienstream-deutsch'
+URL_MOVIES = URL_MAIN + '/kinofilme-online'
+URL_SERIES = URL_MAIN + '/serienstream-deutsch'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
     params.setParam('sUrl', URL_KINO)
-    cGui().addFolder(cGuiElement('Kino', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_FILME)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_SERIE)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sCont', 'Genre')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema  
+    params.setParam('sUrl', URL_MOVIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series
     params.setParam('sCont', 'Jahr')
-    cGui().addFolder(cGuiElement('Jahr', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showValue'), params)    # Release Year  
     params.setParam('sCont', 'Land')
-    cGui().addFolder(cGuiElement('Land', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30402), SITE_IDENTIFIER, 'showValue'), params)    # Countries
+    params.setParam('sCont', 'Genre')
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 
@@ -68,6 +69,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')
     sHtmlContent = oRequest.request()
+    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
+        cConfig().setSetting('movie4kurl', oRequest.getRealUrl())    
     pattern = 'movie-item.*?href="([^"]+).*?<h3>([^<]+).*?<ul><li>([^<]+).*?white">([^<]+).*?src="([^"]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:

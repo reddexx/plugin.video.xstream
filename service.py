@@ -9,6 +9,7 @@ import re
 import xbmc
 import xbmcaddon
 import xbmcgui
+from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
 from resources.lib.config import cConfig
 
@@ -17,7 +18,7 @@ AddonName = xbmcaddon.Addon().getAddonInfo('name')
 
 from xbmcvfs import translatePath
 # Pfad der update.sha
-NIGHTLY_UPDATE = os.path.join(translatePath(xbmcaddon.Addon().getAddonInfo('profile')), "update_sha")
+NIGHTLY_UPDATE = os.path.join(translatePath(Addon().getAddonInfo('profile')), "update_sha")
 # xStream Installationspfad
 ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s'))    
 
@@ -75,7 +76,7 @@ def checkDependence(ADDONID):
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
 
 
-if os.path.isfile(NIGHTLY_UPDATE) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true' or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
+if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true' or Addon().getSetting('githubUpdateResolver') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
     
 # Status Dialog der Auto Updates    
     from resources.lib import updateManager

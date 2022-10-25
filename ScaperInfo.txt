@@ -9,9 +9,6 @@ from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 
-
-
-
 SITE_IDENTIFIER = 				''
 SITE_NAME = 					''
 SITE_ICON = 					''
@@ -28,6 +25,8 @@ URL_LOGIN = URL_MAIN + 			''
 URL_ENGLISH = URL_MAIN + 		''
 URL_NEW = URL_MAIN + 			''
 URL_ANIMATION = URL_MAIN + 		''
+URL_DOKU = URL_MAIN + 			''
+
 
 usw....
 
