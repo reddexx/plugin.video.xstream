@@ -106,11 +106,7 @@ def Update(username, plugin_id, branch, token, silent):
     auth = HTTPBasicAuth(username, token)
     log(HEADERMESSAGE + ' - %s - Suche nach Aktualisierungen.' % plugin_id, LOGNOTICE)
     try:
-        if sys.version_info[0] == 2:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id).decode('utf-8')
-        else:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id)
-
+        ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id)
         LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")
         LOCAL_FILE_NAME_PLUGIN = os.path.join(ADDON_DIR, 'update-' + plugin_id + '.zip')
         if not os.path.exists(ADDON_DIR): os.mkdir(ADDON_DIR)
@@ -228,21 +224,6 @@ def zipfolder(foldername, target_dir):
             fn = os.path.join(base, file)
             zipobj.write(fn, fn[rootlen:])
     zipobj.close()
-
-
-def devAutoUpdates(silent=False):
-    try:
-        status1 = status2 = None
-        if Addon().getSetting('githubUpdateXstream') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
-            status1 = xStreamUpdate(silent)
-        if Addon().getSetting('githubUpdateResolver') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
-            status2 = resolverUpdate(silent)
-        if status1 is False or status2 is False:
-            return False
-        elif (status1 is True or status2 is True) and (status1 is None or status2 is None):
-            return True
-    except Exception as e:
-        log(e)
 
 
 def devUpdates():  # für manuelles Updates vorgesehen

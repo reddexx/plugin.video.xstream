@@ -9,6 +9,7 @@ import re
 import xbmc
 import xbmcaddon
 import xbmcgui
+
 from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
 from resources.lib.config import cConfig
@@ -76,16 +77,17 @@ def checkDependence(ADDONID):
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
 
 
-if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true' or Addon().getSetting('githubUpdateResolver') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
-    
-# Status Dialog der Auto Updates    
+if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true'  or Addon().getSetting('enforceUpdate') == 'true':
     from resources.lib import updateManager
     status1 = updateManager.xStreamUpdate(True)
-    status2 = updateManager.resolverUpdate(True)
     infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)
     if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
     if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
     if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
+if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateResolver') == 'true'  or Addon().getSetting('enforceUpdate') == 'true': 
+    from resources.lib import updateManager
+    status2 = updateManager.resolverUpdate(True)
+    infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)
     if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + cConfig().getLocalizedString(30116), sound=False, icon='INFO', time=6000)
     if status2 == False: infoDialog(cConfig().getLocalizedString(30117), sound=True, icon='ERROR')
     if status2 == None: infoDialog(cConfig().getLocalizedString(30118), sound=False, icon='INFO', time=6000)
