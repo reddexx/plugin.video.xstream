@@ -36,8 +36,8 @@
 	<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->		
 	<category label="30094">
 		<setting type="lsep" label="AniWorld" />
-        <setting default="true" type="bool" id="plugin_anicloud_io" label="30050" />
-        <setting default="true" type="bool" id="global_search_anicloud_io" label="30052" enable="!eq(-1,false)" />
+        <setting default="true" type="bool" id="plugin_aniworld_io" label="30050" />
+        <setting default="true" type="bool" id="global_search_aniworld_io" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
         <setting type="lsep" label="Dokus4" />
         <setting default="true" type="bool" id="plugin_dokus4" label="30050" />
@@ -158,8 +158,8 @@
 	</category> 
     <category label="30024">
 		<setting label="AniWorld" type="lsep" />
-		<setting default="" id="anicloud.user" label="30083" type="text" />
-		<setting default="" id="anicloud.pass" label="30084" option="hidden" type="text" />
+		<setting default="" id="aniworld.user" label="30083" type="text" />
+		<setting default="" id="aniworld.pass" label="30084" option="hidden" type="text" />
 		<setting type="sep" />
 		<setting label="Flimmerstube" type="lsep" />	
 		<setting id="flimmerstube.user" type="text" label="30083" default="" />

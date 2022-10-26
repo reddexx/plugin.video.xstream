@@ -170,29 +170,28 @@
 			</group>
 		</category>
 		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
-		<category id="indexsite1" label="30094" help="">		
+		<category id="indexsite1" label="30094">		
 			<group id="aniworld" label="30700">
-				<setting id="plugin_anicloud_io" type="boolean" label="30050" help="">
-					<level>0</level>
+				<setting id="plugin_aniworld" type="boolean" label="30050">
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_anicloud_io" type="boolean" label="30052" help="">
-					<level>0</level>
+				<setting id="global_search_aniworld" type="boolean" label="30052">
+					<level>0</level>				
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_anicloud_io">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_aniworld">False</dependency>
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>				
-			</group>
+			</group>	
 			<group id="dokus4" label="30701">
-				<setting id="plugin_dokus4" type="boolean" label="30050" help="">
+				<setting id="plugin_dokus4" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_dokus4" type="boolean" label="30052" help="">
+				<setting id="global_search_dokus4" type="boolean" label="30052">
 					<level>0</level>
 					<default>False</default>
 					<dependencies>
@@ -202,12 +201,12 @@
 				</setting>				
 			</group>			
 			<group id="filmpalast" label="30702">
-				<setting id="plugin_filmpalast_to" type="boolean" label="30050" help="">
+				<setting id="plugin_filmpalast_to" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_filmpalast_to" type="boolean" label="30052" help="">
+				<setting id="global_search_filmpalast_to" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -217,12 +216,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_flimmerstube" label="30703">
-				<setting id="plugin_flimmerstube" type="boolean" label="30050" help="">
+				<setting id="plugin_flimmerstube" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_flimmerstube" type="boolean" label="30052" help="">
+				<setting id="global_search_flimmerstube" type="boolean" label="30052">
 					<level>0</level>
 					<default>False</default>
 					<dependencies>
@@ -232,12 +231,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_hdfilme_top" label="30704">
-				<setting id="plugin_hdfilme_top" type="boolean" label="30050" help="">
+				<setting id="plugin_hdfilme_top" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_hdfilme_top" type="boolean" label="30052" help="">
+				<setting id="global_search_hdfilme_top" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -247,12 +246,12 @@
 				</setting>					
 			</group>
 			<group id="plugin_kinofox" label="30705">
-				<setting id="plugin_kinofox" type="boolean" label="30050" help="">
+				<setting id="plugin_kinofox" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kinofox" type="boolean" label="30052" help="">
+				<setting id="global_search_kinofox" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -262,12 +261,12 @@
 				</setting>					
 			</group>
 			<group id="plugin_kinoger" label="30717">
-				<setting id="plugin_kinoger" type="boolean" label="30050" help="">
+				<setting id="plugin_kinoger" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kinoger" type="boolean" label="30052" help="">
+				<setting id="global_search_kinoger" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -275,7 +274,7 @@
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>
-				<setting id="kinoger-domain" type="string" label="30051" help="">
+				<setting id="kinoger-domain" type="string" label="30051">
 					<level>0</level>
 					<default>kinoger.com</default>
 					<constraints>
@@ -292,12 +291,12 @@
 				</setting>					
 			</group>			
 			<group id="plugin_kinokiste_tech" label="30706">
-				<setting id="plugin_kinokiste_tech" type="boolean" label="30050" help="">
+				<setting id="plugin_kinokiste_tech" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kinokiste_tech" type="boolean" label="30052" help="">
+				<setting id="global_search_kinokiste_tech" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -307,12 +306,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_kinomax" label="30707">
-				<setting id="plugin_kinomax" type="boolean" label="30050" help="">
+				<setting id="plugin_kinomax" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kinomax" type="boolean" label="30052" help="">
+				<setting id="global_search_kinomax" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -323,14 +322,14 @@
 			</group>
 		</category>
 		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
-		<category id="indexsite2" label="30095" help="">			
+		<category id="indexsite2" label="30095">			
 			<group id="plugin_kinox_to" label="30708">
-				<setting id="plugin_kinox_to" type="boolean" label="30050" help="">
+				<setting id="plugin_kinox_to" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kinox_to" type="boolean" label="30052" help="">
+				<setting id="global_search_kinox_to" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -340,12 +339,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_kkiste" label="30709">
-				<setting id="plugin_kkiste" type="boolean" label="30050" help="">
+				<setting id="plugin_kkiste" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kkiste" type="boolean" label="30052" help="">
+				<setting id="global_search_kkiste" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -355,12 +354,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_megakino" label="30710">
-				<setting id="plugin_megakino" type="boolean" label="30050" help="">
+				<setting id="plugin_megakino" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_megakino" type="boolean" label="30052" help="">
+				<setting id="global_search_megakino" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -370,12 +369,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_movie4k_click" label="30711">
-				<setting id="plugin_movie4k_click" type="boolean" label="30050" help="">
+				<setting id="plugin_movie4k_click" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_movie4k_click" type="boolean" label="30052" help="">
+				<setting id="global_search_movie4k_click" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -385,12 +384,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_movieking" label="30712">
-				<setting id="plugin_movieking" type="boolean" label="30050" help="">
+				<setting id="plugin_movieking" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_movieking" type="boolean" label="30052" help="">
+				<setting id="global_search_movieking" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -400,12 +399,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_netzkino" label="30713">
-				<setting id="plugin_netzkino" type="boolean" label="30050" help="">
+				<setting id="plugin_netzkino" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_netzkino" type="boolean" label="30052" help="">
+				<setting id="global_search_netzkino" type="boolean" label="30052">
 					<level>0</level>
 					<default>False</default>
 					<dependencies>
@@ -415,12 +414,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_serienstream_to" label="30714">
-				<setting id="plugin_serienstream_to" type="boolean" label="30050" help="">
+				<setting id="plugin_serienstream_to" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_serienstream_to" type="boolean" label="30052" help="">
+				<setting id="global_search_serienstream_to" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -428,7 +427,7 @@
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>
-				<setting id="serienstream_to-domain" type="string" label="30051" help="">
+				<setting id="serienstream_to-domain" type="string" label="30051">
 					<level>0</level>
 					<default>190.115.18.20</default>
 					<constraints>
@@ -447,12 +446,12 @@
 				</setting>	
 			</group>
 			<group id="plugin_streamworld" label="30715">
-				<setting id="plugin_streamworld" type="boolean" label="30050" help="">
+				<setting id="plugin_streamworld" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_streamworld" type="boolean" label="30052" help="">
+				<setting id="global_search_streamworld" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -462,12 +461,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_xcine_top" label="30716">
-				<setting id="plugin_xcine_top" type="boolean" label="30050" help="">
+				<setting id="plugin_xcine_top" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_xcine_top" type="boolean" label="30052" help="">
+				<setting id="global_search_xcine_top" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -477,12 +476,12 @@
 				</setting>				
 			</group>
 			<group id="plugin_xcine_top" label="30717">
-				<setting id="plugin_xcine_top" type="boolean" label="30050" help="">
+				<setting id="plugin_xcine_top" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_xcine_top" type="boolean" label="30052" help="">
+				<setting id="global_search_xcine_top" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
@@ -883,7 +882,7 @@
 		</category>
 		<category id="account" label="30024" help="">			
 			<group id="aniworldacc" label="30700">
-				<setting id="anicloud.user" type="string" label="30083" help="">
+				<setting id="aniworld.user" type="string" label="30083" help="">
 					<level>0</level>
 					<default/>
 					<constraints>
@@ -893,7 +892,7 @@
 						<heading>30083</heading>
 					</control>
 				</setting>				
-				<setting id="anicloud.pass" type="string" label="30084" help="">
+				<setting id="aniworld.pass" type="string" label="30084" help="">
 					<level>0</level>
 					<default/>
 					<constraints>

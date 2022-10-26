@@ -48,7 +48,7 @@ msgid "Pre-validate and sort hosterlist (slow on weak systems)"
 msgstr ""
 
 msgctxt "#30010"
-msgid "Enable automatic xStream Nightly Update"
+msgid "Enable automatic xStream Update"
 msgstr ""
 
 msgctxt "#30011"

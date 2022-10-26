@@ -190,7 +190,7 @@ def doUpdate(LocalDir, REMOTE_PATH, Title, localFileName, auth):
 
 
 def removeFilesNotInRepo(updateFile, LocalDir):
-    ignored_files = ['settings.xml', 'anicloud.py', 'anicloud.png']
+    ignored_files = ['settings.xml', 'aniworld.py', 'aniworld.png']
     updateFileNameList = [i.split("/")[-1] for i in updateFile.namelist()]
 
     for root, dirs, files in os.walk(LocalDir):

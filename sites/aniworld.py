@@ -13,9 +13,9 @@ from resources.lib.gui.gui import cGui
 from resources.lib.jsnprotect import cHelper
 
 
-SITE_IDENTIFIER = 'anicloud_io'
+SITE_IDENTIFIER = 'aniworld'
 SITE_NAME = 'AniWorld'
-SITE_ICON = 'anicloud.png'
+SITE_ICON = 'aniworld.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://aniworld.to/'
 URL_SERIES = URL_MAIN + '/animes'
@@ -26,8 +26,8 @@ URL_LOGIN = URL_MAIN + '/login'
 def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    username = cConfig().getSetting('anicloud.user')    # Username
-    password = cConfig().getSetting('anicloud.pass')    # Password
+    username = cConfig().getSetting('aniworld.user')    # Username
+    password = cConfig().getSetting('aniworld.pass')    # Password
     if username == '' or password == '':                # If no username and password were set, close the plugin!
         xbmcgui.Dialog().ok(cConfig().getLocalizedString(30241), cConfig().getLocalizedString(30263))   # Info Dialog!
     else:
@@ -230,8 +230,8 @@ def showHosters():
 
 
 def getHosterUrl(sUrl=False):
-    username = cConfig().getSetting('anicloud.user')
-    password = cConfig().getSetting('anicloud.pass')
+    username = cConfig().getSetting('aniworld.user')
+    password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
     Handler.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Handler.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))

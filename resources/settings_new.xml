@@ -172,16 +172,16 @@
 		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
 		<category id="indexsite1" label="30094" help="">		
 			<group id="aniworld" label="30700">
-				<setting id="plugin_anicloud_io" type="boolean" label="30050" help="">
+				<setting id="plugin_aniworld_io" type="boolean" label="30050" help="">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_anicloud_io" type="boolean" label="30052" help="">
+				<setting id="global_search_aniworld_io" type="boolean" label="30052" help="">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_anicloud_io">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_aniworld_io">False</dependency>
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>				
@@ -883,7 +883,7 @@
 		</category>
 		<category id="account" label="30024" help="">			
 			<group id="aniworldacc" label="30700">
-				<setting id="anicloud.user" type="string" label="30083" help="">
+				<setting id="aniworld.user" type="string" label="30083" help="">
 					<level>0</level>
 					<default/>
 					<constraints>
@@ -893,7 +893,7 @@
 						<heading>30083</heading>
 					</control>
 				</setting>				
-				<setting id="anicloud.pass" type="string" label="30084" help="">
+				<setting id="aniworld.pass" type="string" label="30084" help="">
 					<level>0</level>
 					<default/>
 					<constraints>
