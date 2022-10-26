@@ -1,6 +1,7 @@
 3.5.36~nightly10
   22.10.22
   -[HDFilme]		Domain Update
+  -fix service.py Update xS fixed
   
 3.5.36~nightly9
   15.10.22

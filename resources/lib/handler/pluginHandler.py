@@ -124,12 +124,12 @@ class cPluginHandler:
             for pluginID in index:
                 plugin = pluginData[pluginID]
                 subEl = ET.SubElement(pluginElem, 'setting', {'type': 'lsep', 'label': plugin['name']})
-                subEl.tail = '\n    '
+                subEl.tail = '\n        '
                 attrib = {'default': 'true', 'type': 'bool'}
                 attrib['id'] = 'plugin_%s' % pluginID
                 attrib['label'] = '30050'
                 subEl = ET.SubElement(pluginElem, 'setting', attrib)
-                subEl.tail = '\n    '
+                subEl.tail = '\n        '
                 #Prüfen ob der Parameter SITE_GLOBAL_SEARCH auf False steht, wenn ja, ausblenden
                 if plugin['globalsearch'] == False :
                     attrib = {'default': str(plugin['globalsearch']).lower(), 'type': 'bool'}
@@ -137,14 +137,14 @@ class cPluginHandler:
                     attrib['label'] = '30052'
                     attrib['visible'] = 'eq(-1,false)'
                     subEl = ET.SubElement(pluginElem, 'setting', attrib)
-                    subEl.tail = '\n    '
+                    subEl.tail = '\n        '
                 else:
                     attrib = {'default': str(plugin['globalsearch']).lower(), 'type': 'bool'}
                     attrib['id'] = 'global_search_%s' % pluginID
                     attrib['label'] = '30052'
                     attrib['enable'] = '!eq(-1,false)'
                     subEl = ET.SubElement(pluginElem, 'setting', attrib)
-                    subEl.tail = '\n    '
+                    subEl.tail = '\n        '
 
                 if 'settings' in plugin:
                     customSettings = []
@@ -153,11 +153,11 @@ class cPluginHandler:
                     except Exception:
                         logger.error('Parsing of custom settings for % failed.' % plugin['name'])
                     for setting in customSettings:
-                        setting.tail = '\n    '
+                        setting.tail = '\n        '
                         pluginElem.append(setting)
                 subEl = ET.SubElement(pluginElem, 'setting', {'type': 'sep'})
-                subEl.tail = '\n    '
-            pluginElements = pluginElem.findall('setting')[-1].tail = '\n'
+                subEl.tail = '\n        '
+            pluginElements = pluginElem.findall('setting')[-1].tail = '\n    '
             try:
                 ET.dump(pluginElem)
             except Exception:
