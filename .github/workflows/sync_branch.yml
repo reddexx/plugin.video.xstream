@@ -14,5 +14,5 @@ jobs:
         with:
           type: now
           from_branch: nightly
-          target_branch: release
+          target_branch: matrix
           github_token: ${{ github.token }}
