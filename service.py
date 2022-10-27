@@ -68,22 +68,25 @@ def checkDependence(ADDONID):
                 pass
     except Exception as e:
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
-
-# check if Autoupdate is activated before installing updates
-if xbmcaddon.Addon().getSetting('DevUpdateAuto') == 'true' or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
-    if os.path.isfile(NIGHTLY_VERSION_CONTROL) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true' or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true':
-# Status Dialog der Auto Updates    
-        from resources.lib import updateManager
-        status1 = updateManager.xStreamUpdate(True)
-        status2 = updateManager.resolverUpdate(True)
-        infoDialog("Suche nach Updates ...", sound=False, icon='INFO', time=10000)
-        if status1 == True: infoDialog('xStream Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
-        if status1 == False: infoDialog('xStream Update mit Fehlern beendet.', sound=True, icon='ERROR')
-        if status1 == None: infoDialog('Kein xStream Update verfügbar.', sound=False, icon='INFO', time=6000)
-        if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + ' Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
-        if status2 == False: infoDialog('Resolver Update mit Fehlern beendet.', sound=True, icon='ERROR')
-        if status2 == None: infoDialog('Kein Resolver Update verfügbar.', sound=False, icon='INFO', time=6000)
-        if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
+# Abfrage xStream Auto Update
+if os.path.isfile(NIGHTLY_VERSION_CONTROL) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true'  or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
+    from resources.lib import updateManager
+    status1 = updateManager.xStreamUpdate(True)
+    # xStream Status Update
+    infoDialog("Suche nach Updates ...", sound=False, icon='INFO', time=10000)
+    if status1 == True: infoDialog('xStream Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
+    if status1 == False: infoDialog('xStream Update mit Fehlern beendet.', sound=True, icon='ERROR')
+    if status1 == None: infoDialog('Kein xStream Update verfügbar.', sound=False, icon='INFO', time=6000) 
+# Abfrage Resolver Auto Update    
+if os.path.isfile(NIGHTLY_VERSION_CONTROL) == False or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true'  or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': 
+    from resources.lib import updateManager
+    status2 = updateManager.resolverUpdate(True)
+    # Resolver Status Update    
+    infoDialog("Suche nach Updates ...", sound=False, icon='INFO', time=10000)
+    if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + ' Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
+    if status2 == False: infoDialog('Resolver Update mit Fehlern beendet.', sound=True, icon='ERROR')
+    if status2 == None: infoDialog('Kein Resolver Update verfügbar.', sound=False, icon='INFO', time=6000)
+    if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
 
 # "setting.xml" wenn notwendig Indexseiten aktualisieren
 try:
