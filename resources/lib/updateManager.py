@@ -46,7 +46,7 @@ def resolverUpdate(silent=False):
 def xStreamUpdate(silent=False):
     username = 'streamxstream'
     plugin_id = 'plugin.video.xstream'
-    branch = 'nightly'
+    branch = 'leia'
     token = ''
     try:
         return Update(username, plugin_id, branch, token, silent)
