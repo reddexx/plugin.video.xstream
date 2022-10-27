@@ -45,8 +45,7 @@ def xStreamUpdate(silent=False):
     username = 'streamxstream'
     plugin_id = 'plugin.video.xstream'
     # Abfrage aus den Einstellungen welcher Branch
-    #branch = Addon().getSettingString('xstream.branch')   
-    branch = 'nexus'    # nexus wird beim release dieser Version dann zu nightly und kann dann somit raus ist jetzt zu Testzwecken drin!
+    branch = Addon().getSettingString('xstream.branch')   
     token = ''
     try:
         return Update(username, plugin_id, branch, token, silent)

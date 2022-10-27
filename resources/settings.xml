@@ -13,7 +13,7 @@
 					<default>release</default>
 					<constraints>
 						<options>
-							<option label="Release">release</option>
+							<option label="Release">nexus</option>
 							<option label="Nightly">nightly</option>
 						</options>
 					</constraints>
