@@ -10,7 +10,7 @@
 				</setting>
 				<setting id="xstream.branch" type="string" label="30167" help="30173">
 					<level>0</level>
-					<default>release</default>
+					<default>nexus</default>
 					<constraints>
 						<options>
 							<option label="Release">nexus</option>
