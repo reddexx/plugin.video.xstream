@@ -11,6 +11,7 @@ import string
 import sys
 import hashlib
 import re
+import platform
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib import common
@@ -22,39 +23,12 @@ from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
 from html.entities import name2codepoint
 
 
-def platform(): # Aufgeführte Plattformen
-    if xbmc.getCondVisibility('system.platform.android'):
-        return 'Android'
-    elif xbmc.getCondVisibility('system.platform.linux'):
-        return 'Linux'
-    elif xbmc.getCondVisibility('system.platform.linux.Raspberrypi'):
-        return 'Linux/RPi'
-    elif xbmc.getCondVisibility('system.platform.windows'):
-        return 'Windows'
-    elif xbmc.getCondVisibility('system.platform.uwp'):
-        return 'Windows UWP'      
-    elif xbmc.getCondVisibility('system.platform.osx'):
-        return 'OSX'
-    elif xbmc.getCondVisibility('system.platform.atv2'):
-        return 'ATV2'
-    elif xbmc.getCondVisibility('system.platform.ios'):
-        return 'iOS'
-    elif xbmc.getCondVisibility('system.platform.darwin'):
-        return 'iOS'
-    elif xbmc.getCondVisibility('system.platform.xbox'):
-        return 'XBOX'
-    elif xbmc.getCondVisibility('System.HasAddon(service.coreelec.settings)'):
-        return "CoreElec"
-    elif xbmc.getCondVisibility('System.HasAddon(service.libreelec.settings)'):
-        return "LibreElec"
-    elif xbmc.getCondVisibility('System.HasAddon(service.osmc.settings)'):
-        return "OSMC"        
-        
-
 def pluginInfo():
     BUILD = (xbmc.getInfoLabel('System.BuildVersion')[:4])
     BUILDCODE = xbmc.getInfoLabel('System.BuildVersionCode')
-    SYS_FORM = cConfig().getLocalizedString(30266) 
+    SYS_FORM = cConfig().getLocalizedString(30266)
+    import platform
+    MY_SYS = platform.system()
     PLUGIN_NAME = Addon().getAddonInfo('name')
     PLUGIN_ID = Addon().getAddonInfo('id')
     PLUGIN_VERSION = Addon().getAddonInfo('version')
@@ -62,7 +36,7 @@ def pluginInfo():
     RESOLVER_ID = Addon('script.module.resolveurl').getAddonInfo('id')
     RESOLVER_VERSION = Addon('script.module.resolveurl').getAddonInfo('version')
 
-    Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '        {0}'.format (platform().title()) + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n')
+    Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '         ' + MY_SYS + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n')
 
  
 class cParser:

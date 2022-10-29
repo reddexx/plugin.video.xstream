@@ -930,7 +930,7 @@ msgid "xStream Support Information"
 msgstr ""
 
 msgctxt "#30266"
-msgid "System platform:"
+msgid "System platform: "
 msgstr ""
 
 msgctxt "#30267"
