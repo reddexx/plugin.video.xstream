@@ -926,10 +926,16 @@ msgid "[COLOR red]This page requires a free user account. Please register at htt
 msgstr ""
 
 msgctxt "#30265"
-msgid ""
+msgid "xStream Support Information"
 msgstr ""
 
+msgctxt "#30266"
+msgid "System platform:"
+msgstr ""
 
+msgctxt "#30267"
+msgid "View support information"
+msgstr ""
 
 
 

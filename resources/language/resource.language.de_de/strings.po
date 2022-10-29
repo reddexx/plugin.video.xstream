@@ -925,15 +925,16 @@ msgid "[COLOR red]This page requires a free user account. Please register at htt
 msgstr "[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://s.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]"
 
 msgctxt "#30265"
-msgid ""
-msgstr ""
+msgid "xStream Support Information"
+msgstr "xStream Supportinformationen"
 
+msgctxt "#30266"
+msgid "System platform:"
+msgstr "System Plattform:"
 
-
-
-
-
-
+msgctxt "#30267"
+msgid "View support information"
+msgstr "Support Information anzeigen"
 
 
 

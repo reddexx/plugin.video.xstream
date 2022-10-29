@@ -1,15 +1,7 @@
 Alle ToDos sind nicht debuggt es könnte also auch an Kodi 20 liegen!!!
 
 * Plugin Handler.py für settings.xml überarbeiten
-* Einbau in Indexseiten
-	-	sLanguage = cConfig().getSetting('prefLanguage')	# Sprachauswahl aus settings.xml daraus eine Standard def schreiben
-		params.setParam('sLanguage', sLanguage)
-	-	sQuality = cConfig().getSetting('preferedQuality')	# Qualitätsauswahl aus settings.xml daraus eine Standard def schreiben
-		params.setParam('sQuality', sQuality)
-	-	sAdult = cConfig().getSetting('showAdult')			# Adult An / Aus aus settings.xml daraus eine Standard def schreiben wie bei SITE_GLOBAL_SEARCH z.B.
-		params.setParam('sAdult', sAdult)
-
-	
+* Cloudflare Scraper einbauen
 * Scraper
 	-	Kinoger Hoster .ru
 	- 	Cinemathek

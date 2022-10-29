@@ -14,6 +14,7 @@ from resources.lib.tools import logger
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
+from resources.lib import tools
 
 try:
     import resolveurl as resolver
@@ -61,6 +62,10 @@ def parseUrl():
             from resources.lib import updateManager
             updateManager.devUpdates()
             return
+        elif sFunction == 'pluginInfo':
+            from resources.lib import tools
+            tools.pluginInfo()
+            return    
     elif params.exist('remoteplayurl'):
         try:
             remotePlayUrl = params.getValue('remoteplayurl')
@@ -116,6 +121,10 @@ def parseUrl():
     elif sSiteName == 'devUpdates':
         from resources.lib import updateManager
         updateManager.devUpdates()
+    # Plugin Infos    
+    elif sSiteName == 'pluginInfo':
+        tools.pluginInfo()
+    # Unterordner der Einstellungen   
     elif sSiteName == 'settings':
         oGui = cGui()
         for folder in settingsGuiElements():
@@ -168,6 +177,16 @@ def showMainMenu(sFunction):
 
 
 def settingsGuiElements():
+    # GUI Plugin Informationen
+    from resources.lib import updateManager
+    oGuiElement = cGuiElement()
+    oGuiElement.setTitle(cConfig().getLocalizedString(30267))
+    oGuiElement.setSiteName('pluginInfo')
+    oGuiElement.setFunction('pluginInfo')
+    oGuiElement.setThumbnail('DefaultInfo.png')
+    PluginInfo = oGuiElement
+
+
     # GUI xStream Einstellungen
     oGuiElement = cGuiElement()
     oGuiElement.setTitle(cConfig().getLocalizedString(30042))
@@ -190,8 +209,8 @@ def settingsGuiElements():
     oGuiElement.setSiteName('devUpdates')
     oGuiElement.setFunction('devUpdates')
     oGuiElement.setThumbnail('DefaultNetwork.png')
-    DevUpdateMan = oGuiElement       
-    return xStreamSettings, resolveurlSettings, DevUpdateMan
+    DevUpdateMan = oGuiElement 
+    return PluginInfo, xStreamSettings, resolveurlSettings, DevUpdateMan
 
 
 def globalSearchGuiElement():

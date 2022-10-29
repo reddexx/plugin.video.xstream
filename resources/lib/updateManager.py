@@ -224,7 +224,7 @@ def zipfolder(foldername, target_dir):
             zipobj.write(fn, fn[rootlen:])
     zipobj.close()
 
-
+    
 def devUpdates():  # für manuelles Updates vorgesehen
     try:
         resolverupdate = False
