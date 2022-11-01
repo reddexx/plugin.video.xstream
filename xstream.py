@@ -183,7 +183,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30267))
     oGuiElement.setSiteName('pluginInfo')
     oGuiElement.setFunction('pluginInfo')
-    oGuiElement.setThumbnail('DefaultInfo.png')
+    oGuiElement.setThumbnail('defaultaddoninfoprovider.png')
     PluginInfo = oGuiElement
 
 
@@ -192,7 +192,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30042))
     oGuiElement.setSiteName('xStream')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('DefaultAddonService.png')
+    oGuiElement.setThumbnail('defaultaddonservice.png')
     xStreamSettings = oGuiElement
 
     # GUI Resolver Einstellungen
@@ -200,7 +200,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30043))
     oGuiElement.setSiteName('resolver')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('DefaultAddonService.png')
+    oGuiElement.setThumbnail('defaultaddonservice.png')
     resolveurlSettings = oGuiElement
     
     # GUI Nightly Updatemanager
@@ -208,7 +208,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30121))
     oGuiElement.setSiteName('devUpdates')
     oGuiElement.setFunction('devUpdates')
-    oGuiElement.setThumbnail('DefaultNetwork.png')
+    oGuiElement.setThumbnail('defaultnetwork.png')
     DevUpdateMan = oGuiElement 
     return PluginInfo, xStreamSettings, resolveurlSettings, DevUpdateMan
 
