@@ -63,7 +63,7 @@ class cGui:
             pass
 
         listitem = self.createListItem(oGuiElement)
-        if not bIsFolder and cConfig().getSetting('hosterSelect') == cConfig().getLocalizedString(30131):
+        if not bIsFolder and cConfig().getSetting('hosterSelect') == 'List':
             bIsFolder = True
         if isHoster:
             bIsFolder = False

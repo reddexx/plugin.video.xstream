@@ -263,7 +263,7 @@ class cHosterGui:
             # self.dialog.close()
             if len(siteResult) > self.maxHoster:
                 siteResult = siteResult[:self.maxHoster - 1]
-            if cConfig().getSetting('hosterSelect') == cConfig().getLocalizedString(30131):
+            if cConfig().getSetting('hosterSelect') == 'List':
                 self.showHosterFolder(siteResult, siteName, functionName)
                 return
             if len(siteResult) > 1:
