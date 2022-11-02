@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Python 3
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.12
 
 import sys
 import os
@@ -76,7 +75,7 @@ def checkDependence(ADDONID):
     except Exception as e:
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
 
-
+# Starte xStream Update wenn auf Github verfügbar
 if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true'  or Addon().getSetting('enforceUpdate') == 'true':
     from resources.lib import updateManager
     status1 = updateManager.xStreamUpdate(True)
@@ -84,6 +83,7 @@ if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXs
     if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
     if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
     if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
+# Starte Resolver Update wenn auf Github verfügbar    
 if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateResolver') == 'true'  or Addon().getSetting('enforceUpdate') == 'true': 
     from resources.lib import updateManager
     status2 = updateManager.resolverUpdate(True)

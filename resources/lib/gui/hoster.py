@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.13
-# ToDo Auto Play Hoster wenn Übergabe an Resolver Link nicht verfügbar nächsten nehmen funktioniert nicht.
-
 import xbmc
 import xbmcgui 
 import xbmcplugin

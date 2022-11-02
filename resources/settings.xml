@@ -352,21 +352,6 @@
 					<control type="toggle"/>					
 				</setting>				
 			</group>
-			<group id="plugin_megakino" label="30710">
-				<setting id="plugin_megakino" type="boolean" label="30050">
-					<level>0</level>
-					<default>True</default>
-					<control type="toggle"/>					
-				</setting>
-				<setting id="global_search_megakino" type="boolean" label="30052">
-					<level>0</level>
-					<default>True</default>
-					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_megakino">False</dependency>
-					</dependencies>	
-					<control type="toggle"/>					
-				</setting>				
-			</group>
 			<group id="plugin_movie4k_click" label="30711">
 				<setting id="plugin_movie4k_click" type="boolean" label="30050">
 					<level>0</level>

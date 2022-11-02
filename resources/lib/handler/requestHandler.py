@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.22
-
 import io
 import gzip
 import time

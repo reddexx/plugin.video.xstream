@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.12
-
 from xstream import run
 from os.path import join
 from sys import path

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Check DWH 2022.10.15
-
 import xbmc
 from resources.lib.gui.gui import cGui
 from resources.lib.tools import logger

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Check DWH 2022.10.20
-
 import json
 import re
 

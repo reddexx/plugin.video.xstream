@@ -1,3 +1,18 @@
-4.0.0~nightly1
+4.0.0
 
-- Initial Release Python 3 Kodi Nexus
+02.11.2022
+ - [Megakino]			deaktiviert
+
+01.11.2022
+ - Initial Release Python 3 Kodi 19/20
+ - Source Code from 3.5.36~nightly10 by Anis / xStream Team
+ - PY3 Überarbeitung
+ - Vollständige Übersetzung Deutsch / English bis ins Menü der Scraper
+ - Update Funktion überarbeitet
+ - Service überarbeitet
+ - Update Status überarbeitet
+ - Bei dektivierten Auto Updates wird automatisch der manuelle Updater mit bei den Einstellungen untergeordnet
+ - Manueller Updater überarbeitet mit branch Auswahl in den Einstellungen
+ - TMDB Spachauswahl hinzugefügt
+ - Neue settings.xml PY3 konform erstellt
+ - Support Informationen in den Einstellungen

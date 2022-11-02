@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
-#
+# Python 3
 # Muss komplett für die neue settings.xml umgeschrieben werden.
-# Zeile 52 deaktiviert die def __updateSettings
-# Ab Zeile 94 def __updateSettings muss überarbeitet werden
+# Zeile 57 deaktiviert die def __updateSettings
+# Ab Zeile 97 def __updateSettings muss überarbeitet werden
+
+import json
+import os
+import sys
 
 from resources.lib.config import cConfig
 from resources.lib.tools import logger
 from resources.lib import common
-import json, os, sys
 
 
 class cPluginHandler:

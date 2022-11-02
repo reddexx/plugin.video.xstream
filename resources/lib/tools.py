@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Check DWH 2022.10.20
-
 import xbmc
 import xbmcaddon
 import xbmcgui
@@ -23,7 +21,7 @@ from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
 from html.entities import name2codepoint
 
 
-def platform(): # Aufgeführte Plattformen
+def platform(): # Aufgeführte Plattformen zum Anzeigen der Systemplattform
     if xbmc.getCondVisibility('system.platform.android'):
         return 'Android'
     elif xbmc.getCondVisibility('system.platform.linux'):
@@ -52,7 +50,7 @@ def platform(): # Aufgeführte Plattformen
         return "OSMC"        
         
 
-def pluginInfo():
+def pluginInfo(): # Plugin Support Informationen
     BUILD = (xbmc.getInfoLabel('System.BuildVersion')[:4])
     BUILDCODE = xbmc.getInfoLabel('System.BuildVersionCode')
     SYS_FORM = cConfig().getLocalizedString(30266) 

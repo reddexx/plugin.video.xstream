@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.22
-
-import hashlib, hmac, json, time, base64
+import hashlib, 
+import hmac
+import json
+import time
+import base64
 import requests
 
 from resources.lib import pyaes

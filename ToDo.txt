@@ -1,9 +1,7 @@
-Alle ToDos sind nicht debuggt es könnte also auch an Kodi 20 liegen!!!
-
-* Plugin Handler.py für settings.xml überarbeiten
+* Plugin Handler.py für neue settings.xml überarbeiten Definition im PluginHandler derzeit deaktiviert
 * Cloudflare Scraper einbauen
 * Scraper
-	-	Kinoger Hoster .ru
+	-	Kinoger Hoster .ru , Csst
 	- 	Cinemathek
 	-	Streamworld.in Serien
 	

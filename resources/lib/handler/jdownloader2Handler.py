@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.22
-
 import re
+
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from resources.lib.tools import logger
