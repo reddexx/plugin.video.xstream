@@ -1,3 +1,8 @@
+
+3.5.37
+  02.11.22
+  - [Megakino]		deaktiviert
+
 3.5.36
   27.10.22
   - [PY2]			Abschluss! Die PY2/3 Version wird für Kodi nicht mehr als Nightly verfügbar sein und eingestellt!
