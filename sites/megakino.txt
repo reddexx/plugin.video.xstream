@@ -11,7 +11,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'megakino'
 SITE_NAME = 'Megakino'
 SITE_ICON = 'megakino.png'
-URL_MAIN = 'https://megakino.co/'
+URL_MAIN = 'https://megakino.eu/'
 URL_KINO = URL_MAIN + 'kinofilme/'
 URL_FILME = URL_MAIN + 'films/'
 URL_SERIEN = URL_MAIN + 'serials/'
