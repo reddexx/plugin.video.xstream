@@ -419,7 +419,7 @@
 							<option label="s.to">s.to</option>
 							<option label="serienstream.to">serienstream.to</option>
 							<option label="serien.cam">serien.cam</option>
-							<option label="190.115.18.20">190.115.18.20</option>
+							<option label="Proxy Server">190.115.18.20</option>
 						</options>	
 					<dependencies>
 						<dependency type="enable" operator="!is" setting="plugin_serienstream_to">False</dependency>

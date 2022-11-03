@@ -16,3 +16,4 @@
  - TMDB Spachauswahl hinzugefügt
  - Neue settings.xml PY3 konform erstellt
  - Support Informationen in den Einstellungen
+ - Infomeldung bei SitePlugins mit Kontodaten wenn keine eingetragen sind
