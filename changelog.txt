@@ -1,63 +1,27 @@
-3.5.36~nightly11
+
+3.5.36
   02.11.22
-  -[megakino]		deaktiviert
-
-3.5.36~nightly10
-  22.10.22
-  -[HDFilme]		Domain Update
-  -fix service.py Update xS fixed
-  
-3.5.36~nightly9
-  15.10.22
-  -[Kinoger]		Fix Streamsb
-  
-3.5.36~nightly8
-  14.10.22
-  -[KinoKiste.Tech]	Domain Fix für Suchfunktion
-					Qualität Anzeige aus der Webseite hinzugefügt
-					Demnächst im Kino entfernt
-					Filme für Kinder hinzugefügt
-  -[MegaKino] 		Regex überarbeitet
-					Qualität Anzeige aus der Webseite hinzugefügt
-					Dokumentationen hinzugefügt
-  -[Kinofox] 		Qualität Anzeige aus der Webseite hinzugefügt
-  -[Kinomax] 		Domain Fix für Suchfunktion
-  -[KKiste] 		Domain Fix für Suchfunktion
-					Menü überarbeitet
-					Youtube Hoster aktiviert wegen Dokus
-  -[Movieking] 		Qualität Anzeige aus der Webseite hinzugefügt
-  -[Hoster] 		KinoKiste deaktiviert
-
-3.5.36~nightly7
-  14.10.22
-  -[Movie4k]		Domain Fix für Suchfunktion
-					Qualität Anzeige aus der Webseite hinzugefügt
-  -[updatemanager.py] Fix Py2
-			
-3.5.36~nightly6
-  05.10.22
-  -[Flimmerstube]Erweiterter Fix für Filme mit Direktlink
-  
-3.5.36~nightly5
-  06.09.22
-  - [hdfilme.top] Menüpunkt Kategorien gefixt THX @Litti_19928
-
-3.5.36~nightly4
-  31.08.22
-  - xCine.top hinzugefügt
-
-3.5.36~nightly3
-  26.08.22
-  - [Flimmerstube] Einige Filme konnten nicht abgespielt werden
-  - XCine entfernt
-
-3.5.36~nightly2
-  19.08.22
-  - Domain Updates von HDFilme, Kinomax, KKiste
-
-3.5.36~nightly1
-  08.08.22
-  - Einige Site-Icons erneuert. Alle Icons sind jetzt 512x512px. THX @peat80
+  - [Megakino]		deaktiviert
+  - [PY2]			Abschluss! Die PY2/3 Version wird für Kodi nicht mehr als Nightly verfügbar sein und eingestellt!
+  - [HDFilme]		Domain Update
+  - [service.py] 	Update xS fixed
+  - [Kinoger]		Fix Streamsb
+  - [KinoKiste.Tech]Domain Fix für Suchfunktion, Qualität Anzeige aus der Webseite hinzugefügt, Demnächst im Kino entfernt, Filme für Kinder hinzugefügt
+  - [MegaKino] 		Regex überarbeitet, Qualität Anzeige aus der Webseite hinzugefügt, Dokumentationen hinzugefügt
+  - [Kinofox] 		Qualität Anzeige aus der Webseite hinzugefügt
+  - [Kinomax] 		Domain Fix für Suchfunktion
+  - [KKiste] 		Domain Fix für Suchfunktion, Menü überarbeitet, Youtube Hoster aktiviert wegen Dokus
+  - [Movieking] 	Qualität Anzeige aus der Webseite hinzugefügt
+  - [Hoster] 		KinoKiste deaktiviert
+  - [Movie4k]		Domain Fix für Suchfunktion, Qualität Anzeige aus der Webseite hinzugefügt
+  - [updatemanager.py] Fix Py2
+  - [Flimmerstube]	Erweiterter Fix für Filme mit Direktlink
+  - [hdfilme.top] 	Menüpunkt Kategorien gefixt THX @Litti_19928
+  - [xCine.top] 	hinzugefügt
+  - [Flimmerstube] 	Einige Filme konnten nicht abgespielt werden
+  - [XCine] 		entfernt
+  - [Domain] 		Updates von HDFilme, Kinomax, KKiste
+  - [Icons]			Einige Site-Icons erneuert. Alle Icons sind jetzt 512x512px. THX @peat80
 
 3.5.35
   18.07.2022
