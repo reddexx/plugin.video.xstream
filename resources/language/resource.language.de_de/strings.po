@@ -476,20 +476,20 @@ msgid "xStream Update Manager"
 msgstr "xStream Aktualisierungsmanager"
 
 msgctxt "#30152"
-msgid "What do you want to update?"
-msgstr "Was wollen Sie aktualisieren?"
+msgid "Welcome to the xStream update manager. Please note that the update manager will overwrite your existing installations, but not your user data. [CR]The next step will give you more information."
+msgstr "Willkommen beim xStream Aktualisierungsmanager. Bedenken Sie bitte, das der Aktualisierungsmanager Ihre vorhandenen Installationen überschreibt, aber nicht Ihre Benutzerdaten. [CR]Im nächsten Schritt erhalten Sie weitere Informationen."
 
 msgctxt "#30153"
 msgid "Update all addons"
 msgstr "Alle Addons aktualisieren"
 
 msgctxt "#30154"
-msgid "perform"
-msgstr "durchführen"
+msgid "start now"
+msgstr "jetzt starten"
 
 msgctxt "#30155"
-msgid "The update manager overwrites existing installations. Please set the desired branch selection in the settings! [COLOR red]Nightly versions can contain new functions, but also bugs.[/COLOR] In the next step please select what should be updated."
-msgstr "Der Aktualisierungsmanager überschreibt vorhandene Installationen. Bitte setzen Sie die gewünschte Branch Auswahl in den Einstellungen! [COLOR red]Nightly - Versionen können neue Funktionen, aber auch Fehler enthalten.[/COLOR] Im nächsten Schritt wählen Sie bitte aus, was aktualisiert werden soll."
+msgid "In the next window, please select whether you want to carry out the xStream [Release] or [Nightly] update.[CR][COLOR green]Release versions have been tested and contain hardly any errors.[/COLOR][CR][COLOR orange ]Nightly - versions are experimental and may contain bugs.[/COLOR]"
+msgstr "Wählen Sie bitte im nächsten Fenster aus, ob sie die xStream [Release] oder [Nightly] Aktualisierung durchführen möchten.[CR][COLOR green]Release - Versionen sind getestet und enthalten kaum Fehler.[/COLOR][CR][COLOR orange]Nightly - Versionen sind experimentell und können Fehler enthalten.[/COLOR]"
 
 msgctxt "#30156"
 msgid "When updating "
@@ -508,8 +508,8 @@ msgid " - has been updated successfully."
 msgstr " - wurde erfolgreich aktualisiert."
 
 msgctxt "#30160"
-msgid "The search is now complete![CR]"
-msgstr "Die Suche ist nun abgeschlossen![CR]"
+msgid "The search to updates is now complete![CR]"
+msgstr "Die Suche nach Aktualisierungen ist nun abgeschlossen![CR]"
 
 msgctxt "#30161"
 msgid " - No update available."
@@ -517,23 +517,23 @@ msgstr " - Keine Aktualisierung verfügbar."
 
 msgctxt "#30162"
 msgid "Use xStream Release Branch"
-msgstr "xStream Release Branch benutzen"
+msgstr "xStream Release Aktualisierung benutzen"
 
 msgctxt "#30163"
 msgid "Use xStream Nightly Branch"
-msgstr "xStream Nightly Branch benutzen"
+msgstr "xStream Nightly Aktualisierung benutzen"
 
 msgctxt "#30164"
 msgid "Which branch to use?"
-msgstr "Welcher Branch soll verwendet werden?"
+msgstr "Wähle eine Voreinstellung was später installiert werden soll!"
 
 msgctxt "#30165"
 msgid "Use ResolveURL Release Branch"
-msgstr "ResolveURL Release Branch benutzen"
+msgstr "ResolveURL Release Aktualisierung benutzen"
 
 msgctxt "#30166"
 msgid "Use ResolveURL Nightly Branch"
-msgstr "ResolveURL Nightly Branch benutzen"
+msgstr "ResolveURL Nightly Aktualisierung benutzen"
 
 msgctxt "#30167"
 msgid "Choose xStream Github Branch"
@@ -926,7 +926,7 @@ msgstr "[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bi
 
 msgctxt "#30265"
 msgid "xStream Support Information"
-msgstr "xStream Supportinformationen"
+msgstr "xStream Support Informationen"
 
 msgctxt "#30266"
 msgid "System platform: "
@@ -936,7 +936,13 @@ msgctxt "#30267"
 msgid "View support information"
 msgstr "Support Information anzeigen"
 
+msgctxt "#30268"
+msgid "In the next window, please select whether you want to perform the ResolveURL [Release] or [Nightly] update.[CR][COLOR green]Release - Version directly from Guial00's Github.[/COLOR][CR][COLOR orange ]Nightly - version with hotfixes from the xStream team.[/COLOR]"
+msgstr "Wählen Sie bitte im nächsten Fenster aus, ob sie die ResolveURL [Release] oder [Nightly] Aktualisierung durchführen möchten.[CR][COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
 
+msgctxt "#30269"
+msgid "The presettings are now complete.[CR]In the next window, please select which update you would like to start now."
+msgstr "Die Voreinstellungen sind nun abgeschlossen.[CR]Wählen Sie bitte im nächsten Fenster aus, welche Aktualisierung sie jetzt starten möchten."
 
 msgctxt "#30302"
 msgid "Seasons german"
