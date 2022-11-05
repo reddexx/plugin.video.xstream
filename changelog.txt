@@ -1,4 +1,7 @@
-
+3.5.37
+  05.11.22
+  - [Megakino]		aktiviert
+  
 3.5.36
   02.11.22
   - [Megakino]		deaktiviert
