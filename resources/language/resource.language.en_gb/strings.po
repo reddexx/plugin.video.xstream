@@ -478,7 +478,7 @@ msgid "xStream Update Manager"
 msgstr ""
 
 msgctxt "#30152"
-msgid "Welcome to the xStream update manager. Please note that the update manager will overwrite your existing installations, but not your user data. [CR]The next step will give you more information."
+msgid "Welcome to the xStream update manager. Please note that the update manager will overwrite your existing installations, but not your user data.[CR]The next step will give you more information."
 msgstr ""
 
 msgctxt "#30153"
@@ -490,7 +490,7 @@ msgid "start now"
 msgstr ""
 
 msgctxt "#30155"
-msgid "In the next window, please select whether you want to carry out the xStream [Release] or [Nightly] update.[CR][COLOR green]Release versions have been tested and contain hardly any errors.[/COLOR][CR][COLOR orange ]Nightly - versions are experimental and may contain bugs.[/COLOR]"
+msgid "Please select whether you want to perform the xStream [Release] or [Nightly] update.[CR][COLOR green]Release versions have been tested and contain hardly any errors.[/COLOR][CR][COLOR orange ]Nightly - versions are experimental and may contain bugs.[/COLOR]"
 msgstr ""
 
 msgctxt "#30156"
@@ -938,11 +938,11 @@ msgid "View support information"
 msgstr ""
 
 msgctxt "#30268"
-msgid "In the next window, please select whether you want to perform the ResolveURL [Release] or [Nightly] update.[CR][COLOR green]Release - Version directly from Guial00's Github.[/COLOR][CR][COLOR orange ]Nightly - version with hotfixes from the xStream team.[/COLOR]"
+msgid "Please select whether you want to perform the ResolveURL [Release] or [Nightly] update.[CR][COLOR green]Release - Version directly from Guial00's Github.[/COLOR][CR][COLOR orange ]Nightly - version with hotfixes from the xStream team.[/COLOR]"
 msgstr ""
 
 msgctxt "#30269"
-msgid "The presettings are now complete.[CR]In the next window, please select which update you would like to start now."
+msgid "The presetting is now complete.[CR]Please press [OK] to start the update now."
 msgstr ""
 
 msgctxt "#30302"

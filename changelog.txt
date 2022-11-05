@@ -2,6 +2,7 @@
 
 05.11.2022
  - [Megakino]			aktiviert
+ - [UpdateManager]		manueller Updater fixed(90%)
  
 02.11.2022
  - [Megakino]			deaktiviert
