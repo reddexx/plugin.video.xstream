@@ -486,7 +486,7 @@ msgid "Update all addons"
 msgstr ""
 
 msgctxt "#30154"
-msgid "start now"
+msgid "perform"
 msgstr ""
 
 msgctxt "#30155"
@@ -518,23 +518,23 @@ msgid " - No update available."
 msgstr ""
 
 msgctxt "#30162"
-msgid "Use xStream Release Branch"
+msgid "Install"
 msgstr ""
 
 msgctxt "#30163"
-msgid "Use xStream Nightly Branch"
+msgid "Cancel"
 msgstr ""
 
 msgctxt "#30164"
-msgid "Which branch to use?"
+msgid ""
 msgstr ""
 
 msgctxt "#30165"
-msgid "Use ResolveURL Release Branch"
+msgid ""
 msgstr ""
 
 msgctxt "#30166"
-msgid "Use ResolveURL Nightly Branch"
+msgid ""
 msgstr ""
 
 msgctxt "#30167"
@@ -942,7 +942,7 @@ msgid "Please select whether you want to perform the ResolveURL [Release] or [Ni
 msgstr ""
 
 msgctxt "#30269"
-msgid "The presetting is now complete.[CR]Please press [OK] to start the update now."
+msgid "The presetting is now complete.[CR]Press [Install] to start the update now or [Cancel] to exit."
 msgstr ""
 
 msgctxt "#30302"
@@ -1162,7 +1162,7 @@ msgid "KinoKiste"
 msgstr ""
 
 msgctxt "#30719"
-msgid ""
+msgid "MovieDream"
 msgstr ""
 
 msgctxt "#30720"

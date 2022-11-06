@@ -235,10 +235,13 @@ def devUpdates():  # für manuelles Updates vorgesehen
         # Abfrage welches Plugin aktualisiert werden soll (kann erweitert werden)
         options = [cConfig().getLocalizedString(30153), cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
         result = Dialog().select(HEADERMESSAGE, options)
- 
-        if result == 0: # Alle Addons aktualisieren
+
+        if result == -1:    # Abbrechen
+            return False
+
+        elif result == 0: # Alle Addons aktualisieren
             # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
-            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')
+            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')           
             if result == 0:
                 sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'nexus')  
             elif result == 1:
@@ -252,36 +255,44 @@ def devUpdates():  # für manuelles Updates vorgesehen
                 sBranchResolverNightly = Addon().setSetting('resolver.branch', 'nightly')
                 
             # Voreinstellung beendet    
-            Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30269))
-            # Updates ausführen
-            pluginupdate = True
-            resolverupdate = True
+            if Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30269), yeslabel=cConfig().getLocalizedString(30162), nolabel=cConfig().getLocalizedString(30163)):
+                # Updates ausführen
+                pluginupdate = True
+                resolverupdate = True              
+            else:
+                return False
             
         elif result == 1:   # xStream aktualisieren
             # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
             result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')
+            
             if result == 0:
                 sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'nexus')  
             elif result == 1:
                 sBranchxStreamNightly = Addon().setSetting('xstream.branch', 'nightly')
                 
-            # Voreinstellung beendet
-            Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30269))
-            # Update ausführen
-            pluginupdate = True
-            
+            # Voreinstellung beendet    
+            if Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30269), yeslabel=cConfig().getLocalizedString(30162), nolabel=cConfig().getLocalizedString(30163)):
+                # Updates ausführen
+                pluginupdate = True
+            else:
+                return False
+                
         elif result == 2:   # Resolver aktualisieren
             # Abfrage ob ResolveURL Release oder Nightly Branch (kann erweitert werden)
             result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30268), yeslabel='Nightly', nolabel='Release')
+            
             if result == 0:
                 sBranchResolverRelease = Addon().setSetting('resolver.branch', 'release')    
             elif result == 1:
                 sBranchResolverNightly = Addon().setSetting('resolver.branch', 'nightly')
-                
-            # Voreinstellung beendet
-            Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30269))
-            # Update ausführen        
-            resolverupdate = True
+
+            # Voreinstellung beendet    
+            if Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30269), yeslabel=cConfig().getLocalizedString(30162), nolabel=cConfig().getLocalizedString(30163)):     
+                # Updates ausführen
+                resolverupdate = True
+            else:
+                return False
 
         if pluginupdate is True:
             try:

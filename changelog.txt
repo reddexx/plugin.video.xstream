@@ -1,5 +1,8 @@
 4.0.0
 
+06.11.2022
+ - [UpdateManager]		manueller Updater fixed(100%)
+ 
 05.11.2022
  - [Megakino]			aktiviert
  - [UpdateManager]		manueller Updater fixed(90%)
@@ -16,7 +19,7 @@
  - Service überarbeitet
  - Update Status überarbeitet
  - Bei dektivierten Auto Updates wird automatisch der manuelle Updater mit bei den Einstellungen untergeordnet
- - Manueller Updater überarbeitet mit branch Auswahl in den Einstellungen
+ - Manueller Updater überarbeitet mit Branch Auswahl in den Einstellungen
  - TMDB Spachauswahl hinzugefügt
  - Neue settings.xml PY3 konform erstellt
  - Support Informationen in den Einstellungen

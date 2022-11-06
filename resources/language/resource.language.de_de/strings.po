@@ -477,15 +477,15 @@ msgstr "xStream Aktualisierungsmanager"
 
 msgctxt "#30152"
 msgid "Welcome to the xStream update manager. Please note that the update manager will overwrite your existing installations, but not your user data.[CR]The next step will give you more information."
-msgstr "Willkommen beim xStream Aktualisierungsmanager. Bedenken Sie bitte, das der Aktualisierungsmanager Ihre vorhandenen Installationen überschreibt, aber nicht Ihre Benutzerdaten. [CR]Im nächsten Schritt erhalten Sie weitere Informationen."
+msgstr "Willkommen beim xStream Aktualisierungsmanager. Bedenken Sie bitte, das der Aktualisierungsmanager Ihre vorhandenen Installationen überschreibt, aber nicht Ihre Benutzerdaten.[CR]Für die automatische Aktualisierung setzen Sie bitte die gewünschte Branch-Auswahl in den Einstellungen, für die manuelle Aktualisierung wählen Sie bitte in den nachfolgenden Fenstern, was aktualisiert werden soll."
 
 msgctxt "#30153"
 msgid "Update all addons"
 msgstr "Alle Addons aktualisieren"
 
 msgctxt "#30154"
-msgid "start now"
-msgstr "jetzt starten"
+msgid "perform"
+msgstr "durchführen"
 
 msgctxt "#30155"
 msgid "Please select whether you want to perform the xStream [Release] or [Nightly] update.[CR][COLOR green]Release versions have been tested and contain hardly any errors.[/COLOR][CR][COLOR orange ]Nightly - versions are experimental and may contain bugs.[/COLOR]"
@@ -516,24 +516,24 @@ msgid " - No update available."
 msgstr " - Keine Aktualisierung verfügbar."
 
 msgctxt "#30162"
-msgid "Use xStream Release Branch"
-msgstr "xStream Release Aktualisierung benutzen"
+msgid "Install"
+msgstr "Installieren"
 
 msgctxt "#30163"
-msgid "Use xStream Nightly Branch"
-msgstr "xStream Nightly Aktualisierung benutzen"
+msgid "Cancel"
+msgstr "Abbrechen"
 
 msgctxt "#30164"
-msgid "Which branch to use?"
-msgstr "Wähle eine Voreinstellung was später installiert werden soll!"
+msgid ""
+msgstr ""
 
 msgctxt "#30165"
-msgid "Use ResolveURL Release Branch"
-msgstr "ResolveURL Release Aktualisierung benutzen"
+msgid ""
+msgstr ""
 
 msgctxt "#30166"
-msgid "Use ResolveURL Nightly Branch"
-msgstr "ResolveURL Nightly Aktualisierung benutzen"
+msgid ""
+msgstr ""
 
 msgctxt "#30167"
 msgid "Choose xStream Github Branch"
@@ -941,8 +941,8 @@ msgid "Please select whether you want to perform the ResolveURL [Release] or [Ni
 msgstr "Wählen Sie bitte aus, ob sie die ResolveURL [Release] oder [Nightly] Aktualisierung durchführen möchten.[CR][COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
 
 msgctxt "#30269"
-msgid "The presetting is now complete.[CR]Please press [OK] to start the update now."
-msgstr "Die Voreinstellungen sind nun abgeschlossen.[CR]Drücken Sie bitte [OK] um die Aktualisierung jetzt zu starten."
+msgid "The presetting is now complete.[CR]Press [Install] to start the update now or [Cancel] to exit."
+msgstr "Die Voreinstellungen sind nun abgeschlossen.[CR]Drücken Sie auf [Installieren] um die Aktualisierung jetzt zu starten oder auf [Abbrechen] um den Vorgang zu beenden."
 
 msgctxt "#30302"
 msgid "Seasons german"
@@ -1161,7 +1161,7 @@ msgid "KinoKiste"
 msgstr ""
 
 msgctxt "#30719"
-msgid ""
+msgid "MovieDream"
 msgstr ""
 
 msgctxt "#30720"
