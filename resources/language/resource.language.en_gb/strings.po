@@ -478,7 +478,7 @@ msgid "xStream Update Manager"
 msgstr ""
 
 msgctxt "#30152"
-msgid "Welcome to the xStream update manager. Please note that the update manager will overwrite your existing installations, but not your user data.[CR]The next step will give you more information."
+msgid "Welcome to the xStream update manager. For automatic update please set the desired branch selection in the settings, for manual update please choose what should be updated in the following windows."
 msgstr ""
 
 msgctxt "#30153"
@@ -942,7 +942,7 @@ msgid "Please select whether you want to perform the ResolveURL [Release] or [Ni
 msgstr ""
 
 msgctxt "#30269"
-msgid "The presetting is now complete.[CR]Press [Install] to start the update now or [Cancel] to exit."
+msgid "The presettings are now complete. Please note that the update manager will overwrite your existing installations, but not your user data & settings. Press [Install] to start the update now or [Cancel] to exit."
 msgstr ""
 
 msgctxt "#30302"

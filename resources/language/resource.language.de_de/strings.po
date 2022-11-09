@@ -476,8 +476,8 @@ msgid "xStream Update Manager"
 msgstr "xStream Aktualisierungsmanager"
 
 msgctxt "#30152"
-msgid "Welcome to the xStream update manager. Please note that the update manager will overwrite your existing installations, but not your user data.[CR]The next step will give you more information."
-msgstr "Willkommen beim xStream Aktualisierungsmanager. Bedenken Sie bitte, das der Aktualisierungsmanager Ihre vorhandenen Installationen überschreibt, aber nicht Ihre Benutzerdaten.[CR]Für die automatische Aktualisierung setzen Sie bitte die gewünschte Branch-Auswahl in den Einstellungen, für die manuelle Aktualisierung wählen Sie bitte in den nachfolgenden Fenstern, was aktualisiert werden soll."
+msgid "Welcome to the xStream update manager. For automatic update please set the desired branch selection in the settings, for manual update please choose what should be updated in the following windows."
+msgstr "Willkommen beim xStream Aktualisierungsmanager. Für die automatische Aktualisierung setzen Sie bitte die gewünschte Branch-Auswahl in den Einstellungen, für die manuelle Aktualisierung wählen Sie bitte in den nachfolgenden Fenstern, was aktualisiert werden soll."
 
 msgctxt "#30153"
 msgid "Update all addons"
@@ -941,8 +941,8 @@ msgid "Please select whether you want to perform the ResolveURL [Release] or [Ni
 msgstr "Wählen Sie bitte aus, ob sie die ResolveURL [Release] oder [Nightly] Aktualisierung durchführen möchten.[CR][COLOR green]Release - Version direkt von Guial00´s Github.[/COLOR][CR][COLOR orange]Nightly - Version mit Hotfixes vom xStream Team.[/COLOR]"
 
 msgctxt "#30269"
-msgid "The presetting is now complete.[CR]Press [Install] to start the update now or [Cancel] to exit."
-msgstr "Die Voreinstellungen sind nun abgeschlossen.[CR]Drücken Sie auf [Installieren] um die Aktualisierung jetzt zu starten oder auf [Abbrechen] um den Vorgang zu beenden."
+msgid "The presettings are now complete. Please note that the update manager will overwrite your existing installations, but not your user data & settings. Press [Install] to start the update now or [Cancel] to exit."
+msgstr "Die Voreinstellungen sind nun abgeschlossen. Bedenken Sie bitte, dass der Aktualisierungsmanager Ihre vorhandenen Installationen überschreibt, aber nicht Ihre Benutzerdaten & Einstellungen. Drücken Sie auf [Installieren] um die Aktualisierung jetzt zu starten oder auf [Abbrechen] um den Vorgang zu beenden."
 
 msgctxt "#30302"
 msgid "Seasons german"

@@ -231,17 +231,19 @@ def devUpdates():  # für manuelles Updates vorgesehen
         sbranchxStream = Addon().getSettingString('xstream.branch')     # für zukünftige Branch Auswahl
         sbranchResolver = Addon().getSettingString('resolver.branch')
         # Einleitungstext
-        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30152))
+        if Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30152)):
         # Abfrage welches Plugin aktualisiert werden soll (kann erweitert werden)
-        options = [cConfig().getLocalizedString(30153), cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
-        result = Dialog().select(HEADERMESSAGE, options)
-
+            options = [cConfig().getLocalizedString(30153), cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
+            result = Dialog().select(HEADERMESSAGE, options)
+        else:
+            return False
+            
         if result == -1:    # Abbrechen
             return False
 
         elif result == 0: # Alle Addons aktualisieren
             # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
-            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')           
+            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')
             if result == 0:
                 sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'nexus')  
             elif result == 1:
