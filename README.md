@@ -1,5 +1,5 @@
 
-## KEINE FREIGABE!!!!!!!!!!!
+## Willkommen bei xStream für Kodi!!
 
 
 ![xStream logo](https://raw.githubusercontent.com/streamxstream/xStream-FAQ/master/Logo%20FAQ.png)

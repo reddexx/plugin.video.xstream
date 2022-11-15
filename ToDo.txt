@@ -1,7 +1,8 @@
-* Plugin Handler.py für neue settings.xml überarbeiten Definition im PluginHandler derzeit deaktiviert
+* Plugin Handler.py für neue settings.xml überarbeiten, Definition im PluginHandler derzeit deaktiviert
 * Cloudflare Scraper einbauen
 * Scraper
 	-	Kinoger Hoster .ru , Csst
 	- 	Cinemathek
+	- 	MovieDream
 	-	Streamworld.in Serien
 	
