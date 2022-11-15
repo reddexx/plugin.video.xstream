@@ -1,11 +1,14 @@
 4.0.0
 
+15.11.2022
+ - [Service.py]			Statusmeldung der Updates einfach / vollständig
+
 06.11.2022
- - [UpdateManager]		manueller Updater fixed(100%)
+ - [UpdateManager.py]	manueller Updater fixed(100%)
  
 05.11.2022
  - [Megakino]			aktiviert
- - [UpdateManager]		manueller Updater fixed(90%)
+ - [UpdateManager.py]	manueller Updater fixed(90%)
  
 02.11.2022
  - [Megakino]			deaktiviert

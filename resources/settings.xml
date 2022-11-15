@@ -55,7 +55,20 @@
 					<visible>False</visible>
 					<control type="toggle"/>					
 				</setting>
-			</group>		
+			</group>
+			<group id="notification" label="30270">
+				<setting id="update.notification" type="string" label="30271" help="">
+					<level>0</level>
+					<default>full</default>
+					<constraints>
+						<options>
+							<option label="30272">simple</option>
+							<option label="30273">full</option>
+						</options>
+					</constraints>			
+					<control type="spinner" format="string"/>
+				</setting>
+			</group>
 			<group id="presentation" label="30031">
 				<setting id="GlobalSearchPosition" type="boolean" label="30011" help="">
 					<level>0</level>

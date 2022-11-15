@@ -945,6 +945,22 @@ msgctxt "#30269"
 msgid "The presettings are now complete. Please note that the update manager will overwrite your existing installations, but not your user data & settings. Press [Install] to start the update now or [Cancel] to exit."
 msgstr ""
 
+msgctxt "#30270"
+msgid "Notifications"
+msgstr ""
+
+msgctxt "#30271"
+msgid "Update Notification"
+msgstr ""
+
+msgctxt "#30272"
+msgid "Simple"
+msgstr ""
+
+msgctxt "#30273"
+msgid "Full"
+msgstr ""
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr ""

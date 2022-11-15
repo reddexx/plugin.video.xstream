@@ -944,6 +944,22 @@ msgctxt "#30269"
 msgid "The presettings are now complete. Please note that the update manager will overwrite your existing installations, but not your user data & settings. Press [Install] to start the update now or [Cancel] to exit."
 msgstr "Die Voreinstellungen sind nun abgeschlossen. Bedenken Sie bitte, dass der Aktualisierungsmanager Ihre vorhandenen Installationen überschreibt, aber nicht Ihre Benutzerdaten & Einstellungen. Drücken Sie auf [Installieren] um die Aktualisierung jetzt zu starten oder auf [Abbrechen] um den Vorgang zu beenden."
 
+msgctxt "#30270"
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+msgctxt "#30271"
+msgid "Update Notification"
+msgstr "Benachrichtigung der Aktualisierung"
+
+msgctxt "#30272"
+msgid "Simple"
+msgstr "Einfach"
+
+msgctxt "#30273"
+msgid "Full"
+msgstr "Vollständig"
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr "Staffeln Deutsch"
