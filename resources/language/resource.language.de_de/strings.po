@@ -960,6 +960,11 @@ msgctxt "#30273"
 msgid "Full"
 msgstr "Vollständig"
 
+msgctxt "#30274"
+msgid "View change log after update"
+msgstr "Änderungsprotokoll nach Aktualisierung anzeigen"
+
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr "Staffeln Deutsch"
@@ -1097,6 +1102,14 @@ msgstr "Neue Dokumentationen"
 msgctxt "#30524"
 msgid "Release Year/Country"
 msgstr "Veröffentlichungsjahr/Land"
+
+msgctxt "#30525"
+msgid "Random Movie"
+msgstr "Zufallsfilm"
+
+msgctxt "#30526"
+msgid "Random Serie"
+msgstr "Zufallsserie"
 
 ############### Site Plugins ###############
 

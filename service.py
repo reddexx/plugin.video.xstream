@@ -12,6 +12,7 @@ import xbmcgui
 from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
 from resources.lib.config import cConfig
+from resources.lib import tools
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
 # xStream = xbmcaddon.Addon().getAddonInfo('id')
@@ -113,3 +114,21 @@ except Exception:
     pass
 
 checkDependence('plugin.video.xstream')
+
+# zeigt nach Update den Changelog als Popup an
+def changelog():
+    CHANGELOG_PATH = translatePath(os.path.join('special://home/addons/plugin.video.xstream/', 'changelog.txt'))
+    version = xbmcaddon.Addon().getAddonInfo('version')
+    if xbmcaddon.Addon().getSetting('changelog_version') == version or not os.path.isfile(CHANGELOG_PATH):
+        return
+    xbmcaddon.Addon().setSetting('changelog_version', version)
+    heading = '[B][COLOR cyan]xStream[/COLOR] [COLOR white]Änderungsprotokoll (Changelog)[/COLOR][/B]'
+    with open(CHANGELOG_PATH, mode="r", encoding="utf-8") as f:
+        cl_lines = f.readlines()
+    announce = ''
+    for line in cl_lines:
+        announce += line
+    tools.textBox(heading, announce)
+# Changelog Popup in den "settings.xml" ein bzw. aus schaltbar
+if xbmcaddon.Addon().getSetting('popup.update.notification') == 'true': 
+    changelog()

@@ -64,6 +64,33 @@ def pluginInfo(): # Plugin Support Informationen
     Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '        {0}'.format (platform().title()) + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n')
 
  
+def textBox(heading, announce):
+    class TextBox():
+
+        def __init__(self, *args, **kwargs):
+            self.WINDOW = 10147
+            self.CONTROL_LABEL = 1
+            self.CONTROL_TEXTBOX = 5
+            xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, ))
+            self.win = xbmcgui.Window(self.WINDOW)
+            xbmc.sleep(500)
+            self.setControls()
+
+        def setControls(self):
+            self.win.getControl(self.CONTROL_LABEL).setLabel(heading)
+            try:
+                f = open(announce)
+                text = f.read()
+            except:
+                text = announce
+            self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+            return
+
+    TextBox()
+    while xbmc.getCondVisibility('Window.IsVisible(10147)'):
+        xbmc.sleep(500)
+ 
+ 
 class cParser:
     @staticmethod
     def parseSingleResult(sHtmlContent, pattern):

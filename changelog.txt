@@ -1,8 +1,12 @@
-4.0.0
+[B]Version 4.0.0~nightly3[/B]
 
+16.11.2022
+ - [Service.py]			Popup Changelog beim Start nach Aktualisierung von xStream
+ - [Tools.py]			TextBox für Changlog hinzugefügt
+ 
 15.11.2022
  - [Service.py]			Statusmeldung der Updates einfach / vollständig
-
+ 
 06.11.2022
  - [UpdateManager.py]	manueller Updater fixed(100%)
  
@@ -12,7 +16,7 @@
  
 02.11.2022
  - [Megakino]			deaktiviert
-
+ 
 01.11.2022
  - Initial Release Python 3 Kodi 19/20
  - Source Code from 3.5.36~nightly10 by Anis / xStream Team

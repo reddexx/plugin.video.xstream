@@ -68,6 +68,11 @@
 					</constraints>			
 					<control type="spinner" format="string"/>
 				</setting>
+				<setting id="popup.update.notification" type="boolean" label="30274" help="">
+					<level>0</level>
+					<default>False</default>
+					<control type="toggle"/>					
+				</setting>				
 			</group>
 			<group id="presentation" label="30031">
 				<setting id="GlobalSearchPosition" type="boolean" label="30011" help="">
