@@ -966,7 +966,7 @@ msgid "View change log after update"
 msgstr ""
 
 msgctxt "#30275"
-msgid ""
+msgid "[B][COLOR cyan]xStream[/COLOR] [COLOR white]Changelog[/COLOR][/B]"
 msgstr ""
 
 

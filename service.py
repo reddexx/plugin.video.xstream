@@ -122,7 +122,7 @@ def changelog():
     if xbmcaddon.Addon().getSetting('changelog_version') == version or not os.path.isfile(CHANGELOG_PATH):
         return
     xbmcaddon.Addon().setSetting('changelog_version', version)
-    heading = '[B][COLOR cyan]xStream[/COLOR] [COLOR white]Änderungsprotokoll (Changelog)[/COLOR][/B]'
+    heading = cConfig().getLocalizedString(30275)
     with open(CHANGELOG_PATH, mode="r", encoding="utf-8") as f:
         cl_lines = f.readlines()
     announce = ''
