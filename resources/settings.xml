@@ -70,7 +70,7 @@
 				</setting>
 				<setting id="popup.update.notification" type="boolean" label="30274" help="">
 					<level>0</level>
-					<default>False</default>
+					<default>True</default>
 					<control type="toggle"/>					
 				</setting>				
 			</group>
