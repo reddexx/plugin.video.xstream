@@ -1,4 +1,11 @@
-[B]Version 4.0.0~nightly3[/B]
+[B]Version 4.0.0~nightly4[/B]
+
+17.11.2022
+ - [HDFilme]			Domain Update
+ - [Kinomax]			Domain Update
+ - [KKiste]				Domain Update
+ - [Movie4k]			Domain Update
+ - [XCine]				Domain Update
 
 16.11.2022
  - [Service.py]			Popup Changelog beim Start nach Aktualisierung von xStream (abschaltbar in den Einstellungen)
