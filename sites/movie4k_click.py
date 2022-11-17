@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# 2022.10.14 DWH
+# 2022.11.17 DWH Domain Update
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,7 +12,7 @@ SITE_IDENTIFIER = 'movie4k_click'
 SITE_NAME = 'Movie4k Click'
 SITE_ICON = 'movie4k_click.png'
 
-URL_MAIN = 'https://movie4k.homes'
+URL_MAIN = 'https://movie4k.pics'
 URL_KINO = URL_MAIN + '/aktuelle-kinofilme-im-kino'
 URL_FILME = URL_MAIN + '/kinofilme-online'
 URL_SERIE = URL_MAIN + '/serienstream-deutsch'

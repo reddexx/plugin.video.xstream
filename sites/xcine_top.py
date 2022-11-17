@@ -12,7 +12,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'xcine_top'
 SITE_NAME = 'XCine Top'
 SITE_ICON = 'xcinetop.png'
-URL_MAIN = 'https://xcine.top/'
+URL_MAIN = 'https://xcine.click/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?do=search'
