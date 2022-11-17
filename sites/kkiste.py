@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# 2022.10.14 DWH
+# 2022.11.17 DWH Domain Update
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,7 +12,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
-URL_MAIN = 'https://kkiste.network/'
+URL_MAIN = 'https://kkiste.name/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_FILME = URL_MAIN + 'kinofilme-online/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
