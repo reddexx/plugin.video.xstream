@@ -1,4 +1,11 @@
-
+3.5.38
+  17.11.22
+  - [HDFilme]		Domain Update
+  - [Kinomax]		Domain Update
+  - [KKiste]		Domain Update
+  - [Movie4k]		Domain Update
+  - [XCine]			Domain Update
+  
 3.5.37
   02.11.22
   - [Megakino]		deaktiviert
