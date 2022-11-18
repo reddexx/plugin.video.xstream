@@ -968,6 +968,10 @@ msgctxt "#30275"
 msgid "[B][COLOR cyan]xStream[/COLOR] [COLOR white]Changelog[/COLOR][/B]"
 msgstr "[B][COLOR cyan]xStream[/COLOR] [COLOR white]Änderungsprotokoll (Changelog)[/COLOR][/B]"
 
+msgctxt "#30276"
+msgid "Show changelog now"
+msgstr "Änderungsprotokoll jetzt anzeigen"
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr "Staffeln Deutsch"

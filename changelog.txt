@@ -1,4 +1,9 @@
-[B]Version 4.0.0~nightly4[/B]
+[B]Version 4.0.0~nightly5[/B]
+
+18.11.2022
+ - [Xstream.py]			Änderungsprotokoll aus den Einstellungen anzeigen lassen
+ - [SiteIcons]			Neue Site Icons im neuen xStream Style
+ - [SystemIcons]		Neue System Icons im neuen xStream Style
 
 17.11.2022
  - [HDFilme]			Domain Update

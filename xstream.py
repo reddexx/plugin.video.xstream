@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # Python 3
 
-# Fertig muss aber noch debuggt werden !    DWH 2022.10.12
 
 import sys
 import xbmc
 import xbmcgui
+import xbmcaddon
+import os
 
+from xbmcaddon import Addon
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.handler.pluginHandler import cPluginHandler
@@ -15,6 +17,9 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
 from resources.lib import tools
+
+PATH = xbmcaddon.Addon().getAddonInfo('path')
+ART = os.path.join(PATH, 'resources', 'art')
 
 try:
     import resolveurl as resolver
@@ -65,7 +70,13 @@ def parseUrl():
         elif sFunction == 'pluginInfo':
             from resources.lib import tools
             tools.pluginInfo()
-            return    
+            return
+        elif sFunction == 'changelog':
+            import service
+            Addon().setSetting('changelog_version', '')
+            service.changelog()
+            return
+            
     elif params.exist('remoteplayurl'):
         try:
             remotePlayUrl = params.getValue('remoteplayurl')
@@ -124,6 +135,9 @@ def parseUrl():
     # Plugin Infos    
     elif sSiteName == 'pluginInfo':
         tools.pluginInfo()
+    # Changelog anzeigen    
+    elif sSiteName == 'changelog':
+        service.changelog()        
     # Unterordner der Einstellungen   
     elif sSiteName == 'settings':
         oGui = cGui()
@@ -168,7 +182,7 @@ def showMainMenu(sFunction):
         oGuiElement.setTitle(cConfig().getLocalizedString(30041))
         oGuiElement.setSiteName('settings')
         oGuiElement.setFunction('showSettingsFolder')
-        oGuiElement.setThumbnail('DefaultAddonService.png')
+        oGuiElement.setThumbnail(os.path.join(ART, 'settings.png'))
         oGui.addFolder(oGuiElement)
     else:
         for folder in settingsGuiElements():
@@ -183,7 +197,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30267))
     oGuiElement.setSiteName('pluginInfo')
     oGuiElement.setFunction('pluginInfo')
-    oGuiElement.setThumbnail('defaultaddoninfoprovider.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'plugin_info.png'))
     PluginInfo = oGuiElement
 
 
@@ -192,7 +206,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30042))
     oGuiElement.setSiteName('xStream')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('defaultaddonservice.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'xstream_settings.png'))
     xStreamSettings = oGuiElement
 
     # GUI Resolver Einstellungen
@@ -200,7 +214,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30043))
     oGuiElement.setSiteName('resolver')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('defaultaddonservice.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'resolveurl_settings.png'))
     resolveurlSettings = oGuiElement
     
     # GUI Nightly Updatemanager
@@ -208,7 +222,7 @@ def settingsGuiElements():
     oGuiElement.setTitle(cConfig().getLocalizedString(30121))
     oGuiElement.setSiteName('devUpdates')
     oGuiElement.setFunction('devUpdates')
-    oGuiElement.setThumbnail('defaultnetwork.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'manuel_update.png'))
     DevUpdateMan = oGuiElement 
     return PluginInfo, xStreamSettings, resolveurlSettings, DevUpdateMan
 
@@ -219,7 +233,7 @@ def globalSearchGuiElement():
     oGuiElement.setTitle(cConfig().getLocalizedString(30040))
     oGuiElement.setSiteName('globalSearch')
     oGuiElement.setFunction('globalSearch')
-    oGuiElement.setThumbnail('DefaultAddonsSearch.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'search.png'))
     return oGuiElement
 
 

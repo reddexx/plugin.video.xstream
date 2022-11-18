@@ -72,7 +72,14 @@
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
-				</setting>				
+				</setting>
+				<setting id="start.popup.update.notification" type="action" label="30276" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.xstream/?function=changelog)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
 			</group>
 			<group id="presentation" label="30031">
 				<setting id="GlobalSearchPosition" type="boolean" label="30011" help="">
