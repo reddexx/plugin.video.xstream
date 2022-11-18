@@ -1,33 +1,59 @@
+
 [B]Version 4.0.0~nightly5[/B]
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
 
 18.11.2022
- - [Xstream.py]			Änderungsprotokoll aus den Einstellungen anzeigen lassen
- - [SiteIcons]			Neue Site Icons im neuen xStream Style
- - [SystemIcons]		Neue System Icons im neuen xStream Style
+ - [Xstream.py] - Änderungsprotokoll aus den Einstellungen anzeigen lassen
+ - [SiteIcons] - Neue Site Icons im neuen xStream Style
+ - [SystemIcons] - Neue System Icons im neuen xStream Style
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
 
 17.11.2022
- - [HDFilme]			Domain Update
- - [Kinomax]			Domain Update
- - [KKiste]				Domain Update
- - [Movie4k]			Domain Update
- - [XCine]				Domain Update
+ - [HDFilme] - Domain Update
+ - [Kinomax] - Domain Update
+ - [KKiste] - Domain Update
+ - [Movie4k] - Domain Update
+ - [XCine] - Domain Update
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
 
 16.11.2022
- - [Service.py]			Popup Changelog beim Start nach Aktualisierung von xStream (abschaltbar in den Einstellungen)
- - [Tools.py]			TextBox für Changlog hinzugefügt
+ - [Service.py] - Popup Changelog beim Start nach Aktualisierung von xStream 
+		        (abschaltbar in den Einstellungen)
+ - [Tools.py] - TextBox für Changlog hinzugefügt
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
  
 15.11.2022
- - [Service.py]			Statusmeldung der Updates einfach / vollständig
+ - [Service.py] - Statusmeldung der Updates einfach / vollständig
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
  
 06.11.2022
- - [UpdateManager.py]	manueller Updater fixed(100%)
+ - [UpdateManager.py] - manueller Updater fixed(100%)
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
  
 05.11.2022
- - [Megakino]			aktiviert
- - [UpdateManager.py]	manueller Updater fixed(90%)
+ - [Megakino] - aktiviert
+ - [UpdateManager.py] - manueller Updater fixed(90%)
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
  
 02.11.2022
- - [Megakino]			deaktiviert
+ - [Megakino] - deaktiviert
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
  
 01.11.2022
  - Initial Release Python 3 Kodi 19/20
@@ -37,9 +63,13 @@
  - Update Funktion überarbeitet
  - Service überarbeitet
  - Update Status überarbeitet
- - Bei dektivierten Auto Updates wird automatisch der manuelle Updater mit bei den Einstellungen untergeordnet
+ - Bei deaktivierten Auto Updates wird automatisch der manuelle Updater mit bei den 
+   Einstellungen untergeordnet
  - Manueller Updater überarbeitet mit Branch Auswahl in den Einstellungen
  - TMDB Spachauswahl hinzugefügt
  - Neue settings.xml PY3 konform erstellt
  - Support Informationen in den Einstellungen
  - Infomeldung bei SitePlugins mit Kontodaten wenn keine eingetragen sind
+[COLOR cyan]
+________________________________________________________________________________________
+[/COLOR]
