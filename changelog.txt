@@ -1,16 +1,24 @@
 
-[B]Version 4.0.0~nightly5[/B]
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+[B]Version: 4.0.0~nightly6[/B]
+
+25.11.2022
+ - [HDFilme] - neue Funktion holt URL und speichert diese in der settings.xml
+ - [Kinofox] - defektes Genre überholt
+ - [Kinokiste] - neue Funktion holt URL und speichert diese in der settings.xml
+ - [Kinomax] - neue Funktion holt URL und speichert diese in der settings.xml
+ - [KKiste] - neue Funktion holt URL und speichert diese in der settings.xml
+ - [Movie4k] - Regex überarbeitet Bildlink gefixt, neue Funktion holt URL und speichert 
+		     diese in der settings.xml
+ - [xCine] - neue Funktion holt URL und speichert diese in der settings.xml			
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 18.11.2022
  - [Xstream.py] - Änderungsprotokoll aus den Einstellungen anzeigen lassen
  - [SiteIcons] - Neue Site Icons im neuen xStream Style
  - [SystemIcons] - Neue System Icons im neuen xStream Style
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 17.11.2022
  - [HDFilme] - Domain Update
@@ -18,42 +26,36 @@ ________________________________________________________________________________
  - [KKiste] - Domain Update
  - [Movie4k] - Domain Update
  - [XCine] - Domain Update
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 16.11.2022
  - [Service.py] - Popup Changelog beim Start nach Aktualisierung von xStream 
 		        (abschaltbar in den Einstellungen)
  - [Tools.py] - TextBox für Changlog hinzugefügt
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 15.11.2022
  - [Service.py] - Statusmeldung der Updates einfach / vollständig
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 06.11.2022
  - [UpdateManager.py] - manueller Updater fixed(100%)
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 05.11.2022
  - [Megakino] - aktiviert
  - [UpdateManager.py] - manueller Updater fixed(90%)
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 02.11.2022
  - [Megakino] - deaktiviert
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 01.11.2022
  - Initial Release Python 3 Kodi 19/20
@@ -73,3 +75,4 @@ ________________________________________________________________________________
 [COLOR cyan]
 ________________________________________________________________________________________
 [/COLOR]
+[I]*Editierhinweis: Text nicht länger als die Linie. Keine Tabulatoren verwenden![/I]

@@ -13,12 +13,25 @@ SITE_IDENTIFIER = 'kinokiste_tech'
 SITE_NAME = 'Kinokiste Tech'
 SITE_ICON = 'kinokistetech.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://kinokiste.cloud/'
+#URL_MAIN = 'https://kinokiste.cloud/'
+URL_MAIN = str(cConfig().getSetting('kinokiste-domain', 'https://kinokiste.cloud/'))
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_ANIMATION = URL_MAIN + 'animation/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + '?do=search&subaction=search&story=%s'
+
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('kinokiste-domain', str(url))
 
 
 def load(): # Menu structure of the site plugin
@@ -62,12 +75,17 @@ def showGenre():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    st = str(oRequest.getStatus())
+    if not st == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
-        cConfig().setSetting('kinokiste_techurl', oRequest.getRealUrl())     
+    sHtmlContent = oRequest.request()    
     pattern = '<span\s+class="new_movie\d+">\s*<a\s+href="([^"]+)">[^<]*</a>\s*</span>.*?<img\s+alt="([^"]+)"\s+src="([^"]+)">\s*</span>\s*<span\s+class="fl-quality[^"]+">([^<]+)</span>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
 

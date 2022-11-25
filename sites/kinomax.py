@@ -13,13 +13,26 @@ SITE_IDENTIFIER = 'kinomax'
 SITE_NAME = 'Kinomax'
 SITE_ICON = 'kinomax.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://kinomax.cyou/'
+#URL_MAIN = 'https://kinomax.cyou/'
+URL_MAIN = str(cConfig().getSetting('kinomax-domain', 'https://kinomax.cyou/'))
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_ANIMATION = URL_MAIN + 'animation/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?do=search'
 
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('kinomax-domain', str(url))
+        
 
 def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
@@ -61,6 +74,13 @@ def showGenre(entryUrl=False):
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if not Domain == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
 
@@ -73,9 +93,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('result_from', '1')
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('titleonly', '3')
-    sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
-        cConfig().setSetting('kinomaxurl', oRequest.getRealUrl())    
+    sHtmlContent = oRequest.request()   
     pattern = 'short-images.*?href="([^"]+).*?title="([^"]+).*?<img src="([^"]+).*?span>([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
 

@@ -3,7 +3,7 @@
 # Always pay attention to the translations in the menu!
 
 # 2022-02-01 Hep
-# 2022-10-24 DWH Domain Update
+# 2022-11-25 DWH Check Domain
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -16,11 +16,23 @@ SITE_IDENTIFIER = 'hdfilme_top'
 SITE_NAME = 'HD Filme Top'
 SITE_ICON = 'hdfilmetop.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://hdfilme.fit/'
+#URL_MAIN = 'https://hdfilme.top/'
+URL_MAIN = str(cConfig().getSetting('hdfilme-domain', 'https://hdfilme.fit/'))
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?story=%s&do=search&subaction=search'
 
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('hdfilme-domain', str(url))
 
 def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
@@ -79,12 +91,18 @@ def showYears(entryUrl=False):
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    st = str(oRequest.getStatus())
+    if not st == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+
     sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
-        cConfig().setSetting('hdfilme_topurl', oRequest.getRealUrl()) 
     pattern = 'data-src="([^"]+).*?film-item-quality">([^<]+).*?href="([^"]+).*?-title">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
 

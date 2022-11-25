@@ -42,8 +42,31 @@ def showValue():
         return
 
     for sUrl, sName in aResult:
-        if sUrl.startswith('/'):
-            sUrl = URL_MAIN + sUrl
+        sUrl = URL_MAIN + sUrl
+        if 'ctionfilm' in sName:
+            continue
+        if 'antasyfilm' in sName:
+            continue
+        if 'amilienfilm' in sName:
+            continue
+        if 'riminalfilm' in sName:
+            continue
+        if 'omödie' in sName:
+            continue
+        if 'riegsfilm' in sName:
+            continue
+        if 'orrorfilm' in sName:
+            continue
+        if 'istorienfilm' in sName:
+            continue
+        if 'ystery' in sName:
+            continue
+        if 'usikfilm' in sName:
+            continue
+        if 'hriller' in sName:
+            continue
+        if 'estern' in sName:
+            continue             
         if 'erian' in sName:
             continue
         params.setParam('sUrl', sUrl)
@@ -65,10 +88,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('result_from', '1')
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('titleonly', '3')
-    sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
-        cConfig().setSetting('kinofoxurl', oRequest.getRealUrl()) 
-    pattern = 'short clearfix.*?href="([^"]+).*?title">([^<]+).*? src="([^"]+).*?short-label sl-y">([^<]+)'
+    sHtmlContent = oRequest.request() 
+    pattern = 'short clearfix.*?href="([^"]+).*?title">([^<]+).*?img src="([^"]+).*?short-label sl-y">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()

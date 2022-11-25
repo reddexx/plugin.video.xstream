@@ -13,12 +13,24 @@ SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://kkiste.name/'
+#URL_MAIN = 'https://kkiste.name/'
+URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.name/'))
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
 
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('kkiste-domain', str(url))
 
 
 def load(): # Menu structure of the site plugin
@@ -62,6 +74,13 @@ def showValue():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if not Domain == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     if sSearchText:
@@ -69,8 +88,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('subaction', 'search')
         oRequest.addParameters('story', sSearchText)
     sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':   # Sucht nach umgeleiteter URL
-        cConfig().setSetting('kkisteurl', oRequest.getRealUrl())
     pattern = 'class="short">.*?href="([^"]+)">([^<]+).*?img src="([^"]+).*?desc">([^<]+).*?Jahr.*?([\d]+).*?s-red">([\d]+)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if not isMatch:
