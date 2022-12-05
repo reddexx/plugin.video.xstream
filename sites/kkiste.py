@@ -12,12 +12,25 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
-URL_MAIN = 'https://kkiste.name/'
+#URL_MAIN = 'https://kkiste.name/'
+URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.name/'))
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_FILME = URL_MAIN + 'kinofilme-online/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
 URL_DOKU = URL_MAIN + 'dokumentation/'
+
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('kkiste-domain', str(url))
 
 
 def load():
@@ -65,6 +78,13 @@ def showValue():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if not Domain == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<< 
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     if sSearchText:

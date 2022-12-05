@@ -11,12 +11,25 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kinokiste_tech'
 SITE_NAME = 'Kinokiste Tech'
 SITE_ICON = 'kinokistetech.png'
-URL_MAIN = 'https://kinokiste.cloud/'
+#URL_MAIN = 'https://kinokiste.cloud/'
+URL_MAIN = str(cConfig().getSetting('kinokiste-domain', 'https://kinokiste.cloud/'))
 URL_NEU = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_KINDER = URL_MAIN + 'animation/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + '?do=search&subaction=search&story=%s'
+
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('kinokiste-domain', str(url))
 
 
 def load():
@@ -60,6 +73,13 @@ def showGenre():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    st = str(oRequest.getStatus())
+    if not st == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))

@@ -13,10 +13,23 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'hdfilme_top'
 SITE_NAME = 'HD Filme Top'
 SITE_ICON = 'hdfilmetop.png'
-URL_MAIN = 'https://hdfilme.fit/'
+#URL_MAIN = 'https://hdfilme.top/'
+URL_MAIN = str(cConfig().getSetting('hdfilme-domain', 'https://hdfilme.fit/'))
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?story=%s&do=search&subaction=search'
+
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('hdfilme-domain', str(url))
 
 
 def load():
@@ -76,6 +89,13 @@ def showYears(entryUrl=False):
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    st = str(oRequest.getStatus())
+    if not st == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<     
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
