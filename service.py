@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 #
+# 2022-06-21 Heptamer - Änderung siehe Zeile 72ff
+#
 import sys, os, json, re, xbmc, xbmcaddon, xbmcgui
 from xbmc import LOGDEBUG, LOGERROR
 

@@ -1,3 +1,10 @@
+3.5.39~nightly1
+  05.12.22
+  - [HDFilme]		Domain Check Funktion
+  - [Kinomax]		Domain Check Funktion
+  - [KKiste]		Domain Check Funktion
+  - [Movie4k]		Domain Check Funktion
+  - [XCine]			Domain Check Funktion
 3.5.38
   17.11.22
   - [HDFilme]		Domain Update
@@ -7,11 +14,12 @@
   - [XCine]			Domain Update
   
 3.5.37
+  05.11.22
+  - [Megakino]		aktiviert
+  
+3.5.36
   02.11.22
   - [Megakino]		deaktiviert
-
-3.5.36
-  27.10.22
   - [PY2]			Abschluss! Die PY2/3 Version wird für Kodi nicht mehr als Nightly verfügbar sein und eingestellt!
   - [HDFilme]		Domain Update
   - [service.py] 	Update xS fixed

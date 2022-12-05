@@ -11,11 +11,23 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'movie4k_click'
 SITE_NAME = 'Movie4k Click'
 SITE_ICON = 'movie4k_click.png'
-
-URL_MAIN = 'https://movie4k.pics'
+#URL_MAIN = 'https://movie4k.pics'
+URL_MAIN = str(cConfig().getSetting('movie4k-domain', 'https://movie4k.cyou/'))
 URL_KINO = URL_MAIN + '/aktuelle-kinofilme-im-kino'
 URL_FILME = URL_MAIN + '/kinofilme-online'
 URL_SERIE = URL_MAIN + '/serienstream-deutsch'
+
+
+def checkDomain():
+    oRequest = cRequestHandler(URL_MAIN, caching=False)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if oRequest.getStatus() == '301':
+        url = oRequest.getRealUrl()
+        if not url.startswith('http'):
+            url = 'https://' + url
+        # Setzt aktuelle Domain in der settings.xml
+        cConfig().setSetting('movie4k-domain', str(url))
 
 
 def load():
@@ -61,14 +73,21 @@ def showValue():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
+    # >>>> Domain Check <<<<<
+    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
+    oRequest.request()
+    Domain = str(oRequest.getStatus())
+    if not Domain == '200':
+        checkDomain()
+    # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     if sSearchText:
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')
-    sHtmlContent = oRequest.request()
-    pattern = 'movie-item.*?href="([^"]+).*?<h3>([^<]+).*?<ul><li>([^<]+).*?white">([^<]+).*?src="([^"]+)'
+    sHtmlContent = oRequest.request() 
+    pattern = 'movie-item.*?href="([^"]+).*?<h3>([^<]+).*?<ul><li>([^<]+).*?white">([^<]+).*?data-src="/([^"]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()
@@ -76,8 +95,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sName, sQuality, sYear, sThumbnail in aResult:
-        if sThumbnail.startswith('/'):
-            sThumbnail = URL_MAIN + sThumbnail
+        sThumbnail = URL_MAIN + sThumbnail
         if sSearchText and not cParser().search(sSearchText, sName):
             continue
         isTvshow = True if 'taffel' in sName else False
