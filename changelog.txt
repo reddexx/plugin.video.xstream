@@ -1,8 +1,8 @@
 3.5.39~nightly2
   06.12.22
   - [s.to] Suchfunktion erweitert 
-  - [xstream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
-  - [xstream] Requesthandler: Bei internem Server fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
+  - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
+  - [Requesthandler] Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
 
 3.5.39~nightly1
   05.12.22

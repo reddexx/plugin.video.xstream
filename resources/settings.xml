@@ -97,7 +97,7 @@
         <setting type="lsep" label="SerienStream" />
         <setting default="true" type="bool" id="plugin_serienstream_to" label="30050" />
         <setting default="true" type="bool" id="global_search_serienstream_to" label="30052" enable="!eq(-1,false)" />
-        <setting default="s.to" enable="!eq(-2,false)" id="serienstream_to-domain" label="30051" type="labelenum" values="s.to|serienstream.to|serien.cam|190.115.18.20" />
+        <setting default="s.to" enable="!eq(-2,false)" id="serienstream_to-domain" label="30051" type="labelenum" values="s.to|serienstream.to|190.115.18.20" />
         <setting type="sep" />
         <setting type="lsep" label="Streamworld" />
         <setting default="true" type="bool" id="plugin_streamworld" label="30050" />

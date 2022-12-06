@@ -16,12 +16,12 @@ from resources.lib.config import cConfig
 SITE_IDENTIFIER = 'serienstream_to'
 SITE_NAME = 'SerienStream'
 SITE_ICON = 'serienstream.png'
-SITE_SETTINGS = '<setting default="s.to" enable="!eq(-2,false)" id="serienstream_to-domain" label="30051" type="labelenum" values="s.to|serienstream.to|serien.cam|190.115.18.20" />'
+SITE_SETTINGS = '<setting default="s.to" enable="!eq(-2,false)" id="serienstream_to-domain" label="30051" type="labelenum" values="s.to|serienstream.to|190.115.18.20" />'
 domain = cConfig().getSetting('serienstream_to-domain')
 #SITE_SETTINGS = '<setting id="serienstream.user" type="text" label="30083" default="" /><setting id="serienstream.pass" type="text" option="hidden" label="30084" default="" />'
 SITE_GLOBAL_SEARCH = True
 
-#URL_MAIN = 'https://serien.cam/'
+#URL_MAIN = 'https://s.to/'
 if domain == "190.115.18.20":
     URL_MAIN = 'http://' + domain
     proxy = 'true'
