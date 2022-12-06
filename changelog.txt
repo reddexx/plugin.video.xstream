@@ -12,8 +12,8 @@
  - [Kinokiste] - neue Funktion holt URL und speichert diese in der settings.xml
  - [Kinomax] - neue Funktion holt URL und speichert diese in der settings.xml
  - [KKiste] - neue Funktion holt URL und speichert diese in der settings.xml
- - [Movie4k] - Regex überarbeitet Bildlink gefixt, neue Funktion holt URL und speichert 
-		     diese in der settings.xml
+ - [Movie4k] - Regex überarbeitet Bildlink gefixt, neue Funktion holt URL und 
+			 speichert diese in der settings.xml
  - [xCine] - neue Funktion holt URL und speichert diese in der settings.xml			
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
