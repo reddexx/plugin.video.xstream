@@ -1,58 +1,56 @@
 # -*- coding: utf-8 -*-
+# Python 3
 
-# 2022.10.14 DWH-WFC
-
-import os, base64, sys
+import os
+import base64
+import sys
 import shutil
 import json
 import requests
 import xbmc, xbmcvfs
+import zipfile
 
 from xbmcaddon import Addon
 from requests.auth import HTTPBasicAuth
 from xbmcgui import Dialog
+from resources.lib.config import cConfig
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
+from xbmcvfs import translatePath
 
-if sys.version_info[0] == 2:
-    from xbmc import translatePath, LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
-else:
-    from xbmc import LOGINFO as LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
-    from xbmcvfs import translatePath
-# Android K18 ZIP Fix.
-if getCondVisibility('system.platform.android') and int(getInfoLabel('System.BuildVersion')[:2]) == 18:
-    import fixetzipfile as zipfile
-else:
-    import zipfile
+
 # Text/Überschrift im Dialog
 PLUGIN_NAME = Addon().getAddonInfo('name')  # ist z.B. 'xstream'
 PLUGIN_ID = Addon().getAddonInfo('id')
-HEADERMESSAGE = 'xStream Update Manager'
+HEADERMESSAGE = cConfig().getLocalizedString(30151)
 
 # Resolver
 def resolverUpdate(silent=False):
     username = 'fetchdevteam'
     resolve_dir = 'snipsolver'
     resolve_id = 'script.module.resolveurl'
-    branch = Addon().getSetting('resolver.branch')
+    # Abfrage aus den Einstellungen welcher Branch
+    branch = Addon().getSettingString('resolver.branch')
     token = ''
 
     try:
         return UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent)
     except Exception as e:
         log('Exception Raised: %s' % str(e), LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + resolve_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
         return
 
 # xStream
 def xStreamUpdate(silent=False):
     username = 'streamxstream'
     plugin_id = 'plugin.video.xstream'
-    branch = 'nightly'
+    # Abfrage aus den Einstellungen welcher Branch
+    branch = Addon().getSettingString('xstream.branch')   
     token = ''
     try:
         return Update(username, plugin_id, branch, token, silent)
     except Exception as e:
         log('Exception Raised: %s' % str(e), LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + plugin_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
         return False
 
 # Update Resolver
@@ -66,12 +64,8 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
     auth = HTTPBasicAuth(username, token)
     log(HEADERMESSAGE + ' - %s - Suche nach Aktualisierungen.' % resolve_id, LOGNOTICE)
     try:
-        if sys.version_info[0] == 2:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id).decode('utf-8')
-        else:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id)
-
-        LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")
+        ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id) # Pfad von ResolveURL Daten
+        LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")    # Pfad der update.sha in den ResolveURL Daten
         LOCAL_FILE_NAME_PLUGIN = os.path.join(ADDON_DIR, 'update-' + resolve_id + '.zip')
         if not os.path.exists(ADDON_DIR): os.mkdir(ADDON_DIR)
         
@@ -85,26 +79,23 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
             if isTrue is True:
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird heruntergeladen.' % resolve_id, LOGNOTICE)
                 shutil.make_archive(ADDON_PATH, 'zip', ADDON_PATH)
-                unpack_archive = zipfile.ZipFile(ADDON_PATH + '.zip')   # Py2/Py3
-                unpack_archive.extractall(INSTALL_PATH)                 # Py2/Py3
-                unpack_archive.close()                                  # Py2/Py3
-                #shutil.unpack_archive(ADDON_PATH + '.zip', INSTALL_PATH)   # Py3
+                shutil.unpack_archive(ADDON_PATH + '.zip', INSTALL_PATH)
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird installiert.' % resolve_id, LOGNOTICE)
                 if os.path.exists(ADDON_PATH + '.zip'): os.remove(ADDON_PATH + '.zip')                
-                if silent is False: Dialog().ok(HEADERMESSAGE, resolve_id + ' - Update erfolgreich.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30158) + resolve_id + cConfig().getLocalizedString(30159))
                 log(HEADERMESSAGE + ' - %s - Aktualisierung abgeschlossen.' % resolve_id, LOGNOTICE)
                 return True
             elif isTrue is None:
                 log(HEADERMESSAGE + ' - %s - Keine Aktualisierung verfügbar.' % resolve_id, LOGNOTICE)
-                if silent is False: Dialog().ok(HEADERMESSAGE, resolve_id + ' - Kein Update verfügbar.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30160) + resolve_id + cConfig().getLocalizedString(30161))
                 return None
 
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % resolve_id, LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + resolve_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
         return False
     except:
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % resolve_id, LOGERROR)
-        Dialog().ok(HEADERMESSAGE, 'Fehler bei der Aktualisierung von ' + resolve_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
 
 # xStream Update
 def Update(username, plugin_id, branch, token, silent):
@@ -113,11 +104,7 @@ def Update(username, plugin_id, branch, token, silent):
     auth = HTTPBasicAuth(username, token)
     log(HEADERMESSAGE + ' - %s - Suche nach Aktualisierungen.' % plugin_id, LOGNOTICE)
     try:
-        if sys.version_info[0] == 2:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id).decode('utf-8')
-        else:
-            ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id)
-
+        ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id)
         LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")
         LOCAL_FILE_NAME_PLUGIN = os.path.join(ADDON_DIR, 'update-' + plugin_id + '.zip')
         if not os.path.exists(ADDON_DIR): os.mkdir(ADDON_DIR)
@@ -132,20 +119,20 @@ def Update(username, plugin_id, branch, token, silent):
                                   LOCAL_FILE_NAME_PLUGIN, silent, auth)
             if isTrue is True:
                 log(HEADERMESSAGE + ' - %s - Aktualisierung wird installiert.' % plugin_id, LOGNOTICE)
-                if silent is False: Dialog().ok(PLUGIN_NAME, plugin_id + ' - Update erfolgreich.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30158) + plugin_id + cConfig().getLocalizedString(30159))
                 log(HEADERMESSAGE + ' - %s - Aktualisierung abgeschlossen.' % plugin_id, LOGNOTICE)
                 return True
             elif isTrue is None:
                 log(HEADERMESSAGE + ' - %s - Keine Aktualisierung verfügbar.' % plugin_id, LOGNOTICE)
-                if silent is False: Dialog().ok(PLUGIN_NAME, plugin_id + ' - Kein Update verfügbar.')
+                if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30160) + plugin_id + cConfig().getLocalizedString(30161))
                 return None
 
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % plugin_id, LOGERROR)
-        Dialog().ok(PLUGIN_NAME, 'Fehler bei der Aktualisierung von ' + plugin_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
         return False
     except:
         log(HEADERMESSAGE + ' - %s - Fehler bei der Aktualisierung' % plugin_id, LOGERROR)
-        Dialog().ok(PLUGIN_NAME, 'Fehler bei der Aktualisierung von ' + plugin_id)
+        Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
 
 
 def commitUpdate(onlineFile, offlineFile, downloadLink, LocalDir, plugin_id, localFileName, silent, auth):
@@ -201,7 +188,7 @@ def doUpdate(LocalDir, REMOTE_PATH, Title, localFileName, auth):
 
 
 def removeFilesNotInRepo(updateFile, LocalDir):
-    ignored_files = ['settings.xml', 'anicloud.py', 'anicloud.png']
+    ignored_files = ['settings.xml', 'aniworld.py', 'aniworld.png']
     updateFileNameList = [i.split("/")[-1] for i in updateFile.namelist()]
 
     for root, dirs, files in os.walk(LocalDir):
@@ -236,39 +223,78 @@ def zipfolder(foldername, target_dir):
             zipobj.write(fn, fn[rootlen:])
     zipobj.close()
 
-
-def devAutoUpdates(silent=False):
-    try:
-        status1 = status2 = None
-        if Addon().getSetting('githubUpdateXstream') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
-            status1 = xStreamUpdate(silent)
-        if Addon().getSetting('githubUpdateResolver') == 'true' or Addon().getSetting('enforceUpdate') == 'true':
-            status2 = resolverUpdate(silent)
-        if status1 == status2:
-            return status1
-        elif status1 is False or status2 is False:
-            return False
-        elif (status1 is True or status2 is True) and (status1 is None or status2 is None):
-            return True
-    except Exception as e:
-        log(e)
-
-
-def devUpdates():  # für manuelles Updates vorgesehen vorerst deaktiviert in der settings.xml
+    
+def devUpdates():  # für manuelles Updates vorgesehen
     try:
         resolverupdate = False
         pluginupdate = False
+        sbranchxStream = Addon().getSettingString('xstream.branch')     # für zukünftige Branch Auswahl
+        sbranchResolver = Addon().getSettingString('resolver.branch')
+        # Einleitungstext
+        if Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30152)):
+        # Abfrage welches Plugin aktualisiert werden soll (kann erweitert werden)
+            options = [cConfig().getLocalizedString(30153), cConfig().getLocalizedString(30096) + ' ' + cConfig().getLocalizedString(30154), cConfig().getLocalizedString(30030) + ' ' + cConfig().getLocalizedString(30154)]
+            result = Dialog().select(HEADERMESSAGE, options)
+        else:
+            return False
+            
+        if result == -1:    # Abbrechen
+            return False
 
-        options = ['Beide Addons aktualisieren', PLUGIN_NAME + ' aktualisieren', 'ResolveUrl aktualisieren']
-        result = Dialog().select(HEADERMESSAGE, options)
+        elif result == 0: # Alle Addons aktualisieren
+            # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
+            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')
+            if result == 0:
+                sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'nexus')  
+            elif result == 1:
+                sBranchxStreamNightly = Addon().setSetting('xstream.branch', 'nightly')
 
-        if result == 0:
-            resolverupdate = True
-            pluginupdate = True
-        elif result == 1:
-            pluginupdate = True
-        elif result == 2:
-            resolverupdate = True
+            # Abfrage ob ResolveURL Release oder Nightly Branch (kann erweitert werden)
+            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30268), yeslabel='Nightly', nolabel='Release')
+            if result == 0:
+                sBranchResolverRelease = Addon().setSetting('resolver.branch', 'release')    
+            elif result == 1:
+                sBranchResolverNightly = Addon().setSetting('resolver.branch', 'nightly')
+                
+            # Voreinstellung beendet    
+            if Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30269), yeslabel=cConfig().getLocalizedString(30162), nolabel=cConfig().getLocalizedString(30163)):
+                # Updates ausführen
+                pluginupdate = True
+                resolverupdate = True              
+            else:
+                return False
+            
+        elif result == 1:   # xStream aktualisieren
+            # Abfrage ob xStream Release oder Nightly Branch (kann erweitert werden)
+            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30155), yeslabel='Nightly', nolabel='Release')
+            
+            if result == 0:
+                sBranchxStreamRelease = Addon().setSetting('xstream.branch', 'nexus')  
+            elif result == 1:
+                sBranchxStreamNightly = Addon().setSetting('xstream.branch', 'nightly')
+                
+            # Voreinstellung beendet    
+            if Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30269), yeslabel=cConfig().getLocalizedString(30162), nolabel=cConfig().getLocalizedString(30163)):
+                # Updates ausführen
+                pluginupdate = True
+            else:
+                return False
+                
+        elif result == 2:   # Resolver aktualisieren
+            # Abfrage ob ResolveURL Release oder Nightly Branch (kann erweitert werden)
+            result = Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30268), yeslabel='Nightly', nolabel='Release')
+            
+            if result == 0:
+                sBranchResolverRelease = Addon().setSetting('resolver.branch', 'release')    
+            elif result == 1:
+                sBranchResolverNightly = Addon().setSetting('resolver.branch', 'nightly')
+
+            # Voreinstellung beendet    
+            if Dialog().yesno(HEADERMESSAGE, cConfig().getLocalizedString(30269), yeslabel=cConfig().getLocalizedString(30162), nolabel=cConfig().getLocalizedString(30163)):     
+                # Updates ausführen
+                resolverupdate = True
+            else:
+                return False
 
         if pluginupdate is True:
             try:
@@ -280,7 +306,8 @@ def devUpdates():  # für manuelles Updates vorgesehen vorerst deaktiviert in de
                 resolverUpdate(False)
             except:
                 pass
-        # ka - reset enforce Update
+            
+        # Zurücksetzten der Update.sha
         if Addon().getSetting('enforceUpdate') == 'true': Addon().setSetting('enforceUpdate', 'false')
         return
     except Exception as e:

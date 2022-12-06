@@ -1,30 +1,32 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 SITE_IDENTIFIER = 'kinofox'
 SITE_NAME = 'KinoFox'
 SITE_ICON = 'kinofox.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://kinofox.su'
-#URL_KINO = URL_MAIN + '/kinofilme-stream'
 URL_SEARCH = URL_MAIN + '/index.php?do=search'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    #params.setParam('sUrl', URL_KINO)
-    #cGui().addFolder(cGuiElement('Kino', SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies
     params.setParam('sCont', 'Genre')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
     params.setParam('sCont', 'Release Jahre')
-    cGui().addFolder(cGuiElement('Release Jahre', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showValue'), params)    # Release Year
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 
@@ -40,8 +42,31 @@ def showValue():
         return
 
     for sUrl, sName in aResult:
-        if sUrl.startswith('/'):
-            sUrl = URL_MAIN + sUrl
+        sUrl = URL_MAIN + sUrl
+        if 'ctionfilm' in sName:
+            continue
+        if 'antasyfilm' in sName:
+            continue
+        if 'amilienfilm' in sName:
+            continue
+        if 'riminalfilm' in sName:
+            continue
+        if 'omödie' in sName:
+            continue
+        if 'riegsfilm' in sName:
+            continue
+        if 'orrorfilm' in sName:
+            continue
+        if 'istorienfilm' in sName:
+            continue
+        if 'ystery' in sName:
+            continue
+        if 'usikfilm' in sName:
+            continue
+        if 'hriller' in sName:
+            continue
+        if 'estern' in sName:
+            continue             
         if 'erian' in sName:
             continue
         params.setParam('sUrl', sUrl)
@@ -63,8 +88,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('result_from', '1')
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('titleonly', '3')
-    sHtmlContent = oRequest.request()
-    pattern = 'short clearfix.*?href="([^"]+).*?title">([^<]+).*? src="([^"]+).*?short-label sl-y">([^<]+)'
+    sHtmlContent = oRequest.request() 
+    pattern = 'short clearfix.*?href="([^"]+).*?title">([^<]+).*?img src="([^"]+).*?short-label sl-y">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()

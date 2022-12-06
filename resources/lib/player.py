@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
 import xbmc
 from resources.lib.gui.gui import cGui
 from resources.lib.tools import logger

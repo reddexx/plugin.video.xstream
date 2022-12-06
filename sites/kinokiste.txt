@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
-#
-# 2022-06-21 Heptamer Site für Globale Suche freigegeben
+# Python 3
+# Always pay attention to the translations in the menu!
+
+import re
+import sys
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
-from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
+from resources.lib.gui.gui import cGui
 from json import loads
-import re, sys
 
 
 SITE_IDENTIFIER = 'kinokiste'
 SITE_NAME = 'KinoKiste'
 SITE_ICON = 'kinokiste.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://api.tmdb.club/data/browse/?lang=%s&type=%s&order_by=%s&page=%s'     # 2 = deutsch / 3 = englisch / all = Alles
 URL_SEARCH = 'https://api.tmdb.club/data/browse/?lang=%s&keyword=%s&page=%s'
 URL_THUMBNAIL = 'https://image.tmdb.org/t/p/w300%s'
 URL_WATCH = 'https://api.tmdb.club/data/watch/?_id=%s'
-ORIGIN = 'https://movie2k.ag'
+ORIGIN = 'https://www1.movie2k.ch'
 REFERER = ORIGIN + '/'
-#SITE_GLOBAL_SEARCH = False
 
 
 def load():

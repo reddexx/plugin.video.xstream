@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-import sys, xbmc, xbmcgui, xbmcplugin
+# Python 3
+
+import sys
+import xbmc
+import xbmcgui 
+import xbmcplugin
+
 from resources.lib import common
 from resources.lib.config import cConfig
 from resources.lib.gui.contextElement import cContextElement
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.handler.ParameterHandler import ParameterHandler
-try:
-    from urllib import quote_plus, urlencode
-except ImportError:
-    from urllib.parse import quote_plus, urlencode
+from urllib.parse import quote_plus, urlencode
 
 
 class cGui:
@@ -115,14 +118,14 @@ class cGui:
         contextitem = cContextElement()
 
         if oGuiElement._mediaType == 'movie' or oGuiElement._mediaType == 'tvshow':
-            contextitem.setTitle("Erweiterte Info (TMDB)")
+            contextitem.setTitle(cConfig().getLocalizedString(30239))   # Erweiterte Info
             searchParams = {'searchTitle': oGuiElement.getTitle(), 'sMeta': oGuiElement._mediaType, 'sYear': oGuiElement._sYear}
             contextmenus += [(contextitem.getTitle(), "RunPlugin(%s?function=viewInfo&%s)" % (self.pluginPath, urlencode(searchParams),),)]
         if oGuiElement._mediaType == 'season' or oGuiElement._mediaType == 'episode':
-            contextitem.setTitle("Info")
-            contextmenus += [(contextitem.getTitle(), "Action(Info)",)]
+            contextitem.setTitle(cConfig().getLocalizedString(30241))   # Info
+            contextmenus += [(contextitem.getTitle(), cConfig().getLocalizedString(30242),)]    # Action(Info)
         # search for alternative source
-        contextitem.setTitle("Weitere Quellen")
+        contextitem.setTitle(cConfig().getLocalizedString(30243))   # Weitere Quellen
         searchParams = {'searchTitle': oGuiElement.getTitle()}
         if 'imdb_id' in itemValues:
             searchParams['searchImdbID'] = itemValues['imdb_id']
@@ -146,24 +149,24 @@ class cGui:
 
         # context options for movies or episodes
         if not bIsFolder:
-            contextitem.setTitle("add to Playlist")
+            contextitem.setTitle(cConfig().getLocalizedString(30244))   # Playlist hinzufügen
             contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=enqueue)" % (sUrl,),)]
-            contextitem.setTitle("download")
+            contextitem.setTitle(cConfig().getLocalizedString(30245))   # Download
             contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=download)" % (sUrl,),)]
             if cConfig().getSetting('jd_enabled') == 'true':
-                contextitem.setTitle("send to JDownloader")
+                contextitem.setTitle(cConfig().getLocalizedString(30246))   # send JD
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=jd)" % (sUrl,),)]
             if cConfig().getSetting('jd2_enabled') == 'true':
-                contextitem.setTitle("send to JDownloader2")
+                contextitem.setTitle(cConfig().getLocalizedString(30247))   # Send JD2
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=jd2)" % (sUrl,),)]
             if cConfig().getSetting('myjd_enabled') == 'true':
-                contextitem.setTitle("send to My.JDownloader")
+                contextitem.setTitle(cConfig().getLocalizedString(30248))   # Send myjd
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=myjd)" % (sUrl,),)]
             if cConfig().getSetting('pyload_enabled') == 'true':
-                contextitem.setTitle("send to PyLoad")
+                contextitem.setTitle(cConfig().getLocalizedString(30249))   # Send Pyload
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=pyload)" % (sUrl,),)]
-            if cConfig().getSetting('hosterSelect') == 'Auto':
-                contextitem.setTitle("select hoster")
+            if cConfig().getSetting('hosterSelect') == cConfig().getLocalizedString(30130): # Auto Play
+                contextitem.setTitle(cConfig().getLocalizedString(30149))   # select Hoster
                 contextmenus += [(contextitem.getTitle(), "RunPlugin(%s&playMode=play&manual=1)" % (sUrl,),)]
         listitem.addContextMenuItems(contextmenus)
         # listitem.addContextMenuItems(contextmenus, True)
@@ -252,7 +255,7 @@ class cGui:
         return False
 
     @staticmethod
-    def showNumpad(defaultNum="", numPadTitle="Choose page"):
+    def showNumpad(defaultNum="", numPadTitle=cConfig().getLocalizedString(30251)):
         defaultNum = str(defaultNum)
         dialog = xbmcgui.Dialog()
         num = dialog.numeric(0, numPadTitle, defaultNum)
@@ -279,7 +282,7 @@ class cGui:
         xbmc.executebuiltin("Notification(%s,%s,%s,%s)" % (str(sTitle), (str(sDescription)), iSeconds, common.addon.getAddonInfo('icon')))
 
     @staticmethod
-    def showInfo(sTitle='xStream', sDescription='Es wurde kein Eintrag gefunden', iSeconds=0):
+    def showInfo(sTitle='xStream', sDescription=cConfig().getLocalizedString(30253), iSeconds=0):
         if iSeconds == 0:
             iSeconds = 1000
         else:

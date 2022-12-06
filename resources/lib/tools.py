@@ -1,20 +1,96 @@
 # -*- coding: utf-8 -*-
+# Python 3
 
-# 2022-01-21
+import xbmc
+import xbmcaddon
+import xbmcgui
+import os
+import string
+import sys
+import hashlib
+import re
+import platform
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib import common
 from resources.lib import pyaes
-import re, hashlib, sys, xbmc
-try:
-    from urlparse import urlparse
-    from htmlentitydefs import name2codepoint
-    from urllib import quote, unquote, quote_plus, unquote_plus
-except ImportError:
-    from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
-    from html.entities import name2codepoint
+from resources.lib.config import cConfig
+from xbmcaddon import Addon
+from xbmcgui import Dialog
+from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
+from html.entities import name2codepoint
 
 
+def platform(): # Aufgeführte Plattformen zum Anzeigen der Systemplattform
+    if xbmc.getCondVisibility('system.platform.android'):
+        return 'Android'
+    elif xbmc.getCondVisibility('system.platform.linux'):
+        return 'Linux'
+    elif xbmc.getCondVisibility('system.platform.linux.Raspberrypi'):
+        return 'Linux/RPi'
+    elif xbmc.getCondVisibility('system.platform.windows'):
+        return 'Windows'
+    elif xbmc.getCondVisibility('system.platform.uwp'):
+        return 'Windows UWP'      
+    elif xbmc.getCondVisibility('system.platform.osx'):
+        return 'OSX'
+    elif xbmc.getCondVisibility('system.platform.atv2'):
+        return 'ATV2'
+    elif xbmc.getCondVisibility('system.platform.ios'):
+        return 'iOS'
+    elif xbmc.getCondVisibility('system.platform.darwin'):
+        return 'iOS'
+    elif xbmc.getCondVisibility('system.platform.xbox'):
+        return 'XBOX'
+    elif xbmc.getCondVisibility('System.HasAddon(service.coreelec.settings)'):
+        return "CoreElec"
+    elif xbmc.getCondVisibility('System.HasAddon(service.libreelec.settings)'):
+        return "LibreElec"
+    elif xbmc.getCondVisibility('System.HasAddon(service.osmc.settings)'):
+        return "OSMC"        
+        
+
+def pluginInfo(): # Plugin Support Informationen
+    BUILD = (xbmc.getInfoLabel('System.BuildVersion')[:4])
+    BUILDCODE = xbmc.getInfoLabel('System.BuildVersionCode')
+    SYS_FORM = cConfig().getLocalizedString(30266) 
+    PLUGIN_NAME = Addon().getAddonInfo('name')
+    PLUGIN_ID = Addon().getAddonInfo('id')
+    PLUGIN_VERSION = Addon().getAddonInfo('version')
+    RESOLVER_NAME = Addon('script.module.resolveurl').getAddonInfo('name')
+    RESOLVER_ID = Addon('script.module.resolveurl').getAddonInfo('id')
+    RESOLVER_VERSION = Addon('script.module.resolveurl').getAddonInfo('version')
+
+    Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '        {0}'.format (platform().title()) + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n')
+
+ 
+def textBox(heading, announce):
+    class TextBox():
+
+        def __init__(self, *args, **kwargs):
+            self.WINDOW = 10147
+            self.CONTROL_LABEL = 1
+            self.CONTROL_TEXTBOX = 5
+            xbmc.executebuiltin("ActivateWindow(%d)" % (self.WINDOW, ))
+            self.win = xbmcgui.Window(self.WINDOW)
+            xbmc.sleep(500)
+            self.setControls()
+
+        def setControls(self):
+            self.win.getControl(self.CONTROL_LABEL).setLabel(heading)
+            try:
+                f = open(announce)
+                text = f.read()
+            except:
+                text = announce
+            self.win.getControl(self.CONTROL_TEXTBOX).setText(str(text))
+            return
+
+    TextBox()
+    while xbmc.getCondVisibility('Window.IsVisible(10147)'):
+        xbmc.sleep(500)
+ 
+ 
 class cParser:
     @staticmethod
     def parseSingleResult(sHtmlContent, pattern):
@@ -106,20 +182,14 @@ class cParser:
     @staticmethod
     def B64decode(text):
         import base64
-        if sys.version_info[0] == 2:
-            b = base64.b64decode(text)
-        else:
-            b = base64.b64decode(text).decode('utf-8')
+        b = base64.b64decode(text).decode('utf-8')
         return b
 
 
 class logger:
     @staticmethod
     def info(sInfo):
-        if sys.version_info[0] == 2:
-            logger.__writeLog(sInfo, cLogLevel=xbmc.LOGNOTICE)
-        else:
-            logger.__writeLog(sInfo, cLogLevel=xbmc.LOGINFO)
+        logger.__writeLog(sInfo, cLogLevel=xbmc.LOGINFO)
 
     @staticmethod
     def debug(sInfo):
@@ -137,9 +207,6 @@ class logger:
     def __writeLog(sLog, cLogLevel=xbmc.LOGDEBUG):
         params = ParameterHandler()
         try:
-            if sys.version_info[0] == 2:
-                if isinstance(sLog, unicode):
-                    sLog = '%s (ENCODED)' % (sLog.encode('utf-8'))
             if params.exist('site'):
                 site = params.getValue('site')
                 sLog = "\t[%s] -> %s: %s" % (common.addonName, site, sLog)
@@ -191,10 +258,6 @@ class cUtil:
     def cleanse_text(text):
         if text is None: text = ''
         text = cUtil.removeHtmlTags(text)
-        if sys.version_info[0] == 2:
-            text = cUtil.unescape(text)
-            if isinstance(text, unicode):
-                text = text.encode('utf-8')
         return text
 
     @staticmethod

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# Python 3
+
 """
     urlresolver XBMC Addon
     Copyright (C) 2013 Bstrdsmkr

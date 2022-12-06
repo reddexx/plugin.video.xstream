@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from resources.lib import common
+# Python 3
+
 import xbmcaddon
+from resources.lib import common
 
 
 class cConfig:

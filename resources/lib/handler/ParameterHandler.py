@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
 import sys
-try:
-    from urlparse import parse_qsl, urlsplit
-    from urllib import unquote_plus, urlencode
-except ImportError:
-    from urllib.parse import parse_qsl, urlsplit, unquote_plus, urlencode
+
+from urllib.parse import parse_qsl, urlsplit, unquote_plus, urlencode
 
 
 class ParameterHandler:

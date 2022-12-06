@@ -1,39 +1,47 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
+import xbmcgui
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from resources.lib.jsnprotect import cHelper
-from resources.lib.config import cConfig
 
 
-SITE_IDENTIFIER = 'anicloud_io'
+SITE_IDENTIFIER = 'aniworld'
 SITE_NAME = 'AniWorld'
-SITE_ICON = 'anicloud.png'
-#SITE_SETTINGS = '<setting id="anicloud.user" type="text" label="30083" default="" /><setting id="anicloud.pass" type="text" option="hidden" label="30084" default="" />'
-
+SITE_ICON = 'aniworld.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://aniworld.to/'
 URL_SERIES = URL_MAIN + '/animes'
 URL_POPULAR = URL_MAIN + '/beliebte-animes'
 URL_LOGIN = URL_MAIN + '/login'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    params.setParam('sUrl', URL_SERIES)
-    cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
-    params.setParam('sUrl', URL_POPULAR)
-    cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_MAIN)
-    params.setParam('sCont', 'catalogNav')
-    cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
-    params.setParam('sCont', 'homeContentGenresList')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
-    #cGui().addFolder(cGuiElement('[COLOR red]Bei Problemen hier Domain ändern[/COLOR]', SITE_IDENTIFIER, 'checkDomain'))
-    cGui().setEndOfDirectory()
+    username = cConfig().getSetting('aniworld.user')    # Username
+    password = cConfig().getSetting('aniworld.pass')    # Password
+    if username == '' or password == '':                # If no username and password were set, close the plugin!
+        xbmcgui.Dialog().ok(cConfig().getLocalizedString(30241), cConfig().getLocalizedString(30263))   # Info Dialog!
+    else:
+        params.setParam('sUrl', URL_SERIES)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30518), SITE_IDENTIFIER, 'showAllSeries'), params)    # All Series
+        params.setParam('sUrl', URL_POPULAR)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30519), SITE_IDENTIFIER, 'showEntries'), params)    # Popular Series
+        params.setParam('sUrl', URL_MAIN)
+        params.setParam('sCont', 'catalogNav')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)    # From A-Z
+        params.setParam('sCont', 'homeContentGenresList')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), params)   # Search
+        cGui().setEndOfDirectory()
 
 def showValue():
     params = ParameterHandler()
@@ -222,12 +230,8 @@ def showHosters():
 
 
 def getHosterUrl(sUrl=False):
-    username = cConfig().getSetting('anicloud.user')
-    password = cConfig().getSetting('anicloud.pass')
-    if username == '' or password == '':
-        import xbmcgui
-        xbmcgui.Dialog().ok('xStream Anicloud', 'Unter Einstellungen / Konten für Anicloud die eigenen Kontendaten  eintragen!')
-        return
+    username = cConfig().getSetting('aniworld.user')
+    password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
     Handler.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Handler.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))

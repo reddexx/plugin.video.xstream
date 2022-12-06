@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+import sys
+
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from resources.lib.tools import logger
 from string import maketrans
-import sys
-try:
-    from urllib2 import Request, urlopen, build_opener, HTTPError
-    from urllib import urlencode, quote_plus
-except ImportError:
-    from urllib.request import Request, urlopen, build_opener
-    from urllib.error import HTTPError
-    from urllib.parse import urlencode, quote_plus
+from urllib.request import Request, urlopen, build_opener
+from urllib.error import HTTPError
+from urllib.parse import urlencode, quote_plus
 
 
 class cPyLoadHandler:
@@ -20,9 +19,9 @@ class cPyLoadHandler:
     def sendToPyLoad(self, sPackage, sUrl):
         logger.info('PyLoad package: ' + str(sPackage) + ', ' + str(sUrl))
         if self.__sendLinkToCore(sPackage, sUrl):
-            cGui().showInfo('PyLoad', 'Link gesendet', 5)
+            cGui().showInfo(cConfig().getLocalizedString(30257), cConfig().getLocalizedString(30256), 5)
         else:
-            cGui().showInfo('PyLoad', 'Fehler beim Senden des Links!', 5)
+            cGui().showInfo(cConfig().getLocalizedString(30257), cConfig().getLocalizedString(30258), 5)
 
     def __sendLinkToCore(self, sPackage, sUrl):
         logger.info('Sending link...')

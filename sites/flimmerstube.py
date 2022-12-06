@@ -1,36 +1,36 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
 
 # 2022-08-26 Heptamer - Regex Fix Zeile 117
 # 2022-10-05 Heptamer - Fix für Filme mit Direktlink Zeile  Zeile 128-136
-
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
-from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
-
+from resources.lib.gui.gui import cGui
 
 
 SITE_IDENTIFIER = 'flimmerstube'
 SITE_NAME = 'Flimmerstube'
 SITE_ICON = 'flimmerstube.png'
-SITE_SETTINGS = '<setting id="flimmerstube.user" type="text" label="30083" default="" /><setting id="flimmerstube.pass" type="text" option="hidden" label="30084" default="" />'
+SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'http://flimmerstube.com'
-URL_MOVIE = URL_MAIN + '/video/vic/alle_filme'
+URL_MOVIES = URL_MAIN + '/video/vic/alle_filme'
 URL_SEARCH = URL_MAIN + '/video/shv'
-SITE_GLOBAL_SEARCH = False
 
 
-def load():
+
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    username = cConfig().getSetting('flimmerstube.user')
-    password = cConfig().getSetting('flimmerstube.pass')
-    if username == '' and password == '':
+    username = cConfig().getSetting('flimmerstube.user')    # Username
+    password = cConfig().getSetting('flimmerstube.pass')    # Password
+    if username == '' and password == '':                   # If no username and password were set, close the plugin!
         import xbmcgui
-        xbmcgui.Dialog().ok('INFO', '[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter http://flimmerstube.com und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]')
+        xbmcgui.Dialog().ok(cConfig().getLocalizedString(30241), cConfig().getLocalizedString(30262))   # Info Dialog!
     else:
         oRequest = cRequestHandler('http://flimmerstube.com/index/sub/')
         oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
@@ -42,10 +42,10 @@ def load():
         oRequest.addParameters('ajax', '2')
         oRequest.addParameters('_tp_', 'xml')
         oRequest.request()
-        params.setParam('sUrl', URL_MOVIE)
-        cGui().addFolder(cGuiElement('Deutsche Horrorfilme', SITE_IDENTIFIER, 'showEntries'), params)
-        cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showGenre'), params)
-        cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+        params.setParam('sUrl', URL_MOVIES)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showGenre'), params)    # Genre
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
         cGui().setEndOfDirectory()
 
 

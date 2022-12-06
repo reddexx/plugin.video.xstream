@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+
+import sys
+import xbmc
+import xbmcgui
+import xbmcaddon
+import os
+
+from xbmcaddon import Addon
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.handler.pluginHandler import cPluginHandler
@@ -6,12 +16,16 @@ from resources.lib.tools import logger
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
-import sys, xbmc, xbmcgui
+from resources.lib import tools
+
+PATH = xbmcaddon.Addon().getAddonInfo('path')
+ART = os.path.join(PATH, 'resources', 'art')
 
 try:
     import resolveurl as resolver
 except ImportError:
-    xbmcgui.Dialog().ok('ResolveUrl Error', 'Sie haben keinen funktionierenden ResolveUrl installiert, es können keine Videos abgespielt werden bitte neu installieren.')
+    # Resolver Fehlermeldung (bei defekten oder nicht installierten Resolver)
+    xbmcgui.Dialog().ok(cConfig().getLocalizedString(30119), cConfig().getLocalizedString(30120))
 
 
 def run():
@@ -53,6 +67,16 @@ def parseUrl():
             from resources.lib import updateManager
             updateManager.devUpdates()
             return
+        elif sFunction == 'pluginInfo':
+            from resources.lib import tools
+            tools.pluginInfo()
+            return
+        elif sFunction == 'changelog':
+            import service
+            Addon().setSetting('changelog_version', '')
+            service.changelog()
+            return
+            
     elif params.exist('remoteplayurl'):
         try:
             remotePlayUrl = params.getValue('remoteplayurl')
@@ -101,13 +125,20 @@ def parseUrl():
         oGui = cGui()
         oGui.openSettings()
         oGui.updateDirectory()
-    # If the resolver settings are called
+    # Resolver Einstellungen im Hauptmenü
     elif sSiteName == 'resolver':
         resolver.display_settings()
-    # If UpdateManager are called (manual update)
+    # Manuelles Update im Hauptmenü
     elif sSiteName == 'devUpdates':
         from resources.lib import updateManager
         updateManager.devUpdates()
+    # Plugin Infos    
+    elif sSiteName == 'pluginInfo':
+        tools.pluginInfo()
+    # Changelog anzeigen    
+    elif sSiteName == 'changelog':
+        service.changelog()        
+    # Unterordner der Einstellungen   
     elif sSiteName == 'settings':
         oGui = cGui()
         for folder in settingsGuiElements():
@@ -122,6 +153,7 @@ def parseUrl():
 
 def showMainMenu(sFunction):
     oGui = cGui()
+    # Setzte die globale Suche an erste Stelle
     if cConfig().getSetting('GlobalSearchPosition') == 'true':
         oGui.addFolder(globalSearchGuiElement())
     oPluginHandler = cPluginHandler()
@@ -145,44 +177,54 @@ def showMainMenu(sFunction):
             oGui.addFolder(globalSearchGuiElement())
 
     if cConfig().getSetting('SettingsFolder') == 'true':
-        # Create a gui element for Settingsfolder
+        # Einstellung im Menü mit Untereinstellungen
         oGuiElement = cGuiElement()
         oGuiElement.setTitle(cConfig().getLocalizedString(30041))
         oGuiElement.setSiteName('settings')
         oGuiElement.setFunction('showSettingsFolder')
-        oGuiElement.setThumbnail('DefaultAddonService.png')
+        oGuiElement.setThumbnail(os.path.join(ART, 'settings.png'))
         oGui.addFolder(oGuiElement)
     else:
         for folder in settingsGuiElements():
             oGui.addFolder(folder)
-    # ka add - Create a gui element for updateManager
-    if cConfig().getSetting('DevUpdateAuto') == 'false':
-        oGuiElement = cGuiElement()
-        oGuiElement.setTitle('Nightly Update')
-        oGuiElement.setSiteName('devUpdates')
-        oGuiElement.setFunction(sFunction)
-        oGuiElement.setThumbnail('DefaultAddonProgram.png')
-        oGui.addFolder(oGuiElement)
     oGui.setEndOfDirectory()
 
 
 def settingsGuiElements():
-    # Create a gui element for addon settings
+    # GUI Plugin Informationen
+    from resources.lib import updateManager
+    oGuiElement = cGuiElement()
+    oGuiElement.setTitle(cConfig().getLocalizedString(30267))
+    oGuiElement.setSiteName('pluginInfo')
+    oGuiElement.setFunction('pluginInfo')
+    oGuiElement.setThumbnail(os.path.join(ART, 'plugin_info.png'))
+    PluginInfo = oGuiElement
+
+
+    # GUI xStream Einstellungen
     oGuiElement = cGuiElement()
     oGuiElement.setTitle(cConfig().getLocalizedString(30042))
     oGuiElement.setSiteName('xStream')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('DefaultAddonProgram.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'xstream_settings.png'))
     xStreamSettings = oGuiElement
 
-    # Create a gui element for resolver settings
+    # GUI Resolver Einstellungen
     oGuiElement = cGuiElement()
     oGuiElement.setTitle(cConfig().getLocalizedString(30043))
     oGuiElement.setSiteName('resolver')
     oGuiElement.setFunction('display_settings')
-    oGuiElement.setThumbnail('DefaultAddonRepository.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'resolveurl_settings.png'))
     resolveurlSettings = oGuiElement
-    return xStreamSettings, resolveurlSettings
+    
+    # GUI Nightly Updatemanager
+    oGuiElement = cGuiElement()
+    oGuiElement.setTitle(cConfig().getLocalizedString(30121))
+    oGuiElement.setSiteName('devUpdates')
+    oGuiElement.setFunction('devUpdates')
+    oGuiElement.setThumbnail(os.path.join(ART, 'manuel_update.png'))
+    DevUpdateMan = oGuiElement 
+    return PluginInfo, xStreamSettings, resolveurlSettings, DevUpdateMan
 
 
 def globalSearchGuiElement():
@@ -191,7 +233,7 @@ def globalSearchGuiElement():
     oGuiElement.setTitle(cConfig().getLocalizedString(30040))
     oGuiElement.setSiteName('globalSearch')
     oGuiElement.setFunction('globalSearch')
-    oGuiElement.setThumbnail('DefaultAddonWebSkin.png')
+    oGuiElement.setThumbnail(os.path.join(ART, 'search.png'))
     return oGuiElement
 
 
@@ -214,18 +256,15 @@ def searchGlobal(sSearchText=False):
     aPlugins = []
     aPlugins = cPluginHandler().getAvailablePlugins()
     dialog = xbmcgui.DialogProgress()
-    dialog.create('xStream', 'Searching...')
+    dialog.create(cConfig().getLocalizedString(30122), cConfig().getLocalizedString(30123))
     numPlugins = len(aPlugins)
     threads = []
     for count, pluginEntry in enumerate(aPlugins):
         if not pluginEntry['globalsearch']:
             continue
-        dialog.update((count + 1) * 50 // numPlugins, 'Searching: ' + str(pluginEntry['name']) + '...')
+        dialog.update((count + 1) * 50 // numPlugins, cConfig().getLocalizedString(30124) + str(pluginEntry['name']) + '...')
         if dialog.iscanceled(): return
-        if sys.version_info[0] == 2:
-            logger.info('Searching for %s at %s' % (sSearchText.decode('utf-8'), pluginEntry['id']))
-        else:
-            logger.info('Searching for %s at %s' % (sSearchText, pluginEntry['id']))
+        logger.info('Searching for %s at %s' % (sSearchText, pluginEntry['id']))
 
         t = threading.Thread(target=_pluginSearch, args=(pluginEntry, sSearchText, oGui), name=pluginEntry['name'])
         threads += [t]
@@ -233,17 +272,17 @@ def searchGlobal(sSearchText=False):
     for count, t in enumerate(threads):
         if dialog.iscanceled(): return
         t.join()
-        dialog.update((count + 1) * 50 // numPlugins + 50, t.getName() + ' returned')
+        dialog.update((count + 1) * 50 // numPlugins + 50, t.getName() + cConfig().getLocalizedString(30125))
     dialog.close()
     # deactivate collectMode attribute because now we want the elements really added
     oGui._collectMode = False
     total = len(oGui.searchResults)
     dialog = xbmcgui.DialogProgress()
-    dialog.create('xStream', 'Gathering info...')
+    dialog.create(cConfig().getLocalizedString(30126), cConfig().getLocalizedString(30127))
     for count, result in enumerate(sorted(oGui.searchResults, key=lambda k: k['guiElement'].getSiteName()), 1):
         if dialog.iscanceled(): return
         oGui.addFolder(result['guiElement'], result['params'], bIsFolder=result['isFolder'], iTotal=total)
-        dialog.update(count * 100 // total, str(count) + ' of ' + str(total) + ': ' + result['guiElement'].getTitle())
+        dialog.update(count * 100 // total, str(count) + cConfig().getLocalizedString(30128) + str(total) + ': ' + result['guiElement'].getTitle())
     dialog.close()
     oGui.setView()
     oGui.setEndOfDirectory()
@@ -261,23 +300,20 @@ def searchAlter(params):
     aPlugins = []
     aPlugins = cPluginHandler().getAvailablePlugins()
     dialog = xbmcgui.DialogProgress()
-    dialog.create('xStream', "Searching...")
+    dialog.create(cConfig().getLocalizedString(30122), cConfig().getLocalizedString(30123))
     numPlugins = len(aPlugins)
     threads = []
     for count, pluginEntry in enumerate(aPlugins):
         if dialog.iscanceled(): return
-        dialog.update((count + 1) * 50 // numPlugins, 'Searching: ' + str(pluginEntry['name']) + '...')
-        if sys.version_info[0] == 2:
-            logger.info('Searching for ' + searchTitle + pluginEntry['id'].encode('utf-8'))
-        else:
-            logger.info('Searching for ' + searchTitle + pluginEntry['id'])
+        dialog.update((count + 1) * 50 // numPlugins, cConfig().getLocalizedString(30124) + str(pluginEntry['name']) + '...')
+        logger.info('Searching for ' + searchTitle + pluginEntry['id'])
         t = threading.Thread(target=_pluginSearch, args=(pluginEntry, searchTitle, oGui), name=pluginEntry['name'])
         threads += [t]
         t.start()
     for count, t in enumerate(threads):
         t.join()
         if dialog.iscanceled(): return
-        dialog.update((count + 1) * 50 // numPlugins + 50, t.getName() + ' returned')
+        dialog.update((count + 1) * 50 // numPlugins + 50, t.getName() + cConfig().getLocalizedString(30125))
     dialog.close()
     # check results, put this to the threaded part, too
     filteredResults = []
@@ -309,18 +345,15 @@ def searchTMDB(params):
     aPlugins = []
     aPlugins = cPluginHandler().getAvailablePlugins()
     dialog = xbmcgui.DialogProgress()
-    dialog.create('xStream', 'Searching...')
+    dialog.create(cConfig().getLocalizedString(30122), cConfig().getLocalizedString(30123))
     numPlugins = len(aPlugins)
     threads = []
     for count, pluginEntry in enumerate(aPlugins):
         if not pluginEntry['globalsearch']:
             continue
         if dialog.iscanceled(): return
-        dialog.update((count + 1) * 50 // numPlugins, 'Searching: ' + str(pluginEntry['name']) + '...')
-        if sys.version_info[0] == 2:
-            logger.info('Searching for %s at %s' % (sSearchText.decode('utf-8'), pluginEntry['id']))
-        else:
-            logger.info('Searching for %s at %s' % (sSearchText, pluginEntry['id']))
+        dialog.update((count + 1) * 50 // numPlugins, cConfig().getLocalizedString(30124) + str(pluginEntry['name']) + '...')
+        logger.info('Searching for %s at %s' % (sSearchText, pluginEntry['id']))
 
         t = threading.Thread(target=_pluginSearch, args=(pluginEntry, sSearchText, oGui), name=pluginEntry['name'])
         threads += [t]
@@ -328,17 +361,17 @@ def searchTMDB(params):
     for count, t in enumerate(threads):
         t.join()
         if dialog.iscanceled(): return
-        dialog.update((count + 1) * 50 // numPlugins + 50, t.getName() + ' returned')
+        dialog.update((count + 1) * 50 // numPlugins + 50, t.getName() + cConfig().getLocalizedString(30125))
     dialog.close()
     # deactivate collectMode attribute because now we want the elements really added
     oGui._collectMode = False
     total = len(oGui.searchResults)
     dialog = xbmcgui.DialogProgress()
-    dialog.create('xStream', 'Gathering info...')
+    dialog.create(cConfig().getLocalizedString(30126), cConfig().getLocalizedString(30127))
     for count, result in enumerate(sorted(oGui.searchResults, key=lambda k: k['guiElement'].getSiteName()), 1):
         if dialog.iscanceled(): return
         oGui.addFolder(result['guiElement'], result['params'], bIsFolder=result['isFolder'], iTotal=total)
-        dialog.update(count * 100 // total, str(count) + ' of ' + str(total) + ': ' + result['guiElement'].getTitle())
+        dialog.update(count * 100 // total, str(count) + cConfig().getLocalizedString(30128) + str(total) + ': ' + result['guiElement'].getTitle())
     dialog.close()
     oGui.setView()
     oGui.setEndOfDirectory()

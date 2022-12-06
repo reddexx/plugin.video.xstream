@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+import xbmc
+import xbmcgui 
+import xbmcplugin
+import resolveurl as resolver
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
 from resources.lib.player import cPlayer
 from resources.lib.tools import logger
-import xbmc, xbmcgui, xbmcplugin
 
-# try:
-#     import resolveurl as resolver
-# except:
-#     import urlresolver as resolver
 
 class cHosterGui:
     SITE_NAME = 'cHosterGui'
@@ -42,17 +44,17 @@ class cHosterGui:
                     logger.info('resolve: hoster: %s - mediaID: %s' % (siteResult['host'], mediaId))
                     link = resolver.HostedMediaFile(host=siteResult['host'].lower(), media_id=mediaId).resolve()
                 else:
-                    oGui.showError('xStream', 'kein Hosterlink übergeben', 5)
+                    oGui.showError('xStream', cConfig().getLocalizedString(30134), 5)
                     return False
             elif mediaUrl:
                 logger.info('resolve: ' + mediaUrl)
                 link = resolver.resolve(mediaUrl)
             else:
-                oGui.showError('xStream', 'kein Hosterlink übergeben', 5)
+                oGui.showError('xStream', cConfig().getLocalizedString(30134), 5)
                 return False
         except resolver.resolver.ResolverError as e:
             logger.error('ResolverError: %s' % e)
-            oGui.showError('xStream', 'Stream nicht mehr verfügbar oder Link fehlerhaft', 7)
+            oGui.showError('xStream', cConfig().getLocalizedString(30135), 7)
             return False
         # resolver response
         if link is not False:
@@ -108,7 +110,7 @@ class cHosterGui:
             self.dialog.close()
         oPlayer = cPlayer()
         oPlayer.addItemToPlaylist(oGuiElement)
-        oGui.showInfo('Playlist', 'Stream wurde hinzugefügt', 5)
+        oGui.showInfo(cConfig().getLocalizedString(30136), cConfig().getLocalizedString(30137), 5)
         return True
 
     def download(self, siteResult=False):
@@ -218,12 +220,12 @@ class cHosterGui:
 
     def stream(self, playMode, siteName, function, url):
         self.dialog = xbmcgui.DialogProgress()
-        self.dialog.create('xStream', 'get stream/hoster')
+        self.dialog.create('xStream', cConfig().getLocalizedString(30138))
         # load site as plugin and run the function
-        self.dialog.update(5, 'import plugin...')
+        self.dialog.update(5, cConfig().getLocalizedString(30139))
         plugin = __import__(siteName, globals(), locals())
         function = getattr(plugin, function)
-        self.dialog.update(10, 'catch links...')
+        self.dialog.update(10, cConfig().getLocalizedString(30140))
         if url:
             siteResult = function(url)
         else:
@@ -231,7 +233,7 @@ class cHosterGui:
         self.dialog.update(40)
         if not siteResult:
             self.dialog.close()
-            cGui().showInfo('xStream', 'stream/hoster not available')
+            cGui().showInfo('xStream', cConfig().getLocalizedString(30141))
             return
         # if result is not a list, make in one
         if not type(siteResult) is list:
@@ -243,16 +245,16 @@ class cHosterGui:
             del siteResult[-1]
             if not siteResult:
                 self.dialog.close()
-                cGui().showInfo('xStream', 'no hoster available')
+                cGui().showInfo('xStream', cConfig().getLocalizedString(30142))
                 return
 
-            self.dialog.update(60, 'prepare hosterlist..')
+            self.dialog.update(60, cConfig().getLocalizedString(30143))
             if (playMode != 'jd') and (playMode != 'jd2') and (playMode != 'pyload') and cConfig().getSetting('presortHoster') == 'true' and (playMode != 'myjd'):
                 # filter and sort hosters
                 siteResult = self.__getPriorities(siteResult)
             if not siteResult:
                 self.dialog.close()
-                cGui().showInfo('xStream', 'no supported hoster available')
+                cGui().showInfo('xStream', cConfig().getLocalizedString(30144))
                 return False
             self.dialog.update(90)
             # self.dialog.close()
@@ -286,8 +288,8 @@ class cHosterGui:
             siteResult = siteResult[0]
 
         self.dialog = xbmcgui.DialogProgress()
-        self.dialog.create('xStream', ' ')
-        self.dialog.update(95, 'start opening stream..')
+        self.dialog.create('xStream', cConfig().getLocalizedString(30145))
+        self.dialog.update(95, cConfig().getLocalizedString(30146))
         if playMode == 'play':
             self.play(siteResult)
         elif playMode == 'download':
@@ -306,16 +308,16 @@ class cHosterGui:
     def streamAuto(self, playMode, siteName, function):
         logger.info('auto stream initiated')
         self.dialog = xbmcgui.DialogProgress()
-        self.dialog.create('xStream', 'get stream/hoster')
+        self.dialog.create('xStream', cConfig().getLocalizedString(30138))
         # load site as plugin and run the function
-        self.dialog.update(5, 'import plugin...')
+        self.dialog.update(5, cConfig().getLocalizedString(30139))
         plugin = __import__(siteName, globals(), locals())
         function = getattr(plugin, function)
-        self.dialog.update(10, 'catch links...')
+        self.dialog.update(10, cConfig().getLocalizedString(30140))
         siteResult = function()
         if not siteResult:
             self.dialog.close()
-            cGui().showInfo('xStream', 'stream/hoster not available')
+            cGui().showInfo('xStream', cConfig().getLocalizedString(30141))
             return False
         # if result is not a list, make in one
         if not type(siteResult) is list:
@@ -323,26 +325,26 @@ class cHosterGui:
             siteResult = temp
         # field "name" marks hosters
         if 'name' in siteResult[0]:
-            self.dialog.update(90, 'prepare hosterlist..')
+            self.dialog.update(90, cConfig().getLocalizedString(30143))
             functionName = siteResult[-1]
             del siteResult[-1]
             hosters = self.__getPriorities(siteResult)
             if not hosters:
                 self.dialog.close()
-                cGui().showInfo('xStream', 'no supported hoster available')
+                cGui().showInfo('xStream', cConfig().getLocalizedString(30144))
                 return False
             if len(siteResult) > self.maxHoster:
                 siteResult = siteResult[:self.maxHoster - 1]
             check = False
-            self.dialog.create('xStream', 'try hosters...')
+            self.dialog.create('xStream', cConfig().getLocalizedString(30147))
             total = len(hosters)
             for count, hoster in enumerate(hosters):
                 if self.dialog.iscanceled() or xbmc.Monitor().abortRequested() or check: return
                 percent = (count + 1) * 100 // total
                 try:
                     logger.info('try hoster %s' % hoster['name'])
-                    self.dialog.create('xStream', 'try hosters...')
-                    self.dialog.update(percent, 'try hoster %s' % hoster['name'])
+                    self.dialog.create('xStream', cConfig().getLocalizedString(30147))
+                    self.dialog.update(percent, cConfig().getLocalizedString(30147) + ' %s' % hoster['name'])
                     # get stream links
                     function = getattr(plugin, functionName)
                     siteResult = function(hoster['link'])
@@ -350,7 +352,7 @@ class cHosterGui:
                     if check:
                         return True
                 except:
-                    self.dialog.update(percent, 'hoster %s failed' % hoster['name'])
+                    self.dialog.update(percent, cConfig().getLocalizedString(30148) % hoster['name'])
                     logger.error('playback with hoster %s failed' % hoster['name'])
         # field "resolved" marks streamlinks
         elif 'resolved' in siteResult[0]:
@@ -370,7 +372,7 @@ class cHosterGui:
                 titles.append(str(result['displayedName']))
             else:
                 titles.append(str(result['name']))
-        index = dialog.select('Hoster wählen', titles)
+        index = dialog.select(cConfig().getLocalizedString(30149), titles)
         if index > -1:
             siteResult = siteResult[index]
             return siteResult
@@ -383,7 +385,7 @@ class cHosterGui:
         titles = []
         for result in siteResult:
             titles.append(str(result['title']))
-        index = self.dialog.select('Part wählen', titles)
+        index = self.dialog.select(cConfig().getLocalizedString(30150), titles)
         if index > -1:
             siteResult = siteResult[index]
             return siteResult
