@@ -4,6 +4,7 @@
 #
 
 from operator import truediv
+import time
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -33,7 +34,7 @@ URL_NEW_SERIES = URL_MAIN + '/neu'
 URL_NEW_EPISODES = URL_MAIN + '/neue-episoden'
 URL_POPULAR = URL_MAIN + '/beliebte-serien'
 URL_LOGIN = URL_MAIN + '/login'
-URL_SEARCH = 'https://s.to/ajax/search'
+URL_SEARCH = URL_MAIN + '/ajax/search'
 
 
 def load():
@@ -334,30 +335,33 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
+    SSsearch(oGui, sSearchText)
+
+def SSsearch(sGui=False, sSearchText=False):
     from json import loads
-    oGui = cGui()
+    oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     params.getValue('sSearchText')
-
-
-    oRequest = cRequestHandler(URL_SEARCH, caching=True)
+    oRequest = cRequestHandler(URL_SEARCH, caching=False, ignoreErrors=(sGui is not False))
     oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
     oRequest.addHeaderEntry('Referer', 'https://s.to/search')
     oRequest.addHeaderEntry('Origin', 'https://s.to')
     oRequest.addParameters('keyword', sSearchText)
 
     sHtmlContent = oRequest.request()
+    time.sleep(3)
     if not sHtmlContent:
             return
 
 
     sst = sSearchText.lower()
 
-    j = loads(sHtmlContent)
-    total = len(j)
-    for a in j:
+    jload = loads(sHtmlContent)
+    total = len(jload)
+    for a in jload:
         if 'support' in a.get('link'):
             continue
+      
         sName = a.get('title').replace('/', '').replace('<em>', '')
         
         sLink = a.get('link')
@@ -375,3 +379,8 @@ def _search(oGui, sSearchText):
             params.setParam('sUrl', URL_MAIN + sLink)
             params.setParam('TVShowTitle', sName)
             oGui.addFolder(oGuiElement, params, True, total)
+        if not sGui:
+            oGui.setView('tvshows')
+
+    
+        
