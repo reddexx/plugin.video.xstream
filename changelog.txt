@@ -1,5 +1,5 @@
 
-[B]Version: 4.0.0~nightly6[/B]
+[B]Version: 4.0.0[/B]
 
 25.11.2022
  - [HDFilme] - neue Funktion holt URL und speichert diese in der settings.xml
