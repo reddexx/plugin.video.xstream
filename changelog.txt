@@ -1,11 +1,11 @@
 [B]Version: 4.0.1~nightly2[/B]
 
-06.12.22
+06.12.22 by Heptamer
   - [s.to] Suchfunktion erweitert 
-  - [xstream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
-  - [xstream] Requesthandler: Bei internem Server fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
+  - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
+  - [Requesthandler] - Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
 
-[B]Version: 4.0.1~nightly1[/B]
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 06.12.2022
  - [Nightly] - Nightly GIT integriert und für Python 3 auf Version 4.0.0 geupdatet
