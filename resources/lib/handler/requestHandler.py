@@ -132,7 +132,7 @@ class cRequestHandler:
             oResponse = opener.open(oRequest)
         except HTTPError as e:
             oResponse = None
-            if str(e.code) == '403' or str(e.code) == '503':
+            if str(e.code) == '403' or str(e.code) == '503' or str(e.code) == '500':
                 self._Status = str(e.code)
                 data = e.fp.read()
                 if 'DDOS-GUARD' in str(data):
