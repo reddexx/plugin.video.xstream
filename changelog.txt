@@ -1,12 +1,12 @@
 [B]Version: 4.0.1~nightly2[/B]
 
 06.12.22 by Heptamer
-  - [s.to] Suchfunktion erweitert 
-  - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, 
+ - [s.to] Suchfunktion erweitert 
+ - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, 
 			 TMDb friendly
-  - [Requesthandler] - Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, 
+ - [Requesthandler] - Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, 
 			 kann mit OK übersprungen werden
-  - [settings] - Domain Auswahl bei Serienstream (serien.cam) entfernt
+ - [settings] - Domain Auswahl bei Serienstream (serien.cam) entfernt
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
