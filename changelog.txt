@@ -1,3 +1,9 @@
+[B]Version: 4.0.1~nightly2[/B]
+
+06.12.22
+  - [s.to] Suchfunktion erweitert 
+  - [xstream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
+  - [xstream] Requesthandler: Bei internem Server fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
 
 [B]Version: 4.0.1~nightly1[/B]
 
