@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.xstream" name="xStream" version="3.5.39~nightly1" provider-name="xStream-Team">
+<addon id="plugin.video.xstream" name="xStream" version="3.5.39~nightly2" provider-name="xStream-Team">
  <requires>
     <import addon="script.module.requests"/>
     <import addon="script.module.resolveurl" version="5.1.67"/>
     <import addon="script.module.six" version="1.11.0"/>
     <import addon="repository.xstream" optional="true"/>
-	  <import addon="repository.resolveurl" optional="true"/>
+    <import addon="repository.resolveurl" optional="true"/>
     <import addon="script.module.inputstreamhelper" version="0.3.3" optional="true"/>
+    <import addon="script.module.web-pdb" version="1.5.6" optional="true"/>
  </requires>
  <extension point="xbmc.python.pluginsource" library="default.py">
    <provides>video</provides>
