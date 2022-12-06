@@ -1,3 +1,10 @@
+3.5.39~nightly2
+  06.12.22
+  - [s.to] Suchfunktion erweitert 
+  - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
+  - [Requesthandler] Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
+  - [settings] - Domain Auswahl bei Serienstream (serien.cam) entfernt
+ 
 3.5.39~nightly1
   05.12.22
   - [HDFilme]		Domain Check Funktion
