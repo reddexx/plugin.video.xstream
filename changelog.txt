@@ -2,10 +2,10 @@
 
 06.12.22 by Heptamer
  - [s.to] Suchfunktion erweitert 
- - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, 
-			 TMDb friendly
- - [Requesthandler] - Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, 
-			 kann mit OK übersprungen werden
+ - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt
+			 angezeigt, TMDb friendly
+ - [Requesthandler] - Bei internem Server Fehler 500 erscheint jetzt eine
+			 Warnmeldung, kann mit OK übersprungen werden
  - [settings] - Domain Auswahl bei Serienstream (serien.cam) entfernt
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
