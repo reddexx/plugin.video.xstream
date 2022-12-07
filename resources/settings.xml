@@ -453,7 +453,7 @@
 				</setting>
 				<setting id="serienstream_to-domain" type="string" label="30051">
 					<level>0</level>
-					<default>190.115.18.20</default>
+					<default>s.to</default>
 					<constraints>
 						<options>
 							<option label="s.to">s.to</option>

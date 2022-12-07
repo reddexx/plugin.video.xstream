@@ -2,6 +2,7 @@
 
 07.12.22
  - [myjdapi] .py Fehler korrigiert
+ - [settings] - Domain Auswahl bei Serienstream (s.to) als Standard
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
