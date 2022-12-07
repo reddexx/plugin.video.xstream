@@ -2,7 +2,9 @@
 
 07.12.22
  - [myjdapi] .py Fehler korrigiert
- - [settings] - Domain Auswahl bei Serienstream (s.to) als Standard
+ - [settings] Domain Auswahl bei Serienstream (s.to) als Standard
+ - [Aniworld.to] Suchfunktion erweitert THX @Heptamer für die Source von s.to
+ - [Kinox] URL Main / korrigiert
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
