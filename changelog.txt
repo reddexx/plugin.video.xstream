@@ -1,4 +1,9 @@
-[B]Version: 4.0.1~nightly2[/B]
+[B]Version: 4.0.1~nightly3[/B]
+
+07.12.22
+ - [myjdapi] .py Fehler korrigiert
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 06.12.22 by Heptamer
  - [s.to] Suchfunktion erweitert 
