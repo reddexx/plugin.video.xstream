@@ -1,4 +1,4 @@
-name: Sync Nightly to Nexus Branch
+name: Sync multiple branches
 on:
   push:
     branches:
@@ -9,10 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Merge nightly -> nexus
+      - name: Merge nightly -> release
         uses: devmasx/merge-branch@master
         with:
           type: now
           from_branch: nightly
-          target_branch: nexus
+          target_branch: release
           github_token: ${{ github.token }}
