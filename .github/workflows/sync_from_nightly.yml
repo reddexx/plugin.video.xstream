@@ -1,4 +1,4 @@
-name: Sync multiple branches
+name: Sync Nigthly to Nexus Branch
 on:
   push:
     branches:
