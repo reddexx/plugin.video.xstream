@@ -3,6 +3,7 @@
 # Always pay attention to the translations in the menu!
 
 import xbmcgui
+import time
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -21,7 +22,7 @@ URL_MAIN = 'https://aniworld.to/'
 URL_SERIES = URL_MAIN + '/animes'
 URL_POPULAR = URL_MAIN + '/beliebte-animes'
 URL_LOGIN = URL_MAIN + '/login'
-
+URL_SEARCH = URL_MAIN + '/ajax/search'
 
 def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
@@ -253,4 +254,51 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showAllSeries(URL_SERIES, oGui, sSearchText)
+    SSsearch(oGui, sSearchText)
+
+
+def SSsearch(sGui=False, sSearchText=False):
+    from json import loads
+    oGui = sGui if sGui else cGui()
+    params = ParameterHandler()
+    params.getValue('sSearchText')
+    oRequest = cRequestHandler(URL_SEARCH, caching=False, ignoreErrors=(sGui is not False))
+    oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
+    oRequest.addHeaderEntry('Referer', 'https://aniworld.to/search')
+    oRequest.addHeaderEntry('Origin', 'https://aniworld.to')
+    oRequest.addParameters('keyword', sSearchText)
+
+    sHtmlContent = oRequest.request()
+    time.sleep(3)
+    if not sHtmlContent:
+            return
+
+
+    sst = sSearchText.lower()
+
+    jload = loads(sHtmlContent)
+    total = len(jload)
+    for a in jload:
+        if 'support' in a.get('link'):
+            continue
+      
+        sName = a.get('title').replace('/', '').replace('<em>', '')
+        
+        sLink = a.get('link')
+        if a.get('description'):
+            sDesc = a.get('description').replace('/', '').replace('<em>', '')
+        else:
+            sDesc = ' '
+        
+        if not sst in sName.lower() or 'pisode' in sName:
+            continue
+        else:
+            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons')
+            oGuiElement.setMediaType('tvshow')
+            oGuiElement.setDescription(sDesc)
+            params.setParam('sUrl', URL_MAIN + sLink)
+            params.setParam('TVShowTitle', sName)
+            oGui.addFolder(oGuiElement, params, True, total)
+        if not sGui:
+            oGui.setView('tvshows')
+
