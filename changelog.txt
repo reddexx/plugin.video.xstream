@@ -1,4 +1,10 @@
-[B]Version: 4.0.1~nightly3[/B]
+[B]Version: 4.0.1~nightly4[/B]
+
+08.12.22
+ -[s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte 
+ -[Aniworld.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 07.12.22
  - [myjdapi] .py Fehler korrigiert
