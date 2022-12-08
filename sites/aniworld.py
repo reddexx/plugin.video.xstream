@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import xbmcgui
+import time
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -8,32 +10,37 @@ from resources.lib.jsnprotect import cHelper
 from resources.lib.config import cConfig
 
 
-SITE_IDENTIFIER = 'anicloud_io'
+SITE_IDENTIFIER = 'aniworld'
 SITE_NAME = 'AniWorld'
-SITE_ICON = 'anicloud.png'
-#SITE_SETTINGS = '<setting id="anicloud.user" type="text" label="30083" default="" /><setting id="anicloud.pass" type="text" option="hidden" label="30084" default="" />'
+SITE_ICON = 'aniworld.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 
-URL_MAIN = 'https://aniworld.to/'
+URL_MAIN = 'https://aniworld.to'
 URL_SERIES = URL_MAIN + '/animes'
 URL_POPULAR = URL_MAIN + '/beliebte-animes'
 URL_LOGIN = URL_MAIN + '/login'
+URL_SEARCH = URL_MAIN + '/ajax/search'
 
 
 def load():
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    params.setParam('sUrl', URL_SERIES)
-    cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
-    params.setParam('sUrl', URL_POPULAR)
-    cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_MAIN)
-    params.setParam('sCont', 'catalogNav')
-    cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
-    params.setParam('sCont', 'homeContentGenresList')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
-    #cGui().addFolder(cGuiElement('[COLOR red]Bei Problemen hier Domain ändern[/COLOR]', SITE_IDENTIFIER, 'checkDomain'))
-    cGui().setEndOfDirectory()
+    username = cConfig().getSetting('aniworld.user')
+    password = cConfig().getSetting('aniworld.pass')
+    if username == '' or password == '':
+        xbmcgui.Dialog().ok('xStream Aniworld', '[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://aniworld.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]')
+    else:                                                                   
+        params.setParam('sUrl', URL_SERIES)
+        cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
+        params.setParam('sUrl', URL_POPULAR)
+        cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
+        params.setParam('sUrl', URL_MAIN)
+        params.setParam('sCont', 'catalogNav')
+        cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
+        params.setParam('sCont', 'homeContentGenresList')
+        cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+        cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+        cGui().setEndOfDirectory()
 
 def showValue():
     params = ParameterHandler()
@@ -97,7 +104,8 @@ def showEntries(entryUrl=False, sGui=False):
 
     total = len(aResult)
     for sUrl, sThumbnail, sName in aResult:
-        #sThumbnail = URL_MAIN + sThumbnail
+        if sThumbnail.startswith('/'):
+            sThumbnail = URL_MAIN + sThumbnail
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons')
         oGuiElement.setThumbnail(sThumbnail)
         oGuiElement.setMediaType('tvshow')
@@ -222,12 +230,8 @@ def showHosters():
 
 
 def getHosterUrl(sUrl=False):
-    username = cConfig().getSetting('anicloud.user')
-    password = cConfig().getSetting('anicloud.pass')
-    if username == '' or password == '':
-        import xbmcgui
-        xbmcgui.Dialog().ok('xStream Anicloud', 'Unter Einstellungen / Konten für Anicloud die eigenen Kontendaten  eintragen!')
-        return
+    username = cConfig().getSetting('aniworld.user')
+    password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
     Handler.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Handler.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
@@ -249,4 +253,52 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showAllSeries(URL_SERIES, oGui, sSearchText)
+    SSsearch(oGui, sSearchText)
+
+
+def SSsearch(sGui=False, sSearchText=False):
+    from json import loads
+    oGui = sGui if sGui else cGui()
+    params = ParameterHandler()
+    params.getValue('sSearchText')
+    oRequest = cRequestHandler(URL_SEARCH, caching=True, ignoreErrors=(sGui is not False))
+    oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
+    oRequest.addHeaderEntry('Referer', 'https://aniworld.to/search')
+    oRequest.addHeaderEntry('Origin', 'https://aniworld.to')
+    oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+    oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
+    oRequest.addParameters('keyword', sSearchText)
+
+    sHtmlContent = oRequest.request()
+    time.sleep(3)
+    if not sHtmlContent:
+            return
+
+
+    sst = sSearchText.lower()
+
+    jload = loads(sHtmlContent)
+    total = len(jload)
+    for a in jload:
+        if 'support' in a.get('link'):
+            continue
+      
+        sName = a.get('title').replace('/', '').replace('<em>', '')
+        
+        sLink = a.get('link')
+        if a.get('description'):
+            sDesc = a.get('description').replace('/', '').replace('<em>', '')
+        else:
+            sDesc = ' '
+        
+        if not sst in sName.lower() or 'pisode' in sName:
+            continue
+        else:
+            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons')
+            oGuiElement.setMediaType('tvshow')
+            oGuiElement.setDescription(sDesc)
+            params.setParam('sUrl', URL_MAIN + sLink)
+            params.setParam('TVShowTitle', sName)
+            oGui.addFolder(oGuiElement, params, True, total)
+        if not sGui:
+            oGui.setView('tvshows')

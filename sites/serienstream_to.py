@@ -2,9 +2,10 @@
 # 2022-07-14 Heptamer - Neue Suche eingebaut ab zeile 335, Globale Suche aktiviert
 #
 #
+import xbmcgui
+import time           
 
 from operator import truediv
-import time
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -18,7 +19,6 @@ SITE_NAME = 'SerienStream'
 SITE_ICON = 'serienstream.png'
 SITE_SETTINGS = '<setting default="s.to" enable="!eq(-2,false)" id="serienstream_to-domain" label="30051" type="labelenum" values="s.to|serienstream.to|190.115.18.20" />'
 domain = cConfig().getSetting('serienstream_to-domain')
-#SITE_SETTINGS = '<setting id="serienstream.user" type="text" label="30083" default="" /><setting id="serienstream.pass" type="text" option="hidden" label="30084" default="" />'
 SITE_GLOBAL_SEARCH = True
 
 #URL_MAIN = 'https://s.to/'
@@ -40,54 +40,26 @@ URL_SEARCH = URL_MAIN + '/ajax/search'
 def load():
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-#    if proxy == 'true':
-#        pass
-#    else:
-    params.setParam('sUrl', URL_SERIES)
-    cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
-
-    params.setParam('sUrl', URL_NEW_SERIES)
-    cGui().addFolder(cGuiElement('Neue Serien', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_NEW_EPISODES)
-    cGui().addFolder(cGuiElement('Neue Episoden', SITE_IDENTIFIER, 'showNewEpisodes'), params)
-    params.setParam('sUrl', URL_POPULAR)
-    cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_MAIN)
-    params.setParam('sCont', 'catalogNav')
-    cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
-    params.setParam('sCont', 'homeContentGenresList')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
-#    if proxy == 'true':
-#        pass
-#    else:
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
-
-    #cGui().addFolder(cGuiElement('[COLOR red]Bei Problemen hier Domain ändern[/COLOR]', SITE_IDENTIFIER, 'checkDomain'))
-    cGui().setEndOfDirectory()
-
-
-def checkDomain():
-    import xbmcgui, xbmcaddon
-    r = cRequestHandler('https://serien.domains/', caching=False).request()
-    pattern = 'ol class="links">(.*?)</ol'
-    isMatch, aResult = cParser.parse(r, pattern)
-    isMatch, links = cParser.parse(str(aResult), 'href="([^"]+)')
-    url = []
-    for link in links:
-        url.append(link)
-    index = xbmcgui.Dialog().select('Serienstream', url)
-    if index > -1:
-        url = url[index]
-        Request = cRequestHandler(url, caching=False)
-        sHtmlContent = Request.request()
-        if not sHtmlContent:
-            xbmcgui.Dialog().ok('Serienstream', 'Fehler Domain funktioniert nicht')
-            return
-        if 'S.to, serien stream' in sHtmlContent:
-            xbmcgui.Dialog().ok('Serienstream', 'Serienstream müsste jetzt funktioniert ggf. ist ein Kodi Neustart erforderlich')
-            return xbmcaddon.Addon().setSetting('seriendomain', Request.getRealUrl())
+    username = cConfig().getSetting('serienstream.user')
+    password = cConfig().getSetting('serienstream.pass')
+    if username == '' or password == '':
+        xbmcgui.Dialog().ok('xStream SerienStream', '[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://s.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]')
     else:
-        return False
+        params.setParam('sUrl', URL_SERIES)
+        cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
+        params.setParam('sUrl', URL_NEW_SERIES)
+        cGui().addFolder(cGuiElement('Neue Serien', SITE_IDENTIFIER, 'showEntries'), params)
+        params.setParam('sUrl', URL_NEW_EPISODES)
+        cGui().addFolder(cGuiElement('Neue Episoden', SITE_IDENTIFIER, 'showNewEpisodes'), params)
+        params.setParam('sUrl', URL_POPULAR)
+        cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
+        params.setParam('sUrl', URL_MAIN)
+        params.setParam('sCont', 'catalogNav')
+        cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
+        params.setParam('sCont', 'homeContentGenresList')
+        cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+        cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+        cGui().setEndOfDirectory()
 
 
 def showValue():
@@ -308,12 +280,6 @@ def showHosters():
 def getHosterUrl(sUrl=False):
     username = cConfig().getSetting('serienstream.user')
     password = cConfig().getSetting('serienstream.pass')
-    if username == '' or password == '':
-        # username = cHelper.UserName
-        # password = cHelper.PassWord
-        import xbmcgui
-        xbmcgui.Dialog().ok('xStream Serienstream', 'Unter Einstellungen / Konten für Serienstream die eigenen Kontendaten  eintragen!')
-        return
     Handler = cRequestHandler(URL_LOGIN, caching=False)
     Handler.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Handler.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
@@ -343,12 +309,12 @@ def SSsearch(sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     params.getValue('sSearchText')
-
-
-    oRequest = cRequestHandler(URL_SEARCH, caching=False, ignoreErrors=(sGui is not False))
+    oRequest = cRequestHandler(URL_SEARCH, caching=True, ignoreErrors=(sGui is not False))
     oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
     oRequest.addHeaderEntry('Referer', 'https://s.to/search')
     oRequest.addHeaderEntry('Origin', 'https://s.to')
+    oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+    oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     oRequest.addParameters('keyword', sSearchText)
 
     sHtmlContent = oRequest.request()

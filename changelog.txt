@@ -1,3 +1,8 @@
+3.5.39~nightly3
+  08.12.22 Code by Heptamer
+  - [s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte 
+  - [Aniworld.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte
+  
 3.5.39~nightly2
   06.12.22
   - [s.to] Suchfunktion erweitert 
@@ -12,6 +17,7 @@
   - [KKiste]		Domain Check Funktion
   - [Movie4k]		Domain Check Funktion
   - [XCine]			Domain Check Funktion
+  
 3.5.38
   17.11.22
   - [HDFilme]		Domain Update
