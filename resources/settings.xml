@@ -30,8 +30,8 @@
 	</category> 
 	<category label="Indexseiten 1">
 		<setting type="lsep" label="AniWorld" />
-        <setting default="true" type="bool" id="plugin_anicloud_io" label="30050" />
-        <setting default="true" type="bool" id="global_search_anicloud_io" label="30052" enable="!eq(-1,false)" />
+        <setting default="true" type="bool" id="plugin_aniworld" label="30050" />
+        <setting default="true" type="bool" id="global_search_aniworld" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
         <setting type="lsep" label="Dokus4" />
         <setting default="true" type="bool" id="plugin_dokus4" label="30050" />
@@ -44,8 +44,6 @@
         <setting type="lsep" label="Flimmerstube" />
         <setting default="true" type="bool" id="plugin_flimmerstube" label="30050" />
         <setting default="false" type="bool" id="global_search_flimmerstube" label="30052" visible="eq(-1,false)" />
-        <setting id="flimmerstube.user" type="text" label="30083" default="" />
-        <setting id="flimmerstube.pass" type="text" option="hidden" label="30084" default="" />
         <setting type="sep" />
         <setting type="lsep" label="HD Filme Top" />
         <setting default="true" type="bool" id="plugin_hdfilme_top" label="30050" />
@@ -58,13 +56,12 @@
         <setting type="lsep" label="Kinoger" />
         <setting default="true" type="bool" id="plugin_kinoger" label="30050" />
         <setting default="true" type="bool" id="global_search_kinoger" label="30052" enable="!eq(-1,false)" />
-        <setting default="kinoger.com" enable="!eq(-2,false)" id="kinoger-domain" label="30051" type="labelenum" values="kinoger.com|kinoger.to" />
         <setting type="sep" />
         <setting type="lsep" label="Kinokiste Tech" />
         <setting default="true" type="bool" id="plugin_kinokiste_tech" label="30050" />
         <setting default="true" type="bool" id="global_search_kinokiste_tech" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
-        <setting type="lsep" label="Kinomax.me" />
+        <setting type="lsep" label="Kinomax" />
         <setting default="true" type="bool" id="plugin_kinomax" label="30050" />
         <setting default="true" type="bool" id="global_search_kinomax" label="30052" enable="!eq(-1,false)" />
         <setting type="sep" />
@@ -155,9 +152,9 @@
 		<setting default="" enable="!eq(-4,false)" id="pyload_passwd" label="30084" option="hidden" type="text" />
 	</category> 
     <category label="30024">
-		<setting label="AniCloud" type="lsep" />
-		<setting default="" id="anicloud.user" label="30083" type="text" />
-		<setting default="" id="anicloud.pass" label="30084" option="hidden" type="text" />
+		<setting label="AniWorld" type="lsep" />
+		<setting default="" id="aniworld.user" label="30083" type="text" />
+		<setting default="" id="aniworld.pass" label="30084" option="hidden" type="text" />
 		<setting type="sep" />
 		<setting label="Flimmerstube" type="lsep" />	
 		<setting id="flimmerstube.user" type="text" label="30083" default="" />
