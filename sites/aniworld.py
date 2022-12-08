@@ -263,10 +263,12 @@ def SSsearch(sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     params.getValue('sSearchText')
-    oRequest = cRequestHandler(URL_SEARCH, caching=False, ignoreErrors=(sGui is not False))
+    oRequest = cRequestHandler(URL_SEARCH, caching=True, ignoreErrors=(sGui is not False))
     oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
     oRequest.addHeaderEntry('Referer', 'https://aniworld.to/search')
     oRequest.addHeaderEntry('Origin', 'https://aniworld.to')
+    oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+    oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     oRequest.addParameters('keyword', sSearchText)
 
     sHtmlContent = oRequest.request()
