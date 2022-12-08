@@ -1,8 +1,12 @@
 [B]Version: 4.0.1~nightly4[/B]
 
 08.12.22
- -[s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte 
- -[Aniworld.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte
+ - [s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500
+		  führen konnte 
+ - [Aniworld.to] Fehler in der Suchroutine korrigiert der zu Server internal 
+		  error 500 führen konnte
+ - [settings] Fehler doppelter Kinoger Eintrag
+ 
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 

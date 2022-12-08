@@ -497,21 +497,6 @@
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>				
-			</group>
-			<group id="plugin_xcine_top" label="30717">
-				<setting id="plugin_xcine_top" type="boolean" label="30050">
-					<level>0</level>
-					<default>True</default>
-					<control type="toggle"/>					
-				</setting>
-				<setting id="global_search_xcine_top" type="boolean" label="30052">
-					<level>0</level>
-					<default>True</default>
-					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_xcine_top">False</dependency>
-					</dependencies>	
-					<control type="toggle"/>					
-				</setting>				
 			</group>	
 		</category>
 		<category id="tmdb" label="30174" help="">			
