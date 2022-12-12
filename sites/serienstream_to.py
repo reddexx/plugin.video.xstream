@@ -322,18 +322,17 @@ def SSsearch(sGui=False, sSearchText=False):
 
 
     sst = sSearchText.lower()
-
     jload = loads(sHtmlContent)
     total = len(jload)
     for a in jload:
-        if 'support' in a.get('link'):
+        if not'/serie/' in a.get('link'):
             continue
       
         sName = a.get('title').replace('/', '').replace('<em>', '')
         
         sLink = a.get('link')
         if a.get('description'):
-            sDesc = a.get('description').replace('/', '').replace('<em>', '')
+            sDesc = a.get('description').replace('/', '').replace('<em>', '').replace('&#8230;', '...')
         else:
             sDesc = ' '
         
