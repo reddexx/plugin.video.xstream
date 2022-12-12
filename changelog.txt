@@ -1,4 +1,10 @@
-[B]Version: 4.0.1~nightly4[/B]
+[B]Version: 4.0.1~nightly5[/B]
+
+
+12.12.22
+ - [s.to] Optimierung Suchroutine
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 08.12.22
  - [s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500
