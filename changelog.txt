@@ -1,3 +1,8 @@
+3.5.39~nightly4
+  13.12.22
+  - [s.to] Optimierung Suchroutine
+  - [Aniworld] Optimierung Suchroutine
+
 3.5.39~nightly3
   08.12.22 Code by Heptamer
   - [s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte 
