@@ -2,10 +2,10 @@
 # Python 3
 # Always pay attention to the translations in the menu!
 
-# 2022-07-14 Heptamer - Neue Suche eingebaut ab zeile 335, Globale Suche aktiviert
-# SITE_IDENTIFIER funktioniert bei globaler Suche jetzt nicht mehr Ergebnisse werden nicht mit gezählt. 
+# 2022-12-06 Heptamer - Suchfunktion überarbeitet
 
 import xbmcgui
+import time
 
 from operator import truediv
 from resources.lib.handler.ParameterHandler import ParameterHandler
@@ -32,7 +32,7 @@ URL_NEW_SERIES = URL_MAIN + '/neu'
 URL_NEW_EPISODES = URL_MAIN + '/neue-episoden'
 URL_POPULAR = URL_MAIN + '/beliebte-serien'
 URL_LOGIN = URL_MAIN + '/login'
-URL_SEARCH = 'https://s.to/ajax/search'
+URL_SEARCH = URL_MAIN + '/ajax/search'
 
 
 def load(): # Menu structure of the site plugin
@@ -299,35 +299,40 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
+    SSsearch(oGui, sSearchText)
+
+
+def SSsearch(sGui=False, sSearchText=False):
     from json import loads
-    oGui = cGui()
+    oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     params.getValue('sSearchText')
-
-
-    oRequest = cRequestHandler(URL_SEARCH, caching=True)
+    oRequest = cRequestHandler(URL_SEARCH, caching=True, ignoreErrors=(sGui is not False))
     oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
     oRequest.addHeaderEntry('Referer', 'https://s.to/search')
     oRequest.addHeaderEntry('Origin', 'https://s.to')
+    oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
+    oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     oRequest.addParameters('keyword', sSearchText)
 
     sHtmlContent = oRequest.request()
+    time.sleep(3)
     if not sHtmlContent:
             return
 
 
     sst = sSearchText.lower()
-
-    j = loads(sHtmlContent)
-    total = len(j)
-    for a in j:
-        if 'support' in a.get('link'):
+    jload = loads(sHtmlContent)
+    total = len(jload)
+    for a in jload:
+        if not'/serie/' in a.get('link'):
             continue
+      
         sName = a.get('title').replace('/', '').replace('<em>', '')
         
         sLink = a.get('link')
         if a.get('description'):
-            sDesc = a.get('description').replace('/', '').replace('<em>', '')
+            sDesc = a.get('description').replace('/', '').replace('<em>', '').replace('&#8230;', '...')
         else:
             sDesc = ' '
         
@@ -340,3 +345,5 @@ def _search(oGui, sSearchText):
             params.setParam('sUrl', URL_MAIN + sLink)
             params.setParam('TVShowTitle', sName)
             oGui.addFolder(oGuiElement, params, True, total)
+        if not sGui:
+            oGui.setView('tvshows')
