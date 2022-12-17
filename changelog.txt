@@ -1,3 +1,7 @@
+3.5.39~nightly5
+  17.12.22
+  - [Kinoger] Kinoger.pw (Streamsb) fix
+  
 3.5.39~nightly4
   13.12.22
   - [s.to] Optimierung Suchroutine
