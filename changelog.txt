@@ -1,4 +1,9 @@
-[B]Version: 4.0.1~nightly6[/B]
+[B]Version: 4.0.1~nightly7[/B]
+
+17.12.22
+ - [Kinoger] Kinoger.pw (Streamsb) fix
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 13.12.22
  - [Aniworld] Optimierung Suchroutine
