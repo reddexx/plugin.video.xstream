@@ -164,7 +164,17 @@
 						<dependency type="enable" operator="!is" setting="hosterSelect">30130</dependency>
 					</dependencies>					
 					<control type="toggle"/>
-				</setting>			
+				</setting>
+				<setting id="blockedHoster" type="string" label="30527" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>30527</heading>
+					</control>
+				</setting>				
 			</group>
 			<group id="networkSettings" label="30035">
 				<setting id="cacheTime" type="integer" label="30006" help="">

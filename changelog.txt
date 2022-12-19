@@ -1,4 +1,10 @@
-[B]Version: 4.0.1~nightly7[/B]
+[B]Version: 4.0.1~nightly8[/B]
+
+19.12.22
+ - [config] Funktion für Hoster blockieren hinzugefügt THX @U3312 für den Code
+ - [kinox] Anpassung für Hoster Block (weitere Siteplugins folgen...)
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 17.12.22
  - [Kinoger] Kinoger.pw (Streamsb) fix
