@@ -13,7 +13,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'hdfilme_top'
 SITE_NAME = 'HD Filme Top'
 SITE_ICON = 'hdfilmetop.png'
-#URL_MAIN = 'https://hdfilme.top/'
+#URL_MAIN = 'https://hdfilme.fit/'
 URL_MAIN = str(cConfig().getSetting('hdfilme-domain', 'https://hdfilme.fit/'))
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'

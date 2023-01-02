@@ -12,8 +12,8 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
-#URL_MAIN = 'https://kkiste.name/'
-URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.name/'))
+#URL_MAIN = 'https://kkiste.rocks/'
+URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.rocks/'))
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_FILME = URL_MAIN + 'kinofilme-online/'
 URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'

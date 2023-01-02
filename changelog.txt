@@ -1,3 +1,8 @@
+3.5.39~nightly6
+  02.01.23 
+  - [Kinomax]		Domain Update
+  - [KKiste]		Domain Update
+  
 3.5.39~nightly5
   17.12.22
   - [Kinoger] Kinoger.pw (Streamsb) fix
