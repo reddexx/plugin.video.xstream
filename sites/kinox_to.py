@@ -606,6 +606,7 @@ def showHosters():
     if aResult[0]:
         for aEntry in aResult[1]:
             sHoster = aEntry[1]
+            if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             pattern = '<b>Mirror</b>: [0-9]+/([0-9]+)'
             aResult = cParser().parse(aEntry[2], pattern)
             mirrors = 1

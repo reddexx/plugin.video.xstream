@@ -1,63 +1,56 @@
+[B]Version: 4.0.1~Release[/B]
 
-[B]Version: 4.0.0[/B]
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
-25.11.2022
+01.11.2022 - 04.01.22
+ - [Kinomax] - Domain Update
+ - [KKiste] - Domain Update
+ - [Movie4k] - Domain Update
+ - [config] Funktion für Hoster blockieren hinzugefügt THX @U3312 für den Code
+ - [kinox] Anpassung für Hoster Block (weitere Siteplugins folgen...)
+ - [Kinoger] Kinoger.pw (Streamsb) fix
+ - [Aniworld] Optimierung Suchroutine
+ - [s.to] Optimierung Suchroutine
+ - [s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500
+			 führen konnte 
+ - [Aniworld.to] Fehler in der Suchroutine korrigiert der zu Server internal 
+			 error 500 führen konnte
+ - [settings] Fehler doppelter Kinoger Eintrag
+ - [myjdapi] .py Fehler korrigiert
+ - [settings] Domain Auswahl bei Serienstream (s.to) als Standard
+ - [Aniworld.to] Suchfunktion erweitert THX @Heptamer für die Source von s.to
+ - [Kinox] URL Main / korrigiert
+ - [s.to] Suchfunktion erweitert 
+ - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt
+			 angezeigt, TMDb friendly
+ - [Requesthandler] - Bei internem Server Fehler 500 erscheint jetzt eine
+			 Warnmeldung, kann mit OK übersprungen werden
+ - [settings] - Domain Auswahl bei Serienstream (serien.cam) entfernt
+ - [Nightly] - Nightly GIT integriert und für Python 3 auf Version 4.0.0 geupdatet
  - [HDFilme] - neue Funktion holt URL und speichert diese in der settings.xml
  - [Kinofox] - defektes Genre überholt
  - [Kinokiste] - neue Funktion holt URL und speichert diese in der settings.xml
  - [Kinomax] - neue Funktion holt URL und speichert diese in der settings.xml
  - [KKiste] - neue Funktion holt URL und speichert diese in der settings.xml
- - [Movie4k] - Regex überarbeitet Bildlink gefixt, neue Funktion holt URL und speichert 
-		     diese in der settings.xml
+ - [Movie4k] - Regex überarbeitet Bildlink gefixt, neue Funktion holt URL und 
+			 speichert diese in der settings.xml
  - [xCine] - neue Funktion holt URL und speichert diese in der settings.xml			
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
-
-18.11.2022
  - [Xstream.py] - Änderungsprotokoll aus den Einstellungen anzeigen lassen
  - [SiteIcons] - Neue Site Icons im neuen xStream Style
  - [SystemIcons] - Neue System Icons im neuen xStream Style
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
-
-17.11.2022
  - [HDFilme] - Domain Update
  - [Kinomax] - Domain Update
  - [KKiste] - Domain Update
  - [Movie4k] - Domain Update
  - [XCine] - Domain Update
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
-
-16.11.2022
  - [Service.py] - Popup Changelog beim Start nach Aktualisierung von xStream 
-		        (abschaltbar in den Einstellungen)
+			 (abschaltbar in den Einstellungen)
  - [Tools.py] - TextBox für Changlog hinzugefügt
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-15.11.2022
  - [Service.py] - Statusmeldung der Updates einfach / vollständig
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-06.11.2022
  - [UpdateManager.py] - manueller Updater fixed(100%)
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-05.11.2022
  - [Megakino] - aktiviert
  - [UpdateManager.py] - manueller Updater fixed(90%)
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-02.11.2022
  - [Megakino] - deaktiviert
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-01.11.2022
  - Initial Release Python 3 Kodi 19/20
  - Source Code from 3.5.36~nightly10 by Anis / xStream Team
  - PY3 Überarbeitung

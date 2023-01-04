@@ -1119,6 +1119,22 @@ msgctxt "#30526"
 msgid "Random Serie"
 msgstr ""
 
+msgctxt "#30527"
+msgid "Exclude specific hosters (separate with a comma)"
+msgstr ""
+
+msgctxt "#30528"
+msgid ""
+msgstr ""
+
+msgctxt "#30529"
+msgid ""
+msgstr ""
+
+msgctxt "#30530"
+msgid ""
+msgstr ""
+
 ############### Site Plugins ###############
 
 msgctxt "#30700"
