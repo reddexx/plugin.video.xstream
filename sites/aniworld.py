@@ -1,45 +1,47 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
 import xbmcgui
 import time
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from resources.lib.jsnprotect import cHelper
-from resources.lib.config import cConfig
 
 
 SITE_IDENTIFIER = 'aniworld'
 SITE_NAME = 'AniWorld'
 SITE_ICON = 'aniworld.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-
 URL_MAIN = 'https://aniworld.to'
 URL_SERIES = URL_MAIN + '/animes'
 URL_POPULAR = URL_MAIN + '/beliebte-animes'
 URL_LOGIN = URL_MAIN + '/login'
 URL_SEARCH = URL_MAIN + '/ajax/search'
 
-
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    username = cConfig().getSetting('aniworld.user')
-    password = cConfig().getSetting('aniworld.pass')
-    if username == '' or password == '':
-        xbmcgui.Dialog().ok('xStream Aniworld', '[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://aniworld.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]')
-    else:                                                                   
+    username = cConfig().getSetting('aniworld.user')    # Username
+    password = cConfig().getSetting('aniworld.pass')    # Password
+    if username == '' or password == '':                # If no username and password were set, close the plugin!
+        xbmcgui.Dialog().ok(cConfig().getLocalizedString(30241), cConfig().getLocalizedString(30263))   # Info Dialog!
+    else:
         params.setParam('sUrl', URL_SERIES)
-        cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30518), SITE_IDENTIFIER, 'showAllSeries'), params)    # All Series
         params.setParam('sUrl', URL_POPULAR)
-        cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30519), SITE_IDENTIFIER, 'showEntries'), params)    # Popular Series
         params.setParam('sUrl', URL_MAIN)
         params.setParam('sCont', 'catalogNav')
-        cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)    # From A-Z
         params.setParam('sCont', 'homeContentGenresList')
-        cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
-        cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), params)   # Search
         cGui().setEndOfDirectory()
 
 def showValue():
@@ -300,3 +302,4 @@ def SSsearch(sGui=False, sSearchText=False):
             oGui.addFolder(oGuiElement, params, True, total)
         if not sGui:
             oGui.setView('tvshows')
+

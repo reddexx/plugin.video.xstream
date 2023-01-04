@@ -1,28 +1,27 @@
 # -*- coding: utf-8 -*-
+# Python 3
+
+import re
+
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from resources.lib.tools import logger
-import re
-try:
-    from urllib2 import Request, urlopen
-    from urllib import urlencode
-except ImportError:
-    from urllib.request import Request, urlopen
-    from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+from urllib.parse import urlencode
 
 
 class cJDownloader2Handler:
     def sendToJDownloader2(self, sUrl):
         if self.__checkConfig() is False:
-            cGui().showError('JDownloader2', 'Settings ueberpruefen', 5)
+            cGui().showError(cConfig().getLocalizedString(30076), cConfig().getLocalizedString(30254), 5)
             return False
 
         if self.__checkConnection() is False:
-            cGui().showError('JDownloader2', 'Verbindung fehlgeschlagen (JD2 oder External CNL Port support aus?)', 5)
+            cGui().showError(cConfig().getLocalizedString(30076), cConfig().getLocalizedString(30255), 5)
             return False
 
         if self.__download(sUrl) is True:
-            cGui().showInfo('JDownloader2', 'Link gesendet', 5)
+            cGui().showInfo(cConfig().getLocalizedString(30076), cConfig().getLocalizedString(30256), 5)
             return True
         return False
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
-#   2022.08.31 DWH
+# Python 3
+# Always pay attention to the translations in the menu!
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,10 +12,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'xcine_top'
 SITE_NAME = 'XCine Top'
 SITE_ICON = 'xcinetop.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 #URL_MAIN = 'https://xcine.top/'
 URL_MAIN = str(cConfig().getSetting('xcine-domain', 'https://xcine.click/'))
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
-URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
+URL_MOVIES = URL_MAIN + 'kinofilme-online'
+URL_ANIMATION = URL_MAIN + 'animation/'
+URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?do=search'
 
 
@@ -31,18 +34,22 @@ def checkDomain():
         cConfig().setSetting('xcine-domain', str(url))
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
     params.setParam('sUrl', URL_KINO)
-    cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema 
+    params.setParam('sUrl', URL_MOVIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies    
+    params.setParam('sUrl', URL_ANIMATION)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30504), SITE_IDENTIFIER, 'showEntries'), params)  # Animated Films    
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showGenre'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30524), SITE_IDENTIFIER, 'showYears'), params)# Release Year
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Release Jahre/Land', SITE_IDENTIFIER, 'showYears'), params)
-    params.setParam('sUrl', URL_SERIEN)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showGenre'), params)# Genre    
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))# Search
     cGui().setEndOfDirectory()
 
 
@@ -64,6 +71,7 @@ def showGenre(entryUrl=False):
         params.setParam('sUrl', sUrl)
         cGui().addFolder(cGuiElement(sName, SITE_IDENTIFIER, 'showEntries'), params)
     cGui().setEndOfDirectory()
+
 
 def showYears(entryUrl=False):
     params = ParameterHandler()
@@ -94,7 +102,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     Domain = str(oRequest.getStatus())
     if not Domain == '200':
         checkDomain()
-    # >>>> Ende Domain Check <<<<<
+    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
@@ -145,7 +153,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oGui.addNextPage(SITE_IDENTIFIER, 'showEntries', params)
         oGui.setView('tvshows' if isTvshow else 'movies')
         oGui.setEndOfDirectory()
-
 
 
 def showEpisodes():

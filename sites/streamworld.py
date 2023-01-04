@@ -1,39 +1,45 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 SITE_IDENTIFIER = 'streamworld'
 SITE_NAME = 'Streamworld'
 SITE_ICON = 'streamworld.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'https://streamworld.in'
-URL_ANI = URL_MAIN + '/animationfilm/'
+URL_KINO = URL_MAIN + '/kinofilme/'
+URL_ANIMATION = URL_MAIN + '/animationfilm/'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
+    params.setParam('sUrl', URL_KINO)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema    
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_ANI)
-    cGui().addFolder(cGuiElement('Animation Filme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('value', 'Genre')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
-    params.setParam('value', 'Jahre')
-    cGui().addFolder(cGuiElement('Jahr', SITE_IDENTIFIER, 'showValue'), params)
-    params.setParam('value', 'Land')
-    cGui().addFolder(cGuiElement('Land', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies
+    params.setParam('sUrl', URL_ANIMATION)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30504), SITE_IDENTIFIER, 'showEntries'), params)  # Animated Films
+    params.setParam('sCont', 'Jahre')
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showValue'), params)    # Release Year
+    params.setParam('sCont', 'Land')
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30402), SITE_IDENTIFIER, 'showValue'), params)    # Countries
+    params.setParam('sCont', 'Genre')
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre    
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), params)   # Search
     cGui().setEndOfDirectory()
-
 
 def showValue():
     params = ParameterHandler()
-    value = params.getValue("value")
     sHtmlContent = cRequestHandler(URL_MAIN).request()
-    pattern = 'nav-title">%s</div>.*?</ul>' % value
+    pattern = 'nav-title">%s</div>.*?</ul>' % params.getValue('sCont')
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
         isMatch, aResult = cParser.parse(sContainer, 'href="([^"]+)">([^<]+)')

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-
-# 2022.11.17 DWH Domain Update
+# Python 3
+# Always pay attention to the translations in the menu!
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,13 +12,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 #URL_MAIN = 'https://kkiste.name/'
-URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.name/'))
+URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.rocks/'))
+URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
-URL_FILME = URL_MAIN + 'kinofilme-online/'
-URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
+URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
-URL_DOKU = URL_MAIN + 'dokumentation/'
 
 
 def checkDomain():
@@ -33,26 +33,22 @@ def checkDomain():
         cConfig().setSetting('kkiste-domain', str(url))
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Neues', SITE_IDENTIFIER, 'showEntries'), params)
+    params.setParam('sUrl', URL_NEW)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)  # New
     params.setParam('sUrl', URL_KINO)
-    cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_FILME)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_SERIEN)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)    
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema  
     params.setParam('sUrl', URL_ANIMATION)
-    cGui().addFolder(cGuiElement('Animation', SITE_IDENTIFIER, 'showEntries'), params)    
-    params.setParam('sUrl', URL_DOKU)
-    cGui().addFolder(cGuiElement('Dokumentationen', SITE_IDENTIFIER, 'showEntries'), params)      
-    params.setParam('Value', 'Genres')
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30504), SITE_IDENTIFIER, 'showEntries'), params)  # Animated Films
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series  
     params.setParam('Value', 'Release Jahre')
-    cGui().addFolder(cGuiElement('Release Jahre', SITE_IDENTIFIER, 'showValue'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30508), SITE_IDENTIFIER, 'showValue'), params)    # Release Year    
+    params.setParam('Value', 'Genres')
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 
@@ -84,7 +80,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     Domain = str(oRequest.getStatus())
     if not Domain == '200':
         checkDomain()
-    # >>>> Ende Domain Check <<<<< 
+    # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     if sSearchText:
@@ -92,8 +88,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('subaction', 'search')
         oRequest.addParameters('story', sSearchText)
     sHtmlContent = oRequest.request()
-    if oRequest.getStatus() == '301':
-        cConfig().setSetting('kkisteurl', oRequest.getRealUrl())
     pattern = 'class="short">.*?href="([^"]+)">([^<]+).*?img src="([^"]+).*?desc">([^<]+).*?Jahr.*?([\d]+).*?s-red">([\d]+)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if not isMatch:

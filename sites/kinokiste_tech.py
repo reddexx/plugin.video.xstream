@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
-
-# 2022.10.14 DWH
+# Python 3
+# Always pay attention to the translations in the menu!
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser, cUtil
 from resources.lib.gui.guiElement import cGuiElement
+from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 SITE_IDENTIFIER = 'kinokiste_tech'
 SITE_NAME = 'Kinokiste Tech'
 SITE_ICON = 'kinokistetech.png'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 #URL_MAIN = 'https://kinokiste.cloud/'
 URL_MAIN = str(cConfig().getSetting('kinokiste-domain', 'https://kinokiste.cloud/'))
-URL_NEU = URL_MAIN + 'kinofilme-online/'
+URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
-URL_KINDER = URL_MAIN + 'animation/'
-URL_SERIEN = URL_MAIN + 'serienstream-deutsch/'
+URL_ANIMATION = URL_MAIN + 'animation/'
+URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + '?do=search&subaction=search&story=%s'
 
 
@@ -32,20 +34,20 @@ def checkDomain():
         cConfig().setSetting('kinokiste-domain', str(url))
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    params.setParam('sUrl', URL_NEU)
-    cGui().addFolder(cGuiElement('Neues', SITE_IDENTIFIER, 'showEntries'), params)
+    params.setParam('sUrl', URL_NEW)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)  # New
     params.setParam('sUrl', URL_KINO)
-    cGui().addFolder(cGuiElement('Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_KINDER)
-    cGui().addFolder(cGuiElement('Filme für Kinder', SITE_IDENTIFIER, 'showEntries'), params)
-    params.setParam('sUrl', URL_SERIEN)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showEntries'), params)  # Current films in the cinema
+    params.setParam('sUrl', URL_ANIMATION)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30504), SITE_IDENTIFIER, 'showEntries'), params)  # Animated Films
+    params.setParam('sUrl', URL_SERIES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series
     params.setParam('sUrl', URL_MAIN)
-    cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showGenre'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'))
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showGenre'), params)    # Genre
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
 
@@ -83,7 +85,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    sHtmlContent = oRequest.request()
+    sHtmlContent = oRequest.request()    
     pattern = '<span\s+class="new_movie\d+">\s*<a\s+href="([^"]+)">[^<]*</a>\s*</span>.*?<img\s+alt="([^"]+)"\s+src="([^"]+)">\s*</span>\s*<span\s+class="fl-quality[^"]+">([^<]+)</span>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
 

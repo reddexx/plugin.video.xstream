@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-import xbmc, time, xbmcgui
+# Python 3
+
+import xbmc
+import time
+import xbmcgui
+
 from resources.lib.config import cConfig
 from resources.lib.tmdb import cTMDB
 from datetime import date, datetime
-try:
-    from urllib import urlencode
-except ImportError:
-    from urllib.parse import urlencode
+from urllib.parse import urlencode
 
 
 def WindowsBoxes(sTitle, sFileName, metaType, year=''):

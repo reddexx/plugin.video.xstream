@@ -1,23 +1,29 @@
 # -*- coding: utf-8 -*-
-#
-# 2022-06-21 Heptamer - Änderung siehe Zeile 72ff
-#
-import sys, os, json, re, xbmc, xbmcaddon, xbmcgui
+# Python 3
+
+import sys
+import os
+import json
+import re
+import xbmc
+import xbmcaddon
+import xbmcgui
+
+from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
+from resources.lib.config import cConfig
+from resources.lib import tools
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
-# xbmcaddon.Addon().getAddonInfo('id')
+# xStream = xbmcaddon.Addon().getAddonInfo('id')
 
-if sys.version_info[0] == 2:
-    from xbmc import translatePath
-    NIGHTLY_VERSION_CONTROL = os.path.join(translatePath(xbmcaddon.Addon().getAddonInfo('profile')).decode('utf-8'), "update_sha")
-    ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s')).decode('utf-8')
-else:
-    from xbmcvfs import translatePath
-    NIGHTLY_VERSION_CONTROL = os.path.join(translatePath(xbmcaddon.Addon().getAddonInfo('profile')), "update_sha")
-    ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s'))
+from xbmcvfs import translatePath
+# Pfad der update.sha
+NIGHTLY_UPDATE = os.path.join(translatePath(Addon().getAddonInfo('profile')), "update_sha")
+# xStream Installationspfad
+ADDON_PATH = translatePath(os.path.join('special://home/addons/', '%s'))    
 
-
+# Update Info beim Kodi Start
 def infoDialog(message, heading=AddonName, icon='', time=5000, sound=False):
     if icon == '': icon = xbmcaddon.Addon().getAddonInfo('icon')
     elif icon == 'INFO': icon = xbmcgui.NOTIFICATION_INFO
@@ -25,6 +31,7 @@ def infoDialog(message, heading=AddonName, icon='', time=5000, sound=False):
     elif icon == 'ERROR': icon = xbmcgui.NOTIFICATION_ERROR
     xbmcgui.Dialog().notification(heading, message, icon, time, sound=sound)
 
+# Aktiviere xStream Addon
 def enableAddon(ADDONID):
     struktur = json.loads(xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.GetAddonDetails","id":1,"params": {"addonid":"%s", "properties": ["enabled"]}}' % ADDONID))
     if 'error' in struktur or struktur["result"]["addon"]["enabled"] != True:
@@ -42,7 +49,7 @@ def enableAddon(ADDONID):
             except:
                 pass
 
-
+# Überprüfe Abhängigkeiten
 def checkDependence(ADDONID):
     isdebug = True
     if isdebug: xbmc.log(__name__ + ' - %s - checkDependence ' % ADDONID, xbmc.LOGDEBUG)
@@ -68,25 +75,35 @@ def checkDependence(ADDONID):
                 pass
     except Exception as e:
         xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
-# Abfrage xStream Auto Update
-if os.path.isfile(NIGHTLY_VERSION_CONTROL) == False or xbmcaddon.Addon().getSetting('githubUpdateXstream') == 'true'  or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true':
+
+# Starte xStream Update wenn auf Github verfügbar
+if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true'  or Addon().getSetting('enforceUpdate') == 'true':
     from resources.lib import updateManager
     status1 = updateManager.xStreamUpdate(True)
-    # xStream Status Update
-    infoDialog("Suche nach Updates ...", sound=False, icon='INFO', time=10000)
-    if status1 == True: infoDialog('xStream Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
-    if status1 == False: infoDialog('xStream Update mit Fehlern beendet.', sound=True, icon='ERROR')
-    if status1 == None: infoDialog('Kein xStream Update verfügbar.', sound=False, icon='INFO', time=6000) 
-# Abfrage Resolver Auto Update    
-if os.path.isfile(NIGHTLY_VERSION_CONTROL) == False or xbmcaddon.Addon().getSetting('githubUpdateResolver') == 'true'  or xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': 
+    if Addon().getSetting('update.notification') == 'full': # Benachrichtung xStream vollständig
+        infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)   # Suche Updates
+        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
+        if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
+        if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
+        if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
+    else:
+        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
+        if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
+        if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
+# Starte Resolver Update wenn auf Github verfügbar    
+if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateResolver') == 'true'  or Addon().getSetting('enforceUpdate') == 'true': 
     from resources.lib import updateManager
     status2 = updateManager.resolverUpdate(True)
-    # Resolver Status Update    
-    infoDialog("Suche nach Updates ...", sound=False, icon='INFO', time=10000)
-    if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + ' Update erfolgreich installiert.', sound=False, icon='INFO', time=6000)
-    if status2 == False: infoDialog('Resolver Update mit Fehlern beendet.', sound=True, icon='ERROR')
-    if status2 == None: infoDialog('Kein Resolver Update verfügbar.', sound=False, icon='INFO', time=6000)
-    if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
+    if Addon().getSetting('update.notification') == 'full': # Benachrichtung Resolver vollständig
+        infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)   # Suche Updates
+        if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + cConfig().getLocalizedString(30116), sound=False, icon='INFO', time=6000)
+        if status2 == False: infoDialog(cConfig().getLocalizedString(30117), sound=True, icon='ERROR')
+        if status2 == None: infoDialog(cConfig().getLocalizedString(30118), sound=False, icon='INFO', time=6000)
+        if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
+    else:
+        if status2 == True: infoDialog('Resolver ' + xbmcaddon.Addon().getSetting('resolver.branch') + cConfig().getLocalizedString(30116), sound=False, icon='INFO', time=6000)
+        if status2 == False: infoDialog(cConfig().getLocalizedString(30117), sound=True, icon='ERROR')
+        if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
 
 # "setting.xml" wenn notwendig Indexseiten aktualisieren
 try:
@@ -97,3 +114,21 @@ except Exception:
     pass
 
 checkDependence('plugin.video.xstream')
+
+# zeigt nach Update den Changelog als Popup an
+def changelog():
+    CHANGELOG_PATH = translatePath(os.path.join('special://home/addons/plugin.video.xstream/', 'changelog.txt'))
+    version = xbmcaddon.Addon().getAddonInfo('version')
+    if xbmcaddon.Addon().getSetting('changelog_version') == version or not os.path.isfile(CHANGELOG_PATH):
+        return
+    xbmcaddon.Addon().setSetting('changelog_version', version)
+    heading = cConfig().getLocalizedString(30275)
+    with open(CHANGELOG_PATH, mode="r", encoding="utf-8") as f:
+        cl_lines = f.readlines()
+    announce = ''
+    for line in cl_lines:
+        announce += line
+    tools.textBox(heading, announce)
+# Changelog Popup in den "settings.xml" ein bzw. aus schaltbar
+if xbmcaddon.Addon().getSetting('popup.update.notification') == 'true': 
+    changelog()

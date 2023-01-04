@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
+
+import sys
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -6,13 +11,12 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
 from json import loads
-import sys
 
 SITE_IDENTIFIER = 'kinox_to'
 SITE_NAME = 'KinoX'
 SITE_ICON = 'kinox.png'
-
-URL_MAIN = str(cConfig().getSetting('kinox-domain', 'https://www12.kinos.to/'))
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+URL_MAIN = str(cConfig().getSetting('kinox-domain', 'https://www15.kinoz.to'))
 URL_NEWS = URL_MAIN + '/index.php'
 URL_CINEMA_PAGE = URL_MAIN + '/Kino-Filme.html'
 URL_GENRE_PAGE = URL_MAIN + '/Genre.html'
@@ -62,7 +66,7 @@ def checkDomain():
     return 403
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     parms = ParameterHandler()
     oGui = cGui()
@@ -74,19 +78,19 @@ def load():
     parms.setParam('sUrl', URL_NEWS)
     parms.setParam('page', 1)
     parms.setParam('mediaType', 'news')
-    oGui.addFolder(cGuiElement('Neues von Heute', SITE_IDENTIFIER, 'showNews'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showNews'), parms)    # New
     parms.setParam('sUrl', URL_MOVIE_PAGE)
     parms.setParam('mediaType', 'movie')
-    oGui.addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showMovieMenu'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showMovieMenu'), parms)   # Movies
     parms.setParam('sUrl', URL_SERIE_PAGE)
     parms.setParam('mediaType', 'series')
-    oGui.addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showSeriesMenu'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showSeriesMenu'), parms)  # Series
     parms.setParam('sUrl', URL_DOCU_PAGE)
     parms.setParam('mediaType', 'documentation')
-    oGui.addFolder(cGuiElement('Dokumentationen', SITE_IDENTIFIER, 'showDocuMenu'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30505), SITE_IDENTIFIER, 'showDocuMenu'), parms)    # Documentations
     parms.setParam('sUrl', URL_SEARCH)
     parms.setParam('mediaType', '')
-    oGui.addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), parms)  # Search
     oGui.setEndOfDirectory()
 
 
@@ -107,33 +111,33 @@ def __createMenuEntry(oGui, sFunction, sLabel, dOutputParameter):
 def showMovieMenu():
     oGui = cGui()
     parms = ParameterHandler()
-    oGui.addFolder(cGuiElement('Kinofilme', SITE_IDENTIFIER, 'showCinemaMovies'), parms)
-    oGui.addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showCharacters'), parms)
-    oGui.addFolder(cGuiElement('Genres', SITE_IDENTIFIER, 'showGenres'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30501), SITE_IDENTIFIER, 'showCinemaMovies'), parms)# Current films in the cinema
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showCharacters'), parms)  # From A-Z
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showGenres'), parms)  # Genre
     parms.setParam('sUrl', URL_FAVOURITE_MOVIE_PAGE)
-    oGui.addFolder(cGuiElement('Beliebteste Filme', SITE_IDENTIFIER, 'showFavItems'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30521), SITE_IDENTIFIER, 'showFavItems'), parms)    # popular Movies
     oGui.setEndOfDirectory()
 
 
 def showSeriesMenu():
     oGui = cGui()
     parms = ParameterHandler()
-    oGui.addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showCharacters'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showCharacters'), parms)# From A-Z
     parms.setParam('sUrl', URL_FAVOURITE_SERIE_PAGE)
-    oGui.addFolder(cGuiElement('Beliebteste Serien', SITE_IDENTIFIER, 'showFavItems'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30519), SITE_IDENTIFIER, 'showFavItems'), parms)# popular Series
     parms.setParam('sUrl', URL_LATEST_SERIE_PAGE)
-    oGui.addFolder(cGuiElement('Neuste Serien', SITE_IDENTIFIER, 'showFavItems'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30514), SITE_IDENTIFIER, 'showFavItems'), parms)# new Series
     oGui.setEndOfDirectory()
 
 
 def showDocuMenu():
     oGui = cGui()
     parms = ParameterHandler()
-    oGui.addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showCharacters'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showCharacters'), parms)  # From A-Z
     parms.setParam('sUrl', URL_FAVOURITE_DOCU_PAGE)
-    oGui.addFolder(cGuiElement('Beliebteste Dokumentationen', SITE_IDENTIFIER, 'showFavItems'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30522), SITE_IDENTIFIER, 'showFavItems'), parms)# Popular Documentations
     parms.setParam('sUrl', URL_LATEST_DOCU_PAGE)
-    oGui.addFolder(cGuiElement('Neuste Dokumentationen', SITE_IDENTIFIER, 'showFavItems'), parms)
+    oGui.addFolder(cGuiElement(cConfig().getLocalizedString(30523), SITE_IDENTIFIER, 'showFavItems'), parms)# New Documentations
     oGui.setEndOfDirectory()
 
 
@@ -520,11 +524,7 @@ def ajaxCall():
     else:
         aData = loads(sHtmlContent)
         pattern = '<div class="Opt leftOpt Headlne"><a title="(.*?)" href="(.*?)">.*?src="(.*?)".*?class="Descriptor">(.*?)</div.*?lng/(.*?).png'
-        if sys.version_info[0] == 2:
-            aResult = cParser().parse(aData['Content'].encode('utf-8'), pattern)
-        else:
-            aResult = cParser().parse(aData['Content'], pattern)
-
+        aResult = cParser().parse(aData['Content'], pattern)
         if aResult[0]:
             total = len(aResult[1])
             for aEntry in aResult[1]:
@@ -606,6 +606,7 @@ def showHosters():
     if aResult[0]:
         for aEntry in aResult[1]:
             sHoster = aEntry[1]
+            if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             pattern = '<b>Mirror</b>: [0-9]+/([0-9]+)'
             aResult = cParser().parse(aEntry[2], pattern)
             mirrors = 1

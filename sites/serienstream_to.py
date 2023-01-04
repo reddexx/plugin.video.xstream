@@ -1,26 +1,25 @@
 # -*- coding: utf-8 -*-
-# 2022-07-14 Heptamer - Neue Suche eingebaut ab zeile 335, Globale Suche aktiviert
-#
-#
+# Python 3
+# Always pay attention to the translations in the menu!
+
+# 2022-12-06 Heptamer - Suchfunktion überarbeitet
+
 import xbmcgui
-import time           
+import time
 
 from operator import truediv
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
-from resources.lib.gui.gui import cGui
-#from resources.lib.jsnprotect import cHelper
 from resources.lib.config import cConfig
+from resources.lib.gui.gui import cGui
 
 SITE_IDENTIFIER = 'serienstream_to'
 SITE_NAME = 'SerienStream'
 SITE_ICON = 'serienstream.png'
-SITE_SETTINGS = '<setting default="s.to" enable="!eq(-2,false)" id="serienstream_to-domain" label="30051" type="labelenum" values="s.to|serienstream.to|190.115.18.20" />'
-domain = cConfig().getSetting('serienstream_to-domain')
-SITE_GLOBAL_SEARCH = True
-
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+domain = cConfig().getSetting('serienstream_to-domain') # Domain Auswahl über die xStream Einstellungen möglich
 #URL_MAIN = 'https://s.to/'
 if domain == "190.115.18.20":
     URL_MAIN = 'http://' + domain
@@ -28,7 +27,6 @@ if domain == "190.115.18.20":
 else:
     URL_MAIN = 'https://' + domain
     proxy = 'false'
-
 URL_SERIES = URL_MAIN + '/serien'
 URL_NEW_SERIES = URL_MAIN + '/neu'
 URL_NEW_EPISODES = URL_MAIN + '/neue-episoden'
@@ -37,28 +35,28 @@ URL_LOGIN = URL_MAIN + '/login'
 URL_SEARCH = URL_MAIN + '/ajax/search'
 
 
-def load():
+def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
-    username = cConfig().getSetting('serienstream.user')
-    password = cConfig().getSetting('serienstream.pass')
-    if username == '' or password == '':
-        xbmcgui.Dialog().ok('xStream SerienStream', '[COLOR red]Für diese Seite ist ein kostenloses Benutzerkonto nötig, bitte registrieren Sie sich unter https://s.to/ und tragen Sie ihre Kontodaten in den xStream-Einstellungen ein.[/COLOR]')
+    username = cConfig().getSetting('serienstream.user')# Username
+    password = cConfig().getSetting('serienstream.pass')# Password   
+    if username == '' or password == '':                # If no username and password were set, close the plugin!
+        xbmcgui.Dialog().ok(cConfig().getLocalizedString(30241), cConfig().getLocalizedString(30264))   # Info Dialog!
     else:
         params.setParam('sUrl', URL_SERIES)
-        cGui().addFolder(cGuiElement('Alle Serien', SITE_IDENTIFIER, 'showAllSeries'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30518), SITE_IDENTIFIER, 'showAllSeries'), params)# All Series
         params.setParam('sUrl', URL_NEW_SERIES)
-        cGui().addFolder(cGuiElement('Neue Serien', SITE_IDENTIFIER, 'showEntries'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30514), SITE_IDENTIFIER, 'showEntries'), params)  # New Series
         params.setParam('sUrl', URL_NEW_EPISODES)
-        cGui().addFolder(cGuiElement('Neue Episoden', SITE_IDENTIFIER, 'showNewEpisodes'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30516), SITE_IDENTIFIER, 'showNewEpisodes'), params)  # New Episodes
         params.setParam('sUrl', URL_POPULAR)
-        cGui().addFolder(cGuiElement('Populär', SITE_IDENTIFIER, 'showEntries'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30519), SITE_IDENTIFIER, 'showEntries'), params)  # Popular Series
         params.setParam('sUrl', URL_MAIN)
         params.setParam('sCont', 'catalogNav')
-        cGui().addFolder(cGuiElement('A-Z', SITE_IDENTIFIER, 'showValue'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)    # From A-Z
         params.setParam('sCont', 'homeContentGenresList')
-        cGui().addFolder(cGuiElement('Genre', SITE_IDENTIFIER, 'showValue'), params)
-        cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), params)   # Search
         cGui().setEndOfDirectory()
 
 
@@ -321,6 +319,7 @@ def SSsearch(sGui=False, sSearchText=False):
     time.sleep(3)
     if not sHtmlContent:
             return
+
 
     sst = sSearchText.lower()
     jload = loads(sHtmlContent)

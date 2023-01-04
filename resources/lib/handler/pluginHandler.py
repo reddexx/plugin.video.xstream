@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
-#
-# 2022-06-19 Heptamer
+# Python 3
+# Muss komplett für die neue settings.xml umgeschrieben werden.
+# Zeile 57 deaktiviert die def __updateSettings
+# Ab Zeile 97 def __updateSettings muss überarbeitet werden
+
+import json
+import os
+import sys
 
 from resources.lib.config import cConfig
 from resources.lib.tools import logger
 from resources.lib import common
-import json, os, sys
 
 
 class cPluginHandler:
@@ -49,8 +54,8 @@ class cPluginHandler:
         for id in deletions:
             del pluginDB[id]
         if update or deletions:
-            self.__updateSettings(pluginDB)
-            self.__updatePluginDB(pluginDB)
+            #self.__updateSettings(pluginDB) # Verursacht erstmal Fehler weil die def __updateSettings nicht überarbeitet ist !!!!
+            self.__updatePluginDB(pluginDB) # Erstellt PluginDB in Addon_data
         return self.getAvailablePluginsFromDB()
 
     def getAvailablePluginsFromDB(self):
@@ -103,9 +108,11 @@ class cPluginHandler:
         import xml.etree.ElementTree as ET
         tree = ET.parse(self.settingsFile)
         # find Element for plugin Settings
-        for i in ('Indexseiten 1', 'Indexseiten 2'):
+        # 30094 Indexseiten 1
+        # 30095 Indexseiten 2
+        for i in ('30094', '30095'):
             index = index1
-            if i == 'Indexseiten 2': index = index2
+            if i == '30095': index = index2
 
             pluginElem = False
             for elem in tree.findall('category'):
