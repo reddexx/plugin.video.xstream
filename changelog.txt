@@ -1,5 +1,8 @@
-[B]Version: 4.0.1~Release[/B]
+[B]Version: 4.0.2~Nightly1[/B]
 
+04.01.2023
+ - [Tools.py] xStream Repository in Supportinformationen aufgenommen
+ 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 01.11.2022 - 04.01.22
