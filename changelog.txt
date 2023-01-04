@@ -1,31 +1,20 @@
-3.5.39~nightly6
-  02.01.23 
+[B]Version: 3.5.39~Release[/B]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
+
+05.12.22 - 04.01.23
+ 
   - [Kinomax]		Domain Update
   - [KKiste]		Domain Update
-  
-3.5.39~nightly5
-  17.12.22
   - [Kinoger] Kinoger.pw (Streamsb) fix
-  
-3.5.39~nightly4
-  13.12.22
   - [s.to] Optimierung Suchroutine
   - [Aniworld] Optimierung Suchroutine
-
-3.5.39~nightly3
-  08.12.22 Code by Heptamer
   - [s.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte 
   - [Aniworld.to] Fehler in der Suchroutine korrigiert der zu Server internal error 500 führen konnte
-  
-3.5.39~nightly2
-  06.12.22
   - [s.to] Suchfunktion erweitert 
   - [xStream] Globale Suche korrigiert, s.to Einträge werden jetzt wieder korrekt angezeigt, TMDb friendly
   - [Requesthandler] Bei internem Server Fehler 500 erscheint jetzt eine Warnmeldung, kann mit OK übersprungen werden
   - [settings] - Domain Auswahl bei Serienstream (serien.cam) entfernt
- 
-3.5.39~nightly1
-  05.12.22
   - [HDFilme]		Domain Check Funktion
   - [Kinomax]		Domain Check Funktion
   - [KKiste]		Domain Check Funktion
