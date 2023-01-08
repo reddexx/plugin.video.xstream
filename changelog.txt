@@ -1,4 +1,9 @@
-[B]Version: 4.0.2~Nightly1[/B]
+[B]Version: 4.0.2~Nightly2[/B]
+
+08.01.2023
+ - [Gui.py] Hoster Auswahl (Bei auto. Abspielen) gefixt
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 04.01.2023
  - [Tools.py] xStream Repository in Supportinformationen aufgenommen
