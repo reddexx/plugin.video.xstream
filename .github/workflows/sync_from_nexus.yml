@@ -1,8 +1,8 @@
 name: Starte Github Update von Nexus Branch
 on: 
   schedule:
-    # aktualisiere alle 120 Minuten
-    - cron: '*/120 * * * *'
+    # aktualisiere alle 1200 Minuten
+    - cron: '*/1200 * * * *'
 
   workflow_dispatch:
 # starte Jobs
