@@ -1,5 +1,10 @@
 [B]Version: 4.0.2~Nightly2[/B]
 
+22.01.2023
+ - [KinoGer] Hoster KinoGer.pw fixed
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
+
 08.01.2023
  - [Gui.py] Hoster Auswahl (Bei auto. Abspielen) gefixt
  
