@@ -1,4 +1,7 @@
-[B]Version: 3.5.39~Release[/B]
+[B]Version: 3.5.40~Nightly1[/B]
+
+22.01.2023
+ - [KinoGer] Hoster KinoGer.pw fixed
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
