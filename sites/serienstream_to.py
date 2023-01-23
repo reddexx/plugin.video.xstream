@@ -257,7 +257,7 @@ def showHosters():
     pattern = '<li[^>]*data-lang-key="([^"]+).*?data-link-target="([^"]+).*?<h4>([^<]+)<([^>]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
-        for sLang, sUrl, sName, sQualy in aResult:
+        for sLang, sUrl, sName, sQualy in aResult:                
             if sLang == '1':
                 sLang = 'Deutsch'
             if sLang == '2':
@@ -307,43 +307,66 @@ def SSsearch(sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     params.getValue('sSearchText')
-    oRequest = cRequestHandler(URL_SEARCH, caching=True, ignoreErrors=(sGui is not False))
+
+    oRequest = cRequestHandler(URL_SERIES, caching=True, ignoreErrors=(sGui is not False))
     oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
-    oRequest.addHeaderEntry('Referer', 'https://s.to/search')
+    oRequest.addHeaderEntry('Referer', 'https://s.to/serien')
     oRequest.addHeaderEntry('Origin', 'https://s.to')
     oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
-    oRequest.addParameters('keyword', sSearchText)
 
     sHtmlContent = oRequest.request()
-    time.sleep(3)
     if not sHtmlContent:
             return
 
-
     sst = sSearchText.lower()
-    jload = loads(sHtmlContent)
-    total = len(jload)
-    for a in jload:
-        if not'/serie/' in a.get('link'):
-            continue
-      
-        sName = a.get('title').replace('/', '').replace('<em>', '')
-        
-        sLink = a.get('link')
-        if a.get('description'):
-            sDesc = a.get('description').replace('/', '').replace('<em>', '').replace('&#8230;', '...')
-        else:
-            sDesc = ' '
-        
-        if not sst in sName.lower() or 'pisode' in sName:
+
+    pattern = '<li><a data.+?href="([^"]+)".+?">(.*?)\<\/a><\/l' #link - title
+
+    oParser = cParser()
+    aResult = oParser.parse(sHtmlContent, pattern)
+
+    if not aResult[0]:
+        oGui.showInfo('xStream', 'Es wurde kein Eintrag gefunden')
+        return
+
+    total = len(aResult[1])
+    for link, title in aResult[1]:
+        if not sst in title.lower():
             continue
         else:
-            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons')
+            #get images thumb / descr pro call. (optional)
+            sThumbnail, sDescription = getMetaInfo(link, title)
+            oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
+            oGuiElement.setThumbnail(sThumbnail)
+            oGuiElement.setDescription(sDescription)
             oGuiElement.setMediaType('tvshow')
-            oGuiElement.setDescription(sDesc)
-            params.setParam('sUrl', URL_MAIN + sLink)
-            params.setParam('TVShowTitle', sName)
+            params.setParam('sUrl', URL_MAIN + link)
+            params.setParam('sName', title)
             oGui.addFolder(oGuiElement, params, True, total)
         if not sGui:
             oGui.setView('tvshows')
+
+
+def getMetaInfo(link, title):   # Setzen von Metadata in Suche:
+    oRequest = cRequestHandler(URL_MAIN + link, caching=False)
+    oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
+    oRequest.addHeaderEntry('Referer', 'https://s.to/serien')
+    oRequest.addHeaderEntry('Origin', 'https://s.to')
+
+    #GET CONTENT OF HTML
+    sHtmlContent = oRequest.request()
+    if not sHtmlContent:
+        return
+
+    pattern = 'seriesCoverBox">.*?<img src="(http.\:.+?)"\ al.+?data-full-description="([^"]+)"' #img , descr
+
+    oParser = cParser()
+    aResult = oParser.parse(sHtmlContent, pattern)
+
+    if not aResult[0]:
+        oGui.showInfo('xStream', 'Es wurde kein Eintrag gefunden')
+        return
+
+    for sImg, sDescr in aResult[1]:
+        return sImg, sDescr
