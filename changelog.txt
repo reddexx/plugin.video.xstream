@@ -1,4 +1,9 @@
-[B]Version: 4.0.2~Nightly3[/B]
+[B]Version: 4.0.2~Nightly4[/B]
+
+23.01.2023
+ - [s.to] Update Suchfunktion - thx to Suuhm 4 input :)
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 22.01.2023
  - [KinoGer] Hoster KinoGer.pw fixed
