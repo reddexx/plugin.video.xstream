@@ -1,6 +1,6 @@
 [B]Version: 4.0.2~Nightly5[/B]
 
-24.01.23
+24.01.2023
  -[hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert 
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
