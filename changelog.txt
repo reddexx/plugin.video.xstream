@@ -1,4 +1,9 @@
-[B]Version: 4.0.2~Nightly4[/B]
+[B]Version: 4.0.2~Nightly5[/B]
+
+24.01.23
+ -[hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert 
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 23.01.2023
  - [s.to] Update Suchfunktion - thx to Suuhm 4 input :)
