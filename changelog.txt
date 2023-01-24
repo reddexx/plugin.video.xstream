@@ -1,4 +1,10 @@
-[B]Version: 3.5.40~Nightly1[/B]
+[B]Version: 3.5.40~Nightly2[/B]
+
+24.01.2023
+ - [s.to] Update Suchfunktion - thx to Suuhm 4 input :)
+ - [Aniworld} Update Suchfunktion - Source from s.to
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 22.01.2023
  - [KinoGer] Hoster KinoGer.pw fixed
