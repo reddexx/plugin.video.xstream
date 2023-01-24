@@ -32,7 +32,6 @@ URL_NEW_SERIES = URL_MAIN + '/neu'
 URL_NEW_EPISODES = URL_MAIN + '/neue-episoden'
 URL_POPULAR = URL_MAIN + '/beliebte-serien'
 URL_LOGIN = URL_MAIN + '/login'
-URL_SEARCH = URL_MAIN + '/ajax/search'
 
 
 def load(): # Menu structure of the site plugin
@@ -257,7 +256,7 @@ def showHosters():
     pattern = '<li[^>]*data-lang-key="([^"]+).*?data-link-target="([^"]+).*?<h4>([^<]+)<([^>]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
-        for sLang, sUrl, sName, sQualy in aResult:                
+        for sLang, sUrl, sName, sQualy in aResult:
             if sLang == '1':
                 sLang = 'Deutsch'
             if sLang == '2':
@@ -327,7 +326,7 @@ def SSsearch(sGui=False, sSearchText=False):
     aResult = oParser.parse(sHtmlContent, pattern)
 
     if not aResult[0]:
-        oGui.showInfo('xStream', 'Es wurde kein Eintrag gefunden')
+        oGui.showInfo()
         return
 
     total = len(aResult[1])
@@ -365,7 +364,7 @@ def getMetaInfo(link, title):   # Setzen von Metadata in Suche:
     aResult = oParser.parse(sHtmlContent, pattern)
 
     if not aResult[0]:
-        oGui.showInfo('xStream', 'Es wurde kein Eintrag gefunden')
+        oGui.showInfo()
         return
 
     for sImg, sDescr in aResult[1]:

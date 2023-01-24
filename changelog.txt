@@ -1,7 +1,9 @@
-[B]Version: 4.0.2~Nightly5[/B]
+[B]Version: 4.0.2~Nightly6[/B]
 
 24.01.2023
- -[hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert 
+ - [hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert
+ - [s.to] überflüssigen Code entfernt 
+ - [Aniworld] Update Suchfunktion Source von SerienStream
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
