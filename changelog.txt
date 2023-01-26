@@ -1,4 +1,9 @@
-[B]Version: 4.0.2~Nightly6[/B]
+[B]Version: 4.0.2~Nightly7[/B]
+
+26.01.2023
+ - [MovieKing] Fix Qualität Anzeige (Leerzeichen entfernt)
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 24.01.2023
  - [hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert
