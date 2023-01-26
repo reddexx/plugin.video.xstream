@@ -23,16 +23,11 @@ Eine klare Beschreibung was zu erwarten ist
 **Screenshots**
 Wenn möglich füge ein Screenshot hinzu um den Fehler zu erklären
 
-**Desktop (Bitte die folgenden Infos vervollständigen):**
- - OS: [z.B. iOS]
- - Browser [z.B. chrome, safari]
- - Version [z.B. 22]
-
-**Smartphone (Bitte die folgenden Infos vervollständigen):**
- - Device: [z.B. iPhone6, Samasung Galaxy A53]
- - OS: [z.B. iOS11]
- - Browser [z.B. Firefox, Safari]
- - Version [z.B. 22]
+**Technische Informationen (Bitte die folgenden Infos vervollständigen):**
+ - Hardware und Betriebssystem: [z.B. Nvidia Shield, Android TV 11]
+ - Kodi Version: [z.B. Kodi 20]
+ - Xstream Version: [z.B. 4.0.2~nightly1]
+ - Resolver Version: [z.B. 5.1.8.9]
 
 **Zusätzliche Informationen**
 Füge zusätzliche/ergänzende Informationen zum Fehler hinzu
