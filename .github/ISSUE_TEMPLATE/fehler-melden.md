@@ -13,7 +13,7 @@ Eine ordentliche Beschreibung um welchen Fehler es sich handelt
 **Zum Reproduzieren**
 Schritte um den Fehler Nachtzustellen:
 1. Gehe zu '...'
-2. Kilcke auf '....'
+2. Klicke auf '....'
 3. Scrolle hinunter bis '....'
 4. siehe Fehler
 
