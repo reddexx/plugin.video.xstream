@@ -143,6 +143,16 @@ def showHosters():
         for sUrl in aResult:
             hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
             hosters.append(hoster)
+    if not isMatch:
+        pattern = '<iframe.*?src=([^\s]+).*?width'
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
+        if isMatch:
+            for sUrl in aResult:
+                if 'youtube' in sUrl:
+                    pass
+                else:
+                    hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
+                    hosters.append(hoster)    
     if hosters:
         hosters.append('getHosterUrl')
     return hosters
