@@ -12,12 +12,10 @@ Sowohl der Funktionsumfang von xStream als auch das Angebot an Streaming-Inhalte
 Diese werden auch als Site-Plugins bezeichnet, welche auf die eigentlichen Quellen verweisen die für das bereitgestellte Angebot verantworlich sind! 
 
 ***
-
-Wir suchen derzeit noch Entwickler die das Projekt unterstützen möchten:
-
-Jeder der mithelfen kann und möchte, wird gebeten seine fertigen Fixes einzureichen.
-Wird ein Fix zu einer Seite eingereicht oder ein neuer Scraper zu einer Seite, so werden diese weiterhin eingepflegt.
-Fixes zu Seiten bzw. neue Seiten am besten als PullRequest einreichen (oder auf Gitter).
+[COLOR red] End of Support for this xStream Version! [/COLOR]
+Diese Version wird mit diesem Release 3.5.40 entgültig eingestellt.
+Wird ein Fix zu einer Seite eingereicht, so werden diese weiterhin eingepflegt.
+Fixes zu Seiten am besten als PullRequest einreichen.
 
 ***
 
