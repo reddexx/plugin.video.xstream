@@ -64,7 +64,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     sHtmlContent = oRequest.request()
-    pattern = 'data-src="([^"]+)(.*?)href="([^"]+)">([^<]+).*?label-primary">([^<]+)'
+    pattern = 'data-src="([^"]+)(.*?)href="([^"]+)">([^<]+).*?label-primary">\s+([^"]+)(?:\s{12})</span>'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()
