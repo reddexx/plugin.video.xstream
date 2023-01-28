@@ -1,4 +1,9 @@
-[B]Version: 4.0.2~Nightly7[/B]
+[B]Version: 4.0.2~Nightly8[/B]
+
+28.01.2023
+ - [Megakino] Fix neuer Hoster Megakino, benötigt zwingend einen aktuellen ResolveUrl
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 26.01.2023
  - [MovieKing] Fix Qualität Anzeige (Leerzeichen entfernt)
