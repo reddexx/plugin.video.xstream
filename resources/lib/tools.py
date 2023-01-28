@@ -57,11 +57,14 @@ def pluginInfo(): # Plugin Support Informationen
     PLUGIN_NAME = Addon().getAddonInfo('name')
     PLUGIN_ID = Addon().getAddonInfo('id')
     PLUGIN_VERSION = Addon().getAddonInfo('version')
+    PLUGIN_REPO_NAME = Addon('repository.xstream').getAddonInfo('name')
+    PLUGIN_REPO_ID = Addon('repository.xstream').getAddonInfo('id')
+    PLUGIN_REPO_VERSION = Addon('repository.xstream').getAddonInfo('version')
     RESOLVER_NAME = Addon('script.module.resolveurl').getAddonInfo('name')
     RESOLVER_ID = Addon('script.module.resolveurl').getAddonInfo('id')
     RESOLVER_VERSION = Addon('script.module.resolveurl').getAddonInfo('version')
 
-    Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '        {0}'.format (platform().title()) + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n')
+    Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '        {0}'.format (platform().title()) + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n' + PLUGIN_REPO_NAME + ':     ' +  PLUGIN_REPO_ID  + ' - ' + PLUGIN_REPO_VERSION + '\n')
 
  
 def textBox(heading, announce):

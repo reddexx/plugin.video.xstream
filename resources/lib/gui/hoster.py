@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Python 3
+#
+# 24.01.23 - Heptamer: Korrektur getpriorities (nun werden alle Hoster gelesen und sortiert)
 
 import xbmc
 import xbmcgui 
@@ -173,22 +175,26 @@ class cHosterGui:
     def __getPriorities(self, hosterList, filter=True):
 
         # Sort hosters based on their resolvers priority.
-        try:
-            import resolveurl as resolver
-        except:
-            import urlresolver as resolver
         ranking = []
         # handles multihosters but is about 10 times slower
         for hoster in hosterList:
+            
+            # we try to load resolveurl within the loop, making sure that the resolver loads new with every cycle
+            try:
+                import resolveurl as resolver
+            except:
+                import urlresolver as resolver
+                 
             # accept hoster which is marked as resolveable by sitePlugin
             if hoster.get('resolveable', False):
                 ranking.append([0, hoster])
                 continue
-
+             
             try:
                 hmf = resolver.HostedMediaFile(url=hoster['link'])
             except:
                 continue
+
             if not hmf.valid_url():
                 hmf = resolver.HostedMediaFile(host=hoster['name'].lower(), media_id='dummy')
 
@@ -206,6 +212,9 @@ class cHosterGui:
             elif not filter:
                 ranking.append([999, hoster])
 
+            # Reset resolver so we have a fresh instance when loop starts again
+            del(resolver) 
+
         if any('quality' in hoster[1] for hoster in ranking):
             pref_quli = cConfig().getSetting('preferedQuality')
             if pref_quli != '5' and any(
@@ -213,6 +222,12 @@ class cHosterGui:
                 ranking = sorted(ranking, key=lambda hoster: int('quality' in hoster[1] and hoster[1]['quality']) == int(pref_quli), reverse=True)
             else:
                 ranking = sorted(ranking, key=lambda hoster: 'quality' in hoster[1] and int(hoster[1]['quality']), reverse=True)
+                
+        #After sorting Quality, we sort for Hoster-Priority :) -Hep 24.01.23
+
+        ranking = sorted(ranking, key=lambda ranking: ranking[0])
+        
+        
         hosterQueue = []
         for i, hoster in ranking:
             hosterQueue.append(hoster)
