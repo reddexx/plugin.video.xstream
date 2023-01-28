@@ -12,7 +12,7 @@ Sowohl der Funktionsumfang von xStream als auch das Angebot an Streaming-Inhalte
 Diese werden auch als Site-Plugins bezeichnet, welche auf die eigentlichen Quellen verweisen die für das bereitgestellte Angebot verantworlich sind! 
 
 ***
-[COLOR red] End of Support for this xStream Version! [/COLOR]
+### End of Support for this xStream Version!
 Diese Version wird mit diesem Release 3.5.40 entgültig eingestellt.
 Wird ein Fix zu einer Seite eingereicht, so werden diese weiterhin eingepflegt.
 Fixes zu Seiten am besten als PullRequest einreichen.
