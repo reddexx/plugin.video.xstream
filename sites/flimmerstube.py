@@ -13,13 +13,13 @@ from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
-import requests
+
 
 
 SITE_IDENTIFIER = 'flimmerstube'
 SITE_NAME = 'Flimmerstube'
 SITE_ICON = 'flimmerstube.png'
-SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'http://flimmerstube.com'
 URL_MOVIES = URL_MAIN + '/video/vic/alle_filme'
 URL_SEARCH = URL_MAIN + '/video/shv'
@@ -153,9 +153,9 @@ def getHosterUrl(sUrl=False):
 def showSearch():
     sSearchText = cGui().showKeyBoard()
     if not sSearchText: return
-    showEntries(URL_SEARCH, False, sSearchText)
+    _search(False, sSearchText)
     cGui().setEndOfDirectory()
 
 
 def _search(oGui, sSearchText):
-    pass
+    showEntries(URL_SEARCH, oGui, sSearchText)
