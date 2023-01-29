@@ -4,6 +4,8 @@
 
 # 2022-08-26 Heptamer - Regex Fix Zeile 117
 # 2022-10-05 Heptamer - Fix für Filme mit Direktlink Zeile  Zeile 128-136
+# 2023-01-17 Heptamer - 
+
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -11,6 +13,7 @@ from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
+import requests
 
 
 SITE_IDENTIFIER = 'flimmerstube'
