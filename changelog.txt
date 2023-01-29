@@ -1,7 +1,8 @@
-[B]Version: 4.0.3~nightly1[/B]
+[B]Version: 4.0.3~nightly2[/B]
 
 29.01.2023
  - [Flimmerstube] Fix neuer Hoster - benötigt zwingend den aktuellen ResolveUrl
+ - [Flimmerstube] Globale Suche kann in den Einstellungen aktiviert und genutzt werden
  
 [COLOR cyan]________________________________________________________________________________________
 [/COLOR]
