@@ -1,4 +1,10 @@
-[B]Version: 4.0.2~Release[/B]
+[B]Version: 4.0.3~nightly1[/B]
+
+29.01.2023
+ - [Flimmerstube] Fix neuer Hoster - benötigt zwingend den aktuellen ResolveUrl
+ 
+[COLOR cyan]________________________________________________________________________________________
+[/COLOR]
 
 04.01.2023 - 28.01.2023
  - [Megakino] Fix neuer Hoster Megakino, benötigt zwingend einen aktuellen ResolveUrl
