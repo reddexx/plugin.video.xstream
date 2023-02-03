@@ -11,7 +11,7 @@ assignees: ''
 Eine ordentliche Beschreibung um welchen Fehler es sich handelt
 
 **Zum Reproduzieren**
-Schritte um den Fehler Nachtzustellen:
+Schritte um den Fehler nachzustellen:
 1. Gehe zu '...'
 2. Klicke auf '....'
 3. Scrolle hinunter bis '....'
@@ -21,7 +21,7 @@ Schritte um den Fehler Nachtzustellen:
 Eine klare Beschreibung was zu erwarten ist
 
 **Screenshots**
-Wenn möglich füge ein Screenshot hinzu um den Fehler zu erklären
+Wenn möglich füge ein oder mehrere Screenshots hinzu um den Fehler zu erklären
 
 **Technische Informationen (Bitte die folgenden Infos vervollständigen):**
  - Hardware und Betriebssystem: [z.B. Nvidia Shield, Android TV 11]
