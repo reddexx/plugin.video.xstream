@@ -1,6 +1,6 @@
 ---
 name: Feature Anfrage
-about: Schlag uns eine Idee für das Project vor
+about: Schlag uns eine Idee für das Projekt vor
 title: Feature Anfrage
 labels: Feature Request
 assignees: ''
