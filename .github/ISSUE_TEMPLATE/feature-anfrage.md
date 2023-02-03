@@ -14,7 +14,7 @@ Eine klare Beschreibung was das Problem ist. "Entschuldigung, Ich bin immer frus
 Eine klare Beschreibung was du haben möchtest
 
 **Beschreibe eine Alternative die du in Betracht ziehst**
-Eine klare Beschreibung von jeder alternativen Lösung oder vom Features das du dir überlegt hast
+Eine klare Beschreibung von jeder alternativen Lösung oder vom Feature das du dir überlegt hast
 
 **Zusätzliche Informationen**
 Füge hier zusätzliche Informationen ein oder ein Screenshot zu deiner Feature Anfrage
