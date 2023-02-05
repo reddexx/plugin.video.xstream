@@ -5,6 +5,7 @@
  - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
  - [Kinox] Anpassung der prefLang an den Einstellungen
  - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
+[COLOR red]Achtung Neustart erforderlich und Einstellung der Sprache im Plugin!!![/COLOR]
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
