@@ -1009,6 +1009,10 @@ msgctxt "#30402"
 msgid "Countries"
 msgstr ""
 
+msgctxt "#30403"
+msgid "No hoster available in the selected language!"
+msgstr ""
+
 ############### Scaper Language ###############
 
 msgctxt "#30500"

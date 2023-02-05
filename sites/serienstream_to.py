@@ -254,15 +254,36 @@ def showHosters():
     sUrl = ParameterHandler().getValue('sUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
     pattern = '<li[^>]*data-lang-key="([^"]+).*?data-link-target="([^"]+).*?<h4>([^<]+)<([^>]+)'
+    # data-lang-key="1" Deutsch
+    # data-lang-key="2" Englisch
+    # data-lang-key="3" Englisch mit deutschen Untertitel
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
-        for sLang, sUrl, sName, sQualy in aResult:
-            if sLang == '1':
-                sLang = 'Deutsch'
-            if sLang == '2':
-                sLang = 'Englisch'
-            if sLang == '3':
-                sLang = 'Englisch mit Untertitel'
+        for sLangCode, sUrl, sName, sQualy in aResult:
+            sLanguage = cConfig().getSetting('prefLanguage') 
+            if sLanguage == '1':        # Voreingestellte Sprache Deutsch in settings.xml
+                if '2' in sLangCode:    # data-lang-key="2"
+                    continue
+                if '3' in sLangCode:    # data-lang-key="3"
+                    continue
+                if sLangCode == '1':    # data-lang-key="1"
+                    sLang = 'Deutsch'   # Anzeige der Sprache
+            if sLanguage == '2':        # Voreingestellte Sprache Englisch in settings.xml
+                if '1' in sLangCode:    # data-lang-key="1"
+                    continue
+                if '3' in sLangCode:    # data-lang-key="3"
+                    continue
+                if sLangCode == '2':    # data-lang-key="2"
+                    sLang = 'Englisch'   # Anzeige der Sprache    
+            if sLanguage == '3':        # Voreingestellte Sprache Japanisch in settings.xml
+                continue        
+            if sLanguage == '0':        # Alle Sprachen 
+                if sLangCode == '1':    # data-lang-key="1"
+                    sLang = 'Deutsch'   # Anzeige der Sprache
+                if sLangCode == '2':    # data-lang-key="2"
+                    sLang = 'Englisch'  # Anzeige der Sprache   
+                elif sLangCode == '3':  # data-lang-key="3"
+                    sLang = 'Englisch mit deutschen Untertitel'    # Anzeige der Sprache                    
             if 'HD' == sQualy:
                 sQualy = 'HD'
             else:
@@ -271,6 +292,8 @@ def showHosters():
             hosters.append(hoster)
         if hosters:
             hosters.append('getHosterUrl')
+        if not hosters:
+            cGui().showLanguage()
         return hosters
 
 

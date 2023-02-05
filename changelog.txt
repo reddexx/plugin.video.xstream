@@ -1,7 +1,10 @@
-[B]Version: 4.0.3~nightly4[/B]
+[B]Version: 4.0.3~nightly5[/B]
 
 05.02.2023
- - [Aniworld] Anpassung Hoster Sprache
+
+ - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
+ - [Kinox] Anpassung der prefLang an den Einstellungen
+ - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
