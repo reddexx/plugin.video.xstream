@@ -1,5 +1,6 @@
 [B]Version: 4.0.3~nightly4[/B]
 
+05.02.2023
  - [Aniworld] Anpassung Hoster Sprache
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
