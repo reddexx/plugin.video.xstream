@@ -212,15 +212,18 @@ def showHosters():
     sUrl = ParameterHandler().getValue('sUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
     pattern = '<li[^>]*data-lang-key="([^"]+).*?data-link-target="([^"]+).*?<h4>([^<]+)<([^>]+)'
+    # data-lang-key="1" Deutsch
+    # data-lang-key="2" Japanisch mit englischen Untertitel
+    # data-lang-key="3" Japanisch mit deutschen Untertitel
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLang, sUrl, sName, sQualy in aResult:
             if sLang == '1':
                 sLang = 'Deutsch'
             if sLang == '2':
-                sLang = 'Englisch'
+                sLang = 'Japanisch mit englischem Untertitel'
             if sLang == '3':
-                sLang = 'Englisch mit Untertitel'
+                sLang = 'Japanisch mit deutschem Untertitel'
             if 'HD' == sQualy:
                 sQualy = 'HD'
             else:

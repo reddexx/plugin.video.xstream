@@ -1,4 +1,8 @@
-[B]Version: 4.0.3~nightly3[/B]
+[B]Version: 4.0.3~nightly4[/B]
+
+ - [Aniworld] Anpassung Hoster Sprache
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 29.01.2023
  - [Kinomax] Domain update
@@ -6,8 +10,7 @@
  - [Flimmerstube] Fix neuer Hoster - benötigt zwingend den aktuellen ResolveUrl
  - [Flimmerstube] Globale Suche kann in den Einstellungen aktiviert und genutzt werden
   
-[COLOR cyan]________________________________________________________________________________________
-[/COLOR]
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 04.01.2023 - 28.01.2023
  - [Megakino] Fix neuer Hoster Megakino, benötigt zwingend einen aktuellen ResolveUrl
