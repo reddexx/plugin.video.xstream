@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
+# Sprachauswahl für Hoster enthalten.
+# Ajax Suchfunktion enthalten.
 
 import xbmcgui
 import time
@@ -250,7 +252,8 @@ def showHosters():
                 sQualy = 'HD'
             else:
                 sQualy = 'SD'
-            hoster = {'link': sUrl, 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang)}
+            hoster = {'link': sUrl, 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
+                      'languageCode': sLangCode}    # Language Code für hoster.py Sprache Prio
             hosters.append(hoster)
         if hosters:
             hosters.append('getHosterUrl')
