@@ -1,7 +1,17 @@
-[B]Version: 4.0.3~nightly6[/B]
+[B]Version: 4.0.3~nightly7[/B]
 
 [COLOR red]Achtung Neustart erforderlich und Einstellung der Sprache im Plugin überprüfen!!![/COLOR]
+ 
+08.02.2023
 
+THX @Cubikon für deine Unterstützung
+ - [Aniworld] Blocked Hoster Funktion hinzugefügt
+ - [Filmpalast] Blocked Hoster Funktion hinzugefügt
+ - [Megakino] Blocked Hoster Funktion hinzugefügt
+ - [Movie4k] Blocked Hoster Funktion hinzugefügt
+ - [Movieking] Blocked Hoster Funktion hinzugefügt
+ - [s.to] Blocked Hoster Funktion hinzugefügt
+ 
 07.02.2023
 
  - [Hoster] Hinzufügen der Priorität für Sprache THX @Cubikon für deine Hilfe
