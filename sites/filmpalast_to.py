@@ -210,6 +210,8 @@ def showHosters():
     hosters = []
     if isMatch:
         for sName, sUrl in aResult:
+            hoster = sName.strip(' HD')
+            if cConfig().isBlockedHoster(hoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
     if hosters:

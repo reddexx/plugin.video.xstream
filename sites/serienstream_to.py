@@ -262,6 +262,7 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLangCode, sUrl, sName, sQualy in aResult:
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             sLanguage = cConfig().getSetting('prefLanguage') 
             if sLanguage == '1':        # Voreingestellte Sprache Deutsch in settings.xml
                 if '2' in sLangCode:    # data-lang-key="2"

@@ -98,7 +98,9 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if isMatch:
         for sUrl in aResult:
-            hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            hoster = {'link': sUrl, 'name': sName }
             hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')
