@@ -193,6 +193,8 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, 'link="([^"]+)')
     if isMatch:
         for sUrl in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'youtube' in sUrl:
                 continue
             elif 'vod' in sUrl:

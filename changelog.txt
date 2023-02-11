@@ -1,6 +1,16 @@
-[B]Version: 4.0.3~nightly7[/B]
+[B]Version: 4.0.3~nightly8[/B]
 
 [COLOR red]Achtung Neustart erforderlich und Einstellung der Sprache im Plugin überprüfen!!![/COLOR]
+
+11.02.2023
+
+ - [HDFilme] Domain Update und Blocked Hoster Funktion hinzugefügt
+ - [Kinofox] Blocked Hoster Funktion hinzugefügt
+ - [Kinokiste] Blocked Hoster Funktion hinzugefügt
+ - [KKiste] Domain Update und Blocked Hoster Funktion hinzugefügt
+ - [xCine] Blocked Hoster Funktion hinzugefügt
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 08.02.2023
 
@@ -11,6 +21,8 @@ THX @Cubikon für deine Unterstützung
  - [Movie4k] Blocked Hoster Funktion hinzugefügt
  - [Movieking] Blocked Hoster Funktion hinzugefügt
  - [s.to] Blocked Hoster Funktion hinzugefügt
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 07.02.2023
 
@@ -18,6 +30,8 @@ THX @Cubikon für deine Unterstützung
  - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
  - [Kinox] Anpassung der prefLang an den Einstellungen
  - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
  
 05.02.2023
 
