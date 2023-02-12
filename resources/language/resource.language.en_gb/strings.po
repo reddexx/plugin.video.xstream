@@ -1222,7 +1222,7 @@ msgid "MovieDream"
 msgstr ""
 
 msgctxt "#30720"
-msgid ""
+msgid "Cinemathek"
 msgstr ""
 
 

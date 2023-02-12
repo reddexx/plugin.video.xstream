@@ -1,6 +1,13 @@
-[B]Version: 4.0.3~nightly8[/B]
+[B]Version: 4.0.3~nightly9[/B]
 
 [COLOR red]Achtung Neustart erforderlich und Einstellung der Sprache im Plugin überprüfen!!![/COLOR]
+
+12.02.2023
+
+ - [Cinemathek] hinzugefügt (Neustart erforderlich)
+ - [Dokus4] Plugin Abfrage überarbeitet
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 11.02.2023
 

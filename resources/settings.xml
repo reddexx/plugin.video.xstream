@@ -219,7 +219,21 @@
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>				
-			</group>	
+			</group>
+			<group id="cinemathek" label="30720">
+				<setting id="plugin_cinemathek" type="boolean" label="30050">
+					<default>True</default>
+					<control type="toggle"/>					
+				</setting>
+				<setting id="global_search_cinemathek" type="boolean" label="30052">
+					<level>0</level>				
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_cinemathek">False</dependency>
+					</dependencies>	
+					<control type="toggle"/>					
+				</setting>				
+			</group>				
 			<group id="dokus4" label="30701">
 				<setting id="plugin_dokus4" type="boolean" label="30050">
 					<level>0</level>
