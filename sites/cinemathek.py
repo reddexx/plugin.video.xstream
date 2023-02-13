@@ -57,8 +57,20 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=sGui is not False) 
     sHtmlContent = oRequest.request()
-    pattern = '<article.*?src="([^"]+).*?href="([^"]+).*?>([^<]+)'
+    # Für Filme und Serien Content
+    pattern = '<article id=.*?'  # container start
+    pattern += '<img src="([^"]+).*?'  # sThumbnail
+    pattern += 'href="([^"]+).*?'  # url  
+    pattern += '>([^<]+).*?'  # name 
+    # pattern += '<div class="texto">([^<]+).*?'  # desc
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
+    if not isMatch:
+        # Für die Suche von Filme und Serien
+        pattern = '<article.*?'  # container start
+        pattern += '<img src="([^"]+).*?'  # sThumbnail
+        pattern += 'href="([^"]+).*?'  # url  
+        pattern += '>([^<]+).*?'  # name
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()
         return
@@ -67,9 +79,9 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     for sThumbnail, sUrl, sName in aResult:  #for sThumbnail, sUrl, sName, sDesc in aResult:
         if sSearchText and not cParser.search(sSearchText, sName):
             continue 
-        isTvshow, aResult = cParser.parse(sHtmlContent, '<article[^>]*class="item tvshows') # Muss nur im Serien Content auffindbar sein
+        isTvshow, aResult = cParser.parse(sUrl, 'tvshows') # Muss nur im Serien Content auffindbar sein
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
-        oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')    
+        oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')  
         oGuiElement.setThumbnail(sThumbnail)
         #oGuiElement.setDescription(sDesc)
         params.setParam('sThumbnail', sThumbnail)

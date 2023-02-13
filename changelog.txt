@@ -1,6 +1,10 @@
-[B]Version: 4.0.3~Release[/B]
+[B]Version: 4.0.4~Nightly1[/B]
 
-[COLOR red] Achtung Neustart durchführen und für die Release Updater Sprache in den Einstellungen von xStream einstellen!!![/COLOR]
+13.02.2023
+
+ - [Cinemathek] Fix Serien, Regex für Suche und doppelte Einträge entfernt
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 04.01.2023 - 13.02.2023
 
