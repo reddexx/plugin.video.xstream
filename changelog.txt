@@ -3,6 +3,7 @@
 13.02.2023
 
  - [Cinemathek] Fix Serien, Regex für Suche und doppelte Einträge entfernt
+ - [guiElement} sYear zum Titel hinzugefügt (wenn vorhanden) THX @Kasi45
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
