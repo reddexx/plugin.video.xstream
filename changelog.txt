@@ -1,67 +1,34 @@
-[B]Version: 4.0.3~nightly10[/B]
+[B]Version: 4.0.3~Release[/B]
 
-13.02.2023
+[COLOR red] Achtung Neustart durchführen und für die Release Updater Sprache in den Einstellungen von xStream einstellen!!![/COLOR]
 
- - [hoster.py] Hotfix für Cinemathek: aktives Autoplay oderSortierung zeigt keine Hoster an
- 
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
+04.01.2023 - 13.02.2023
 
-12.02.2023
-
+ - [hoster.py] Hotfix für Cinemathek: aktives Autoplay oder Sortierung zeigt keine Hoster an
  - [Cinemathek] hinzugefügt (Neustart erforderlich)
  - [Dokus4] Plugin Abfrage überarbeitet
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
-
-11.02.2023
-
  - [HDFilme] Domain Update und Blocked Hoster Funktion hinzugefügt
  - [Kinofox] Blocked Hoster Funktion hinzugefügt
  - [Kinokiste] Blocked Hoster Funktion hinzugefügt
  - [KKiste] Domain Update und Blocked Hoster Funktion hinzugefügt
  - [xCine] Blocked Hoster Funktion hinzugefügt
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-08.02.2023
-
-THX @Cubikon für deine Unterstützung
  - [Aniworld] Blocked Hoster Funktion hinzugefügt
  - [Filmpalast] Blocked Hoster Funktion hinzugefügt
  - [Megakino] Blocked Hoster Funktion hinzugefügt
  - [Movie4k] Blocked Hoster Funktion hinzugefügt
  - [Movieking] Blocked Hoster Funktion hinzugefügt
  - [s.to] Blocked Hoster Funktion hinzugefügt
-
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-07.02.2023
-
  - [Hoster] Hinzufügen der Priorität für Sprache THX @Cubikon für deine Hilfe
  - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
  - [Kinox] Anpassung der prefLang an den Einstellungen
  - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
- 
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
- 
-05.02.2023
-
  - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
  - [Kinox] Anpassung der prefLang an den Einstellungen
  - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
-[COLOR red]Achtung Neustart erforderlich und Einstellung der Sprache im Plugin überprüfen!!![/COLOR]
- 
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
-
-29.01.2023
  - [Kinomax] Domain update
  - [kkiste] Domain update
  - [Flimmerstube] Fix neuer Hoster - benötigt zwingend den aktuellen ResolveUrl
  - [Flimmerstube] Globale Suche kann in den Einstellungen aktiviert und genutzt werden
-  
-[COLOR cyan]________________________________________________________________________________________[/COLOR]
-
-04.01.2023 - 28.01.2023
  - [Megakino] Fix neuer Hoster Megakino, benötigt zwingend einen aktuellen ResolveUrl
  - [MovieKing] Fix Qualität Anzeige (Leerzeichen entfernt)
  - [hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert
@@ -71,7 +38,6 @@ THX @Cubikon für deine Unterstützung
  - [KinoGer] Hoster KinoGer.pw fixed
  - [Gui.py] Hoster Auswahl (Bei auto. Abspielen) gefixt
  - [Tools.py] xStream Repository in Supportinformationen aufgenommen
-[COLOR cyan]
-________________________________________________________________________________________
-[/COLOR]
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 [I]*Editierhinweis: Text nicht länger als die Linie. Keine Tabulatoren verwenden![/I]
