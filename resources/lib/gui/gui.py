@@ -288,3 +288,11 @@ class cGui:
         else:
             iSeconds = iSeconds * 1000
         xbmc.executebuiltin("Notification(%s,%s,%s,%s)" % (str(sTitle), (str(sDescription)), iSeconds, common.addon.getAddonInfo('icon')))
+
+    @staticmethod
+    def showLanguage(sTitle='xStream', sDescription=cConfig().getLocalizedString(30403), iSeconds=0):
+        if iSeconds == 0:
+            iSeconds = 1000
+        else:
+            iSeconds = iSeconds * 1000
+        xbmc.executebuiltin("Notification(%s,%s,%s,%s)" % (str(sTitle), (str(sDescription)), iSeconds, common.addon.getAddonInfo('icon')))

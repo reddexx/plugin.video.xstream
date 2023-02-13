@@ -14,7 +14,7 @@ SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 #URL_MAIN = 'https://kkiste.name/'
-URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.rocks/'))
+URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.hair/'))
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
@@ -154,7 +154,11 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, 'link="([^"]+)')
     if isMatch:
         for sUrl in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'vod' in sUrl:
+                continue
+            if 'youtube' in sUrl:
                 continue
             elif sUrl.startswith('//'):
                 sUrl = 'https:' + sUrl

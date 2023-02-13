@@ -161,6 +161,7 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, 'link="([^"]+)">([^<]+)')
     if isMatch:
         for sUrl, sName in aResult:
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'railer' in sName: 
                 continue
             elif 'vod' in sUrl:

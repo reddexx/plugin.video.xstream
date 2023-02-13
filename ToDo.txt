@@ -5,4 +5,6 @@
 	- 	Cinemathek
 	- 	MovieDream
 	-	Streamworld.in Serien
-	
+	- 	Topstreamfilm
+* Blocked Hoster siehe Kinox Zeile 609 if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+	in die restlichen Sitplugins einbauen.
