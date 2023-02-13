@@ -1,6 +1,10 @@
-[B]Version: 4.0.3~nightly9[/B]
+[B]Version: 4.0.3~nightly10[/B]
 
-[COLOR red]Achtung Neustart erforderlich und Einstellung der Sprache im Plugin überprüfen!!![/COLOR]
+13.02.2023
+
+ - [hoster.py] Hotfix für Cinemathek: aktives Autoplay oderSortierung zeigt keine Hoster an
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 12.02.2023
 
