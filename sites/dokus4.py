@@ -2,6 +2,8 @@
 # Python 3
 # Always pay attention to the translations in the menu!
 
+import xbmc
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -64,6 +66,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oGuiElement.setDescription(sDesc)
         params.setParam('entryUrl', sUrl)
         oGui.addFolder(oGuiElement, params, False, total)
+    if not xbmc.getCondVisibility('System.HasAddon(%s)' % 'plugin.video.youtube'):
+        xbmc.executebuiltin('InstallAddon(%s)' % 'plugin.video.youtube')    
     if not sGui:
         isMatchNextPage, sNextUrl = cParser.parseSingleResult(sHtmlContent, 'rel="next" href="([^"]+)')
         if isMatchNextPage:
@@ -88,9 +92,6 @@ def showHosters():
 
 
 def getHosterUrl(sUrl=False):
-    import xbmc
-    if not xbmc.getCondVisibility('System.HasAddon(%s)' % 'plugin.video.youtube'):
-        xbmc.executebuiltin('InstallAddon(%s)' % 'plugin.video.youtube')
     return [{'streamUrl': sUrl, 'resolved': False}]
 
 

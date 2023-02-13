@@ -4,6 +4,8 @@
 
 # 2022-08-26 Heptamer - Regex Fix Zeile 117
 # 2022-10-05 Heptamer - Fix für Filme mit Direktlink Zeile  Zeile 128-136
+# 2023-01-17 Heptamer - 
+
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -13,10 +15,11 @@ from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 
+
 SITE_IDENTIFIER = 'flimmerstube'
 SITE_NAME = 'Flimmerstube'
 SITE_ICON = 'flimmerstube.png'
-SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 URL_MAIN = 'http://flimmerstube.com'
 URL_MOVIES = URL_MAIN + '/video/vic/alle_filme'
 URL_SEARCH = URL_MAIN + '/video/shv'
@@ -150,9 +153,9 @@ def getHosterUrl(sUrl=False):
 def showSearch():
     sSearchText = cGui().showKeyBoard()
     if not sSearchText: return
-    showEntries(URL_SEARCH, False, sSearchText)
+    _search(False, sSearchText)
     cGui().setEndOfDirectory()
 
 
 def _search(oGui, sSearchText):
-    pass
+    showEntries(URL_SEARCH, oGui, sSearchText)

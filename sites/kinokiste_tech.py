@@ -161,6 +161,8 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sUrl, sHoster in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sHoster}
             hosters.append(hoster)
     if hosters:
@@ -177,6 +179,8 @@ def showEpisodeHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sUrl, sHoster in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sHoster}
             hosters.append(hoster)
     if hosters:

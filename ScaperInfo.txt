@@ -44,12 +44,12 @@ def load():
     params = ParameterHandler()
 	# Spracheinstellung aus der settings.xml
 	sLanguage = cConfig().getSetting('prefLanguage')
-    if sLanguage == '0':	# 0 = Deutsch
+    if sLanguage == '1':	# 1 = Deutsch
         sLanguage = '2'
-    elif sLanguage == '1':	# 1 = Englisch
+    elif sLanguage == '2':	# 2 = Englisch
         sLanguage = '3'
     else:
-        sLanguage = 'all'	# 3 = Alle Sprachen
+        sLanguage = 'all'	# 0 = Alle Sprachen
 	params.setParam('sLanguage', sLanguage)	
     params.setParam('sUrl', URL_KINO)
     cGui().addFolder(cGuiElement('Aktuelle Kinofilme', SITE_IDENTIFIER, 'showEntries'), params) # cConfig().getLocalizedString(30500) setzen für den jeweiligen Eintrag

@@ -173,9 +173,9 @@ def __getHtmlContent(sUrl=None, ignoreErrors=False):
 
 def __getPreferredLanguage():
     sLanguage = cConfig().getSetting('prefLanguage')
-    if sLanguage == '0':
+    if sLanguage == '1': # Voreingestellte Sprache Deutsch
         sPrefLang = 'ListNeededLanguage=25%2C24%2C26%2C2%2C5%2C6%2C7%2C8%2C11%2C15%2C16%2C9%2C12%2C13%2C14%2C17%2C4'
-    elif sLanguage == '1':
+    elif sLanguage == '2':  # Voreingestellte Sprache Englisch
         sPrefLang = 'ListNeededLanguage=25%2C24%2C26%2C5%2C6%2C7%2C8%2C11%2C15%2C16%2C9%2C12%2C13%2C14%2C17%2C4%2C1'
     else:
         sPrefLang = ''

@@ -126,6 +126,8 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, 'iframe src="([^"]+)')
     if isMatch:
         for sUrl in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen            
             hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
             hosters.append(hoster)
     if hosters:
