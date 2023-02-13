@@ -94,6 +94,7 @@ class cGuiElement:
         if '(omu)' in self.__sTitle.lower():
             self.__sTitle = self.__sTitle.replace('(OmU) ', '').replace('(Omu) ', '')
             self.setLanguage('OmU')
+        if self._sYear: self.__sTitle = self.__sTitle.strip() + ' (' + self._sYear + ')'
         return self.__sTitle.strip()
 
     def setMediaType(self, mediaType):
