@@ -39,4 +39,4 @@ Für alles weitere findet Ihr auch Informationen auf unserer Webseite die ihr au
 
 Oder nutzt unseren Chat wenn Ihr irgendwelche anderen Fragen um xStream beantwortet haben möchtet.
 
-[![Gitter](https://badges.gitter.im/streamxstream/community.svg)](https://gitter.im/streamxstream/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Matrix](https://matrix.to/#/#streamxstream_xTeam:gitter.im)
