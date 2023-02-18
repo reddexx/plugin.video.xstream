@@ -4,7 +4,7 @@
 	- Kinoger Hoster .ru
 	- Kino.ws
 	- MovieDream (showHoster AES Crypted)
-	- Movieking Serien verfügbar
+	- Movieking Serien verfügbar (In Arbeit)
 	- Streamworld.in Serien verfügbar
 	- Topstreamfilm (Resolver nicht verfügbar)
 * Blocked Hoster siehe Kinox Zeile 609 if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml
