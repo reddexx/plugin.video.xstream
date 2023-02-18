@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# Sprachauswahl für Filme
+# HTML LangzeitCache hinzugefügt
+    #showValue:     24 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -34,20 +38,28 @@ def load(): # Menu structure of the site plugin
 
 def showMovieMenu():    # Menu structure of movie menu
     params = ParameterHandler()
-    params.setParam('sUrl', URL_MOVIES % 'new')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)   # New
-    params.setParam('sUrl', URL_MOVIES % 'top')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30509), SITE_IDENTIFIER, 'showEntries'), params)  # Top movies
-    params.setParam('sUrl', URL_MOVIES % 'imdb')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30510), SITE_IDENTIFIER, 'showEntries'), params) # IMDB rating
-    params.setParam('sUrl', URL_ENGLISH)
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
-    params.setParam('sUrl', URL_MOVIES % 'new')
-    params.setParam('value', 'genre')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
-    params.setParam('value', 'movietitle')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
-    cGui().setEndOfDirectory()
+    sLanguage = cConfig().getSetting('prefLanguage')
+    if sLanguage == '0':    # Alle Sprachen	
+        params.setParam('sUrl', URL_MOVIES % 'new')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)   # New
+        params.setParam('sUrl', URL_MOVIES % 'top')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30509), SITE_IDENTIFIER, 'showEntries'), params)  # Top movies
+        params.setParam('sUrl', URL_MOVIES % 'imdb')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30510), SITE_IDENTIFIER, 'showEntries'), params) # IMDB rating
+        params.setParam('sUrl', URL_ENGLISH)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
+        params.setParam('sUrl', URL_MOVIES % 'new')
+        params.setParam('value', 'genre')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+        params.setParam('value', 'movietitle')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
+        cGui().setEndOfDirectory()        
+    if sLanguage == '2':    # English
+        params.setParam('sUrl', URL_ENGLISH)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
+        cGui().setEndOfDirectory()
+    elif sLanguage == '3':    # Japanisch
+        cGui().showLanguage()
 
 
 def showSeriesMenu():   # Menu structure of series menu
@@ -62,7 +74,10 @@ def showSeriesMenu():   # Menu structure of series menu
 def showValue():
     params = ParameterHandler()
     value = params.getValue("value")
-    sHtmlContent = cRequestHandler(params.getValue('sUrl')).request()
+    #sHtmlContent = cRequestHandler(params.getValue('sUrl')).request()
+    oRequest = cRequestHandler(params.getValue('sUrl'))
+    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    sHtmlContent = oRequest.request()
     pattern = '<section[^>]id="%s">(.*?)</section>' % value
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -172,7 +187,10 @@ def showEpisodes():
     sThumbnail = params.getValue("sThumbnail")
     sSeason = params.getValue('season')
     sShowName = params.getValue('TVShowTitle')
-    sHtmlContent = cRequestHandler(sUrl).request()
+    #sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()
     pattern = '<div[^>]*class="staffelWrapperLoop[^"]*"[^>]*data-sid="%s">(.*?)</ul></div>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if not isMatch:

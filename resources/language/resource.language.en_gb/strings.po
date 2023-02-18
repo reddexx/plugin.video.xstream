@@ -116,7 +116,7 @@ msgid "Hoster Settings"
 msgstr ""
 
 msgctxt "#30035"
-msgid "Network Settings"
+msgid "Network and Cache Settings"
 msgstr ""
 
 msgctxt "#30040"
@@ -526,11 +526,11 @@ msgid "Cancel"
 msgstr ""
 
 msgctxt "#30164"
-msgid ""
+msgid "Clear HTML cache after (X) day(s)"
 msgstr ""
 
 msgctxt "#30165"
-msgid ""
+msgid "Delete HTML cache now"
 msgstr ""
 
 msgctxt "#30166"
@@ -1010,7 +1010,7 @@ msgid "Countries"
 msgstr ""
 
 msgctxt "#30403"
-msgid "No hoster available in the selected language!"
+msgid "No entry available in the selected language!"
 msgstr ""
 
 ############### Scaper Language ###############

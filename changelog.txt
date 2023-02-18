@@ -1,8 +1,13 @@
-[B]Version: 4.0.4~Nightly1[/B]
+[B]Version: 4.0.4~Nightly2[/B]
 
 18.02.2023
 
  - [Kinoger] Fix Streamsb
+ - [HTML Cache] überarbeitet THX @du weist schon :)
+ - [Aniworld] Langzeit HTML Cache integriert incl. Suche
+ - [Cinemathek]	Langzeit HTML Cache integriert und Neue Folgen hinzugefügt
+ - [Filmpalast] Langzeit HTML Cache integriert und Filme an Sprache angepasst
+ - [s.to] Langzeit HTML Cache integriert incl. Suche
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 

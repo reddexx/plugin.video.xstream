@@ -1,10 +1,33 @@
 * Plugin Handler.py für neue settings.xml überarbeiten, Definition im PluginHandler derzeit deaktiviert
 * Cloudflare Scraper einbauen
 * Scraper
-	-	Kinoger Hoster .ru , Csst
-	- 	Cinemathek
-	- 	MovieDream
-	-	Streamworld.in Serien
-	- 	Topstreamfilm
-* Blocked Hoster siehe Kinox Zeile 609 if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
-	in die restlichen Sitplugins einbauen.
+	- Kinoger Hoster .ru
+	- Kino.ws
+	- MovieDream (showHoster AES Crypted)
+	- Movieking Serien verfügbar
+	- Streamworld.in Serien verfügbar
+	- Topstreamfilm (Resolver nicht verfügbar)
+* Blocked Hoster siehe Kinox Zeile 609 if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml
+	Fertige Sitplugins
+	- Aniworld
+	- Filmpalast
+	- HDFilme
+	- Kinofox
+	- Kinokiste
+	- Kinox
+	- KKiste
+	- Megakino
+	- Movie4k
+	- Movieking
+	- s.to
+	- xCine
+	
+* Langzeit HTML Cache in die Sitplugins einbauen
+	oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag	Sekunden*Minuten*Stunden
+    sHtmlContent = oRequest.request()
+	Fertige Siteplugins
+	- Aniworld
+	- Cinemathek
+	- Filmpalast
+	- s.to

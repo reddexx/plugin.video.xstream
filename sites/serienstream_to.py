@@ -3,7 +3,12 @@
 # Always pay attention to the translations in the menu!
 # Sprachauswahl für Hoster enthalten.
 # Ajax Suchfunktion enthalten.
-
+# HTML LangzeitCache hinzugefügt
+    #showValue:     24 Stunden
+    #showAllSeries: 24 Stunden
+    #showEpisodes:   4 Stunden
+    #SSsearch:      24 Stunden
+    
 # 2022-12-06 Heptamer - Suchfunktion überarbeitet
 
 import xbmcgui
@@ -64,7 +69,10 @@ def load(): # Menu structure of the site plugin
 def showValue():
     params = ParameterHandler()
     sUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(sUrl).request()
+    #sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    sHtmlContent = oRequest.request()
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, '<ul[^>]*class="%s"[^>]*>(.*?)<\\/ul>' % params.getValue('sCont'))
     if isMatch:
         isMatch, aResult = cParser.parse(sContainer, '<li>\s*<a[^>]*href="([^"]*)"[^>]*>(.*?)<\\/a>\s*<\\/li>')
@@ -83,7 +91,10 @@ def showAllSeries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False)).request()
+    #sHtmlContent = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False)).request()
+    oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    sHtmlContent = oRequest.request()
     pattern = '<a[^>]*href="(\\/serie\\/[^"]*)"[^>]*>(.*?)</a>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
@@ -220,6 +231,7 @@ def showEpisodes():
         sSeason = '0'
     isMovieList = sUrl.endswith('filme')
     oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<table[^>]*class="seasonEpisodesList"[^>]*>(.*?)<\\/table>'
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
@@ -341,6 +353,7 @@ def SSsearch(sGui=False, sSearchText=False):
     oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
 
+    oRequest.cacheTime = 60 * 60 * 24  # HTML Cache Zeit 1 Tag
     sHtmlContent = oRequest.request()
     if not sHtmlContent:
             return

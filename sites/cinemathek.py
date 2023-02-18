@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showEntries:    4 Stunden
+    #showEpisodes:   4 Stunden
+    
 import json
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
@@ -18,6 +21,7 @@ SITE_ICON = 'cinemathek.png'
 URL_MAIN = 'https://cinemathek.net/'
 URL_MOVIES = URL_MAIN + 'movies/'
 URL_SERIES = URL_MAIN + 'tvshows/'
+URL_NEW_EPISODES = URL_MAIN + 'episodes/'
 URL_SEARCH = URL_MAIN + '?s=%s'
 
 
@@ -27,7 +31,9 @@ def load():
     params.setParam('sUrl', URL_MOVIES)
     cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showEntries'), params)  # Movies  
     params.setParam('sUrl', URL_SERIES)
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series  
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showEntries'), params)  # Series
+    params.setParam('sUrl', URL_NEW_EPISODES)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30516), SITE_IDENTIFIER, 'showEntries'), params)  # New Episodes    
     params.setParam('sUrl', URL_MAIN)
     cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showGenre'), params)    # Genre    
     cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))           # Search
@@ -55,7 +61,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     isTvshow = False    
     if not entryUrl: entryUrl = params.getValue('sUrl')
-    oRequest = cRequestHandler(entryUrl, ignoreErrors=sGui is not False) 
+    oRequest = cRequestHandler(entryUrl, ignoreErrors=sGui is not False)
+    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
     # Für Filme und Serien Content
     pattern = '<article id=.*?'  # container start
@@ -127,7 +134,10 @@ def showEpisodes(): # einfache Abrage wird wenns mal funktioniert erweitert für
     params = ParameterHandler()
     entryUrl = params.getValue('entryUrl')
     sSeason = params.getValue('Season')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()
     pattern = '>Staffel %s <i>.*?</ul>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:

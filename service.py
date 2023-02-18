@@ -8,11 +8,13 @@ import re
 import xbmc
 import xbmcaddon
 import xbmcgui
+import time
 
 from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
 from resources.lib.config import cConfig
 from resources.lib import tools
+from resources.lib.handler.requestHandler import cRequestHandler
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
 # xStream = xbmcaddon.Addon().getAddonInfo('id')
@@ -115,6 +117,7 @@ except Exception:
 
 checkDependence('plugin.video.xstream')
 
+
 # zeigt nach Update den Changelog als Popup an
 def changelog():
     CHANGELOG_PATH = translatePath(os.path.join('special://home/addons/plugin.video.xstream/', 'changelog.txt'))
@@ -132,3 +135,13 @@ def changelog():
 # Changelog Popup in den "settings.xml" ein bzw. aus schaltbar
 if xbmcaddon.Addon().getSetting('popup.update.notification') == 'true': 
     changelog()
+
+
+# Html Cache beim KodiStart nach (X) Tage löschen
+deltaDay = int(cConfig().getSetting('cacheDeltaDay', 2))
+deltaTime = 60*60*24*deltaDay # Tage 
+currentTime = int(time.time())
+# alle x Tage
+if currentTime >= int(cConfig().getSetting('lastdelhtml', 0)) + deltaTime:
+    cRequestHandler('').clearCache() # Cache löschen
+    cConfig().setSetting('lastdelhtml', str(currentTime))
