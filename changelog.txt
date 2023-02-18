@@ -1,5 +1,11 @@
 [B]Version: 4.0.4~Nightly1[/B]
 
+18.02.2023
+
+ - [Kinoger] Fix Streamsb
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
+
 13.02.2023
 
  - [Cinemathek] Fix Serien, Regex für Suche und doppelte Einträge entfernt
