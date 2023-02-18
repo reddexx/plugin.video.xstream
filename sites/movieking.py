@@ -64,19 +64,25 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     sHtmlContent = oRequest.request()
-    pattern = 'data-src="([^"]+)(.*?)href="([^"]+)">([^<]+).*?label-primary">\s+([^"]+)(?:\s{12})</span>'
+    #pattern = 'data-src="([^"]+)(.*?)href="([^"]+)">([^<]+).*?label-primary">\s+([^"]+)(?:\s{12})</span>'
+    pattern = '<div class="latest-.*?'  # container start
+    pattern += 'data-src="([^"]+).*?' # Thumb
+    pattern += 'label-primary">\s+([^"]+)(?:\s{12})</span>.*?'  # Quali 
+    pattern += 'href="([^"]+)">([^<]+).*?'  # url + name
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()
         return
 
     total = len(aResult)
-    for sThumbnail, sType, sUrl, sName, sQuality in aResult:
+    for sThumbnail, sQuality, sUrl, sName in aResult:
         if sSearchText and not cParser().search(sSearchText, sName):
+            continue
+        if 'PISODES' in sQuality:
             continue
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showHosters')
         oGuiElement.setQuality(sQuality)
-        oGuiElement.setThumbnail(sThumbnail.replace('https', 'http'))
+        oGuiElement.setThumbnail(sThumbnail)
         oGuiElement.setMediaType('movie')
         params.setParam('entryUrl', sUrl)
         params.setParam('sThumbnail', sThumbnail)
@@ -94,11 +100,10 @@ def showHosters():
     hosters = []
     sUrl = ParameterHandler().getValue('entryUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
-    pattern = 'embed-item".*?src="(http[^"]+)'
+    pattern = '<a href="([^"]+)"\sclass="btn movie-player.*?>([^<]+)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if isMatch:
-        for sUrl in aResult:
-            sName = cParser.urlparse(sUrl)
+        for sUrl, sName in aResult:
             if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName }
             hosters.append(hoster)
@@ -109,8 +114,10 @@ def showHosters():
 
 def getHosterUrl(sUrl=False):
     Request = cRequestHandler(sUrl, caching=False)
-    Request.request()
-    return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
+    sHtmlContent = Request.request()
+    pattern = 'embed-item".*?src="(http[^"]+)'
+    isMatch, sUrl = cParser.parseSingleResult(sHtmlContent, pattern)
+    return [{'streamUrl': sUrl, 'resolved': False}]
 
 
 def showSearch():
