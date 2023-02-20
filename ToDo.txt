@@ -25,9 +25,24 @@
 * Langzeit HTML Cache in die Sitplugins einbauen
 	oRequest = cRequestHandler(sUrl)
     oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag	Sekunden*Minuten*Stunden
+	Genre = 48 Stunden
+	Alle Serien = 24 Stunden
+	showEntries = 6 Stunden
+	showEpisodes = 4 Stunden
     sHtmlContent = oRequest.request()
 	Fertige Siteplugins
 	- Aniworld
 	- Cinemathek
 	- Filmpalast
+	- Flimmerstube
+	- HDFilme
+	- Kino.ws
+	- Kinofox
+	- Kinokiste
+	- Kkiste
+	- Megakino
+	- Movie4k
+	- Movieking
 	- s.to
+	- Streamworld
+	- xCine

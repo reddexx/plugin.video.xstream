@@ -4,6 +4,7 @@
 # Sprachauswahl für Filme
 # HTML LangzeitCache hinzugefügt
     #showValue:     24 Stunden
+    #showEntries:    6 Stunden
     #showEpisodes:   4 Stunden
     
 from resources.lib.handler.ParameterHandler import ParameterHandler
@@ -97,6 +98,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
     sHtmlContent = oRequest.request()
     # will match movies from first page (filmpalast.to)
     pattern = '<article[^>]*>\s*<a href="([^"]+)" title="([^"]+)">\s*<img src=["\']([^"\']+)["\'][^>]*>(.*?)</article>'

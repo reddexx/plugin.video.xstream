@@ -1128,11 +1128,11 @@ msgid "Exclude specific hosters (separate with a comma)"
 msgstr ""
 
 msgctxt "#30528"
-msgid ""
+msgid "Movies Genre"
 msgstr ""
 
 msgctxt "#30529"
-msgid ""
+msgid "Series Genre"
 msgstr ""
 
 msgctxt "#30530"
@@ -1170,7 +1170,7 @@ msgid "Kinokiste Tech"
 msgstr ""
 
 msgctxt "#30707"
-msgid "Kinomax.me"
+msgid "Kino"
 msgstr ""
 
 msgctxt "#30708"

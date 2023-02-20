@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showGenre:     48 Stunden
+    #showYears:     48 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser, cUtil
@@ -56,7 +61,10 @@ def load(): # Menu structure of the site plugin
 def showGenre(entryUrl=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request()    
     pattern = 'Genre.*?</ul>'
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -76,7 +84,10 @@ def showGenre(entryUrl=False):
 def showYears(entryUrl=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request() 
     pattern = 'Release.*?</ul>'
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -106,6 +117,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
     iPage = int(params.getValue('page'))
     oRequest = cRequestHandler(entryUrl + 'page/' + str(iPage) if iPage > 0 else entryUrl, ignoreErrors=(sGui is not False))
     if sSearchText:
@@ -160,7 +172,10 @@ def showEpisodes():
     entryUrl = params.getValue('entryUrl')
     entryUrl = entryUrl + '/watching.html'
     sThumbnail = params.getValue('sThumbnail')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    sHtmlContent = oRequest.request()
     isMatch, aResult = cParser.parse(sHtmlContent, '"><a href="#">([^<]+)')
     if not isMatch:
         cGui().showInfo()

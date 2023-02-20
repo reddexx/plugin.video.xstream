@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showValue:     48 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -54,7 +58,10 @@ def load(): # Menu structure of the site plugin
 
 def showValue():
     params = ParameterHandler()
-    sHtmlContent = cRequestHandler(URL_MAIN).request()
+    #sHtmlContent = cRequestHandler(URL_MAIN).request()
+    oRequest = cRequestHandler(URL_MAIN)
+    oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
+    sHtmlContent = oRequest.request()    
     pattern = '>{0}<.*?</ul>'.format(params.getValue('Value'))
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -83,6 +90,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden  
     if sSearchText:
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')
@@ -122,7 +130,10 @@ def showEpisodes():
     params = ParameterHandler()
     entryUrl = params.getValue('entryUrl')
     sThumbnail = params.getValue('sThumbnail')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()    
     isMatch, aResult = cParser.parse(sHtmlContent, '"><a href="#">([^<]+)')
     if not isMatch:
         cGui().showInfo()

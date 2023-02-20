@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showValue:     48 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -46,7 +50,10 @@ def load(): # Menu structure of the site plugin
 def showGenre():
     params = ParameterHandler()
     entryUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request()    
     pattern = '<div\s+class="side-block__title">Genres</div>(.*?)</ul>\s*</div>'
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -68,6 +75,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden  
     sHtmlContent = oRequest.request()
     pattern = '<a[^>]*class="poster grid-item.*?href="([^"]+).*?<img data-src="([^"]+).*?alt="([^"]+)".*?class="poster__label">([^<]+).*?class="poster__text[^"]+">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
@@ -117,8 +125,10 @@ def showEpisodes():
     if not isMatch:
         cGui().showInfo()
         return
-
-    sHtmlContent = cRequestHandler(sUrl).request()
+    #sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()     
     pattern = '<option\s+value="ep([^"]+)">([^<]+)</option>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     total = len(aResult)

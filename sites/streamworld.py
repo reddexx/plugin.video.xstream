@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showGenre:     48 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -38,7 +42,10 @@ def load(): # Menu structure of the site plugin
 
 def showValue():
     params = ParameterHandler()
-    sHtmlContent = cRequestHandler(URL_MAIN).request()
+    #sHtmlContent = cRequestHandler(URL_MAIN).request()
+    oRequest = cRequestHandler(URL_MAIN)
+    oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request()      
     pattern = 'nav-title">%s</div>.*?</ul>' % params.getValue('sCont')
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -58,6 +65,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     if sSearchText:
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')

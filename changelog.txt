@@ -1,4 +1,22 @@
-[B]Version: 4.0.4~Nightly3[/B]
+[B]Version: 4.0.4~Nightly4[/B]
+
+20.02.2023
+
+ - [Kino.ws] neue Seite hinzugefügt (Neustart erforderlich)
+ - [Kinokiste] Seite und Icon entfernt
+ - [Kinomax] Seite und Icon entfernt
+ - [Flimmerstube] Langzeit HTML Cache integriert
+ - [HDFilme] Langzeit HTML Cache integriert
+ - [Kinofox] Langzeit HTML Cache integriert
+ - [Kinokiste] Langzeit HTML Cache integriert
+ - [Kkiste] Langzeit HTML Cache integriert
+ - [Megakino] Langzeit HTML Cache integriert
+ - [Movie4k] Langzeit HTML Cache integriert
+ - [Movieking] Langzeit HTML Cache integriert
+ - [Streamworld] Langzeit HTML Cache integriert
+ - [xCine] Langzeit HTML Cache integriert
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 18.02.2023
 

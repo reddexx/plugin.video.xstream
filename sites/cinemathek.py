@@ -2,7 +2,7 @@
 # Python 3
 # Always pay attention to the translations in the menu!
 # HTML LangzeitCache hinzugefügt
-    #showEntries:    4 Stunden
+    #showEntries:    6 Stunden
     #showEpisodes:   4 Stunden
     
 import json
@@ -44,7 +44,9 @@ def load():
 def showGenre():
     params = ParameterHandler()
     sUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
+    sHtmlContent = oRequest.request()
     pattern = '<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-243">.*?</ul>'
     isMatch, aResult = cParser.parseSingleResult(sHtmlContent, '<li class="menu-item menu-item-type-taxonomy.*?href="(https[^"]+).*?>([^<]+)')
     
@@ -62,7 +64,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False    
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=sGui is not False)
-    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    oRequest.cacheTime = 60 * 60 * 6  # HTML Cache Zeit 6 Stunden
     sHtmlContent = oRequest.request()
     # Für Filme und Serien Content
     pattern = '<article id=.*?'  # container start

@@ -183,14 +183,14 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible" setting="githubUpdateResolver">true</dependency>
-					</dependencies>
+					</dependencies>					
 					<control type="spinner" format="string"/>
 				</setting>
 				<setting id="enforceUpdate" type="boolean" label="30102" help="">
 					<level>0</level>
 					<default>False</default>
 					<visible>False</visible>
-					<control type="toggle"/>
+					<control type="toggle"/>			
 				</setting>
 				<setting id="newSetting" type="boolean" label="newSetting" help="">
 					<level>0</level>
@@ -278,7 +278,7 @@
 					<default/>
 					<constraints>
 						<allowempty>true</allowempty>
-					</constraints>
+					</constraints>					
 					<control type="edit" format="string">
 						<heading>30083</heading>
 					</control>
@@ -297,20 +297,20 @@
 			</group>
 		</category>
 		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
-		<category id="indexsite1" label="30094">		
+		<category id="indexsite1" label="30094">
 			<group id="aniworld" label="30700">
 				<setting id="plugin_aniworld" type="boolean" label="30050">
 					<default>True</default>
-					<control type="toggle"/>					
+					<control type="toggle"/>
 				</setting>
 				<setting id="global_search_aniworld" type="boolean" label="30052">
-					<level>0</level>				
+					<level>0</level>
 					<default>True</default>
 					<dependencies>
 						<dependency type="enable" operator="!is" setting="plugin_aniworld">False</dependency>
 					</dependencies>	
-					<control type="toggle"/>					
-				</setting>				
+					<control type="toggle"/>
+				</setting>
 			</group>
 			<group id="cinemathek" label="30720">
 				<setting id="plugin_cinemathek" type="boolean" label="30050">
@@ -446,17 +446,17 @@
 					<control type="toggle"/>					
 				</setting>				
 			</group>
-			<group id="plugin_kinomax" label="30707">
-				<setting id="plugin_kinomax" type="boolean" label="30050">
+			<group id="plugin_kino_ws" label="30707">
+				<setting id="plugin_kino_ws" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>					
 				</setting>
-				<setting id="global_search_kinomax" type="boolean" label="30052">
+				<setting id="global_search_kino_ws" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_kinomax">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_kino_ws">False</dependency>
 					</dependencies>	
 					<control type="toggle"/>					
 				</setting>				

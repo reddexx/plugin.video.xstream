@@ -150,6 +150,7 @@ def showEntries(entryUrl=False, sGui=False):
     if not entryUrl:
         entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<div[^>]*class="col-md-[^"]*"[^>]*>.*?'  # start element
     pattern += '<a[^>]*href="([^"]*)"[^>]*>.*?'  # url
