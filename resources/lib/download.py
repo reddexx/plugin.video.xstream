@@ -22,9 +22,11 @@ class cDownload:
         oDialog.create(downloadDialogTitle)
         self.__oDialog = oDialog
 
+
     def __createDownloadFilename(self, filename):
         filename = filename.replace(' ', '_')
         return filename
+
 
     def download(self, url, sTitle, showDialog=True, downloadDialogTitle=cConfig().getLocalizedString(30245)):
         sTitle = '%s' % sTitle
@@ -53,6 +55,7 @@ class cDownload:
                 os.makedirs(os.path.join(temp_dir))
             self.__prepareDownload(url, header, os.path.join(temp_dir, sTitle), downloadDialogTitle)
 
+
     def __prepareDownload(self, url, header, sDownloadPath, downloadDialogTitle):
         try:
             logger.info('download file: ' + str(url) + ' to ' + str(sDownloadPath))
@@ -63,22 +66,30 @@ class cDownload:
             logger.error(e)
         self.__oDialog.close()
 
+
     def __download(self, oUrlHandler, fpath):
         headers = oUrlHandler.info()
         iTotalSize = -1
         if 'content-length' in headers:
             iTotalSize = (headers['Content-Length'])
         chunk = 4096
-        f = open(r'%s' % fpath, 'wb')
-        iCount = 0
-        self._startTime = time.time()
-        while 1:
-            iCount = iCount + 1
-            data = oUrlHandler.read(chunk)
-            if not data or self.__processIsCanceled == True:
-                break
-            f.write(data)
-            self.__stateCallBackFunction(iCount, chunk, iTotalSize)
+        #f = open(r'%s' % fpath, 'wb')
+        import xbmcvfs
+        f = xbmcvfs.File(fpath, 'w')
+        try:
+            iCount = 0
+            self._startTime = time.time()
+            while 1:
+                iCount = iCount + 1
+                data = oUrlHandler.read(chunk)
+                if not data or self.__processIsCanceled == True:
+                    break
+                f.write(data)
+                self.__stateCallBackFunction(iCount, chunk, iTotalSize)
+            f.close()
+        except:
+            f.close()            
+
 
     def __createTitle(self, sUrl, sTitle):
         aTitle = sTitle.rsplit('.')
@@ -89,6 +100,7 @@ class cDownload:
             sSuffix = aUrl[-1]
             sTitle = sTitle + '.' + sSuffix
         return sTitle
+
 
     def __stateCallBackFunction(self, iCount, iBlocksize, iTotalSize):
         timedif = time.time() - self._startTime
@@ -103,6 +115,7 @@ class cDownload:
         if cConfig().getSetting('backgrounddownload') == 'false' and self.__oDialog.iscanceled():
             self.__processIsCanceled = True
             self.__oDialog.close()
+
 
     def __formatFileSize(self, iBytes):
         iBytes = int(iBytes)
