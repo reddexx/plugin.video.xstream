@@ -3,6 +3,8 @@
 21.02.2023
 
  - [Filmpalast] Fix Spracheintrag für Menüpunkt Filme
+ - [settings] Überarbeitung
+ - [Download] Überarbeitung der Downloadfunktion für SMB/NFS Pfade
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
