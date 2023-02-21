@@ -40,27 +40,29 @@ def load(): # Menu structure of the site plugin
 def showMovieMenu():    # Menu structure of movie menu
     params = ParameterHandler()
     sLanguage = cConfig().getSetting('prefLanguage')
-    if sLanguage == '0':    # Alle Sprachen	
+    if sLanguage == '0' or '1':    # Alle Sprachen oder Deutsch
         params.setParam('sUrl', URL_MOVIES % 'new')
         cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)   # New
         params.setParam('sUrl', URL_MOVIES % 'top')
         cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30509), SITE_IDENTIFIER, 'showEntries'), params)  # Top movies
         params.setParam('sUrl', URL_MOVIES % 'imdb')
         cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30510), SITE_IDENTIFIER, 'showEntries'), params) # IMDB rating
-        params.setParam('sUrl', URL_ENGLISH)
-        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
+        if sLanguage == '0': # Nur bei Alle Sprachen
+            params.setParam('sUrl', URL_ENGLISH)
+            cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
         params.setParam('sUrl', URL_MOVIES % 'new')
         params.setParam('value', 'genre')
         cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
         params.setParam('value', 'movietitle')
         cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
-        cGui().setEndOfDirectory()        
+        cGui().setEndOfDirectory()
     if sLanguage == '2':    # English
         params.setParam('sUrl', URL_ENGLISH)
         cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
         cGui().setEndOfDirectory()
     elif sLanguage == '3':    # Japanisch
         cGui().showLanguage()
+        cGui().setEndOfDirectory()
 
 
 def showSeriesMenu():   # Menu structure of series menu
