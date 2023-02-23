@@ -90,6 +90,7 @@ def showValue():
         return
 
     for sUrl, sName in aResult:
+        sUrl = sUrl.replace('ö', '&#xF6') # Fix für Genre Komödie
         params.setParam('sUrl', sUrl)
         cGui().addFolder(cGuiElement(sName, SITE_IDENTIFIER, 'showEntries'), params)
     cGui().setEndOfDirectory()
