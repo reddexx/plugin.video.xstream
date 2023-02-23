@@ -105,7 +105,7 @@ def showEpisodes():
     oRequest = cRequestHandler(entryUrl)
     oRequest.cacheTime = 60 * 60 * 4  # 4 Stunden
     sHtmlContent = oRequest.request()
-    pattern = 'id="episode(\d+)'
+    pattern = 'id="episode(\d+)' # d fügt Anzahl der Episoden hinzu
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         cGui().showInfo()
@@ -130,13 +130,13 @@ def showHosters():
     sHtmlContent = cRequestHandler(sUrl).request()
     if sMediaType == 'episode':
         sEpisode = params.getValue('sEpisode')
-        pattern = 'id="episode%s.*?style' % sEpisode
-        isMatch, sResult = cParser.parseSingleResult(sHtmlContent, pattern)
+        pattern = 'id="episode%s.*?style' % sEpisode        # Episoden Bereich
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     else:
-        pattern = '<div class="tabs-sel">.*?</div>'
-        isMatch, sResult = cParser.parseSingleResult(sHtmlContent, pattern)
+        pattern = '<div class="tabs-sel">.*?</div>'         # Filme
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     pattern = 'href="([^"]+).*?seriePlayer.*?</i>([^<]+)'
-    isMatch, aResult = cParser.parse(sResult, pattern)
+    isMatch, aResult = cParser.parse(aResult[0], pattern)   # Nimmt nur das 1.Result
     for sUrl, sName in aResult:
         if cConfig().isBlockedHoster(sUrl, checkResolver=True): continue    # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
         hoster = {'link': sUrl, 'name': sName}

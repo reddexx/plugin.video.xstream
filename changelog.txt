@@ -3,6 +3,7 @@
 23.02.2023
  
  - [Filmpalast] Fix Genre Menüeintrag Komödie liess sich nicht mehr aufrufen
+ - [Kino] fix Episode 10+
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
