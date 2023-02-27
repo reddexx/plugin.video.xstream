@@ -35,7 +35,7 @@ class cDownload:
             header = dict([item.split('=') for item in (url.split('|')[1]).split('&')])
         except Exception:
             header = {}
-        logger.info('Header for download: %s' % header)
+        logger.info('-> [download]: Header for download: %s' % header)
         url = url.split('|')[0]
         sTitle = self.__createTitle(url, sTitle)
         self.__sTitle = self.__createDownloadFilename(sTitle)
@@ -54,11 +54,12 @@ class cDownload:
             if not os.path.isdir(temp_dir):
                 os.makedirs(os.path.join(temp_dir))
             self.__prepareDownload(url, header, os.path.join(temp_dir, sTitle), downloadDialogTitle)
+            logger.info('-> [download]: download completed')
 
 
     def __prepareDownload(self, url, header, sDownloadPath, downloadDialogTitle):
         try:
-            logger.info('download file: ' + str(url) + ' to ' + str(sDownloadPath))
+            logger.info('-> [download]: download file: ' + str(url) + ' to ' + str(sDownloadPath))
             self.__createProcessDialog(downloadDialogTitle)
             request = Request(url, headers=header)
             self.__download(urlopen(request, timeout=240), sDownloadPath)
@@ -76,6 +77,7 @@ class cDownload:
         #f = open(r'%s' % fpath, 'wb')
         import xbmcvfs
         f = xbmcvfs.File(fpath, 'w')
+        logger.info('-> [download]: start download')
         try:
             iCount = 0
             self._startTime = time.time()
@@ -85,10 +87,12 @@ class cDownload:
                 if not data or self.__processIsCanceled == True:
                     break
                 f.write(data)
-                self.__stateCallBackFunction(iCount, chunk, iTotalSize)
+                self.__stateCallBackFunction(iCount, chunk, iTotalSize)              
             f.close()
+            
         except:
-            f.close()            
+            logger.error('-> [download]: download failed')        
+            f.close()
 
 
     def __createTitle(self, sUrl, sTitle):

@@ -37,7 +37,11 @@ class cConfig:
         if len(blockedHoster) <= 1: blockedHoster = cConfig().getSetting('blockedHoster').split()
         for i in blockedHoster: hostblockDict.append(i.lower())
         for i in hostblockDict:
-            if i in domain.lower() or i.split('.')[0] in domain.lower(): return True
-        if checkResolver:
-            if resolver.relevant_resolvers(domain=domain) == []: return True    # Überprüfung in resolveUrl
-        return False
+            if i in domain.lower() or i.split('.')[0] in domain.lower(): return True, domain
+        if checkResolver:   # Überprüfung in resolveUrl
+            if resolver.relevant_resolvers(domain=domain) == []:
+                from resources.lib.tools import logger
+                logger.warning('-> [isblockedHoster]: In resolveUrl no domain for url: %s' % domain)
+                return True, domain    # Domain nicht in resolveUrl gefunden
+        return False, domain
+        

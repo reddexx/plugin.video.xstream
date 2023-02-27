@@ -87,7 +87,7 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
-				<setting id="blockedHoster" type="string" label="30527" help="">
+				<setting id="blockedHoster" type="string" label="30404" help="">
 					<level>0</level>
 					<default/>
 					<constraints>
@@ -342,16 +342,16 @@
 				</setting>
 			</group>
 			<group id="filmpalast" label="30702">
-				<setting id="plugin_filmpalast_to" type="boolean" label="30050">
+				<setting id="plugin_filmpalast" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_filmpalast_to" type="boolean" label="30052">
+				<setting id="global_search_filmpalast" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_filmpalast_to">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_filmpalast">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
@@ -371,17 +371,17 @@
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="plugin_hdfilme_top" label="30704">
-				<setting id="plugin_hdfilme_top" type="boolean" label="30050">
+			<group id="plugin_hdfilme" label="30704">
+				<setting id="plugin_hdfilme" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_hdfilme_top" type="boolean" label="30052">
+				<setting id="global_search_hdfilme" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_hdfilme_top">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_hdfilme">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
@@ -415,7 +415,7 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
-				<setting id="kinoger-domain" type="string" label="30051">
+				<setting id="plugin_kinoger.domain" type="string" label="30051">
 					<level>0</level>
 					<default>kinoger.com</default>
 					<constraints>
@@ -431,32 +431,32 @@
 					<control type="spinner" format="string"/>
 				</setting>
 			</group>
-			<group id="plugin_kinokiste_tech" label="30706">
-				<setting id="plugin_kinokiste_tech" type="boolean" label="30050">
+			<group id="plugin_kinokiste" label="30706">
+				<setting id="plugin_kinokiste" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_kinokiste_tech" type="boolean" label="30052">
+				<setting id="global_search_kinokiste" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_kinokiste_tech">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_kinokiste">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="plugin_kino_ws" label="30707">
-				<setting id="plugin_kino_ws" type="boolean" label="30050">
+			<group id="plugin_kino" label="30707">
+				<setting id="plugin_kino" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_kino_ws" type="boolean" label="30052">
+				<setting id="global_search_kino" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_kino_ws">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_kino">False</dependency>
 					</dependencies>	
 					<control type="toggle"/>
 				</setting>
@@ -464,17 +464,17 @@
 		</category>
 		<!-- Kategorie Indexseiten 1 (30094) und Indexseiten 2 (30095) werden vom PluginHandler gesetzt und sind somit kein fester Bestandteil der settings.xml -->
 		<category id="indexsite2" label="30095">
-			<group id="plugin_kinox_to" label="30708">
-				<setting id="plugin_kinox_to" type="boolean" label="30050">
+			<group id="plugin_kinox" label="30708">
+				<setting id="plugin_kinox" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_kinox_to" type="boolean" label="30052">
+				<setting id="global_search_kinox" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_kinox_to">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_kinox">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
@@ -509,17 +509,32 @@
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="plugin_movie4k_click" label="30711">
-				<setting id="plugin_movie4k_click" type="boolean" label="30050">
+			<group id="plugin_movie2k" label="30723">
+				<setting id="plugin_movie2k" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_movie4k_click" type="boolean" label="30052">
+				<setting id="global_search_movie2k" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_movie4k_click">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_movie2k">False</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="plugin_movie4k" label="30711">
+				<setting id="plugin_movie4k" type="boolean" label="30050">
+					<level>0</level>
+					<default>True</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="global_search_movie4k" type="boolean" label="30052">
+					<level>0</level>
+					<default>True</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="plugin_movie4k">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
@@ -554,21 +569,21 @@
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="plugin_serienstream_to" label="30714">
-				<setting id="plugin_serienstream_to" type="boolean" label="30050">
+			<group id="plugin_serienstream" label="30714">
+				<setting id="plugin_serienstream" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_serienstream_to" type="boolean" label="30052">
+				<setting id="global_search_serienstream" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_serienstream_to">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_serienstream">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
-				<setting id="serienstream_to-domain" type="string" label="30051">
+				<setting id="plugin_serienstream.domain" type="string" label="30051">
 					<level>0</level>
 					<default>s.to</default>
 					<constraints>
@@ -578,7 +593,7 @@
 							<option label="Proxy Server">190.115.18.20</option>
 						</options>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_serienstream_to">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_serienstream">False</dependency>
 					</dependencies>
 					<allowempty>true</allowempty>
 					</constraints>
@@ -600,17 +615,17 @@
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="plugin_xcine_top" label="30716">
-				<setting id="plugin_xcine_top" type="boolean" label="30050">
+			<group id="plugin_xcine" label="30716">
+				<setting id="plugin_xcine" type="boolean" label="30050">
 					<level>0</level>
 					<default>True</default>
 					<control type="toggle"/>
 				</setting>
-				<setting id="global_search_xcine_top" type="boolean" label="30052">
+				<setting id="global_search_xcine" type="boolean" label="30052">
 					<level>0</level>
 					<default>True</default>
 					<dependencies>
-						<dependency type="enable" operator="!is" setting="plugin_xcine_top">False</dependency>
+						<dependency type="enable" operator="!is" setting="plugin_xcine">False</dependency>
 					</dependencies>
 					<control type="toggle"/>
 				</setting>

@@ -15,11 +15,13 @@ from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
 
-SITE_IDENTIFIER = 'filmpalast_to'
+SITE_IDENTIFIER = 'filmpalast'
 SITE_NAME = 'FilmPalast'
 SITE_ICON = 'filmpalast.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://filmpalast.to'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'filmpalast.to')
+URL_MAIN = 'https://' + DOMAIN
+#URL_MAIN = 'https://filmpalast.to'
 URL_MOVIES = URL_MAIN + '/movies/%s'
 URL_SERIES = URL_MAIN + '/serien/view'
 URL_ENGLISH = URL_MAIN + '/search/genre/Englisch'
@@ -234,7 +236,7 @@ def showHosters():
     if isMatch:
         for sName, sUrl in aResult:
             hoster = sName.strip(' HD')
-            if cConfig().isBlockedHoster(hoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(hoster)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
     if hosters:

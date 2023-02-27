@@ -14,7 +14,9 @@ from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
 from resources.lib.config import cConfig
 from resources.lib import tools
+from resources.lib.tools import logger
 from resources.lib.handler.requestHandler import cRequestHandler
+
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
 # xStream = xbmcaddon.Addon().getAddonInfo('id')
@@ -54,14 +56,13 @@ def enableAddon(ADDONID):
 # Überprüfe Abhängigkeiten
 def checkDependence(ADDONID):
     isdebug = True
-    if isdebug: xbmc.log(__name__ + ' - %s - checkDependence ' % ADDONID, xbmc.LOGDEBUG)
+    if isdebug: logger.debug(__name__ + ' - %s - checkDependence ' % ADDONID)
     try:
         addon_xml = os.path.join(ADDON_PATH % ADDONID, 'addon.xml')
         with open(addon_xml, 'rb') as f:
             xml = f.read()
         pattern = '(import.*?addon[^/]+)'
         allDependence = re.findall(pattern, str(xml))
-        #if isdebug: log_utils.log(__name__ + '%s - allDependence ' % str(allDependence), log_utils.LOGDEBUG)
         for i in allDependence:
             try:
                 if 'optional' in i or 'xbmc.python' in i: continue
@@ -76,7 +77,7 @@ def checkDependence(ADDONID):
             except:
                 pass
     except Exception as e:
-        xbmc.log(__name__ + '  %s - Exception ' % e, LOGERROR)
+        logger.error(__name__ + '  %s - Exception ' % e)
 
 # Starte xStream Update wenn auf Github verfügbar
 if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true'  or Addon().getSetting('enforceUpdate') == 'true':
@@ -115,7 +116,52 @@ try:
 except Exception:
     pass
 
+# Startet Überprüfung der Abhängigkeiten
+
 checkDependence('plugin.video.xstream')
+
+# Überprüfung des Domain Namens. Leite um und hole neue URL und schreibe in die settings.xml. Bei nicht erreichen der Seite deaktiviere SitePlugin bis zum nächsten Start und überprüfe erneut.
+def checkDomain():
+    # Domains die bis jetzt keinen Domain Wechsel hatten
+    domains = [('aniworld', 'aniworld.to'), ('cinemathek', 'cinemathek.net'), ('filmpalast', 'filmpalast.to'), ('flimmerstube', 'flimmerstube.com'), ('streamworld', 'streamworld.in')]
+    # Domains mit wechselbarer Domain
+    domains += [('kinoger', cConfig().getSetting('plugin_kinoger.domain')), ('kinox', 'www15.kinoz.to'), ('serienstream', cConfig().getSetting('plugin_serienstream.domain'))]
+    # Domains die wenig wechseln
+    domains += [('kinofox', 'kinofox.su'), ('kino', 'kino.ws'), ('megakino', 'megakino.co'), ('movie2k', 'movie2k.at'), ('movieking', 'movieking.cc')]
+    # Domains die häufig wechseln
+    domains += [('hdfilme', 'hdfilme.hair'), ('kkiste', 'kkiste.hair'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.cyou'), ('xcine', 'xcine.click')]
+    
+    from urllib.parse import urlparse
+    logger.info('-> [checkDomain]: Query status code of the provider')
+    for item in domains:
+        provider, _domain = item # SITE_IDENTIFIER , Domain
+        domain = cConfig().getSetting('plugin_'+ provider +'.domain', _domain)
+        base_link = 'https://' + domain + '/'  # URL_MAIN
+        try:
+            
+            oRequest = cRequestHandler(base_link, caching=False)
+            oRequest.request()
+            status_code = int(oRequest.getStatus())
+            logger.info('-> [checkDomain]: Status Code ' + str(status_code) + '  ' + provider + ': - ' + base_link)
+            if 300 <= status_code <= 400:
+                url = oRequest.getRealUrl()
+                #cConfig().setSetting('plugin_'+ provider +'.base_link', url)
+                cConfig().setSetting('plugin_' + provider + '.domain', urlparse(url).hostname)
+                cConfig().setSetting('plugin_' + provider, 'true')
+            elif status_code == 200:
+                #cConfig().setSetting('plugin_' + provider + '.base_link', base_link)
+                cConfig().setSetting('plugin_' + provider + '.domain', urlparse(base_link).hostname)
+                cConfig().setSetting('plugin_' + provider, 'true')
+            else:
+                cConfig().setSetting('plugin_' + provider, 'false')
+        except:
+            cConfig().setSetting('plugin_' + provider, 'false')
+            logger.error('-> [checkDomain]: Error ' + provider + ' not available.')
+            pass
+            
+# Startet Domain Überprüfung und schreibt diese in die settings.xml
+
+checkDomain()
 
 
 # zeigt nach Update den Changelog als Popup an
@@ -132,6 +178,7 @@ def changelog():
     for line in cl_lines:
         announce += line
     tools.textBox(heading, announce)
+
 # Changelog Popup in den "settings.xml" ein bzw. aus schaltbar
 if xbmcaddon.Addon().getSetting('popup.update.notification') == 'true': 
     changelog()

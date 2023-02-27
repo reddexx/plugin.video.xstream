@@ -13,12 +13,13 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-SITE_IDENTIFIER = 'kinokiste_tech'
-SITE_NAME = 'Kinokiste Tech'
+SITE_IDENTIFIER = 'kinokiste'
+SITE_NAME = 'Kinokiste'
 SITE_ICON = 'kinokistetech.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kinokiste.cloud')
+URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://kinokiste.cloud/'
-URL_MAIN = str(cConfig().getSetting('kinokiste-domain', 'https://kinokiste.cloud/'))
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_ANIMATION = URL_MAIN + 'animation/'
@@ -82,13 +83,6 @@ def showGenre():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
-    # >>>> Domain Check <<<<<
-    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
-    oRequest.request()
-    st = str(oRequest.getStatus())
-    if not st == '200':
-        checkDomain()
-    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
@@ -173,7 +167,7 @@ def showHosters():
     if isMatch:
         for sUrl, sHoster in aResult:
             sName = cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sHoster}
             hosters.append(hoster)
     if hosters:
@@ -191,7 +185,8 @@ def showEpisodeHosters():
     if isMatch:
         for sUrl, sHoster in aResult:
             sName = cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            #if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sHoster}
             hosters.append(hoster)
     if hosters:

@@ -199,6 +199,10 @@ class logger:
         logger.__writeLog(sInfo, cLogLevel=xbmc.LOGDEBUG)
 
     @staticmethod
+    def warning(sInfo):
+        logger.__writeLog(sInfo, cLogLevel=xbmc.LOGWARNING)
+
+    @staticmethod
     def error(sInfo):
         logger.__writeLog(sInfo, cLogLevel=xbmc.LOGERROR)
 
@@ -212,7 +216,7 @@ class logger:
         try:
             if params.exist('site'):
                 site = params.getValue('site')
-                sLog = "\t[%s] -> %s: %s" % (common.addonName, site, sLog)
+                sLog = "\t[%s] -> [%s]: %s" % (common.addonName, site, sLog)
             else:
                 sLog = "\t[%s] %s" % (common.addonName, sLog)
             xbmc.log(sLog, cLogLevel)

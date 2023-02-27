@@ -22,7 +22,7 @@ class cJDownloaderHandler:
             cGui().showInfo(cConfig().getLocalizedString(30070), cConfig().getLocalizedString(30256), 5)
 
     def __checkConfig(self):
-        logger.info('check JD Addon setings')
+        logger.info('-> [jdownloaderHandler]: check JD Addon setings')
         
         bEnabled = cConfig().getSetting('jd_enabled')
         if bEnabled == 'true':
@@ -53,7 +53,7 @@ class cJDownloaderHandler:
         bAutomaticDownload = self.__getAutomaticStart()
         bLinkGrabber = self.__getLinkGrabber()
         sLinkForJd = self.__createJDUrl(sFileUrl, sHost, sPort, bAutomaticDownload, bLinkGrabber)
-        logger.info('JD Link: ' + str(sLinkForJd))
+        logger.info('-> [jdownloaderHandler]: JD Link: ' + str(sLinkForJd))
         oRequestHandler = cRequestHandler(sLinkForJd)
         oRequestHandler.request()
         return True
@@ -70,7 +70,7 @@ class cJDownloaderHandler:
         return sUrl
 
     def __checkConnection(self):
-        logger.info('check JD Connection')
+        logger.info('-> [jdownloaderHandler]: check JD Connection')
         sHost = self.__getHost()
         sPort = self.__getPort()
         sLinkForJd = 'http://' + str(sHost) + ':' + str(sPort)

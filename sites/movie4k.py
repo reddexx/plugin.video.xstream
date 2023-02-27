@@ -13,27 +13,16 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-SITE_IDENTIFIER = 'movie4k_click'
-SITE_NAME = 'Movie4k Click'
+SITE_IDENTIFIER = 'movie4k'
+SITE_NAME = 'Movie4k'
 SITE_ICON = 'movie4k_click.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-#URL_MAIN = 'https://movie4k.pics'
-URL_MAIN = str(cConfig().getSetting('movie4k-domain', 'https://movie4k.pics/'))
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie4k.pics')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://movie4k.pics/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino'
 URL_MOVIES = URL_MAIN + 'kinofilme-online'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch'
-
-
-def checkDomain():
-    oRequest = cRequestHandler(URL_MAIN, caching=False)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if oRequest.getStatus() == '301':
-        url = oRequest.getRealUrl()
-        if not url.startswith('http'):
-            url = 'https://' + url
-        # Setzt aktuelle Domain in der settings.xml
-        cConfig().setSetting('movie4k-domain', str(url))
 
 
 def load(): # Menu structure of the site plugin
@@ -82,13 +71,6 @@ def showValue():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
-    # >>>> Domain Check <<<<<
-    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if not Domain == '200':
-        checkDomain()
-    # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
@@ -172,7 +154,7 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, 'link="([^"]+)">([^<]+)')
     if isMatch:
         for sUrl, sName in aResult:
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'railer' in sName: 
                 continue
             elif 'vod' in sUrl:

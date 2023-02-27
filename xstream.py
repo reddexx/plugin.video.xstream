@@ -84,9 +84,9 @@ def parseUrl():
             if sLink:
                 xbmc.executebuiltin('PlayMedia(' + sLink + ')')
             else:
-                logger.info("Could not play remote url '%s'" % sLink)
+                logger.info('-> [xstream]: Could not play remote url %s ' % sLink)
         except resolver.resolver.ResolverError as e:
-            logger.error('ResolverError: %s' % e)
+            logger.error('-> [xstream]: ResolverError: %s' % e)
         return
     else:
         sFunction = 'load'
@@ -110,7 +110,7 @@ def parseUrl():
         else:
             cHosterGui().stream(playMode, sSiteName, sFunction, url)
         return
-    logger.info("Call function '%s' from '%s'" % (sFunction, sSiteName))
+    logger.info("-> [xstream]: Call function '%s' from '%s'" % (sFunction, sSiteName))
     # If the hoster gui is called, run the function on it and return
     if sSiteName == 'cHosterGui':
         showHosterGui(sFunction)
@@ -158,7 +158,7 @@ def showMainMenu(sFunction):
     oPluginHandler = cPluginHandler()
     aPlugins = oPluginHandler.getAvailablePlugins()
     if not aPlugins:
-        logger.info('No activated Plugins found')
+        logger.info('-> [xstream]: No activated Plugins found')
         # Open the settings dialog to choose a plugin that could be enabled
         oGui.openSettings()
         oGui.updateDirectory()
@@ -263,7 +263,7 @@ def searchGlobal(sSearchText=False):
             continue
         dialog.update((count + 1) * 50 // numPlugins, cConfig().getLocalizedString(30124) + str(pluginEntry['name']) + '...')
         if dialog.iscanceled(): return
-        logger.info('Searching for %s at %s' % (sSearchText, pluginEntry['id']))
+        logger.info('-> [xstream]: Searching for %s at %s' % (sSearchText, pluginEntry['id']))
 
         t = threading.Thread(target=_pluginSearch, args=(pluginEntry, sSearchText, oGui), name=pluginEntry['name'])
         threads += [t]
@@ -305,7 +305,7 @@ def searchAlter(params):
     for count, pluginEntry in enumerate(aPlugins):
         if dialog.iscanceled(): return
         dialog.update((count + 1) * 50 // numPlugins, cConfig().getLocalizedString(30124) + str(pluginEntry['name']) + '...')
-        logger.info('Searching for ' + searchTitle + pluginEntry['id'])
+        logger.info('-> [xstream]: Searching for ' + searchTitle + pluginEntry['id'])
         t = threading.Thread(target=_pluginSearch, args=(pluginEntry, searchTitle, oGui), name=pluginEntry['name'])
         threads += [t]
         t.start()
@@ -318,7 +318,7 @@ def searchAlter(params):
     filteredResults = []
     for result in oGui.searchResults:
         guiElement = result['guiElement']
-        logger.info('Site: %s Titel: %s' % (guiElement.getSiteName(), guiElement.getTitle()))
+        logger.info('-> [xstream]: Site: %s Titel: %s' % (guiElement.getSiteName(), guiElement.getTitle()))
         if searchTitle not in guiElement.getTitle():
             continue
         if guiElement._sYear and searchYear and guiElement._sYear != searchYear: continue
@@ -352,7 +352,7 @@ def searchTMDB(params):
             continue
         if dialog.iscanceled(): return
         dialog.update((count + 1) * 50 // numPlugins, cConfig().getLocalizedString(30124) + str(pluginEntry['name']) + '...')
-        logger.info('Searching for %s at %s' % (sSearchText, pluginEntry['id']))
+        logger.info('-> [xstream]: Searching for %s at %s' % (sSearchText, pluginEntry['id']))
 
         t = threading.Thread(target=_pluginSearch, args=(pluginEntry, sSearchText, oGui), name=pluginEntry['name'])
         threads += [t]
@@ -383,6 +383,6 @@ def _pluginSearch(pluginEntry, sSearchText, oGui):
         function = getattr(plugin, '_search')
         function(oGui, sSearchText)
     except Exception:
-        logger.error(pluginEntry['name'] + ': search failed')
+        logger.error('-> [xstream]: ' + pluginEntry['name'] + ': search failed')
         import traceback
         logger.debug(traceback.format_exc())

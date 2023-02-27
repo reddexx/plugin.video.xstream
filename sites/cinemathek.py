@@ -18,7 +18,10 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'cinemathek'
 SITE_NAME = 'Cinemathek'
 SITE_ICON = 'cinemathek.png'
-URL_MAIN = 'https://cinemathek.net/'
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'cinemathek.net')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://cinemathek.net/'
 URL_MOVIES = URL_MAIN + 'movies/'
 URL_SERIES = URL_MAIN + 'tvshows/'
 URL_NEW_EPISODES = URL_MAIN + 'episodes/'

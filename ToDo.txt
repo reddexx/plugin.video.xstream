@@ -17,6 +17,7 @@
 	- Kinox
 	- KKiste
 	- Megakino
+	- Movie2k
 	- Movie4k
 	- Movieking
 	- s.to
@@ -41,8 +42,17 @@
 	- Kinokiste
 	- Kkiste
 	- Megakino
+	- Movie2k
 	- Movie4k
 	- Movieking
 	- s.to
 	- Streamworld
 	- xCine
+	
+* Scraper mit Sprachauswahl
+	Fertige Siteplugins
+	- Aniworld (Hoster DE/JP+DESub/JP+ENSub)
+	- Filmpalast (Menü DE/EN)
+	- Kinox (Menü DE/EN)
+	- Movie2k (Menü DE/EN)
+	- s.to (Hoster DE/EN+DESub)

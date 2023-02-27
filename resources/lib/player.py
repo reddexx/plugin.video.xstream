@@ -13,21 +13,21 @@ class XstreamPlayer(xbmc.Player):
         self.streamSuccess = True
         self.playedTime = 0
         self.totalTime = 999999
-        logger.info('player instance created')
+        logger.info('-> [player]: player instance created')
 
     def onPlayBackStarted(self):
-        logger.info('starting Playback')
+        logger.info('-> [player]: starting Playback')
         self.totalTime = self.getTotalTime()
 
     def onPlayBackStopped(self):
-        logger.info('Playback stopped')
+        logger.info('-> [player]: Playback stopped')
         if self.playedTime == 0 and self.totalTime == 999999:
             self.streamSuccess = False
             logger.error('Kodi failed to open stream')
         self.streamFinished = True
 
     def onPlayBackEnded(self):
-        logger.info('Playback completed')
+        logger.info('-> [player]: Playback completed')
         self.onPlayBackStopped()
 
 

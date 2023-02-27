@@ -21,7 +21,7 @@ SITE_IDENTIFIER = 'kinoger'
 SITE_NAME = 'Kinoger'
 SITE_ICON = 'kinoger.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://' + cConfig().getSetting('kinoger-domain')
+URL_MAIN = 'https://' + cConfig().getSetting('plugin_kinoger.domain')
 URL_SERIES = URL_MAIN + '/stream/serie/'
 
 

@@ -14,29 +14,18 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-SITE_IDENTIFIER = 'xcine_top'
-SITE_NAME = 'XCine Top'
+SITE_IDENTIFIER = 'xcine'
+SITE_NAME = 'xCine'
 SITE_ICON = 'xcinetop.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-#URL_MAIN = 'https://xcine.top/'
-URL_MAIN = str(cConfig().getSetting('xcine-domain', 'https://xcine.click/'))
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'xcine.click')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://xcine.click/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_MOVIES = URL_MAIN + 'kinofilme-online'
 URL_ANIMATION = URL_MAIN + 'animation/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_SEARCH = URL_MAIN + 'index.php?do=search'
-
-
-def checkDomain():
-    oRequest = cRequestHandler(URL_MAIN, caching=False)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if oRequest.getStatus() == '301':
-        url = oRequest.getRealUrl()
-        if not url.startswith('http'):
-            url = 'https://' + url
-        # Setzt aktuelle Domain in der settings.xml
-        cConfig().setSetting('xcine-domain', str(url))
 
 
 def load(): # Menu structure of the site plugin
@@ -107,13 +96,6 @@ def showYears(entryUrl=False):
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
-    # >>>> Domain Check <<<<<
-    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if not Domain == '200':
-        checkDomain()
-    # >>>> Ende Domain Check <<<<<    
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
@@ -209,7 +191,7 @@ def showHosters():
     if isMatch:
         for sUrl in aResult:
             sName = cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'youtube' in sUrl:
                 continue
             elif 'vod' in sUrl:

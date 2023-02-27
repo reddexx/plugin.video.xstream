@@ -17,7 +17,9 @@ SITE_IDENTIFIER = 'megakino'
 SITE_NAME = 'Megakino'
 SITE_ICON = 'megakino.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://megakino.co/'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'megakino.co')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://megakino.co/'
 URL_KINO = URL_MAIN + 'kinofilme/'
 URL_MOVIES = URL_MAIN + 'films/'
 URL_SERIES = URL_MAIN + 'serials/'
@@ -154,7 +156,7 @@ def showHosters():
     if isMatch:
         for sUrl in aResult:
             sName =cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
     if not isMatch:
@@ -166,7 +168,7 @@ def showHosters():
                     pass
                 else:
                     sName =cParser.urlparse(sUrl)
-                    if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+                    if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
                     hoster = {'link': sUrl, 'name': sName}
                     hosters.append(hoster)    
     if hosters:

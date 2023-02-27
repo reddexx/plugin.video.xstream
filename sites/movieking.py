@@ -16,7 +16,9 @@ SITE_IDENTIFIER = 'movieking'
 SITE_NAME = 'MovieKing'
 SITE_ICON = 'movieking.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://movieking.cc/'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movieking.cc')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://movieking.cc/'
 URL_KINO = URL_MAIN + 'cinema'
 URL_MOVIES = URL_MAIN + 'movies.html'
 URL_YEAR = URL_MAIN + 'year.html'
@@ -111,7 +113,7 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if isMatch:
         for sUrl, sName in aResult:
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName }
             hosters.append(hoster)
     if hosters:

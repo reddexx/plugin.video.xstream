@@ -1,4 +1,18 @@
-[B]Version: 4.0.4~Nightly6[/B]
+[B]Version: 4.0.4~Nightly7[/B]
+
+27.02.2023
+
+	Unbedingt einen Neustart durchführen!!!
+ - [isBlockedHoster] überarbeitet
+ - [checkDomain] als globale Funktion hinzugefügt
+ - [Siteplugins] alte checkDomain entfernt und neue hinzugefügt
+ - [Log Funktion] überarbeitet
+ - [Log] in verschiedene Funktionen hinzugefügt
+ - [Movie2k] neue(alte) Seite hinzugefügt
+ - Domain Überprüfung beim Start ist Seite nicht erreichbar wird sie deaktiviert
+	(Wird bei jedem Start neu überprüft)
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 23.02.2023
  

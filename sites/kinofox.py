@@ -16,7 +16,9 @@ SITE_IDENTIFIER = 'kinofox'
 SITE_NAME = 'KinoFox'
 SITE_ICON = 'kinofox.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://kinofox.su'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kinofox.su')
+URL_MAIN = 'https://' + DOMAIN
+#URL_MAIN = 'https://kinofox.su'
 URL_SEARCH = URL_MAIN + '/index.php?do=search'
 
 
@@ -133,7 +135,7 @@ def showHosters():
     if isMatch:
         for sUrl in aResult:
             sName = cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen            
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
             hosters.append(hoster)
     if hosters:

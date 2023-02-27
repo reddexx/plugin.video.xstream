@@ -13,11 +13,13 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-SITE_IDENTIFIER = 'kino_ws'
-SITE_NAME = 'Kino.ws'
+SITE_IDENTIFIER = 'kino'
+SITE_NAME = 'Kino'
 SITE_ICON = 'kino_ws.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://kino.ws/'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kino.ws')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://kino.ws/'
 URL_MOVIES = URL_MAIN + 'filme-kostenlos.html'
 URL_SERIES = URL_MAIN + 'serien-kostenlos.html'
 URL_SEARCH = URL_MAIN + 'recherche?_token=kZDYEMkRbBXOKMQbZZOnGOaR9JMeGAjXpzKtj0s3&q=%s'
@@ -138,7 +140,7 @@ def showHosters():
     pattern = 'href="([^"]+).*?seriePlayer.*?</i>([^<]+)'
     isMatch, aResult = cParser.parse(aResult[0], pattern)   # Nimmt nur das 1.Result
     for sUrl, sName in aResult:
-        if cConfig().isBlockedHoster(sUrl, checkResolver=True): continue    # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+        if cConfig().isBlockedHoster(sUrl)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
         hoster = {'link': sUrl, 'name': sName}
         hosters.append(hoster)    
     if hosters:

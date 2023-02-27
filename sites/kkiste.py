@@ -17,24 +17,13 @@ SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kkiste.hair')
+URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://kkiste.name/'
-URL_MAIN = str(cConfig().getSetting('kkiste-domain', 'https://kkiste.hair/'))
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
-
-
-def checkDomain():
-    oRequest = cRequestHandler(URL_MAIN, caching=False)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if oRequest.getStatus() == '301':
-        url = oRequest.getRealUrl()
-        if not url.startswith('http'):
-            url = 'https://' + url
-        # Setzt aktuelle Domain in der settings.xml
-        cConfig().setSetting('kkiste-domain', str(url))
 
 
 def load(): # Menu structure of the site plugin
@@ -81,13 +70,6 @@ def showValue():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
-    # >>>> Domain Check <<<<<
-    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if not Domain == '200':
-        checkDomain()
-    # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden  
@@ -166,7 +148,7 @@ def showHosters():
     if isMatch:
         for sUrl in aResult:
             sName = cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'vod' in sUrl:
                 continue
             if 'youtube' in sUrl:

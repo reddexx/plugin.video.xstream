@@ -20,10 +20,10 @@ class cPluginHandler:
         self.settingsFile = os.path.join(self.rootFolder, 'resources', 'settings.xml')
         self.profilePath = common.profilePath
         self.pluginDBFile = os.path.join(self.profilePath, 'pluginDB')
-        logger.info('profile folder: %s' % self.profilePath)
-        logger.info('root folder: %s' % self.rootFolder)
+        logger.info('-> [PluginHandler] profile folder: %s' % self.profilePath)
+        logger.info('-> [PluginHandler] root folder: %s' % self.rootFolder)
         self.defaultFolder = os.path.join(self.rootFolder, 'sites')
-        logger.info('default sites folder: %s' % self.defaultFolder)
+        logger.info('-> [PluginHandler] default sites folder: %s' % self.defaultFolder)
 
     def getAvailablePlugins(self):
         pluginDB = self.__getPluginDB()
@@ -39,7 +39,7 @@ class cPluginHandler:
             except OSError:
                 modTime = 0
             if fileName not in pluginDB or modTime > plugin['modified']:
-                logger.info('load plugin: ' + str(fileName))
+                logger.info('-> [PluginHandler] load plugin: ' + str(fileName))
                 # try to import plugin
                 pluginData = self.__getPluginData(fileName, self.defaultFolder)
                 if pluginData:
@@ -89,7 +89,7 @@ class cPluginHandler:
         try:
             data = json.load(file)
         except ValueError:
-            logger.error('pluginDB seems corrupt, creating new one')
+            logger.error('-> [PluginHandler] pluginDB seems corrupt, creating new one')
             data = dict()
         file.close()
         return data
@@ -188,7 +188,7 @@ class cPluginHandler:
             plugin = __import__(fileName, globals(), locals())
             pluginData['name'] = plugin.SITE_NAME
         except Exception as e:
-            logger.error("Can't import plugin: %s" % fileName)
+            logger.error("-> [PluginHandler] Can't import plugin: %s" % fileName)
             return False
         try:
             pluginData['icon'] = plugin.SITE_ICON

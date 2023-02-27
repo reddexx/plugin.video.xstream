@@ -1012,6 +1012,10 @@ msgctxt "#30403"
 msgid "No entry available in the selected language!"
 msgstr "Kein Eintrag in der ausgewählten Sprache verfügbar!"
 
+msgctxt "#30404"
+msgid "Exclude specific hosters (separate with a comma)"
+msgstr "Bestimmte Hoster ausschließen (mit Komma trennen)"
+
 ############### Scaper Language ###############
 
 msgctxt "#30500"
@@ -1135,8 +1139,36 @@ msgid "Series Genre"
 msgstr "Serien Genre"
 
 msgctxt "#30530"
-msgid ""
-msgstr ""
+msgid " (featured)"
+msgstr " (vorgestellt)"
+
+msgctxt "#30531"
+msgid " (releases)"
+msgstr " (veröffentlicht)"
+
+msgctxt "#30532"
+msgid " (trending)"
+msgstr " (im Trend)"
+
+msgctxt "#30533"
+msgid " (updates)"
+msgstr " (aktualisiert)"
+
+msgctxt "#30534"
+msgid " (requested)"
+msgstr " (angefordert)"
+
+msgctxt "#30535"
+msgid " (rating)"
+msgstr " (Bewertung)"
+
+msgctxt "#30536"
+msgid " (votes)"
+msgstr " (Stimmen)"
+
+msgctxt "#30537"
+msgid " (views)"
+msgstr " (Ansichten)"
 
 ############### Site Plugins ###############
 
@@ -1157,7 +1189,7 @@ msgid "Flimmerstube"
 msgstr ""
 
 msgctxt "#30704"
-msgid "HD-Filme Top"
+msgid "HD-Filme"
 msgstr ""
 
 msgctxt "#30705"
@@ -1165,7 +1197,7 @@ msgid "KinoFox"
 msgstr ""
 
 msgctxt "#30706"
-msgid "Kinokiste Tech"
+msgid "Kinokiste"
 msgstr ""
 
 msgctxt "#30707"
@@ -1185,7 +1217,7 @@ msgid "Megakino"
 msgstr ""
 
 msgctxt "#30711"
-msgid "Movie4k Click"
+msgid "Movie4k"
 msgstr ""
 
 msgctxt "#30712"
@@ -1205,7 +1237,7 @@ msgid "Streamworld"
 msgstr ""
 
 msgctxt "#30716"
-msgid "XCine Top"
+msgid "xCine"
 msgstr ""
 
 msgctxt "#30717"
@@ -1222,4 +1254,16 @@ msgstr ""
 
 msgctxt "#30720"
 msgid "Cinemathek"
+msgstr ""
+
+msgctxt "#30721"
+msgid "StreamCloud"
+msgstr ""
+
+msgctxt "#30722"
+msgid "Streamen"
+msgstr ""
+
+msgctxt "#30723"
+msgid "Movie2k"
 msgstr ""

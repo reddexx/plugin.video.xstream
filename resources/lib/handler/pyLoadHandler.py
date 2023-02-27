@@ -17,14 +17,14 @@ class cPyLoadHandler:
         self.config = cConfig()
 
     def sendToPyLoad(self, sPackage, sUrl):
-        logger.info('PyLoad package: ' + str(sPackage) + ', ' + str(sUrl))
+        logger.info('-> [pyLoadHandler]: PyLoad package: ' + str(sPackage) + ', ' + str(sUrl))
         if self.__sendLinkToCore(sPackage, sUrl):
             cGui().showInfo(cConfig().getLocalizedString(30257), cConfig().getLocalizedString(30256), 5)
         else:
             cGui().showInfo(cConfig().getLocalizedString(30257), cConfig().getLocalizedString(30258), 5)
 
     def __sendLinkToCore(self, sPackage, sUrl):
-        logger.info('Sending link...')
+        logger.info('-> [pyLoadHandler]: Sending link...')
         try:
             py_host = self.config.getSetting('pyload_host')
             py_port = self.config.getSetting('pyload_port')
@@ -35,7 +35,7 @@ class cPyLoadHandler:
             # check if host has a leading http://
             if py_host.find('http://') != 0:
                 py_host = 'http://' + py_host
-            logger.info('Attemting to connect to PyLoad at: ' + py_host + ':' + py_port)
+            logger.info('-> [pyLoadHandler]: Attemting to connect to PyLoad at: ' + py_host + ':' + py_port)
             req = Request(py_host + ':' + py_port + '/api/login', mydata)
             req.add_header("Content-type", "application/x-www-form-urlencoded")
             page = urlopen(req).read()
@@ -45,16 +45,16 @@ class cPyLoadHandler:
             opener.addheaders.append(('Cookie', 'beaker.session.id=' + session))
             sPackage = str(sPackage).decode("utf-8").encode('ascii', 'replace').translate(maketrans('\\/:*?"<>|', '_________'))
             py_url = py_host + ':' + py_port + '/api/addPackage?name="' + quote_plus(sPackage) + '"&links=["' + quote_plus(sUrl) + '"]'
-            logger.info('PyLoad API call: ' + py_url)
+            logger.info('-> [pyLoadHandler]: PyLoad API call: ' + py_url)
             sock = opener.open(py_url).read()
             sock.close()
             return True
         except HTTPError as e:
-            logger.info('unable to send link: Error= ' + str(sys.exc_info()[0]))
+            logger.info('-> [pyLoadHandler]: unable to send link: Error= ' + str(sys.exc_info()[0]))
             logger.info(e.code)
             logger.info(e.read())
             try:
                 sock.close()
             except Exception:
-                logger.info('unable to close socket...')
+                logger.info('-> [pyLoadHandler]: unable to close socket...')
             return False

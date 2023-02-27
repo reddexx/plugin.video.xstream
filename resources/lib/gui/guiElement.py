@@ -107,7 +107,7 @@ class cGuiElement:
         if mediaType in self.MEDIA_TYPES:
             self._mediaType = mediaType
         else:
-            logger.error('Unknown MediaType given for %s' % self.getTitle())
+            logger.error('-> [guiElement]: Unknown MediaType given for %s' % self.getTitle())
 
     def setSeason(self, season):
         self._season = season
@@ -124,17 +124,17 @@ class cGuiElement:
         try:
             year = int(year)
         except:
-            logger.error('Year given for %s seems not to be a valid number' % self.getTitle())
+            logger.error('-> [guiElement]: Year given for %s seems not to be a valid number' % self.getTitle())
             return False
         if len(str(year)) != 4:
-            logger.error('Year given for %s has %s digits, required 4 digits' % (self.getTitle(), len(str(year))))
+            logger.error('-> [guiElement]: Year given for %s has %s digits, required 4 digits' % (self.getTitle(), len(str(year))))
             return False
         if year > 0:
             self._sYear = str(year)
             self.__aItemValues['year'] = year
             return True
         else:
-            logger.error('Year given for %s must be greater than 0' % self.getTitle())
+            logger.error('-> [guiElement]: Year given for %s must be greater than 0' % self.getTitle())
             return False
 
     def setQuality(self, quality):
@@ -233,13 +233,13 @@ class cGuiElement:
         if not self._mediaType:
             self.setMediaType(mediaType)
         if mode not in ['add', 'replace']:
-            logger.error('Wrong meta set mode')
+            logger.error('-> [guiElement]: Wrong meta set mode')
         if not season and self._season:
             season = self._season
         if not episode and self._episode:
             episode = self._episode
         if not self._mediaType:
-            logger.error('Could not get MetaInformations for %s, mediaType not defined' % self.getTitle())
+            logger.error('-> [guiElement]: Could not get MetaInformations for %s, mediaType not defined' % self.getTitle())
             return False
         from tmdb import cTMDB
         oMetaget = cTMDB()

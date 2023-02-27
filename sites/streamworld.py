@@ -17,7 +17,9 @@ SITE_IDENTIFIER = 'streamworld'
 SITE_NAME = 'Streamworld'
 SITE_ICON = 'streamworld.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://streamworld.in'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'streamworld.in')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://streamworld.in'
 URL_KINO = URL_MAIN + '/kinofilme/'
 URL_ANIMATION = URL_MAIN + '/animationfilm/'
 
@@ -110,6 +112,8 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, 'data-src="([^"]+)')
     if isMatch:
         for sUrl in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
             hosters.append(hoster)
         if hosters:

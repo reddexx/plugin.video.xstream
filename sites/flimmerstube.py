@@ -19,7 +19,9 @@ SITE_IDENTIFIER = 'flimmerstube'
 SITE_NAME = 'Flimmerstube'
 SITE_ICON = 'flimmerstube.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'http://flimmerstube.com'
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'flimmerstube.com')
+URL_MAIN = 'http://' + DOMAIN
+#URL_MAIN = 'http://flimmerstube.com'
 URL_MOVIES = URL_MAIN + '/video/vic/alle_filme'
 URL_SEARCH = URL_MAIN + '/video/shv'
 
