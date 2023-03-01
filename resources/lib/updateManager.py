@@ -14,8 +14,9 @@ from xbmcaddon import Addon
 from requests.auth import HTTPBasicAuth
 from xbmcgui import Dialog
 from resources.lib.config import cConfig
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, log, executebuiltin, getCondVisibility, getInfoLabel
 from xbmcvfs import translatePath
-from resources.lib.tools import logger
+
 
 # Text/Überschrift im Dialog
 PLUGIN_NAME = Addon().getAddonInfo('name')  # ist z.B. 'xstream'
@@ -34,7 +35,7 @@ def resolverUpdate(silent=False):
     try:
         return UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent)
     except Exception as e:
-        logger.error('-> [updateManager]: Exception Raised: %s' % str(e))
+        log(' -> [updateManager]: Exception Raised: %s' % str(e), LOGERROR)
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
         return
 
@@ -48,7 +49,7 @@ def xStreamUpdate(silent=False):
     try:
         return Update(username, plugin_id, branch, token, silent)
     except Exception as e:
-        logger.error('-> [updateManager]: Exception Raised: %s' % str(e))
+        log(' -> [updateManager]: Exception Raised: %s' % str(e), LOGERROR)
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
         return False
 
@@ -61,7 +62,7 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
     INSTALL_PATH = translatePath(os.path.join('special://home/addons/', '%s') % resolve_id) # Installation Ordner
     
     auth = HTTPBasicAuth(username, token)
-    logger.info('-> [updateManager] %s: - Search for updates.' % resolve_id)
+    log(HEADERMESSAGE + ' -> [updateManager] %s: - Search for updates.' % resolve_id, LOGNOTICE)
     try:
         ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % resolve_id) # Pfad von ResolveURL Daten
         LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")    # Pfad der update.sha in den ResolveURL Daten
@@ -76,24 +77,24 @@ def UpdateResolve(username, resolve_dir, resolve_id, branch, token, silent):
             isTrue = commitUpdate(commitXML, LOCAL_PLUGIN_VERSION, REMOTE_PLUGIN_DOWNLOADS, PACKAGES_PATH, resolve_dir, LOCAL_FILE_NAME_PLUGIN, silent, auth)
             
             if isTrue is True:
-                logger.info('-> [updateManager] %s: - download new update.' % resolve_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - download new update.' % resolve_id, LOGNOTICE)
                 shutil.make_archive(ADDON_PATH, 'zip', ADDON_PATH)
                 shutil.unpack_archive(ADDON_PATH + '.zip', INSTALL_PATH)
-                logger.info('-> [updateManager] %s: - install new update.' % resolve_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - install new update.' % resolve_id, LOGNOTICE)
                 if os.path.exists(ADDON_PATH + '.zip'): os.remove(ADDON_PATH + '.zip')                
                 if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30158) + resolve_id + cConfig().getLocalizedString(30159))
-                logger.info('-> [updateManager] %s: - update completed.' % resolve_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - update completed.' % resolve_id, LOGNOTICE)
                 return True
             elif isTrue is None:
-                logger.info('-> [updateManager] %s: - no update available.' % resolve_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - no update available.' % resolve_id, LOGNOTICE)
                 if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30160) + resolve_id + cConfig().getLocalizedString(30161))
                 return None
 
-        logger.info('-> [updateManager] %s: - Error updating!' % resolve_id)
+        log(HEADERMESSAGE + ' -> [updateManager] %s: - Error updating!' % resolve_id, LOGERROR)
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
         return False
     except:
-        logger.info('-> [updateManager] %s: - Error updating!' % resolve_id)
+        log(HEADERMESSAGE + ' -> [updateManager] %s: - Error updating!' % resolve_id, LOGERROR)
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + resolve_id + cConfig().getLocalizedString(30157))
 
 # xStream Update
@@ -101,7 +102,7 @@ def Update(username, plugin_id, branch, token, silent):
     REMOTE_PLUGIN_COMMITS = "https://api.github.com/repos/%s/%s/commits/%s" % (username, plugin_id, branch)
     REMOTE_PLUGIN_DOWNLOADS = "https://api.github.com/repos/%s/%s/zipball/%s" % (username, plugin_id, branch)
     auth = HTTPBasicAuth(username, token)
-    logger.info('-> [updateManager] %s: - Search for updates.' % plugin_id)
+    log(HEADERMESSAGE + ' -> [updateManager] %s: - Search for updates.' % plugin_id, LOGNOTICE)
     try:
         ADDON_DIR = translatePath(os.path.join('special://userdata/addon_data/', '%s') % plugin_id)
         LOCAL_PLUGIN_VERSION = os.path.join(ADDON_DIR, "update_sha")
@@ -117,20 +118,20 @@ def Update(username, plugin_id, branch, token, silent):
             isTrue = commitUpdate(commitXML, LOCAL_PLUGIN_VERSION, REMOTE_PLUGIN_DOWNLOADS, path, plugin_id,
                                   LOCAL_FILE_NAME_PLUGIN, silent, auth)
             if isTrue is True:
-                logger.info('-> [updateManager] %s: - download new update.' % plugin_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - download new update.' % plugin_id, LOGNOTICE)
                 if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30158) + plugin_id + cConfig().getLocalizedString(30159))
-                logger.info('-> [updateManager] %s: - install new update.' % plugin_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - install new update.' % plugin_id, LOGNOTICE)
                 return True
             elif isTrue is None:
-                logger.info('-> [updateManager] %s: - no update available.' % plugin_id)
+                log(HEADERMESSAGE + ' -> [updateManager] %s: - no update available.' % plugin_id, LOGNOTICE)
                 if silent is False: Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30160) + plugin_id + cConfig().getLocalizedString(30161))
                 return None
 
-        logger.info('-> [updateManager] %s: - Error updating!' % plugin_id)
+        log(HEADERMESSAGE + ' -> [updateManager] %s: - Error updating!' % plugin_id, LOGERROR)
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
         return False
     except:
-        logger.info('-> [updateManager] %s: - Error updating!' % plugin_id)
+        log(HEADERMESSAGE + ' -> [updateManager] %s: - Error updating!' % plugin_id, LOGERROR)
         Dialog().ok(HEADERMESSAGE, cConfig().getLocalizedString(30156) + plugin_id + cConfig().getLocalizedString(30157))
 
 
@@ -138,7 +139,7 @@ def commitUpdate(onlineFile, offlineFile, downloadLink, LocalDir, plugin_id, loc
     try:
         jsData = json.loads(onlineFile)
         if not os.path.exists(offlineFile) or open(offlineFile).read() != jsData['sha']:
-            logger.info('-> [updateManager] %s: - Start updating!' % plugin_id)
+            log(HEADERMESSAGE + ' -> [updateManager] %s: - Start updating!' % plugin_id, LOGNOTICE)
             isTrue = doUpdate(LocalDir, downloadLink, plugin_id, localFileName, auth)
             if isTrue is True:
                 try:
@@ -152,7 +153,7 @@ def commitUpdate(onlineFile, offlineFile, downloadLink, LocalDir, plugin_id, loc
             return None
     except Exception:
         os.remove(offlineFile)
-        logger.error('-> [updateManager]: RateLimit reached')
+        log(" -> [updateManager]: RateLimit reached")
         return False
 
 
@@ -182,7 +183,7 @@ def doUpdate(LocalDir, REMOTE_PATH, Title, localFileName, auth):
         executebuiltin("UpdateLocalAddons()")
         return True
     except:
-        logger.error('-> [updateManager]: doUpdate not possible due download error')
+        log(" -> [updateManager]: doUpdate not possible due download error")
         return False
 
 
@@ -207,9 +208,9 @@ def _getXmlString(xml_url, auth):
         if "sha" in json.loads(xmlString):
             return xmlString
         else:
-            logger.error('-> [updateManager]: Update-URL incorrect or bad credentials')
+            log(" -> [updateManager]: Update-URL incorrect or bad credentials")
     except Exception as e:
-        logger.info(e)
+        log(e)
 
 
 # todo Verzeichnis packen -für zukünftige Erweiterung "Backup"
@@ -310,4 +311,4 @@ def devUpdates():  # für manuelles Updates vorgesehen
         if Addon().getSetting('enforceUpdate') == 'true': Addon().setSetting('enforceUpdate', 'false')
         return
     except Exception as e:
-        logger.info(e)
+        log(e)
