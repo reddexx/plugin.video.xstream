@@ -3,6 +3,7 @@
 01.03.2023
 
  - Hotfix Globale Suche und Anpassung Funktion checkDomain (Plugins können wieder deaktiviert werden)
+ - Update Settings.xml
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
