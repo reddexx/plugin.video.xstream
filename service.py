@@ -86,7 +86,7 @@ if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXs
     status1 = updateManager.xStreamUpdate(True)
     if Addon().getSetting('update.notification') == 'full': # Benachrichtung xStream vollständig
         infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)   # Suche Updates
-        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)  
+        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
         if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
         if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
         if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
