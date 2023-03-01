@@ -16,7 +16,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'movie4k'
 SITE_NAME = 'Movie4k'
 SITE_ICON = 'movie4k_click.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie4k.pics')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://movie4k.pics/'
