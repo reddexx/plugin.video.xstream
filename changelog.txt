@@ -1,4 +1,10 @@
-[B]Version: 4.0.4~Nightly7[/B]
+[B]Version: 4.0.4~Nightly8[/B]
+
+01.03.2023
+
+ - Hotfix Globale Suche und Anpassung Funktion checkDomain (Plugins können wieder deaktiviert werden)
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 27.02.2023
 
