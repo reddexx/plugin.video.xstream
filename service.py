@@ -16,6 +16,7 @@ from resources.lib.config import cConfig
 from resources.lib import tools
 from resources.lib.tools import logger
 from resources.lib.handler.requestHandler import cRequestHandler
+from urllib.parse import urlparse
 
 
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
@@ -85,7 +86,7 @@ if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXs
     status1 = updateManager.xStreamUpdate(True)
     if Addon().getSetting('update.notification') == 'full': # Benachrichtung xStream vollständig
         infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)   # Suche Updates
-        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
+        if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)  
         if status1 == False: infoDialog(cConfig().getLocalizedString(30114), sound=True, icon='ERROR')
         if status1 == None: infoDialog(cConfig().getLocalizedString(30115), sound=False, icon='INFO', time=6000)
         if xbmcaddon.Addon().getSetting('enforceUpdate') == 'true': xbmcaddon.Addon().setSetting('enforceUpdate', 'false')
@@ -130,32 +131,36 @@ def checkDomain():
     domains += [('kinofox', 'kinofox.su'), ('kino', 'kino.ws'), ('megakino', 'megakino.co'), ('movie2k', 'movie2k.at'), ('movieking', 'movieking.cc')]
     # Domains die häufig wechseln
     domains += [('hdfilme', 'hdfilme.hair'), ('kkiste', 'kkiste.hair'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.cyou'), ('xcine', 'xcine.click')]
-    
-    from urllib.parse import urlparse
+
+   
     logger.info('-> [checkDomain]: Query status code of the provider')
     for item in domains:
         provider, _domain = item # SITE_IDENTIFIER , Domain
+        
         domain = cConfig().getSetting('plugin_'+ provider +'.domain', _domain)
-        base_link = 'https://' + domain + '/'  # URL_MAIN
+        base_link = 'http://' + domain + '/'  # URL_MAIN
+        
         try:
-            
-            oRequest = cRequestHandler(base_link, caching=False)
-            oRequest.request()
-            status_code = int(oRequest.getStatus())
-            logger.info('-> [checkDomain]: Status Code ' + str(status_code) + '  ' + provider + ': - ' + base_link)
-            if 300 <= status_code <= 400:
-                url = oRequest.getRealUrl()
-                #cConfig().setSetting('plugin_'+ provider +'.base_link', url)
-                cConfig().setSetting('plugin_' + provider + '.domain', urlparse(url).hostname)
-                cConfig().setSetting('plugin_' + provider, 'true')
-            elif status_code == 200:
-                #cConfig().setSetting('plugin_' + provider + '.base_link', base_link)
-                cConfig().setSetting('plugin_' + provider + '.domain', urlparse(base_link).hostname)
-                cConfig().setSetting('plugin_' + provider, 'true')
-            else:
+            if xbmcaddon.Addon().getSetting('plugin_' + provider + '_checkdomain') == 'false':              # Wenn aut. Domainüberprüfung aus ist dann deaktiviere Siteplugin
                 cConfig().setSetting('plugin_' + provider, 'false')
+            if xbmcaddon.Addon().getSetting('plugin_' + provider + '_checkdomain') == 'true':               # Wenn aut. Domainüberprüfung an ist 
+                oRequest = cRequestHandler(base_link, caching=False)
+                oRequest.request()
+                status_code = int(oRequest.getStatus())
+                logger.info('-> [checkDomain]: Status Code ' + str(status_code) + '  ' + provider + ': - ' + base_link)
+                if 300 <= status_code <= 400:
+                    url = oRequest.getRealUrl()
+                    #cConfig().setSetting('plugin_'+ provider +'.base_link', url)
+                    cConfig().setSetting('plugin_' + provider + '.domain', urlparse(url).hostname)          # Hole URL von Umleitung und schreibe in settings
+                    cConfig().setSetting('plugin_' + provider, 'true')                                      # Aktiviere Sitplugin und schreibe true in settings
+                elif status_code == 200:    # Wenn Domain erreichbar
+                    #cConfig().setSetting('plugin_' + provider + '.base_link', base_link)
+                    cConfig().setSetting('plugin_' + provider + '.domain', urlparse(base_link).hostname)    # Setze Link in die settings
+                    cConfig().setSetting('plugin_' + provider, 'true')                                      # Aktiviere Sitplugin und schreibe true in settings
+                else:
+                    cConfig().setSetting('plugin_' + provider, 'false')                                     # Deaktiviere Sitplugin und schreibe false in settings
         except:
-            cConfig().setSetting('plugin_' + provider, 'false')
+            cConfig().setSetting('plugin_' + provider, 'false') # Wenn Domain nicht erreichbar setze Provider settings auf False
             logger.error('-> [checkDomain]: Error ' + provider + ' not available.')
             pass
             
@@ -180,6 +185,7 @@ def changelog():
     tools.textBox(heading, announce)
 
 # Changelog Popup in den "settings.xml" ein bzw. aus schaltbar
+
 if xbmcaddon.Addon().getSetting('popup.update.notification') == 'true': 
     changelog()
 
