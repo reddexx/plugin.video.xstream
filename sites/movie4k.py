@@ -16,7 +16,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'movie4k'
 SITE_NAME = 'Movie4k'
 SITE_ICON = 'movie4k_click.png'
-SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie4k.pics')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://movie4k.pics/'
@@ -78,8 +78,13 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')
-    sHtmlContent = oRequest.request() 
-    pattern = 'movie-item.*?href="([^"]+).*?<h3>([^<]+).*?<ul><li>([^<]+).*?white">([^<]+).*?data-src="/([^"]+)'
+    sHtmlContent = oRequest.request()
+    pattern = 'movie-item.*?'               # Container Start
+    pattern += 'href="([^"]+).*?'           # URL
+    pattern += '<h3>([^<]+).*?'             # Name
+    pattern += '<li>([^<]+).*?'             # Quality
+    pattern += 'white">([^<]+).*?'          # Year
+    pattern += 'data-src="([^"]+).*?'          # Thumb
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()
@@ -87,6 +92,15 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sName, sQuality, sYear, sThumbnail in aResult:
+        # Abfrage der voreingestellten Sprache
+        sLanguage = cConfig().getSetting('prefLanguage')
+        if (sLanguage == '1' and 'English*' in sName):   # Deutsch
+            continue
+        if (sLanguage == '2' and not 'English*' in sName):   # English
+            continue
+        elif sLanguage == '3':    # Japanisch
+            cGui().showLanguage()
+            continue
         sThumbnail = URL_MAIN + sThumbnail
         if sSearchText and not cParser().search(sSearchText, sName):
             continue
@@ -100,6 +114,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         params.setParam('sName', sName)
         params.setParam('sThumbnail', sThumbnail)
         oGui.addFolder(oGuiElement, params, isTvshow, total)
+        
     if not sGui:
         isMatchNextPage, sNextUrl = cParser().parseSingleResult(sHtmlContent, 'Nächste[^>]Seite">[^>]*<a[^>]href="([^"]+)')
         if isMatchNextPage:

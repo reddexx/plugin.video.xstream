@@ -216,9 +216,9 @@ class logger:
         try:
             if params.exist('site'):
                 site = params.getValue('site')
-                sLog = "\t[%s] -> [%s]: %s" % (common.addonName, site, sLog)
+                sLog = "[%s] -> [%s]: %s" % (common.addonName, site, sLog)
             else:
-                sLog = "\t[%s] %s" % (common.addonName, sLog)
+                sLog = "[%s] %s" % (common.addonName, sLog)
             xbmc.log(sLog, cLogLevel)
         except Exception as e:
             xbmc.log('Logging Failure: %s' % e, cLogLevel)

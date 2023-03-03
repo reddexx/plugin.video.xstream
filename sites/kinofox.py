@@ -109,6 +109,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
             continue
         if 'taffel' in sName:
             continue
+        if 'railer' in sQuality:
+            continue
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showHosters')
         oGuiElement.setQuality(sQuality)
         oGuiElement.setMediaType('movie')

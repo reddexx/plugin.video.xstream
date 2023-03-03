@@ -532,8 +532,8 @@ msgid "Delete HTML cache now"
 msgstr "HTML Cache jetzt löschen"
 
 msgctxt "#30166"
-msgid ""
-msgstr ""
+msgid "[xStream]"
+msgstr "[xStream]"
 
 msgctxt "#30167"
 msgid "Choose xStream Github Branch"

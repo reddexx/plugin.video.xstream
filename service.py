@@ -14,11 +14,11 @@ from xbmcaddon import Addon
 from xbmc import LOGDEBUG, LOGERROR
 from resources.lib.config import cConfig
 from resources.lib import tools
-from resources.lib.tools import logger
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, LOGWARNING, log, executebuiltin, getCondVisibility, getInfoLabel
 from resources.lib.handler.requestHandler import cRequestHandler
 from urllib.parse import urlparse
 
-
+LOGMESSAGE = cConfig().getLocalizedString(30166)
 AddonName = xbmcaddon.Addon().getAddonInfo('name')
 # xStream = xbmcaddon.Addon().getAddonInfo('id')
 
@@ -57,7 +57,7 @@ def enableAddon(ADDONID):
 # Überprüfe Abhängigkeiten
 def checkDependence(ADDONID):
     isdebug = True
-    if isdebug: logger.debug(__name__ + ' - %s - checkDependence ' % ADDONID)
+    if isdebug: xbmc.log(__name__ + ' - %s - checkDependence ' % ADDONID, xbmc.LOGDEBUG)
     try:
         addon_xml = os.path.join(ADDON_PATH % ADDONID, 'addon.xml')
         with open(addon_xml, 'rb') as f:
@@ -78,7 +78,7 @@ def checkDependence(ADDONID):
             except:
                 pass
     except Exception as e:
-        logger.error(__name__ + '  %s - Exception ' % e)
+        xbmc.log(__name__ + ' %s - Exception ' % e, LOGERROR)
 
 # Starte xStream Update wenn auf Github verfügbar
 if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true'  or Addon().getSetting('enforceUpdate') == 'true':
@@ -130,16 +130,17 @@ def checkDomain():
     # Domains die wenig wechseln
     domains += [('kinofox', 'kinofox.su'), ('kino', 'kino.ws'), ('megakino', 'megakino.co'), ('movie2k', 'movie2k.at'), ('movieking', 'movieking.cc')]
     # Domains die häufig wechseln
-    domains += [('hdfilme', 'hdfilme.hair'), ('kkiste', 'kkiste.hair'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.cyou'), ('xcine', 'xcine.click')]
+    domains += [('hdfilme', 'hdfilme.haus'), ('kkiste', 'kkiste.house'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.rocks'), ('xcine', 'xcine.click')]
 
    
-    logger.info('-> [checkDomain]: Query status code of the provider')
+    log(LOGMESSAGE + ' -> [checkDomain]: Query status code of the provider', LOGNOTICE)
     for item in domains:
         provider, _domain = item # SITE_IDENTIFIER , Domain
         
         domain = cConfig().getSetting('plugin_'+ provider +'.domain', _domain)
         base_link = 'http://' + domain + '/'  # URL_MAIN
-        
+        if domain == 'site-maps.cc':    # Falsche Umleitung ausschliessen
+            continue
         try:
             if xbmcaddon.Addon().getSetting('plugin_' + provider + '_checkdomain') == 'false':              # Wenn aut. Domainüberprüfung aus ist dann deaktiviere Siteplugin
                 cConfig().setSetting('plugin_' + provider, 'false')
@@ -147,7 +148,7 @@ def checkDomain():
                 oRequest = cRequestHandler(base_link, caching=False)
                 oRequest.request()
                 status_code = int(oRequest.getStatus())
-                logger.info('-> [checkDomain]: Status Code ' + str(status_code) + '  ' + provider + ': - ' + base_link)
+                log(LOGMESSAGE + ' -> [checkDomain]: Status Code ' + str(status_code) + '  ' + provider + ': - ' + base_link, LOGNOTICE)
                 if 300 <= status_code <= 400:
                     url = oRequest.getRealUrl()
                     #cConfig().setSetting('plugin_'+ provider +'.base_link', url)
@@ -161,7 +162,7 @@ def checkDomain():
                     cConfig().setSetting('plugin_' + provider, 'false')                                     # Deaktiviere Sitplugin und schreibe false in settings
         except:
             cConfig().setSetting('plugin_' + provider, 'false') # Wenn Domain nicht erreichbar setze Provider settings auf False
-            logger.error('-> [checkDomain]: Error ' + provider + ' not available.')
+            log(LOGMESSAGE + ' -> [checkDomain]: Error ' + provider + ' not available.', LOGNOTICE)
             pass
             
 # Startet Domain Überprüfung und schreibt diese in die settings.xml

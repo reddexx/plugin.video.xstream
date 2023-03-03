@@ -1,9 +1,23 @@
-[B]Version: 4.0.4~Nightly8[/B]
+[B]Version: 4.0.4~Nightly9[/B]
+
+03.03.2023
+
+ - [HDFilme] Sprachauswahl hinzugefügt
+ - [Kinokiste] Sprachauswahl hinzugefügt
+ - [KKiste] Sprachauswahl hinzugefügt
+ - [xCine] Sprachauswahl hinzugefügt
+ - [Movie4k] regex fixed, Sprachauswahl hinzugefügt
+ - [Kinofox] Trailer entfernt
+ - [Logger] überarbeitet
+ - [Netzkino] fixed streams THX @mascarena
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 01.03.2023
 
  - Hotfix Globale Suche und Anpassung Funktion checkDomain (Plugins können wieder deaktiviert werden)
  - Update Settings.xml
+ - [Netzkino] fixed streams THX @mascarena
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 

@@ -15,7 +15,7 @@ from json import loads
 SITE_IDENTIFIER = 'kinox'
 SITE_NAME = 'KinoX'
 SITE_ICON = 'kinox.png'
-SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'www15.kinoz.to')
 URL_MAIN = 'https://' + DOMAIN
 #URL_MAIN = 'https://www15.kinoz.to'

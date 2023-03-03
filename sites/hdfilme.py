@@ -103,6 +103,15 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sThumbnail, sQuality, sUrl, sName in aResult:
+        # Abfrage der voreingestellten Sprache
+        sLanguage = cConfig().getSetting('prefLanguage')
+        if (sLanguage == '1' and 'English*' in sName):   # Deutsch
+            continue
+        if (sLanguage == '2' and not 'English*' in sName):   # English
+            continue
+        elif sLanguage == '3':    # Japanisch
+            cGui().showLanguage()
+            continue
         if sSearchText and not cParser.search(sSearchText, sName):
             continue
         if sThumbnail[0] == '/':

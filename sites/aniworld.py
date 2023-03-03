@@ -235,7 +235,10 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLangCode, sUrl, sName, sQualy in aResult:
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            # Die Funktion gibt 2 werte zurück!
+            # element 1 aus array "[0]" True bzw. False
+            # element 2 aus array "[1]" Name von domain / hoster - wird hier nicht gebraucht!
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             sLanguage = cConfig().getSetting('prefLanguage') 
             if sLanguage == '1':        # Voreingestellte Sprache Deutsch in settings.xml
                 if '2' in sLangCode:    # data-lang-key="2"
@@ -279,6 +282,7 @@ def showHosters():
 
 
 def getHosterUrl(sUrl=False):
+                                           
     username = cConfig().getSetting('aniworld.user')
     password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -292,8 +296,8 @@ def getHosterUrl(sUrl=False):
     Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Request.request()
     return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
-
-
+    
+    
 def showSearch():
     sSearchText = cGui().showKeyBoard()
     if not sSearchText: return

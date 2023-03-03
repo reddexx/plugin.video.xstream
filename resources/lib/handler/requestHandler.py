@@ -20,7 +20,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import HTTPHandler, HTTPSHandler, HTTPCookieProcessor, build_opener, Request, HTTPRedirectHandler
 from http.cookiejar import LWPCookieJar, Cookie
 from http.client import HTTPException
-
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, LOGWARNING, LOGDEBUG, log, executebuiltin, getCondVisibility, getInfoLabel
 
 class cRequestHandler:
     def __init__(self, sUrl, caching=True, ignoreErrors=False, compression=True, jspost=False, ssl_verify=False):
@@ -145,27 +145,27 @@ class cRequestHandler:
                     opener.addheaders = [('User-agent', self._USER_AGENT), ('Referer', self._sUrl)]
                     oResponse = opener.open(self._sUrl, sParameters if len(sParameters) > 0 else None)
                     if not oResponse:
-                        logger.warning('-> [requestHandler]: Failed DDOS-GUARD active: ' + self._sUrl)
+                        logger.error(' -> [requestHandler]: Failed DDOS-GUARD active: ' + self._sUrl)
                         return ''
                 elif 'cloudflare' in str(e.headers):
-                    logger.warning('-> [requestHandler]: Failed Cloudflare active: ' + self._sUrl)
-                    return 'Cloudflare-DDOS-GUARD active'
+                    logger.error(' -> [requestHandler]: Failed Cloudflare active: ' + self._sUrl)
+                    return 'CF-DDOS-GUARD aktiv'
                 else:
                     if not self.ignoreErrors:
                         xbmcgui.Dialog().ok('xStream', cConfig().getLocalizedString(30259) + ' {0} {1}'.format(self._sUrl, str(e)))
-                        logger.error('-> [requestHandler]: HTTPError ' + str(e) + ' Url: ' + self._sUrl)
+                        logger.error(' -> [requestHandler]: HTTPError ' + str(e) + ' Url: ' + self._sUrl)
                     return ''
             else:
                 oResponse = e
         except URLError as e:
             if not self.ignoreErrors:
                 xbmcgui.Dialog().ok('xStream', str(e.reason))
-            logger.error('-> [requestHandler]: URLError ' + str(e.reason) + ' Url: ' + self._sUrl)
+            logger.error(' -> [requestHandler]: URLError ' + str(e.reason) + ' Url: ' + self._sUrl)
             return ''
         except HTTPException as e:
             if not self.ignoreErrors:
                 xbmcgui.Dialog().ok('xStream', str(e))
-            logger.error('-> [requestHandler]: HTTPException ' + str(e) + ' Url: ' + self._sUrl)
+            logger.error(' -> [requestHandler]: HTTPException ' + str(e) + ' Url: ' + self._sUrl)
             return ''
 
         self._sResponseHeader = oResponse.info()
@@ -179,11 +179,11 @@ class cRequestHandler:
             if bf:
                 sContent = bf
             else:
-                logger.error('-> [requestHandler]: Failed Blazingfast active: ' + self._sUrl)
+                logger.error(' -> [requestHandler]: Failed Blazingfast active: ' + self._sUrl)
         try:
             cookieJar.save(ignore_discard=self.__bIgnoreDiscard, ignore_expires=self.__bIgnoreExpired)
         except Exception as e:
-            logger.error('-> [requestHandler]: Failed save cookie: %s' % e)
+            logger.error(' -> [requestHandler]: Failed save cookie: %s' % e)
         if self.__bRemoveNewLines:
             sContent = sContent.replace('\n', '').replace('\r\t', '')
         if self.__bRemoveBreakLines:
@@ -250,9 +250,9 @@ class cRequestHandler:
                 with open(cacheFile, 'rb') as f:
                         content = f.read().decode('utf8')
             except Exception:
-                logger.error('-> [requestHandler]: Could not read Cache')
+                logger.error(' -> [requestHandler]: Could not read Cache')
             if content:
-                logger.info('-> [requestHandler]: read html for %s from cache' % url)
+                logger.info(' -> [requestHandler]: read html for %s from cache' % url)
                 return content
         return ''
 
@@ -262,7 +262,7 @@ class cRequestHandler:
             with open(os.path.join(self._cachePath, h), 'wb') as f:
                 f.write(content.encode('utf8'))
         except Exception:
-            logger.error('-> [requestHandler]: Could not write Cache')
+            logger.error(' -> [requestHandler]: Could not write Cache')
 
     @staticmethod
     def getFileAge(cacheFile):

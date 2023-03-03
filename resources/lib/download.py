@@ -8,11 +8,11 @@ import xbmcgui
 from resources.lib import common
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
-from resources.lib.tools import logger
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, LOGWARNING, log, executebuiltin, getCondVisibility, getInfoLabel
 from xbmcvfs import translatePath
 from urllib.request import Request, urlopen
 
-
+LOGMESSAGE = cConfig().getLocalizedString(30166)
 class cDownload:
     def __createProcessDialog(self, downloadDialogTitle):
         if cConfig().getSetting('backgrounddownload') == 'true':
@@ -35,7 +35,7 @@ class cDownload:
             header = dict([item.split('=') for item in (url.split('|')[1]).split('&')])
         except Exception:
             header = {}
-        logger.info('-> [download]: Header for download: %s' % header)
+        log(LOGMESSAGE + ' -> [download]: Header for download: %s' % header, LOGNOTICE)
         url = url.split('|')[0]
         sTitle = self.__createTitle(url, sTitle)
         self.__sTitle = self.__createDownloadFilename(sTitle)
@@ -54,17 +54,17 @@ class cDownload:
             if not os.path.isdir(temp_dir):
                 os.makedirs(os.path.join(temp_dir))
             self.__prepareDownload(url, header, os.path.join(temp_dir, sTitle), downloadDialogTitle)
-            logger.info('-> [download]: download completed')
+            log(LOGMESSAGE + ' -> [download]: download completed', LOGNOTICE)
 
 
     def __prepareDownload(self, url, header, sDownloadPath, downloadDialogTitle):
         try:
-            logger.info('-> [download]: download file: ' + str(url) + ' to ' + str(sDownloadPath))
+            log(LOGMESSAGE + ' -> [download]: download file: ' + str(url) + ' to ' + str(sDownloadPath), LOGNOTICE)
             self.__createProcessDialog(downloadDialogTitle)
             request = Request(url, headers=header)
             self.__download(urlopen(request, timeout=240), sDownloadPath)
         except Exception as e:
-            logger.error(e)
+            log(e)
         self.__oDialog.close()
 
 
@@ -77,7 +77,7 @@ class cDownload:
         #f = open(r'%s' % fpath, 'wb')
         import xbmcvfs
         f = xbmcvfs.File(fpath, 'w')
-        logger.info('-> [download]: start download')
+        log(LOGMESSAGE + ' -> [download]: start download', LOGNOTICE)
         try:
             iCount = 0
             self._startTime = time.time()
@@ -91,7 +91,7 @@ class cDownload:
             f.close()
             
         except:
-            logger.error('-> [download]: download failed')        
+            log(LOGMESSAGE + '-> [download]: download failed', LOGNOTICE)     
             f.close()
 
 

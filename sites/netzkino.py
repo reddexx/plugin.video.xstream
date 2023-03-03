@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+# Python 3
+# Always pay attention to the translations in the menu!
 
-# 2022-04-26
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -113,8 +114,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
             if 'Duration' in item['custom_fields'] and item['custom_fields']['Duration'][0]:
                 oGuiElement.addItemValue('duration', item['custom_fields']['Duration'][0])
             urls = ''
-            if 'Streaming' in item['custom_fields'] and item['custom_fields']['Streaming'][0]:
-                urls += 'http://netzkino_and-vh.akamaihd.net/i/%s.mp4/master.m3u8' % item['custom_fields']['Streaming'][0]
+            if 'Streaming' in item['custom_fields'] and item['custom_fields']['Streaming'][0]:                                  
+                urls += 'https://pmd.netzkino-seite.netzkino.de/%s.mp4' % item['custom_fields']['Streaming'][0]
             if 'Youtube_Delivery_Id' in item['custom_fields'] and item['custom_fields']['Youtube_Delivery_Id'][0]:
                 urls += '#' + 'plugin://plugin.video.youtube/play/?video_id=%s' % item['custom_fields']['Youtube_Delivery_Id'][0]
             params.setParam('entryUrl', urls)

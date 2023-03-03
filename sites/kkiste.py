@@ -17,9 +17,9 @@ SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
 #SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kkiste.hair')
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kkiste.house')
 URL_MAIN = 'https://' + DOMAIN + '/'
-#URL_MAIN = 'https://kkiste.name/'
+#URL_MAIN = 'https://kkiste.house/'
 URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
@@ -86,6 +86,15 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sName, sThumbnail, sDesc, sYear, sDuration in aResult:
+        # Abfrage der voreingestellten Sprache
+        sLanguage = cConfig().getSetting('prefLanguage')
+        if (sLanguage == '1' and 'English*' in sName):   # Deutsch
+            continue
+        if (sLanguage == '2' and not 'English*' in sName):   # English
+            continue
+        elif sLanguage == '3':    # Japanisch
+            cGui().showLanguage()
+            continue
         if sSearchText and not cParser().search(sSearchText, sName):
             continue
         isTvshow = True if 'taffel' in sName or 'serie' in sUrl else False
