@@ -282,6 +282,11 @@ def showSearch():
 
 def _search(oGui, sSearchText):
     params = ParameterHandler()
-    sLanguage = params.getValue('sLanguage')
-    showEntries(URL_SEARCH % (sLanguage, cParser().quotePlus(sSearchText), '1'), oGui, sSearchText)
-
+    sLanguage = cConfig().getSetting('prefLanguage')
+    if sLanguage == '0':    # prefLang Alle Sprachen
+        sLang = 'all'
+    if sLanguage == '1':    #  prefLang Deutsch
+        sLang = '2'
+    if sLanguage == '2':    #  prefLang Englisch
+        sLang = '3'
+    showEntries(URL_SEARCH % (sLang, cParser().quotePlus(sSearchText), '1'), oGui, sSearchText)

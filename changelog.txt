@@ -6,6 +6,7 @@
  - [Kinokiste] Sprachauswahl hinzugefügt
  - [KKiste] Sprachauswahl hinzugefügt
  - [xCine] Sprachauswahl hinzugefügt
+ - [Movie2k] Sprachauswahl für globale Suche angepasst
  - [Movie4k] regex fixed, Sprachauswahl hinzugefügt
  - [Kinofox] Trailer entfernt
  - [Logger] überarbeitet
