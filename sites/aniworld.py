@@ -225,6 +225,7 @@ def showEpisodes():
 
 
 def showHosters():
+    global sName
     hosters = []
     sUrl = ParameterHandler().getValue('sUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
@@ -279,10 +280,10 @@ def showHosters():
         if not hosters:
             cGui().showLanguage()
         return hosters
+    del globals()['sName'] 
 
 
-def getHosterUrl(sUrl=False):
-                                           
+def getHosterUrl(sUrl=False):                                  
     username = cConfig().getSetting('aniworld.user')
     password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -295,7 +296,16 @@ def getHosterUrl(sUrl=False):
     Request.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
     Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Request.request()
+    sUrl = Request.getRealUrl()
+    if sName == 'VOE':
+        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  
+        if isBlocked:  
+            sUrl = sUrl.replace(sDomain, 'voe.sx')
+            return [{'streamUrl': sUrl, 'resolved': False}]
+
     return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
+
+    
     
     
 def showSearch():

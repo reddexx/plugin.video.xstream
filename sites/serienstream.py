@@ -265,6 +265,7 @@ def showEpisodes():
 
 
 def showHosters():
+    global sName
     hosters = []
     sUrl = ParameterHandler().getValue('sUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
@@ -309,17 +310,16 @@ def showHosters():
                 sQualy = 'SD'
             hoster = {'link': sUrl, 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
                 'languageCode': sLangCode}    # Language Code für hoster.py Sprache Prio           
-            #hoster = {'link': [sUrl, sName], 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
-            #        'languageCode': sLangCode}    # Language Code für hoster.py Sprache Prio
             hosters.append(hoster)
         if hosters:
             hosters.append('getHosterUrl')
         if not hosters:
             cGui().showLanguage()
         return hosters
+    del globals()['sName'] 
 
 
-def getHosterUrl(sUrl=False): # In hUrl sind 2 Elemente [sUrl, sName]!
+def getHosterUrl(sUrl=False): 
     username = cConfig().getSetting('serienstream.user')
     password = cConfig().getSetting('serienstream.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -332,31 +332,15 @@ def getHosterUrl(sUrl=False): # In hUrl sind 2 Elemente [sUrl, sName]!
     Request.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
     Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Request.request()
+    sUrl = Request.getRealUrl()
+    if sName == 'VOE':
+        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  
+        if isBlocked:  
+            sUrl = sUrl.replace(sDomain, 'voe.sx')
+            return [{'streamUrl': sUrl, 'resolved': False}]
+
     return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
-    #if type(hUrl) == str: hUrl = eval(hUrl)
-    #username = cConfig().getSetting('serienstream.user')
-    #password = cConfig().getSetting('serienstream.pass')
-    #Handler = cRequestHandler(URL_LOGIN, caching=False)
-    #Handler.addHeaderEntry('Upgrade-Insecure-Requests', '1')
-    #Handler.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
-    #Handler.addParameters('email', username)
-    #Handler.addParameters('password', password)
-    #Handler.request()
-    #Request = cRequestHandler(URL_MAIN + hUrl[0], caching=False)
-    #Request.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
-    #Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
-    #Request.request()
-    #sUrl = Request.getRealUrl()
-
-    #if 'voe' in hUrl[1].lower():
-    #    isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  # Die funktion gibt 2 werte zurück!
-    #    if isBlocked:  # Voe Pseudo sDomain nicht bekannt in resolveUrl
-    #        sUrl = sUrl.replace(sDomain, 'voe.sx')
-    #        return [{'streamUrl': sUrl, 'resolved': False}]
-
-    #return [{'streamUrl': sUrl, 'resolved': False}]
-
-
+    
 
 def showSearch():
     sSearchText = cGui().showKeyBoard()
