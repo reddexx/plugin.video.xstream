@@ -276,7 +276,7 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLangCode, sUrl, sName, sQualy in aResult:
-            # kasi neu! die funktion gibt 2 werte zurück!
+            # Die Funktion gibt 2 werte zurück!
             # element 1 aus array "[0]" True bzw. False
             # element 2 aus array "[1]" Name von domain / hoster - wird hie nicht gebraucht!
             if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
