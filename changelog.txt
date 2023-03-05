@@ -1,4 +1,7 @@
-[B]Version: 4.0.4~Nightly9[/B]
+[B]Version: 4.0.4~Nightly10[/B]
+
+05.03.3023
+ - [Aniworld] und [Serienstream] Allgemeine Performanceverbesserungen
 
 03.03.2023
 
