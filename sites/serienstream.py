@@ -276,7 +276,7 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLangCode, sUrl, sName, sQualy in aResult:
-            # Die Funktion gibt 2 werte zurück!
+            # kasi neu! die funktion gibt 2 werte zurück!
             # element 1 aus array "[0]" True bzw. False
             # element 2 aus array "[1]" Name von domain / hoster - wird hie nicht gebraucht!
             if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
@@ -316,10 +316,10 @@ def showHosters():
         if not hosters:
             cGui().showLanguage()
         return hosters
-    del globals()['sName'] 
+    del globals()['sName']
 
 
-def getHosterUrl(sUrl=False): 
+def getHosterUrl(sUrl=False):
     username = cConfig().getSetting('serienstream.user')
     password = cConfig().getSetting('serienstream.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -334,8 +334,8 @@ def getHosterUrl(sUrl=False):
     Request.request()
     sUrl = Request.getRealUrl()
     if sName == 'VOE':
-        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  
-        if isBlocked:  
+        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)
+        if isBlocked:
             sUrl = sUrl.replace(sDomain, 'voe.sx')
             return [{'streamUrl': sUrl, 'resolved': False}]
 

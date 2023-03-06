@@ -280,10 +280,10 @@ def showHosters():
         if not hosters:
             cGui().showLanguage()
         return hosters
-    del globals()['sName'] 
+    del globals()['sName']
 
 
-def getHosterUrl(sUrl=False):                                  
+def getHosterUrl(sUrl=False):
     username = cConfig().getSetting('aniworld.user')
     password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -298,8 +298,8 @@ def getHosterUrl(sUrl=False):
     Request.request()
     sUrl = Request.getRealUrl()
     if sName == 'VOE':
-        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  
-        if isBlocked:  
+        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)
+        if isBlocked:
             sUrl = sUrl.replace(sDomain, 'voe.sx')
             return [{'streamUrl': sUrl, 'resolved': False}]
 
