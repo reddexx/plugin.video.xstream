@@ -271,7 +271,7 @@ class cHosterGui:
                 return
 
             self.dialog.update(60, cConfig().getLocalizedString(30143))
-            if (siteName != 'cinemathek') and (playMode != 'jd') and (playMode != 'jd2') and (playMode != 'pyload') and cConfig().getSetting('presortHoster') == 'true' and (playMode != 'myjd'):
+            if (siteName != 'cinemathek') and (playMode != 'jd') and (playMode != 'jd2') and (playMode != 'pyload') and (cConfig().getSetting('presortHoster') == 'true') and (playMode != 'myjd'):
                 # filter and sort hosters except Cinemathek
                 siteResult = self.__getPriorities(siteResult)
             if not siteResult:
