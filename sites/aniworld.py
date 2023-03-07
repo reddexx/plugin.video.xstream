@@ -225,7 +225,6 @@ def showEpisodes():
 
 
 def showHosters():
-    global sName
     hosters = []
     sUrl = ParameterHandler().getValue('sUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
@@ -236,9 +235,9 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLangCode, sUrl, sName, sQualy in aResult:
-            # Die Funktion gibt 2 werte zurück!
-            # element 1 aus array "[0]" True bzw. False
-            # element 2 aus array "[1]" Name von domain / hoster - wird hier nicht gebraucht!
+            # Die Funktion gibt 2 Werte zurück!
+            # Element 1 aus Array "[0]" True bzw. False
+            # Element 2 aus Array "[1]" Name von domain / hoster - wird hier nicht gebraucht deswegen [0]!
             if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             sLanguage = cConfig().getSetting('prefLanguage') 
             if sLanguage == '1':        # Voreingestellte Sprache Deutsch in settings.xml
@@ -272,7 +271,11 @@ def showHosters():
                 sQualy = 'HD'
             else:
                 sQualy = 'SD'
-            hoster = {'link': sUrl, 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
+            # 'link': [sUrl, sName]
+            # aus dem Log [serienstream]: ['/redirect/12286260', 'VOE']
+            # hier ist die sUrl = '/redirect/12286260' und der sName 'VOE
+            # hoster.py 194
+            hoster = {'link': [sUrl, sName], 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
                       'languageCode': sLangCode}    # Language Code für hoster.py Sprache Prio
             hosters.append(hoster)
         if hosters:
@@ -280,10 +283,10 @@ def showHosters():
         if not hosters:
             cGui().showLanguage()
         return hosters
-    del globals()['sName']
 
 
-def getHosterUrl(sUrl=False):
+def getHosterUrl(hUrl): # In hUrl sind 2 Elemente [sUrl, sName]!
+    if type(hUrl) == str: hUrl = eval(hUrl)
     username = cConfig().getSetting('aniworld.user')
     password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -292,23 +295,19 @@ def getHosterUrl(sUrl=False):
     Handler.addParameters('email', username)
     Handler.addParameters('password', password)
     Handler.request()
-    Request = cRequestHandler(URL_MAIN + sUrl, caching=False)
+    Request = cRequestHandler(URL_MAIN + hUrl[0], caching=False)
     Request.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
     Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Request.request()
     sUrl = Request.getRealUrl()
-    try:
-        if sName == 'VOE':
-            isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)
-            if isBlocked:
-                sUrl = sUrl.replace(sDomain, 'voe.sx')
-                return [{'streamUrl': sUrl, 'resolved': False}]
-    except:
-        pass
-    
-    return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
 
-    
+    if 'voe' in hUrl[1].lower():
+        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  # Die Funktion gibt 2 Werte zurück!
+        if isBlocked:  # Voe Pseudo sDomain nicht bekannt in resolveUrl
+            sUrl = sUrl.replace(sDomain, 'voe.sx')
+            return [{'streamUrl': sUrl, 'resolved': False}]
+
+    return [{'streamUrl': sUrl, 'resolved': False}]
     
     
 def showSearch():

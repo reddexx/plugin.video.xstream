@@ -13,9 +13,9 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
 from resources.lib.player import cPlayer
-from xbmc import LOGINFO as LOGNOTICE, LOGERROR, LOGWARNING, log, executebuiltin, getCondVisibility, getInfoLabel
+from resources.lib.tools import logger
 
-LOGMESSAGE = cConfig().getLocalizedString(30166)
+
 class cHosterGui:
     SITE_NAME = 'cHosterGui'
 
@@ -40,22 +40,22 @@ class cHosterGui:
                 mediaUrl = siteResult.get('streamUrl', False)
                 mediaId = siteResult.get('streamID', False)
                 if mediaUrl:
-                    log(LOGMESSAGE + ' -> [hoster]: resolve: ' + mediaUrl, LOGNOTICE)
+                    logger.info('-> [hoster]: resolve: ' + mediaUrl)
                     link = mediaUrl if siteResult['resolved'] else resolver.resolve(mediaUrl)
                 elif mediaId:
-                    log(LOGMESSAGE + ' -> [hoster]: resolve: hoster: %s - mediaID: %s' % (siteResult['host'], mediaId), LOGNOTICE)
+                    logger.info('-> [hoster]: resolve: hoster: %s - mediaID: %s' % (siteResult['host'], mediaId))
                     link = resolver.HostedMediaFile(host=siteResult['host'].lower(), media_id=mediaId).resolve()
                 else:
                     oGui.showError('xStream', cConfig().getLocalizedString(30134), 5)
                     return False
             elif mediaUrl:
-                log(LOGMESSAGE + ' -> [hoster]: resolve: ' + mediaUrl, LOGNOTICE)
+                logger.info('-> [hoster]: resolve: ' + mediaUrl)
                 link = resolver.resolve(mediaUrl)
             else:
                 oGui.showError('xStream', cConfig().getLocalizedString(30134), 5)
                 return False
         except resolver.resolver.ResolverError as e:
-            log(LOGMESSAGE + ' -> [hoster]: ResolverError: %s' % e, LOGERROR)
+            logger.error('-> [hoster]: ResolverError: %s' % e)
             oGui.showError('xStream', cConfig().getLocalizedString(30135), 7)
             return False
         # resolver response
@@ -65,7 +65,7 @@ class cHosterGui:
         return False
 
     def play(self, siteResult=False):
-        log(LOGMESSAGE + ' -> [hoster]: attempt to play file', LOGNOTICE)
+        logger.info('-> [hoster]: attempt to play file')
         data = self._getInfoAndResolve(siteResult)
         if not data:
             return False
@@ -75,7 +75,7 @@ class cHosterGui:
             except:
                 pass
 
-        log(LOGMESSAGE + ' -> [hoster]: play file link: ' + str(data['link']), LOGNOTICE)
+        logger.info('-> [hoster]: play file link: ' + str(data['link']))
         list_item = xbmcgui.ListItem(path=data['link'])
         info = {'Title': data['title']}
         if data['thumb']:
@@ -94,10 +94,10 @@ class cHosterGui:
 
     def addToPlaylist(self, siteResult=False):
         oGui = cGui()
-        log(LOGMESSAGE + ' -> [hoster]: attempt addToPlaylist', LOGNOTICE)
+        logger.info('-> [hoster]: attempt addToPlaylist')
         data = self._getInfoAndResolve(siteResult)
         if not data: return False
-        log(LOGMESSAGE + ' -> [hoster]: addToPlaylist file link: ' + str(data['link']), LOGNOTICE)
+        logger.info('-> [hoster]: addToPlaylist file link: ' + str(data['link']))
         oGuiElement = cGuiElement()
         oGuiElement.setSiteName(self.SITE_NAME)
         oGuiElement.setMediaUrl(data['link'])
@@ -117,10 +117,10 @@ class cHosterGui:
 
     def download(self, siteResult=False):
         from resources.lib.download import cDownload
-        log(LOGMESSAGE + ' -> [hoster]: attempt download', LOGNOTICE)
+        logger.info('-> [hoster]: attempt download')
         data = self._getInfoAndResolve(siteResult)
         if not data: return False
-        log(LOGMESSAGE + ' -> [hoster]: download file link: ' + data['link'], LOGNOTICE)
+        logger.info('-> [hoster]: download file link: ' + data['link'])
         if self.dialog:
             self.dialog.close()
         oDownload = cDownload()
@@ -129,7 +129,7 @@ class cHosterGui:
 
     def sendToPyLoad(self, siteResult=False):
         from resources.lib.handler.pyLoadHandler import cPyLoadHandler
-        log(LOGMESSAGE + ' -> [hoster]: attempt download with pyLoad', LOGNOTICE)
+        logger.info('-> [hoster]: attempt download with pyLoad')
         data = self._getInfoAndResolve(siteResult)
         if not data: return False
         cPyLoadHandler().sendToPyLoad(data['title'], data['link'])
@@ -142,7 +142,7 @@ class cHosterGui:
             sMediaUrl = params.getValue('sMediaUrl')
         if self.dialog:
             self.dialog.close()
-        log(LOGMESSAGE + ' -> [hoster]: call send to JDownloader: ' + sMediaUrl, LOGNOTICE)
+        logger.info('-> [hoster]: call send to JDownloader: ' + sMediaUrl)
         cJDownloaderHandler().sendToJDownloader(sMediaUrl)
 
     def sendToJDownloader2(self, sMediaUrl=False):
@@ -152,7 +152,7 @@ class cHosterGui:
             sMediaUrl = params.getValue('sMediaUrl')
         if self.dialog:
             self.dialog.close()
-        log(LOGMESSAGE + ' -> [hoster]: call send to JDownloader2: ' + sMediaUrl, LOGNOTICE)
+        logger.info('-> [hoster]: call send to JDownloader2: ' + sMediaUrl)
         cJDownloader2Handler().sendToJDownloader2(sMediaUrl)
 
     def sendToMyJDownloader(self, sMediaUrl=False, sMovieTitle='xStream'):
@@ -169,7 +169,7 @@ class cHosterGui:
             sMovieTitle = params.getValue('title')
         if self.dialog:
             self.dialog.close()
-        log(LOGMESSAGE + ' -> [hoster]: call send to My.JDownloader: ' + sMediaUrl, LOGNOTICE)
+        logger.info('-> [hoster]: call send to My.JDownloader: ' + sMediaUrl)
         cMyJDownloaderHandler().sendToMyJDownloader(sMediaUrl, sMovieTitle)
 
     def __getPriorities(self, hosterList, filter=True):
@@ -191,7 +191,9 @@ class cHosterGui:
                 continue
              
             try:
-                hmf = resolver.HostedMediaFile(url=hoster['link'])
+                # serienstream VOE hoster = {'link': [sUrl, sName], aus array "[0]" True bzw. False
+                link = hoster['link'][0] if isinstance(hoster['link'], list) else hoster['link']
+                hmf = resolver.HostedMediaFile(url=link)
             except:
                 continue
 
@@ -293,7 +295,7 @@ class cHosterGui:
             else:
                 siteResult = siteResult[0]
             # get stream links
-            log(LOGMESSAGE + siteResult['link'], LOGNOTICE)
+            logger.info(siteResult['link'])
             function = getattr(plugin, functionName)
             siteResult = function(siteResult['link'])
             # if result is not a list, make in one
@@ -304,7 +306,7 @@ class cHosterGui:
         if len(siteResult) > 1:
             siteResult = self._choosePart(siteResult)
             if not siteResult:
-                log(LOGMESSAGE + ' -> [hoster]: no part selected', LOGNOTICE)
+                logger.info('-> [hoster]: no part selected')
                 return
         else:
             siteResult = siteResult[0]
@@ -328,7 +330,7 @@ class cHosterGui:
             self.sendToPyLoad(siteResult)
 
     def streamAuto(self, playMode, siteName, function):
-        log(LOGMESSAGE + ' -> [hoster]: auto stream initiated', LOGNOTICE)
+        logger.info('-> [hoster]: auto stream initiated')
         self.dialog = xbmcgui.DialogProgress()
         self.dialog.create('xStream', cConfig().getLocalizedString(30138))
         # load site as plugin and run the function
@@ -367,7 +369,7 @@ class cHosterGui:
                 if self.dialog.iscanceled() or xbmc.Monitor().abortRequested() or check: return
                 percent = (count + 1) * 100 // total
                 try:
-                    log(LOGMESSAGE + ' -> [hoster]: try hoster %s' % hoster['name'], LOGNOTICE)
+                    logger.info('-> [hoster]: try hoster %s' % hoster['name'])
                     self.dialog.create('xStream', cConfig().getLocalizedString(30147))
                     self.dialog.update(percent, cConfig().getLocalizedString(30147) + ' %s' % hoster['name'])
                     # get stream links
@@ -378,7 +380,7 @@ class cHosterGui:
                         return True
                 except:
                     self.dialog.update(percent, cConfig().getLocalizedString(30148) % hoster['name'])
-                    log(LOGMESSAGE + ' -> [hoster]: playback with hoster %s failed' % hoster['name'], LOGNOTICE)
+                    logger.error('-> [hoster]: playback with hoster %s failed' % hoster['name'])
         # field "resolved" marks streamlinks
         elif 'resolved' in siteResult[0]:
             for stream in siteResult:
@@ -402,7 +404,7 @@ class cHosterGui:
             siteResult = siteResult[index]
             return siteResult
         else:
-            log(LOGMESSAGE + ' -> [hoster]: no hoster selected', LOGNOTICE)
+            logger.info('-> [hoster]: no hoster selected')
             return False
 
     def _choosePart(self, siteResult):
@@ -448,7 +450,7 @@ class cHosterGui:
                     self.addToPlaylist(partList[i])
             except:
                 return False
-        log(LOGMESSAGE + ' -> [hoster]: autoEnqueue successful', LOGNOTICE)
+        logger.info('-> [hoster]: autoEnqueue successful')
         return True
 
 
