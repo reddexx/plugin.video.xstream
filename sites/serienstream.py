@@ -41,6 +41,7 @@ URL_POPULAR = URL_MAIN + '/beliebte-serien'
 URL_LOGIN = URL_MAIN + '/login'
 
 
+
 def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
@@ -333,11 +334,14 @@ def getHosterUrl(sUrl=False):
     Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Request.request()
     sUrl = Request.getRealUrl()
-    if sName == 'VOE':
-        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)
-        if isBlocked:
-            sUrl = sUrl.replace(sDomain, 'voe.sx')
-            return [{'streamUrl': sUrl, 'resolved': False}]
+    try:
+        if sName == 'VOE':
+            isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)
+            if isBlocked:
+                sUrl = sUrl.replace(sDomain, 'voe.sx')
+                return [{'streamUrl': sUrl, 'resolved': False}]
+    except:
+        pass
 
     return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
     
