@@ -1,7 +1,16 @@
-[B]Version: 4.0.4~Nightly10[/B]
+[B]Version: 4.0.4~Nightly11[/B]
+
+07.03.2023
+
+ - [hoster] Fix Sortierung
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 05.03.3023
+ 
  - [Aniworld] und [Serienstream] Allgemeine Performanceverbesserungen
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 03.03.2023
 
