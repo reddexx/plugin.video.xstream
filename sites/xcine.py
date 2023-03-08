@@ -17,7 +17,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'xcine'
 SITE_NAME = 'xCine'
 SITE_ICON = 'xcinetop.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'xcine.click')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://xcine.click/'
@@ -94,19 +94,20 @@ def showYears(entryUrl=False):
 
 
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
+    #import web_pdb; web_pdb.set_trace()
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
+    #oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
     iPage = int(params.getValue('page'))
     oRequest = cRequestHandler(entryUrl + 'page/' + str(iPage) if iPage > 0 else entryUrl, ignoreErrors=(sGui is not False))
     if sSearchText:
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')
         oRequest.addParameters('search_start', '0')
-        oRequest.addParameters('full_search', '1')
+        oRequest.addParameters('full_search', '0')
         oRequest.addParameters('result_from', '1')
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('titleonly', '3')
