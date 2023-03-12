@@ -1,4 +1,11 @@
-[B]Version: 4.0.4~Nightly11[/B]
+[B]Version: 4.0.4~Nightly12[/B]
+
+12.03.3023
+
+ - [KKiste] In Globale Suche wieder aktiv
+ - [xCine] Suche überarbeitet und GS wieder aktiviert
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 07.03.3023
 

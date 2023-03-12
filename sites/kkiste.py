@@ -16,7 +16,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kkiste'
 SITE_NAME = 'KKiste'
 SITE_ICON = 'kkiste.png'
-SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kkiste.house')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://kkiste.house/'

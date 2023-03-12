@@ -17,7 +17,7 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'xcine'
 SITE_NAME = 'xCine'
 SITE_ICON = 'xcinetop.png'
-SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'xcine.click')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://xcine.click/'
@@ -25,7 +25,7 @@ URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_MOVIES = URL_MAIN + 'kinofilme-online'
 URL_ANIMATION = URL_MAIN + 'animation/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
-URL_SEARCH = URL_MAIN + 'index.php?do=search'
+URL_SEARCH = URL_MAIN + 'index.php?do=search&subaction=search&story=%s'
 
 
 def load(): # Menu structure of the site plugin
@@ -94,23 +94,14 @@ def showYears(entryUrl=False):
 
 
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
-    #import web_pdb; web_pdb.set_trace()
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    #oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
+    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
     iPage = int(params.getValue('page'))
     oRequest = cRequestHandler(entryUrl + 'page/' + str(iPage) if iPage > 0 else entryUrl, ignoreErrors=(sGui is not False))
-    if sSearchText:
-        oRequest.addParameters('do', 'search')
-        oRequest.addParameters('subaction', 'search')
-        oRequest.addParameters('search_start', '0')
-        oRequest.addParameters('full_search', '0')
-        oRequest.addParameters('result_from', '1')
-        oRequest.addParameters('story', sSearchText)
-        oRequest.addParameters('titleonly', '3')
     sHtmlContent = oRequest.request()
     pattern = 'item__link.*?href="([^"]+).*?<img src="([^"]+).*?movie-item__label">([^<]+).*?movie-item__title ws-nowrap">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
@@ -121,6 +112,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sThumbnail, sQuality, sName in aResult:
+        if sSearchText and not cParser.search(sSearchText, sName):
+            continue
         # Abfrage der voreingestellten Sprache
         sLanguage = cConfig().getSetting('prefLanguage')
         if (sLanguage == '1' and 'English*' in sName):   # Deutsch
@@ -130,7 +123,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         elif sLanguage == '3':    # Japanisch
             cGui().showLanguage()
             continue
-        if sSearchText and not cParser.search(sSearchText, sName):
+        if '- Stream' in sName:
             continue
         if sThumbnail[0] == '/':
             sThumbnail = sThumbnail[1:]
@@ -142,9 +135,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         params.setParam('entryUrl', sUrl)
         params.setParam('sName', sName)
         params.setParam('sThumbnail', sThumbnail)
-
         oGui.addFolder(oGuiElement, params, isTvshow, total)
-        
 
     if not sGui and not sSearchText:
         sPageNr = int(params.getValue('page'))
@@ -227,4 +218,4 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showEntries(URL_SEARCH, oGui, sSearchText)
+    showEntries(URL_SEARCH % cParser.quotePlus(sSearchText), oGui, sSearchText)
