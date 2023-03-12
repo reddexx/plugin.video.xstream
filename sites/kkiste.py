@@ -24,6 +24,7 @@ URL_NEW = URL_MAIN + 'kinofilme-online/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino/'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch/'
 URL_ANIMATION = URL_MAIN + 'animation/'
+URL_SEARCH = URL_MAIN + 'index.php?do=search&subaction=search&story=%s'
 
 
 def load(): # Menu structure of the site plugin
@@ -73,10 +74,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden  
-    if sSearchText:
-        oRequest.addParameters('do', 'search')
-        oRequest.addParameters('subaction', 'search')
-        oRequest.addParameters('story', sSearchText)
     sHtmlContent = oRequest.request()
     pattern = 'class="short">.*?href="([^"]+)">([^<]+).*?img src="([^"]+).*?desc">([^<]+).*?Jahr.*?([\d]+).*?s-red">([\d]+)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
@@ -86,6 +83,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sName, sThumbnail, sDesc, sYear, sDuration in aResult:
+        if sSearchText and not cParser.search(sSearchText, sName):
+            continue
         # Abfrage der voreingestellten Sprache
         sLanguage = cConfig().getSetting('prefLanguage')
         if (sLanguage == '1' and 'English*' in sName):   # Deutsch
@@ -94,8 +93,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
             continue
         elif sLanguage == '3':    # Japanisch
             cGui().showLanguage()
-            continue
-        if sSearchText and not cParser().search(sSearchText, sName):
             continue
         isTvshow = True if 'taffel' in sName or 'serie' in sUrl else False
         sThumbnail = URL_MAIN + sThumbnail
@@ -183,4 +180,4 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showEntries(URL_MAIN, oGui, sSearchText)
+    showEntries(URL_SEARCH % cParser.quotePlus(sSearchText), oGui, sSearchText)
