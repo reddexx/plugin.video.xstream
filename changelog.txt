@@ -4,6 +4,7 @@
 
  - [KKiste] In Globale Suche wieder aktiv
  - [xCine] Suche überarbeitet und GS wieder aktiviert
+ - [Movie4k] Suche überarbeitet
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 

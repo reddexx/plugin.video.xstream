@@ -23,6 +23,7 @@ URL_MAIN = 'https://' + DOMAIN + '/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino'
 URL_MOVIES = URL_MAIN + 'kinofilme-online'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch'
+URL_SEARCH = URL_MAIN + 'index.php?do=search&subaction=search&search_start=0&full_search=0&result_from=1&story=%s'
 
 
 def load(): # Menu structure of the site plugin
@@ -74,10 +75,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
-    if sSearchText:
-        oRequest.addParameters('story', sSearchText)
-        oRequest.addParameters('do', 'search')
-        oRequest.addParameters('subaction', 'search')
     sHtmlContent = oRequest.request()
     pattern = 'movie-item.*?'               # Container Start
     pattern += 'href="([^"]+).*?'           # URL
@@ -92,6 +89,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sName, sQuality, sYear, sThumbnail in aResult:
+        if sSearchText and not cParser().search(sSearchText, sName):
+            continue
         # Abfrage der voreingestellten Sprache
         sLanguage = cConfig().getSetting('prefLanguage')
         if (sLanguage == '1' and 'English*' in sName):   # Deutsch
@@ -102,8 +101,6 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
             cGui().showLanguage()
             continue
         sThumbnail = URL_MAIN + sThumbnail
-        if sSearchText and not cParser().search(sSearchText, sName):
-            continue
         isTvshow = True if 'taffel' in sName else False
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showEpisodes' if isTvshow else 'showHosters')
         oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
@@ -195,4 +192,4 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showEntries(URL_MAIN, oGui, sSearchText)
+    showEntries(URL_SEARCH % cParser.quotePlus(sSearchText), oGui, sSearchText)
