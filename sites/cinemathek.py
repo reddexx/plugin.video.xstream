@@ -74,7 +74,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     pattern += '<img src="([^"]+).*?'  # sThumbnail
     pattern += 'href="([^"]+).*?'  # url  
     pattern += '>([^<]+).*?'  # name 
-    # pattern += '<div class="texto">([^<]+).*?'  # desc
+    pattern += '<div class="texto">([^<]+).*?'  # desc
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         # Für die Suche von Filme und Serien
@@ -82,24 +82,41 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         pattern += '<img src="([^"]+).*?'  # sThumbnail
         pattern += 'href="([^"]+).*?'  # url  
         pattern += '>([^<]+).*?'  # name
-        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
+        isMatch, sResult = cParser.parse(sHtmlContent, pattern) #sResult = Suchresultat ohne Desc
     if not isMatch:
         if not sGui: oGui.showInfo()
         return
 
-    total = len(aResult)
-    for sThumbnail, sUrl, sName in aResult:  #for sThumbnail, sUrl, sName, sDesc in aResult:
-        if sSearchText and not cParser.search(sSearchText, sName):
-            continue 
-        isTvshow, aResult = cParser.parse(sUrl, 'tvshows') # Muss nur im Serien Content auffindbar sein
-        oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
-        oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')  
-        oGuiElement.setThumbnail(sThumbnail)
-        #oGuiElement.setDescription(sDesc)
-        params.setParam('sThumbnail', sThumbnail)
-        params.setParam('entryUrl', sUrl)
-        params.setParam('sName', sName)
-        oGui.addFolder(oGuiElement, params, isTvshow, total)
+    if not aResult:
+        total = len(sResult)
+
+        for sThumbnail, sUrl, sName in sResult:  # for sThumbnail, sUrl, sName, sDesc in aResult:
+            if sSearchText and not cParser.search(sSearchText, sName):
+                continue
+            isTvshow, aResult = cParser.parse(sUrl, 'tvshows')  # Muss nur im Serien Content auffindbar sein
+            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
+            oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
+            oGuiElement.setThumbnail(sThumbnail)
+            params.setParam('sThumbnail', sThumbnail)
+            params.setParam('entryUrl', sUrl)
+            params.setParam('sName', sName)
+            oGui.addFolder(oGuiElement, params, isTvshow, total)
+
+    else:
+        total = len(aResult)
+
+        for sThumbnail, sUrl, sName, sDesc in aResult:
+            if sSearchText and not cParser.search(sSearchText, sName):
+                continue
+            isTvshow, aResult = cParser.parse(sUrl, 'tvshows') # Muss nur im Serien Content auffindbar sein
+            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
+            oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
+            oGuiElement.setThumbnail(sThumbnail)
+            oGuiElement.setDescription(sDesc)
+            params.setParam('sThumbnail', sThumbnail)
+            params.setParam('entryUrl', sUrl)
+            params.setParam('sName', sName)
+            oGui.addFolder(oGuiElement, params, isTvshow, total)
 
     if not sGui and not sSearchText:
         isMatchNextPage, sNextUrl = cParser.parseSingleResult(sHtmlContent, '<link[^>]*rel="next"[^>]*href="([^"]+)"') # Nächste Seite
@@ -135,7 +152,7 @@ def showSeasons():
     cGui().setEndOfDirectory()
 
 
-def showEpisodes(): # einfache Abrage wird wenns mal funktioniert erweitert für sName,sThumb,Desc
+def showEpisodes(): # einfache Abfrage wird wenn es mal funktioniert erweitert für sName,sThumb,Desc
     params = ParameterHandler()
     entryUrl = params.getValue('entryUrl')
     sSeason = params.getValue('Season')
@@ -175,7 +192,7 @@ def showHosters():
     if isMatch:
         for i in aResult:
             sUrl = 'https://cinemathek.net/wp-json/dooplayer/v2/%s/%s/%s' % (i[1], i[0], i[2])
-            hoster = {'link': sUrl, 'name': 'Cinemathek '+ i[2]}
+            hoster = {'link': sUrl, 'name': 'Cinemathek '+ i[2]} #ToDo Namen Hoster sinnvoll gestalten
             hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')
