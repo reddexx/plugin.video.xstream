@@ -6,6 +6,7 @@
  - [Megakino] MP4Player.site Hoster überarbeitet
  - [language] string.po überarbeitet
  - [hoster] Link Übergabe
+ - [Cinemathek] Beschreibungen hinzugefügt
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
