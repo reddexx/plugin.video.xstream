@@ -37,7 +37,7 @@ msgstr "Cachezeit für Webseiten in Sekunden"
 
 msgctxt "#30007"
 msgid "Maximum number in hosterlist"
-msgstr "Maximale Anzahl von Einträgen in der Hoster-Liste"
+msgstr "Max. Anzahl von Einträgen in der Hoster-Liste"
 
 msgctxt "#30008"
 msgid "TMDB handler replaces information of websites"

@@ -159,18 +159,14 @@ def showHosters():
             if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
-    if not isMatch:
-        pattern = '<iframe.*?src=([^\s]+).*?width'
-        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
-        if isMatch:
-            for sUrl in aResult:
-                if 'youtube' in sUrl:
-                    pass
-                else:
-                    sName =cParser.urlparse(sUrl)
-                    if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
-                    hoster = {'link': sUrl, 'name': sName}
-                    hosters.append(hoster)    
+    pattern = '<iframe\s+src=([^\s]+).*?width'
+    isMatch, aResult = cParser.parse(sHtmlContent, pattern)
+    if isMatch:
+        for sUrl in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName)[0]: continue  # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            hoster = {'link': sUrl, 'name': sName}
+            hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')
     return hosters

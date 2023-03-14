@@ -192,9 +192,9 @@ class cHosterGui:
              
             try:
                 # serienstream VOE hoster = {'link': [sUrl, sName], aus array "[0]" True bzw. False
-                #link = hoster['link'][0] if isinstance(hoster['link'], list) else hoster['link']
-                #hmf = resolver.HostedMediaFile(url=link)
-                hmf = resolver.HostedMediaFile(url=hoster['link'])
+                link = hoster['link'][0] if isinstance(hoster['link'], list) else hoster['link']
+                hmf = resolver.HostedMediaFile(url=link)
+                #hmf = resolver.HostedMediaFile(url=hoster['link'])
             except:
                 continue
 

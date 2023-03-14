@@ -1,4 +1,13 @@
-[B]Version: 4.0.4~Nightly12[/B]
+[B]Version: 4.0.4~Nightly13[/B]
+
+14.03.3023
+
+ - [Kinoger] Kinoger.pw repariert
+ - [Megakino] MP4Player.site Hoster überarbeitet
+ - [language] string.po überarbeitet
+ - [hoster] Link Übergabe
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 12.03.3023
 
