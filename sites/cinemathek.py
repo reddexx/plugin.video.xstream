@@ -192,7 +192,12 @@ def showHosters():
     if isMatch:
         for i in aResult:
             sUrl = 'https://cinemathek.net/wp-json/dooplayer/v2/%s/%s/%s' % (i[1], i[0], i[2])
-            hoster = {'link': sUrl, 'name': 'Cinemathek '+ i[2]} #ToDo Namen Hoster sinnvoll gestalten
+            if i[2] == '1':
+                sName = 'Filemoon'
+            else:
+                sName = 'StreamSB'
+            #hoster = {'link': sUrl, 'name': 'Cinemathek '+ i[2]} #Gibt den richtigen Hosternamen an
+            hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')
