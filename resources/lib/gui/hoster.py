@@ -173,7 +173,7 @@ class cHosterGui:
         cMyJDownloaderHandler().sendToMyJDownloader(sMediaUrl, sMovieTitle)
 
     def __getPriorities(self, hosterList, filter=True):
-                  
+
         # Sort hosters based on their resolvers priority.
         ranking = []
         # handles multihosters but is about 10 times slower
@@ -274,8 +274,7 @@ class cHosterGui:
                 return
 
             self.dialog.update(60, cConfig().getLocalizedString(30143))
-            if (siteName != 'cinemathek') and (playMode != 'jd') and (playMode != 'jd2') and (playMode != 'pyload') and (cConfig().getSetting('presortHoster') == 'true') and (playMode != 'myjd'):
-                # filter and sort hosters except Cinemathek
+            if (playMode != 'jd') and (playMode != 'jd2') and (playMode != 'pyload') and (cConfig().getSetting('presortHoster') == 'true') and (playMode != 'myjd'):
                 siteResult = self.__getPriorities(siteResult)
             if not siteResult:
                 self.dialog.close()
@@ -353,10 +352,7 @@ class cHosterGui:
             self.dialog.update(90, cConfig().getLocalizedString(30143))
             functionName = siteResult[-1]
             del siteResult[-1]
-            if siteName == 'cinemathek':
-                hosters = siteResult
-            else:
-                hosters = self.__getPriorities(siteResult)
+            hosters = self.__getPriorities(siteResult)
             if not hosters:
                 self.dialog.close()
                 cGui().showInfo('xStream', cConfig().getLocalizedString(30144))
