@@ -1,4 +1,11 @@
-[B]Version: 4.0.4~Nightly13[/B]
+[B]Version: 4.0.4~Nightly14[/B]
+
+15.03.2023
+
+ - [Cinemanthek] Hoster haben nun Namen und Sortierung nach Hoster funktioniert
+ - [hoster] Sortierung angepasst für Cinemathek
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 14.03.3023
 
