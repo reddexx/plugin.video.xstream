@@ -2,7 +2,7 @@
 
 15.03.2023
 
- - [Cinemanthek] Hoster haben nun Namen und Sortierung nach Hoster funktioniert
+ - [Cinemathek] Hoster haben nun Namen und Sortierung nach Hoster funktioniert
  - [hoster] Sortierung angepasst für Cinemathek
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
