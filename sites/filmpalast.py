@@ -6,7 +6,7 @@
     #showValue:     24 Stunden
     #showEntries:    6 Stunden
     #showEpisodes:   4 Stunden
-    
+
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -14,11 +14,16 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-
 SITE_IDENTIFIER = 'filmpalast'
 SITE_NAME = 'FilmPalast'
 SITE_ICON = 'filmpalast.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'filmpalast.to')
 URL_MAIN = 'https://' + DOMAIN
 #URL_MAIN = 'https://filmpalast.to'
@@ -81,7 +86,8 @@ def showValue():
     value = params.getValue("value")
     #sHtmlContent = cRequestHandler(params.getValue('sUrl')).request()
     oRequest = cRequestHandler(params.getValue('sUrl'))
-    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
     sHtmlContent = oRequest.request()
     pattern = '<section[^>]id="%s">(.*?)</section>' % value
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
@@ -92,7 +98,7 @@ def showValue():
         return
 
     for sUrl, sName in aResult:
-        sUrl = sUrl.replace('ö', '&#xF6') # Fix für Genre Komödie
+        sUrl = sUrl.replace('ö', '&#xF6') # Fix für Genre Komödie #Todo global setzten
         params.setParam('sUrl', sUrl)
         cGui().addFolder(cGuiElement(sName, SITE_IDENTIFIER, 'showEntries'), params)
     cGui().setEndOfDirectory()
@@ -103,7 +109,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden    
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     # will match movies from first page (filmpalast.to)
     pattern = '<article[^>]*>\s*<a href="([^"]+)" title="([^"]+)">\s*<img src=["\']([^"\']+)["\'][^>]*>(.*?)</article>'
@@ -196,7 +203,8 @@ def showEpisodes():
     sShowName = params.getValue('TVShowTitle')
     #sHtmlContent = cRequestHandler(sUrl).request()
     oRequest = cRequestHandler(sUrl)
-    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<div[^>]*class="staffelWrapperLoop[^"]*"[^>]*data-sid="%s">(.*?)</ul></div>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
@@ -210,7 +218,7 @@ def showEpisodes():
     total = len(aResult)
     for sUrl in aResult:
         isMatch, sName = cParser.parseSingleResult(sUrl, 'e(\d+)')
-        oGuiElement = cGuiElement('Folge ' + str(sName), SITE_IDENTIFIER, 'showHosters')
+        oGuiElement = cGuiElement('Episode ' + str(sName), SITE_IDENTIFIER, 'showHosters')
         oGuiElement.setThumbnail(sThumbnail)
         oGuiElement.setTVShowTitle(sShowName)
         oGuiElement.setSeason(sSeason)

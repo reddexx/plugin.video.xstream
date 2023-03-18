@@ -16,7 +16,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'movie4k'
 SITE_NAME = 'Movie4k'
 SITE_ICON = 'movie4k_click.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie4k.pics')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://movie4k.pics/'
@@ -49,7 +55,8 @@ def showValue():
     params = ParameterHandler()
     #sHtmlContent = cRequestHandler(URL_MAIN).request()
     oRequest = cRequestHandler(URL_MAIN)
-    oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
     sHtmlContent = oRequest.request()    
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, '%s<.*?</ul>' % params.getValue('sCont'))
     if isMatch:
@@ -74,7 +81,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = 'movie-item.*?'               # Container Start
     pattern += 'href="([^"]+).*?'           # URL
@@ -128,7 +136,8 @@ def showEpisodes():
     entryUrl = params.getValue('entryUrl')
     #sHtmlContent = cRequestHandler(entryUrl).request()
     oRequest = cRequestHandler(entryUrl)
-    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()    
     pattern = 'id="serie-(\d+)[^>](\d+).*?href="#">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)

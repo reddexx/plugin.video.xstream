@@ -134,9 +134,11 @@ def parseUrl():
         updateManager.devUpdates()
     # Plugin Infos    
     elif sSiteName == 'pluginInfo':
+        from resources.lib import tools
         tools.pluginInfo()
     # Changelog anzeigen    
     elif sSiteName == 'changelog':
+        import service
         service.changelog()        
     # Unterordner der Einstellungen   
     elif sSiteName == 'settings':

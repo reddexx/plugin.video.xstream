@@ -4,7 +4,6 @@
 # HTML LangzeitCache hinzugefügt
     #showEntries:    6 Stunden
     #showEpisodes:   4 Stunden
-# ToDo Globale Suche Einträge nach Sprache sortieren
     
 import re
 import sys
@@ -17,15 +16,20 @@ from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from json import loads
 
-
 SITE_IDENTIFIER = 'movie2k'
 SITE_NAME = 'Movie2K'
 SITE_ICON = 'movie2k.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
 URL_MAIN = 'https://api.tmdb.club/data/browse/?lang=%s&type=%s&order_by=%s&page=%s'     #lang=%s 2 = deutsch / 3 = englisch / all = Alles
 URL_SEARCH = 'https://api.tmdb.club/data/browse/?lang=%s&keyword=%s&page=%s'
 URL_THUMBNAIL = 'https://image.tmdb.org/t/p/w300%s'
 URL_WATCH = 'https://api.tmdb.club/data/watch/?_id=%s'
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie2k.at')
 ORIGIN = 'https://' + DOMAIN + '/'
 #ORIGIN = 'https://movie2k.at/'
@@ -123,7 +127,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     try:
         oRequest = cRequestHandler(entryUrl)
-        oRequest.cacheTime = 60 * 60 * 6  # HTML Cache Zeit 6 Stunden
+        if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+            oRequest.cacheTime = 60 * 60 * 6  # HTML Cache Zeit 6 Stunden
         oRequest.addHeaderEntry('Referer', REFERER)
         oRequest.addHeaderEntry('Origin', ORIGIN)
         sJson = oRequest.request()
@@ -202,7 +207,8 @@ def showEpisodes():
     sThumbnail = params.getValue("sThumbnail")
     try:
         oRequest = cRequestHandler(sUrl)
-        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+        if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+            oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
         oRequest.addHeaderEntry('Referer', REFERER)
         oRequest.addHeaderEntry('Origin', ORIGIN)
         sJson = oRequest.request()

@@ -15,7 +15,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'movieking'
 SITE_NAME = 'MovieKing'
 SITE_ICON = 'movieking.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movieking.cc')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://movieking.cc/'
@@ -45,7 +51,8 @@ def showGenre():
     entryUrl = params.getValue('sUrl')
     #sHtmlContent = cRequestHandler(entryUrl).request()
     oRequest = cRequestHandler(entryUrl)
-    oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
     sHtmlContent = oRequest.request()      
     if 'year' in entryUrl:
         pattern = 'section-opt.*?id="footer">'
@@ -71,7 +78,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     #pattern = 'data-src="([^"]+)(.*?)href="([^"]+)">([^<]+).*?label-primary">\s+([^"]+)(?:\s{12})</span>'
     pattern = '<div class="latest-.*?'  # container start

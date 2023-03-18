@@ -20,6 +20,7 @@ class cPluginHandler:
         self.settingsFile = os.path.join(self.rootFolder, 'resources', 'settings.xml')
         self.profilePath = common.profilePath
         self.pluginDBFile = os.path.join(self.profilePath, 'pluginDB')
+
         log(LOGMESSAGE + ' -> [pluginHandler]: profile folder: %s' % self.profilePath, LOGNOTICE)
         log(LOGMESSAGE + ' -> [pluginHandler]: root folder: %s' % self.rootFolder, LOGNOTICE)
         self.defaultFolder = os.path.join(self.rootFolder, 'sites')
@@ -39,7 +40,7 @@ class cPluginHandler:
             except OSError:
                 modTime = 0
             if fileName not in pluginDB or modTime > plugin['modified']:
-                log(LOGMESSAGE + ' -> [pluginHandler]: load plugin: ' + str(fileName), LOGNOTICE)
+                log(LOGMESSAGE + ' -> [pluginHandler]: load plugin Informations for ' + str(fileName), LOGNOTICE)
                 # try to import plugin
                 pluginData = self.__getPluginData(fileName, self.defaultFolder)
                 if pluginData:
@@ -138,7 +139,7 @@ class cPluginHandler:
                 subEl = ET.SubElement(pluginElem, 'setting', attrib)
                 subEl.tail = '\n        '
                 #Prüfen ob der Parameter SITE_GLOBAL_SEARCH auf False steht, wenn ja, ausblenden
-                if plugin['globalsearch'] == False :
+                if plugin['globalsearch'] == False:
                     attrib = {'default': str(plugin['globalsearch']).lower(), 'type': 'bool'}
                     attrib['id'] = 'global_search_%s' % pluginID
                     attrib['label'] = '30052'

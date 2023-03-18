@@ -18,7 +18,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'flimmerstube'
 SITE_NAME = 'Flimmerstube'
 SITE_ICON = 'flimmerstube.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'flimmerstube.com')
 URL_MAIN = 'http://' + DOMAIN
 #URL_MAIN = 'http://flimmerstube.com'
@@ -57,7 +63,8 @@ def showGenre():
     entryUrl = params.getValue('sUrl')
     #sHtmlContent = cRequestHandler(entryUrl).request()
     oRequest = cRequestHandler(entryUrl)
-    oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<a[^>]class=[^>]catName[^>][^>]href="([^"]+)"[^>]>([^"]+)</a>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
@@ -76,7 +83,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     if sSearchText:
         oRequest.addHeaderEntry('Referer', entryUrl)
         oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')

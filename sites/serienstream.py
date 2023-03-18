@@ -12,9 +12,7 @@
 # 2022-12-06 Heptamer - Suchfunktion überarbeitet
 
 import xbmcgui
-import time
 
-from operator import truediv
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -25,7 +23,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'serienstream'
 SITE_NAME = 'SerienStream'
 SITE_ICON = 'serienstream.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 domain = cConfig().getSetting('plugin_serienstream.domain') # Domain Auswahl über die xStream Einstellungen möglich
 #URL_MAIN = 'https://s.to/'
 if domain == "190.115.18.20":
@@ -71,7 +75,8 @@ def showValue():
     sUrl = params.getValue('sUrl')
     #sHtmlContent = cRequestHandler(sUrl).request()
     oRequest = cRequestHandler(sUrl)
-    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
     sHtmlContent = oRequest.request()
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, '<ul[^>]*class="%s"[^>]*>(.*?)<\\/ul>' % params.getValue('sCont'))
     if isMatch:
@@ -93,7 +98,8 @@ def showAllSeries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     #sHtmlContent = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False)).request()
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
     sHtmlContent = oRequest.request()
     pattern = '<a[^>]*href="(\\/serie\\/[^"]*)"[^>]*>(.*?)</a>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
@@ -150,7 +156,8 @@ def showEntries(entryUrl=False, sGui=False):
     if not entryUrl:
         entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<div[^>]*class="col-md-[^"]*"[^>]*>.*?'  # start element
     pattern += '<a[^>]*href="([^"]*)"[^>]*>.*?'  # url
@@ -232,7 +239,8 @@ def showEpisodes():
         sSeason = '0'
     isMovieList = sUrl.endswith('filme')
     oRequest = cRequestHandler(sUrl)
-    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<table[^>]*class="seasonEpisodesList"[^>]*>(.*?)<\\/table>'
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
@@ -366,8 +374,8 @@ def SSsearch(sGui=False, sSearchText=False):
     oRequest.addHeaderEntry('Origin', 'https://s.to')
     oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
-
-    oRequest.cacheTime = 60 * 60 * 24  # HTML Cache Zeit 1 Tag
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24  # HTML Cache Zeit 1 Tag
     sHtmlContent = oRequest.request()
     if not sHtmlContent:
             return
@@ -402,6 +410,7 @@ def SSsearch(sGui=False, sSearchText=False):
 
 
 def getMetaInfo(link, title):   # Setzen von Metadata in Suche:
+    oGui = cGui()
     oRequest = cRequestHandler(URL_MAIN + link, caching=False)
     oRequest.addHeaderEntry('X-Requested-With', 'XMLHttpRequest')
     oRequest.addHeaderEntry('Referer', 'https://s.to/serien')

@@ -43,4 +43,3 @@ class cConfig:
                 log('[xStream] -> [isblockedHoster]: In resolveUrl no domain for url: %s' % domain, LOGWARNING)
                 return True, domain    # Domain nicht in resolveUrl gefunden
         return False, domain
-        

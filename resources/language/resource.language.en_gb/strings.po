@@ -910,7 +910,7 @@ msgid "Your ISP censors your Internet access"
 msgstr ""
 
 msgctxt "#30261"
-msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. "Change Fritzbox DNS Server""
+msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. 'Change Fritzbox DNS Server'"
 msgstr ""
 
 msgctxt "#30262"
@@ -973,6 +973,15 @@ msgctxt "#30276"
 msgid "Show changelog now"
 msgstr ""
 
+msgctxt "#30277"
+msgid "Automatic update the domain & global search"
+msgstr ""
+
+msgctxt "#30278"
+msgid "Currently used domain"
+msgstr ""
+
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr ""
@@ -1016,6 +1025,9 @@ msgstr ""
 msgctxt "#30404"
 msgid "Exclude specific hosters (separate with a comma)"
 msgstr ""
+
+
+
 
 ############### Scaper Language ###############
 

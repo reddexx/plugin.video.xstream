@@ -16,7 +16,13 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kino'
 SITE_NAME = 'Kino'
 SITE_ICON = 'kino_ws.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kino.ws')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://kino.ws/'
@@ -66,7 +72,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = 'class="film-.*?'  # container start
     pattern += '#">([^"]+)</a>.*?'  # Quali
@@ -105,7 +112,8 @@ def showEpisodes():
     entryUrl = params.getValue('entryUrl')
     sThumbnail = params.getValue('sThumbnail')
     oRequest = cRequestHandler(entryUrl)
-    oRequest.cacheTime = 60 * 60 * 4  # 4 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # 4 Stunden
     sHtmlContent = oRequest.request()
     pattern = 'id="episode(\d+)' # d fügt Anzahl der Episoden hinzu
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)

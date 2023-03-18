@@ -14,11 +14,16 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-
 SITE_IDENTIFIER = 'cinemathek'
 SITE_NAME = 'Cinemathek'
 SITE_ICON = 'cinemathek.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'cinemathek.net')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://cinemathek.net/'
@@ -48,7 +53,8 @@ def showGenre():
     params = ParameterHandler()
     sUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(sUrl)
-    oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-243">.*?</ul>'
     isMatch, aResult = cParser.parseSingleResult(sHtmlContent, '<li class="menu-item menu-item-type-taxonomy.*?href="(https[^"]+).*?>([^<]+)')
@@ -67,7 +73,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False    
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=sGui is not False)
-    oRequest.cacheTime = 60 * 60 * 6  # HTML Cache Zeit 6 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # HTML Cache Zeit 6 Stunden
     sHtmlContent = oRequest.request()
     # Für Filme und Serien Content
     pattern = '<article id=.*?'  # container start
@@ -158,7 +165,8 @@ def showEpisodes(): # einfache Abfrage wird wenn es mal funktioniert erweitert f
     sSeason = params.getValue('Season')
     #sHtmlContent = cRequestHandler(entryUrl).request()
     oRequest = cRequestHandler(entryUrl)
-    oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
     pattern = '>Staffel %s <i>.*?</ul>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)

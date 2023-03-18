@@ -2,14 +2,11 @@
 # Python 3
 
 import xbmc
-import xbmcaddon
 import xbmcgui
-import os
-import string
-import sys
 import hashlib
 import re
 import platform
+
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib import common
@@ -19,7 +16,6 @@ from xbmcaddon import Addon
 from xbmcgui import Dialog
 from urllib.parse import quote, unquote, quote_plus, unquote_plus, urlparse
 from html.entities import name2codepoint
-
 
 def platform(): # Aufgeführte Plattformen zum Anzeigen der Systemplattform
     if xbmc.getCondVisibility('system.platform.android'):
@@ -53,7 +49,7 @@ def platform(): # Aufgeführte Plattformen zum Anzeigen der Systemplattform
 def pluginInfo(): # Plugin Support Informationen
     BUILD = (xbmc.getInfoLabel('System.BuildVersion')[:4])
     BUILDCODE = xbmc.getInfoLabel('System.BuildVersionCode')
-    SYS_FORM = cConfig().getLocalizedString(30266) 
+    SYS_FORM = cConfig().getLocalizedString(30266)
     PLUGIN_NAME = Addon().getAddonInfo('name')
     PLUGIN_ID = Addon().getAddonInfo('id')
     PLUGIN_VERSION = Addon().getAddonInfo('version')
@@ -64,9 +60,16 @@ def pluginInfo(): # Plugin Support Informationen
     RESOLVER_ID = Addon('script.module.resolveurl').getAddonInfo('id')
     RESOLVER_VERSION = Addon('script.module.resolveurl').getAddonInfo('version')
 
-    Dialog().ok(cConfig().getLocalizedString(30265), 'Kodi Version:' + '                ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n' + SYS_FORM + '        {0}'.format (platform().title()) + '\n' + PLUGIN_NAME + ' Version:          ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n' + RESOLVER_NAME + ' Version:    ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n' + PLUGIN_REPO_NAME + ':     ' +  PLUGIN_REPO_ID  + ' - ' + PLUGIN_REPO_VERSION + '\n')
+    Dialog().textviewer(cConfig().getLocalizedString(30265),
+                '[B][I]Geräteinformationen:[/I][/B]\n'
+                'Kodi Version:   ' + BUILD + ' (Code Version: ' + BUILDCODE + ') '+ '\n'
+                + SYS_FORM + '   {0}'.format (platform().title()) + '\n'
+                + PLUGIN_NAME + ' Version:   ' +  PLUGIN_ID  + ' - ' + PLUGIN_VERSION + '\n'
+                + RESOLVER_NAME + ' Version:   ' +  RESOLVER_ID  + ' - ' + RESOLVER_VERSION + '\n'
+                + PLUGIN_REPO_NAME + ':   ' +  PLUGIN_REPO_ID  + ' - ' + PLUGIN_REPO_VERSION + '\n'
+                )
 
- 
+
 def textBox(heading, announce):
     class TextBox():
 
@@ -232,7 +235,7 @@ class cUtil:
         return p.sub(sReplace, sValue)
 
     @staticmethod
-    def unescape(text):
+    def unescape(text): #Todo hier werden Fehler angezeigt
         def fixup(m):
             text = m.group(0)
             if not text.endswith(';'): text += ';'

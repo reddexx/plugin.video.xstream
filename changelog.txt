@@ -1,4 +1,11 @@
-[B]Version: 4.0.4~Nightly14[/B]
+[B]Version: 4.0.4~Nightly15[/B]
+
+18.03.2023
+
+ - [service] Funktionen überarbeitet
+ - [Siteplugings] Cache für deaktivierte Sitplugins deaktiviert
+ 
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 15.03.2023
 
