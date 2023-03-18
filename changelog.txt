@@ -4,6 +4,7 @@
 
  - [service] Funktionen überarbeitet
  - [Siteplugings] Cache für deaktivierte Sitplugins deaktiviert
+ - [language] überarbeitet und Fehler entfernt
  
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
