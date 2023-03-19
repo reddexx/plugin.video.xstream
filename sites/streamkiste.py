@@ -5,7 +5,7 @@
     #showGenre:     48 Stunden
     #showYears:     48 Stunden
     #showEpisodes:   4 Stunden
-# 2022-02-01 Hep
+# 2023-03-19 Hep
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
