@@ -948,8 +948,7 @@
 					<control type="spinner" format="string"/>
 				</setting>
 			</group>
-
-			<group id="plugin_streamkiste" label="30718">
+			<group id="plugin_streamkiste" label="30724">
 				<setting id="plugin_streamkiste" type="boolean" label="30050" help="">
 					<level>0</level>
                     <default>True</default>
@@ -988,8 +987,6 @@
 					</control>
 				</setting>
 			</group>
-
-
 			<group id="plugin_streamworld" label="30715">
 				<setting id="plugin_streamworld" type="boolean" label="30050" help="">
 					<level>0</level>

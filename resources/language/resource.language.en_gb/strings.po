@@ -1284,3 +1284,7 @@ msgstr ""
 msgctxt "#30723"
 msgid "Movie2k"
 msgstr ""
+
+msgctxt "#30724"
+msgid "Streamkiste"
+msgstr ""
