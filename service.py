@@ -130,7 +130,7 @@ def checkDomain(): #ToDo Domains aus dem jeweiligen Siteplugin lesen oder in der
     # Domains die wenig wechseln
     domains += [('kinofox', 'kinofox.su'), ('kino', 'kino.ws'), ('megakino', 'megakino.co'), ('movie2k', 'movie2k.at'), ('movieking', 'movieking.cc')]
     # Domains die häufig wechseln
-    domains += [('hdfilme', 'hdfilme.haus'), ('kkiste', 'kkiste.house'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.rocks'), ('xcine', 'xcine.click')]
+    domains += [('hdfilme', 'hdfilme.haus'), ('kkiste', 'kkiste.house'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.rocks'), ('xcine', 'xcine.click'), ('streamkiste', 'streamkiste.watch')]
 
    
     log(LOGMESSAGE + ' -> [checkDomain]: Query status code of the provider', LOGNOTICE)

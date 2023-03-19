@@ -1179,6 +1179,10 @@ msgctxt "#30537"
 msgid " (views)"
 msgstr " (Ansichten)"
 
+msgctxt "#30538"
+msgid " Country"
+msgstr " Land"
+
 ############### Site Plugins ###############
 
 msgctxt "#30700"

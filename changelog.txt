@@ -1,11 +1,16 @@
-[B]Version: 4.0.4~Nightly15[/B]
+[B]Version: 4.0.4~Nightly16[/B]
+
+19.03.2023
+
+ - [Streamkiste] Neues Siteplugin hinzugefügt, viel Spass!
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 18.03.2023
 
  - [service] Funktionen überarbeitet
  - [Siteplugings] Cache für deaktivierte Sitplugins deaktiviert
- - [language] überarbeitet und Fehler entfernt
-    
+ 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 15.03.2023
