@@ -9,10 +9,10 @@ import os
 import sys
 
 from resources.lib.config import cConfig
-from resources.lib.tools import logger
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, LOGWARNING, log, executebuiltin, getCondVisibility, getInfoLabel
 from resources.lib import common
 
-
+LOGMESSAGE = cConfig().getLocalizedString(30166)
 class cPluginHandler:
     def __init__(self):
         self.addon = common.addon
@@ -20,10 +20,11 @@ class cPluginHandler:
         self.settingsFile = os.path.join(self.rootFolder, 'resources', 'settings.xml')
         self.profilePath = common.profilePath
         self.pluginDBFile = os.path.join(self.profilePath, 'pluginDB')
-        logger.info('profile folder: %s' % self.profilePath)
-        logger.info('root folder: %s' % self.rootFolder)
+
+        log(LOGMESSAGE + ' -> [pluginHandler]: profile folder: %s' % self.profilePath, LOGNOTICE)
+        log(LOGMESSAGE + ' -> [pluginHandler]: root folder: %s' % self.rootFolder, LOGNOTICE)
         self.defaultFolder = os.path.join(self.rootFolder, 'sites')
-        logger.info('default sites folder: %s' % self.defaultFolder)
+        log(LOGMESSAGE + ' -> [pluginHandler]: default sites folder: %s' % self.defaultFolder, LOGNOTICE)
 
     def getAvailablePlugins(self):
         pluginDB = self.__getPluginDB()
@@ -39,7 +40,7 @@ class cPluginHandler:
             except OSError:
                 modTime = 0
             if fileName not in pluginDB or modTime > plugin['modified']:
-                logger.info('load plugin: ' + str(fileName))
+                log(LOGMESSAGE + ' -> [pluginHandler]: load plugin Informations for ' + str(fileName), LOGNOTICE)
                 # try to import plugin
                 pluginData = self.__getPluginData(fileName, self.defaultFolder)
                 if pluginData:
@@ -89,7 +90,7 @@ class cPluginHandler:
         try:
             data = json.load(file)
         except ValueError:
-            logger.error('pluginDB seems corrupt, creating new one')
+            log(LOGMESSAGE + ' -> [pluginHandler]: pluginDB seems corrupt, creating new one', LOGERROR)
             data = dict()
         file.close()
         return data
@@ -120,7 +121,7 @@ class cPluginHandler:
                     pluginElem = elem
                     break
             if pluginElem is None:
-                logger.error('could not update settings, pluginElement not found')
+                log(LOGMESSAGE + ' -> [pluginHandler]: could not update settings, pluginElement not found', LOGERROR)
                 return False
             pluginElements = pluginElem.findall('setting')
             for elem in pluginElements:
@@ -138,7 +139,7 @@ class cPluginHandler:
                 subEl = ET.SubElement(pluginElem, 'setting', attrib)
                 subEl.tail = '\n        '
                 #Prüfen ob der Parameter SITE_GLOBAL_SEARCH auf False steht, wenn ja, ausblenden
-                if plugin['globalsearch'] == False :
+                if plugin['globalsearch'] == False:
                     attrib = {'default': str(plugin['globalsearch']).lower(), 'type': 'bool'}
                     attrib['id'] = 'global_search_%s' % pluginID
                     attrib['label'] = '30052'
@@ -158,7 +159,7 @@ class cPluginHandler:
                     try:
                         customSettings = ET.XML(xmlString % plugin['settings']).findall('setting')
                     except Exception:
-                        logger.error('Parsing of custom settings for % failed.' % plugin['name'])
+                        log(LOGMESSAGE + ' -> [pluginHandler]: Parsing of custom settings for % failed.' % plugin['name'], LOGERROR)
                     for setting in customSettings:
                         setting.tail = '\n        '
                         pluginElem.append(setting)
@@ -168,7 +169,7 @@ class cPluginHandler:
             try:
                 ET.dump(pluginElem)
             except Exception:
-                logger.error('Settings update failed')
+                log(LOGMESSAGE + ' -> [pluginHandler]: Settings update failed', LOGERROR)
                 return
             tree.write(self.settingsFile)
 
@@ -188,7 +189,7 @@ class cPluginHandler:
             plugin = __import__(fileName, globals(), locals())
             pluginData['name'] = plugin.SITE_NAME
         except Exception as e:
-            logger.error("Can't import plugin: %s" % fileName)
+            log(LOGMESSAGE + " -> [pluginHandler]: Can't import plugin: %s" % fileName, LOGERROR)
             return False
         try:
             pluginData['icon'] = plugin.SITE_ICON

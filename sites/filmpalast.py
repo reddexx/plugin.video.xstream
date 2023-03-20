@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
+# Sprachauswahl für Filme
+# HTML LangzeitCache hinzugefügt
+    #showValue:     24 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -9,12 +14,19 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-
-SITE_IDENTIFIER = 'filmpalast_to'
+SITE_IDENTIFIER = 'filmpalast'
 SITE_NAME = 'FilmPalast'
 SITE_ICON = 'filmpalast.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://filmpalast.to'
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'filmpalast.to')
+URL_MAIN = 'https://' + DOMAIN
+#URL_MAIN = 'https://filmpalast.to'
 URL_MOVIES = URL_MAIN + '/movies/%s'
 URL_SERIES = URL_MAIN + '/serien/view'
 URL_ENGLISH = URL_MAIN + '/search/genre/Englisch'
@@ -34,20 +46,30 @@ def load(): # Menu structure of the site plugin
 
 def showMovieMenu():    # Menu structure of movie menu
     params = ParameterHandler()
-    params.setParam('sUrl', URL_MOVIES % 'new')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)   # New
-    params.setParam('sUrl', URL_MOVIES % 'top')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30509), SITE_IDENTIFIER, 'showEntries'), params)  # Top movies
-    params.setParam('sUrl', URL_MOVIES % 'imdb')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30510), SITE_IDENTIFIER, 'showEntries'), params) # IMDB rating
-    params.setParam('sUrl', URL_ENGLISH)
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
-    params.setParam('sUrl', URL_MOVIES % 'new')
-    params.setParam('value', 'genre')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
-    params.setParam('value', 'movietitle')
-    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
-    cGui().setEndOfDirectory()
+    sLanguage = cConfig().getSetting('prefLanguage')
+    if sLanguage == '0' or '1':    # Alle Sprachen oder Deutsch
+        params.setParam('sUrl', URL_MOVIES % 'new')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30500), SITE_IDENTIFIER, 'showEntries'), params)   # New
+        params.setParam('sUrl', URL_MOVIES % 'top')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30509), SITE_IDENTIFIER, 'showEntries'), params)  # Top movies
+        params.setParam('sUrl', URL_MOVIES % 'imdb')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30510), SITE_IDENTIFIER, 'showEntries'), params) # IMDB rating
+        if sLanguage == '0': # Nur bei Alle Sprachen
+            params.setParam('sUrl', URL_ENGLISH)
+            cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
+        params.setParam('sUrl', URL_MOVIES % 'new')
+        params.setParam('value', 'genre')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30506), SITE_IDENTIFIER, 'showValue'), params)    # Genre
+        params.setParam('value', 'movietitle')
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30517), SITE_IDENTIFIER, 'showValue'), params)  # From A-Z
+        cGui().setEndOfDirectory()
+    if sLanguage == '2':    # English
+        params.setParam('sUrl', URL_ENGLISH)
+        cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30104), SITE_IDENTIFIER, 'showEntries'), params) # English
+        cGui().setEndOfDirectory()
+    elif sLanguage == '3':    # Japanisch
+        cGui().showLanguage()
+        cGui().setEndOfDirectory()
 
 
 def showSeriesMenu():   # Menu structure of series menu
@@ -62,7 +84,11 @@ def showSeriesMenu():   # Menu structure of series menu
 def showValue():
     params = ParameterHandler()
     value = params.getValue("value")
-    sHtmlContent = cRequestHandler(params.getValue('sUrl')).request()
+    #sHtmlContent = cRequestHandler(params.getValue('sUrl')).request()
+    oRequest = cRequestHandler(params.getValue('sUrl'))
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    sHtmlContent = oRequest.request()
     pattern = '<section[^>]id="%s">(.*?)</section>' % value
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -72,6 +98,7 @@ def showValue():
         return
 
     for sUrl, sName in aResult:
+        sUrl = sUrl.replace('ö', '&#xF6') # Fix für Genre Komödie #Todo global setzten
         params.setParam('sUrl', sUrl)
         cGui().addFolder(cGuiElement(sName, SITE_IDENTIFIER, 'showEntries'), params)
     cGui().setEndOfDirectory()
@@ -82,6 +109,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     # will match movies from first page (filmpalast.to)
     pattern = '<article[^>]*>\s*<a href="([^"]+)" title="([^"]+)">\s*<img src=["\']([^"\']+)["\'][^>]*>(.*?)</article>'
@@ -172,7 +201,11 @@ def showEpisodes():
     sThumbnail = params.getValue("sThumbnail")
     sSeason = params.getValue('season')
     sShowName = params.getValue('TVShowTitle')
-    sHtmlContent = cRequestHandler(sUrl).request()
+    #sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()
     pattern = '<div[^>]*class="staffelWrapperLoop[^"]*"[^>]*data-sid="%s">(.*?)</ul></div>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if not isMatch:
@@ -185,7 +218,7 @@ def showEpisodes():
     total = len(aResult)
     for sUrl in aResult:
         isMatch, sName = cParser.parseSingleResult(sUrl, 'e(\d+)')
-        oGuiElement = cGuiElement('Folge ' + str(sName), SITE_IDENTIFIER, 'showHosters')
+        oGuiElement = cGuiElement('Episode ' + str(sName), SITE_IDENTIFIER, 'showHosters')
         oGuiElement.setThumbnail(sThumbnail)
         oGuiElement.setTVShowTitle(sShowName)
         oGuiElement.setSeason(sSeason)
@@ -211,7 +244,7 @@ def showHosters():
     if isMatch:
         for sName, sUrl in aResult:
             hoster = sName.strip(' HD')
-            if cConfig().isBlockedHoster(hoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(hoster)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
     if hosters:

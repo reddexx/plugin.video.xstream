@@ -2,7 +2,6 @@
 # Python 3
 # Always pay attention to the translations in the menu!
 
-import sys
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,11 +11,19 @@ from resources.lib.gui.gui import cGui
 from resources.lib.config import cConfig
 from json import loads
 
-SITE_IDENTIFIER = 'kinox_to'
+SITE_IDENTIFIER = 'kinox'
 SITE_NAME = 'KinoX'
 SITE_ICON = 'kinox.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = str(cConfig().getSetting('kinox-domain', 'https://www15.kinoz.to'))
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'www15.kinoz.to')
+URL_MAIN = 'https://' + DOMAIN
+#URL_MAIN = 'https://www15.kinoz.to'
 URL_NEWS = URL_MAIN + '/index.php'
 URL_CINEMA_PAGE = URL_MAIN + '/Kino-Filme.html'
 URL_GENRE_PAGE = URL_MAIN + '/Genre.html'
@@ -35,46 +42,10 @@ URL_AJAX = URL_MAIN + '/aGET/List/'
 URL_LANGUAGE = URL_MAIN + '/aSET/PageLang/1'
 
 
-def checkDomain():
-    KD = 'https://kinoz.to', 'https://kinos.to', 'https://kinox.tv', 'https://kinox.io', 'https://kinox.am', 'https://kinox.sx', 'https://kinox.bz', 'https://kinox.gratis', 'https://kinox.mobi', 'https://kinox.sh', 'https://kinox.lol', 'https://kinox.wtf', 'https://kinox.fun', 'https://kinox.fyi', 'https://kinox.cloud', 'https://kinox.to', 'https://kinox.click', 'https://kinox.tube', 'https://kinox.club', 'https://kinox.digital', 'https://kinox.direct', 'https://kinox.pub', 'https://kinox.express', 'https://kinox.me'
-    import time
-    if int(cConfig().getSetting('kinoxhourblock', 0)) + 3600 < time.time():
-        i = 0
-        for sUrl in KD:
-            i = i + 1
-            if i == len(KD):
-                cConfig().setSetting('kinoxhourblock', str(time.time() + 3600))
-            oRequest = cRequestHandler(sUrl, caching=False)
-            oRequest.request()
-            st = str(oRequest.getStatus())
-            if st == '403':
-                continue
-            if st == '503':
-                continue
-            if oRequest.getStatus() == '301':
-                rurl = oRequest.getRealUrl()
-                oRequest = cRequestHandler(rurl, caching=False)
-                oRequest.request()
-                st = str(oRequest.getStatus())
-            if st == '200':
-                url = oRequest.getRealUrl()
-                if not url.startswith('http'):
-                    url = 'https://' + url
-                cConfig().setSetting('kinox-domain', str(url))
-                break
-        return st
-    return 403
-
-
 def load(): # Menu structure of the site plugin
     logger.info('Load %s' % SITE_NAME)
     parms = ParameterHandler()
     oGui = cGui()
-    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
-    oRequest.request()
-    st = str(oRequest.getStatus())
-    if not st == '200':
-        checkDomain()
     parms.setParam('sUrl', URL_NEWS)
     parms.setParam('page', 1)
     parms.setParam('mediaType', 'news')
@@ -606,7 +577,7 @@ def showHosters():
     if aResult[0]:
         for aEntry in aResult[1]:
             sHoster = aEntry[1]
-            if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sHoster)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             pattern = '<b>Mirror</b>: [0-9]+/([0-9]+)'
             aResult = cParser().parse(aEntry[2], pattern)
             mirrors = 1

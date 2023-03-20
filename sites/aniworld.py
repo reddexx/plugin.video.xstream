@@ -3,9 +3,14 @@
 # Always pay attention to the translations in the menu!
 # Sprachauswahl für Hoster enthalten.
 # Ajax Suchfunktion enthalten.
-
+# HTML LangzeitCache hinzugefügt
+    #showValue:     24 Stunden
+    #showAllSeries: 24 Stunden
+    #showEpisodes:   4 Stunden
+    #SSsearch:      24 Stunden
+    
 import xbmcgui
-import time
+
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -13,14 +18,20 @@ from resources.lib.tools import logger, cParser
 from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
-from resources.lib.jsnprotect import cHelper
-
 
 SITE_IDENTIFIER = 'aniworld'
 SITE_NAME = 'AniWorld'
 SITE_ICON = 'aniworld.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://aniworld.to'
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'aniworld.to')
+URL_MAIN = 'https://' + DOMAIN
+#URL_MAIN = 'https://aniworld.to'
 URL_SERIES = URL_MAIN + '/animes'
 URL_POPULAR = URL_MAIN + '/beliebte-animes'
 URL_LOGIN = URL_MAIN + '/login'
@@ -50,7 +61,11 @@ def load(): # Menu structure of the site plugin
 def showValue():
     params = ParameterHandler()
     sUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(sUrl).request()
+    #sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    sHtmlContent = oRequest.request()
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, '<ul[^>]*class="%s"[^>]*>(.*?)<\\/ul>' % params.getValue('sCont'))
     if isMatch:
         isMatch, aResult = cParser.parse(sContainer, '<li>\s*<a[^>]*href="([^"]*)"[^>]*>(.*?)<\\/a>\s*<\\/li>')
@@ -69,7 +84,11 @@ def showAllSeries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False)).request()
+    #sHtmlContent = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False)).request()
+    oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag
+    sHtmlContent = oRequest.request()
     pattern = '<a[^>]*href="(\\/anime\\/[^"]*)"[^>]*>(.*?)</a>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
@@ -96,6 +115,8 @@ def showEntries(entryUrl=False, sGui=False):
     if not entryUrl:
         entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<div[^>]*class="col-md-[^"]*"[^>]*>.*?'  # start element
     pattern += '<a[^>]*href="([^"]*)"[^>]*>.*?'  # url
@@ -178,6 +199,8 @@ def showEpisodes():
         sSeason = '0'
     isMovieList = sUrl.endswith('filme')
     oRequest = cRequestHandler(sUrl)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<table[^>]*class="seasonEpisodesList"[^>]*>(.*?)<\\/table>'
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
@@ -220,7 +243,10 @@ def showHosters():
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if isMatch:
         for sLangCode, sUrl, sName, sQualy in aResult:
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            # Die Funktion gibt 2 werte zurück!
+            # element 1 aus array "[0]" True bzw. False
+            # element 2 aus array "[1]" Name von domain / hoster - wird hier nicht gebraucht!
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             sLanguage = cConfig().getSetting('prefLanguage') 
             if sLanguage == '1':        # Voreingestellte Sprache Deutsch in settings.xml
                 if '2' in sLangCode:    # data-lang-key="2"
@@ -253,7 +279,11 @@ def showHosters():
                 sQualy = 'HD'
             else:
                 sQualy = 'SD'
-            hoster = {'link': sUrl, 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
+                # Ab hier wird der sName mit abgefragt z.B:
+                # aus dem Log [serienstream]: ['/redirect/12286260', 'VOE']
+                # hier ist die sUrl = '/redirect/12286260' und der sName 'VOE'
+                # hoster.py 194
+            hoster = {'link': [sUrl, sName], 'name': sName, 'displayedName': '%s %s %s' % (sName, sQualy, sLang),
                       'languageCode': sLangCode}    # Language Code für hoster.py Sprache Prio
             hosters.append(hoster)
         if hosters:
@@ -263,7 +293,8 @@ def showHosters():
         return hosters
 
 
-def getHosterUrl(sUrl=False):
+def getHosterUrl(hUrl):
+    if type(hUrl) == str: hUrl = eval(hUrl)
     username = cConfig().getSetting('aniworld.user')
     password = cConfig().getSetting('aniworld.pass')
     Handler = cRequestHandler(URL_LOGIN, caching=False)
@@ -272,11 +303,19 @@ def getHosterUrl(sUrl=False):
     Handler.addParameters('email', username)
     Handler.addParameters('password', password)
     Handler.request()
-    Request = cRequestHandler(URL_MAIN + sUrl, caching=False)
+    Request = cRequestHandler(URL_MAIN + hUrl[0], caching=False)
     Request.addHeaderEntry('Referer', ParameterHandler().getValue('entryUrl'))
     Request.addHeaderEntry('Upgrade-Insecure-Requests', '1')
     Request.request()
-    return [{'streamUrl': Request.getRealUrl(), 'resolved': False}]
+    sUrl = Request.getRealUrl()
+
+    if 'voe' in hUrl[1].lower():
+        isBlocked, sDomain = cConfig().isBlockedHoster(sUrl)  # Die funktion gibt 2 werte zurück!
+        if isBlocked:  # Voe Pseudo sDomain nicht bekannt in resolveUrl
+            sUrl = sUrl.replace(sDomain, 'voe.sx')
+            return [{'streamUrl': sUrl, 'resolved': False}]
+
+    return [{'streamUrl': sUrl, 'resolved': False}]
 
 
 def showSearch():
@@ -302,6 +341,7 @@ def SSsearch(sGui=False, sSearchText=False):
     oRequest.addHeaderEntry('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     oRequest.addHeaderEntry('Upgrade-Insecure-Requests', '1')
 
+    oRequest.cacheTime = 60 * 60 * 24  # HTML Cache Zeit 1 Tag
     sHtmlContent = oRequest.request()
 
     if not sHtmlContent:

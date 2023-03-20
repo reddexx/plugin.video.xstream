@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
+# HTML LangzeitCache hinzugefügt
+    #showGenre:     48 Stunden
+    #showEntries:    6 Stunden
 
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
@@ -12,8 +15,16 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'kinofox'
 SITE_NAME = 'KinoFox'
 SITE_ICON = 'kinofox.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://kinofox.su'
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'kinofox.su')
+URL_MAIN = 'https://' + DOMAIN
+#URL_MAIN = 'https://kinofox.su'
 URL_SEARCH = URL_MAIN + '/index.php?do=search'
 
 
@@ -32,7 +43,11 @@ def load(): # Menu structure of the site plugin
 
 def showValue():
     params = ParameterHandler()
-    sHtmlContent = cRequestHandler(URL_MAIN).request()
+    #sHtmlContent = cRequestHandler(URL_MAIN).request()
+    oRequest = cRequestHandler(URL_MAIN)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
+    sHtmlContent = oRequest.request()
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, 'nav-title">%s<.*?</ul>' % params.getValue('sCont'))
     if isMatch:
         pattern = ' href="([^"]+)">([^<]+)'
@@ -78,8 +93,9 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
-
     oRequest = cRequestHandler(entryUrl, ignoreErrors=sGui is not False)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     if sSearchText:
         oRequest.addParameters('do', 'search')
         oRequest.addParameters('subaction', 'search')
@@ -100,6 +116,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         if sSearchText and not cParser().search(sSearchText, sName):
             continue
         if 'taffel' in sName:
+            continue
+        if 'railer' in sQuality:
             continue
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showHosters')
         oGuiElement.setQuality(sQuality)
@@ -127,7 +145,7 @@ def showHosters():
     if isMatch:
         for sUrl in aResult:
             sName = cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen            
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': cParser.urlparse(sUrl)}
             hosters.append(hoster)
     if hosters:

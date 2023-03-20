@@ -1,43 +1,69 @@
-[B]Version: 4.0.3~Release[/B]
+[B]Version: 4.0.4~Release[/B]
 
-[COLOR red] Achtung Neustart durchführen und für die Release Updater Sprache in den Einstellungen von xStream einstellen!!![/COLOR]
+13.02.2023 - 20.03.2023
 
-04.01.2023 - 13.02.2023
-
- - [hoster.py] Hotfix für Cinemathek: aktives Autoplay oder Sortierung zeigt keine Hoster an
- - [Cinemathek] hinzugefügt (Neustart erforderlich)
- - [Dokus4] Plugin Abfrage überarbeitet
- - [HDFilme] Domain Update und Blocked Hoster Funktion hinzugefügt
- - [Kinofox] Blocked Hoster Funktion hinzugefügt
- - [Kinokiste] Blocked Hoster Funktion hinzugefügt
- - [KKiste] Domain Update und Blocked Hoster Funktion hinzugefügt
- - [xCine] Blocked Hoster Funktion hinzugefügt
- - [Aniworld] Blocked Hoster Funktion hinzugefügt
- - [Filmpalast] Blocked Hoster Funktion hinzugefügt
- - [Megakino] Blocked Hoster Funktion hinzugefügt
- - [Movie4k] Blocked Hoster Funktion hinzugefügt
- - [Movieking] Blocked Hoster Funktion hinzugefügt
- - [s.to] Blocked Hoster Funktion hinzugefügt
- - [Hoster] Hinzufügen der Priorität für Sprache THX @Cubikon für deine Hilfe
- - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
- - [Kinox] Anpassung der prefLang an den Einstellungen
- - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
- - [Aniworld] Anpassung der Sprache für Hoster in den Einstellungen
- - [Kinox] Anpassung der prefLang an den Einstellungen
- - [s.to] Anpassung der Sprache für Hoster in den Einstellungen
- - [Kinomax] Domain update
- - [kkiste] Domain update
- - [Flimmerstube] Fix neuer Hoster - benötigt zwingend den aktuellen ResolveUrl
- - [Flimmerstube] Globale Suche kann in den Einstellungen aktiviert und genutzt werden
- - [Megakino] Fix neuer Hoster Megakino, benötigt zwingend einen aktuellen ResolveUrl
- - [MovieKing] Fix Qualität Anzeige (Leerzeichen entfernt)
- - [hoster.py] Priorisierung der Hoster (ResolveUrl) und Autoplay korrigiert
- - [s.to] überflüssigen Code entfernt 
- - [Aniworld] Update Suchfunktion Source von SerienStream
- - [s.to] Update Suchfunktion - thx to Suuhm 4 input :)
- - [KinoGer] Hoster KinoGer.pw fixed
- - [Gui.py] Hoster Auswahl (Bei auto. Abspielen) gefixt
- - [Tools.py] xStream Repository in Supportinformationen aufgenommen
+ - [Streamcloud] Neues Site plugin
+ - [Streamkiste] Neues Siteplugin hinzugefügt, viel Spass!
+ - [service] Funktionen überarbeitet
+ - [Siteplugings] Cache für deaktivierte Sitplugins deaktiviert
+ - [Cinemathek] Hoster(Namen) und Sortierung nach Hoster funktioniert
+ - [hoster] Sortierung angepasst für Cinemathek
+ - [Kinoger] Kinoger.pw repariert
+ - [Megakino] MP4Player.site Hoster überarbeitet
+ - [language] string.po überarbeitet
+ - [hoster] Link Übergabe
+ - [Cinemathek] Beschreibungen hinzugefügt
+ - [KKiste] In Globale Suche wieder aktiv
+ - [xCine] Suche überarbeitet und GS wieder aktiviert
+ - [Movie4k] Suche überarbeitet
+ - [hoster] Fix Sortierung
+ - [Aniworld] und [Serienstream] Allgemeine Performanceverbesserungen
+ - [HDFilme] Sprachauswahl hinzugefügt
+ - [Kinokiste] Sprachauswahl hinzugefügt
+ - [KKiste] Sprachauswahl hinzugefügt
+ - [xCine] Sprachauswahl hinzugefügt
+ - [Movie2k] Sprachauswahl für globale Suche angepasst
+ - [Movie4k] regex fixed, Sprachauswahl hinzugefügt
+ - [Kinofox] Trailer entfernt
+ - [Logger] überarbeitet
+ - [Netzkino] fixed streams THX @mascarena
+ - Hotfix Globale Suche und Anpassung Funktion checkDomain
+ - Update Settings.xml
+ - [Netzkino] fixed streams THX @mascarena
+ - [isBlockedHoster] überarbeitet
+ - [checkDomain] als globale Funktion hinzugefügt
+ - [Siteplugins] alte checkDomain entfernt und neue hinzugefügt
+ - [Log Funktion] überarbeitet
+ - [Log] in verschiedene Funktionen hinzugefügt
+ - [Movie2k] neue(alte) Seite hinzugefügt
+ - Domain Überprüfung beim Start ist Seite nicht erreichbar wird sie deaktiviert
+ - [Filmpalast] Fix Genre Menüeintrag Komödie liess sich nicht mehr aufrufen
+ - [Kino] fix Episode 10+
+ - [Filmpalast] Fix Spracheintrag für Menüpunkt Filme
+ - [settings] Überarbeitung
+ - [Download] Überarbeitung der Downloadfunktion für SMB/NFS Pfade
+ - [Kino.ws] neue Seite hinzugefügt (Neustart erforderlich)
+ - [Kinokiste] Seite und Icon entfernt
+ - [Kinomax] Seite und Icon entfernt
+ - [Flimmerstube] Langzeit HTML Cache integriert
+ - [HDFilme] Langzeit HTML Cache integriert
+ - [Kinofox] Langzeit HTML Cache integriert
+ - [Kinokiste] Langzeit HTML Cache integriert
+ - [Kkiste] Langzeit HTML Cache integriert
+ - [Megakino] Langzeit HTML Cache integriert
+ - [Movie4k] Langzeit HTML Cache integriert
+ - [Movieking] Langzeit HTML Cache integriert
+ - [Streamworld] Langzeit HTML Cache integriert
+ - [xCine] Langzeit HTML Cache integriert
+ - [Kinoger] Fix Streamsb
+ - [HTML Cache] überarbeitet
+ - [Aniworld] Langzeit HTML Cache integriert incl. Suche
+ - [Cinemathek]	Langzeit HTML Cache integriert und Neue Folgen hinzugefügt
+ - [Filmpalast] Langzeit HTML Cache integriert und Filme an Sprache angepasst
+ - [s.to] Langzeit HTML Cache integriert incl. Suche
+ - [Movieking] Regex überarbeitet und weitere Hoster hinzugefügt
+ - [Cinemathek] Fix Serien, Regex für Suche und doppelte Einträge entfernt
+ - [guiElement} sYear zum Titel hinzugefügt (wenn vorhanden) THX @Kasi45
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 [I]*Editierhinweis: Text nicht länger als die Linie. Keine Tabulatoren verwenden![/I]

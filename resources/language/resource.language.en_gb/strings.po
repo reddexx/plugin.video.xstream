@@ -116,7 +116,7 @@ msgid "Hoster Settings"
 msgstr ""
 
 msgctxt "#30035"
-msgid "Network Settings"
+msgid "Network and Cache Settings"
 msgstr ""
 
 msgctxt "#30040"
@@ -526,16 +526,16 @@ msgid "Cancel"
 msgstr ""
 
 msgctxt "#30164"
-msgid ""
+msgid "Clear HTML cache after (X) day(s)"
 msgstr ""
 
 msgctxt "#30165"
-msgid ""
+msgid "Delete HTML cache now"
 msgstr ""
 
 msgctxt "#30166"
-msgid ""
-msgstr ""
+msgid "[xStream]"
+msgstr "[xStream]"
 
 msgctxt "#30167"
 msgid "Choose xStream Github Branch"
@@ -910,7 +910,7 @@ msgid "Your ISP censors your Internet access"
 msgstr ""
 
 msgctxt "#30261"
-msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. "Change Fritzbox DNS Server""
+msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. 'Change Fritzbox DNS Server'"
 msgstr ""
 
 msgctxt "#30262"
@@ -973,6 +973,15 @@ msgctxt "#30276"
 msgid "Show changelog now"
 msgstr ""
 
+msgctxt "#30277"
+msgid "Automatic update the domain & global search"
+msgstr ""
+
+msgctxt "#30278"
+msgid "Currently used domain"
+msgstr ""
+
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr ""
@@ -1010,8 +1019,15 @@ msgid "Countries"
 msgstr ""
 
 msgctxt "#30403"
-msgid "No hoster available in the selected language!"
+msgid "No entry available in the selected language!"
 msgstr ""
+
+msgctxt "#30404"
+msgid "Exclude specific hosters (separate with a comma)"
+msgstr ""
+
+
+
 
 ############### Scaper Language ###############
 
@@ -1128,15 +1144,47 @@ msgid "Exclude specific hosters (separate with a comma)"
 msgstr ""
 
 msgctxt "#30528"
-msgid ""
+msgid "Movies Genre"
 msgstr ""
 
 msgctxt "#30529"
-msgid ""
+msgid "Series Genre"
 msgstr ""
 
 msgctxt "#30530"
-msgid ""
+msgid " (featured)"
+msgstr ""
+
+msgctxt "#30531"
+msgid " (releases)"
+msgstr ""
+
+msgctxt "#30532"
+msgid " (trending)"
+msgstr ""
+
+msgctxt "#30533"
+msgid " (updates)"
+msgstr ""
+
+msgctxt "#30534"
+msgid " (requested)"
+msgstr ""
+
+msgctxt "#30535"
+msgid " (rating)"
+msgstr ""
+
+msgctxt "#30536"
+msgid " (votes)"
+msgstr ""
+
+msgctxt "#30537"
+msgid " (views)"
+msgstr ""
+
+msgctxt "#30538"
+msgid " Country"
 msgstr ""
 
 ############### Site Plugins ###############
@@ -1158,7 +1206,7 @@ msgid "Flimmerstube"
 msgstr ""
 
 msgctxt "#30704"
-msgid "HD-Filme Top"
+msgid "HD-Filme"
 msgstr ""
 
 msgctxt "#30705"
@@ -1166,11 +1214,11 @@ msgid "KinoFox"
 msgstr ""
 
 msgctxt "#30706"
-msgid "Kinokiste Tech"
+msgid "Kinokiste"
 msgstr ""
 
 msgctxt "#30707"
-msgid "Kinomax.me"
+msgid "Kino"
 msgstr ""
 
 msgctxt "#30708"
@@ -1186,7 +1234,7 @@ msgid "Megakino"
 msgstr ""
 
 msgctxt "#30711"
-msgid "Movie4k Click"
+msgid "Movie4k"
 msgstr ""
 
 msgctxt "#30712"
@@ -1206,7 +1254,7 @@ msgid "Streamworld"
 msgstr ""
 
 msgctxt "#30716"
-msgid "XCine Top"
+msgid "xCine"
 msgstr ""
 
 msgctxt "#30717"
@@ -1225,13 +1273,22 @@ msgctxt "#30720"
 msgid "Cinemathek"
 msgstr ""
 
+msgctxt "#30721"
+msgid "StreamCloud"
+msgstr ""
 
+msgctxt "#30722"
+msgid "Streamen"
+msgstr ""
 
+msgctxt "#30723"
+msgid "Movie2k"
+msgstr ""
 
+msgctxt "#30724"
+msgid "Streamkiste"
+msgstr ""
 
-
-
-
-
-
-
+msgctxt "#30725"
+msgid "Streamcloud"
+msgstr ""

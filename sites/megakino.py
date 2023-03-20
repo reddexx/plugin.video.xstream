@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showValue:     48 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -12,8 +16,16 @@ from resources.lib.gui.gui import cGui
 SITE_IDENTIFIER = 'megakino'
 SITE_NAME = 'Megakino'
 SITE_ICON = 'megakino.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://megakino.co/'
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'megakino.co')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://megakino.co/'
 URL_KINO = URL_MAIN + 'kinofilme/'
 URL_MOVIES = URL_MAIN + 'films/'
 URL_SERIES = URL_MAIN + 'serials/'
@@ -46,7 +58,11 @@ def load(): # Menu structure of the site plugin
 def showGenre():
     params = ParameterHandler()
     entryUrl = params.getValue('sUrl')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request()    
     pattern = '<div\s+class="side-block__title">Genres</div>(.*?)</ul>\s*</div>'
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
@@ -68,6 +84,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     isTvshow = False
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = '<a[^>]*class="poster grid-item.*?href="([^"]+).*?<img data-src="([^"]+).*?alt="([^"]+)".*?class="poster__label">([^<]+).*?class="poster__text[^"]+">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
@@ -117,8 +135,11 @@ def showEpisodes():
     if not isMatch:
         cGui().showInfo()
         return
-
-    sHtmlContent = cRequestHandler(sUrl).request()
+    #sHtmlContent = cRequestHandler(sUrl).request()
+    oRequest = cRequestHandler(sUrl)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()     
     pattern = '<option\s+value="ep([^"]+)">([^<]+)</option>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     total = len(aResult)
@@ -144,21 +165,17 @@ def showHosters():
     if isMatch:
         for sUrl in aResult:
             sName =cParser.urlparse(sUrl)
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             hoster = {'link': sUrl, 'name': sName}
             hosters.append(hoster)
-    if not isMatch:
-        pattern = '<iframe.*?src=([^\s]+).*?width'
-        isMatch, aResult = cParser.parse(sHtmlContent, pattern)
-        if isMatch:
-            for sUrl in aResult:
-                if 'youtube' in sUrl:
-                    pass
-                else:
-                    sName =cParser.urlparse(sUrl)
-                    if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
-                    hoster = {'link': sUrl, 'name': sName}
-                    hosters.append(hoster)    
+    pattern = '<iframe\s+src=([^\s]+).*?width'
+    isMatch, aResult = cParser.parse(sHtmlContent, pattern)
+    if isMatch:
+        for sUrl in aResult:
+            sName = cParser.urlparse(sUrl)
+            if cConfig().isBlockedHoster(sName)[0]: continue  # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            hoster = {'link': sUrl, 'name': sName}
+            hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')
     return hosters
