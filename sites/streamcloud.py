@@ -269,8 +269,8 @@ def showHosters():
         if not isMatch:
             cGui().showInfo()
             return
+        sHtmlContent = cRequestHandler(sUrl).request()
 
-    sHtmlContent = cRequestHandler(sUrl).request()
     isMatch, aResult = cParser().parse(sHtmlContent, 'data-link="([^"]+)')
     if isMatch:
         for sUrl in aResult:
