@@ -3,9 +3,10 @@
 
 import xbmc
 from resources.lib.gui.gui import cGui
-from resources.lib.tools import logger
+from resources.lib.config import cConfig
+from xbmc import LOGINFO as LOGNOTICE, LOGERROR, LOGWARNING, log, executebuiltin, getCondVisibility, getInfoLabel
 
-
+LOGMESSAGE = cConfig().getLocalizedString(30166)
 class XstreamPlayer(xbmc.Player):
     def __init__(self, *args, **kwargs):
         xbmc.Player.__init__(self, *args, **kwargs)
@@ -13,21 +14,21 @@ class XstreamPlayer(xbmc.Player):
         self.streamSuccess = True
         self.playedTime = 0
         self.totalTime = 999999
-        logger.info('player instance created')
+        log(LOGMESSAGE + ' -> [player]: player instance created', LOGNOTICE)
 
     def onPlayBackStarted(self):
-        logger.info('starting Playback')
+        log(LOGMESSAGE + ' -> [player]: starting Playback', LOGNOTICE)
         self.totalTime = self.getTotalTime()
 
     def onPlayBackStopped(self):
-        logger.info('Playback stopped')
+        log(LOGMESSAGE + ' -> [player]: Playback stopped', LOGNOTICE)
         if self.playedTime == 0 and self.totalTime == 999999:
             self.streamSuccess = False
-            logger.error('Kodi failed to open stream')
+            log(LOGMESSAGE + ' -> [player]: Kodi failed to open stream', LOGERROR)
         self.streamFinished = True
 
     def onPlayBackEnded(self):
-        logger.info('Playback completed')
+        log(LOGMESSAGE + ' -> [player]: Playback completed', LOGNOTICE)
         self.onPlayBackStopped()
 
 
@@ -48,7 +49,7 @@ class cPlayer:
         oPlaylist.add(oGuiElement.getMediaUrl(), oListItem)
 
     def startPlayer(self):
-        logger.info('start player')
+        log(LOGMESSAGE + ' -> [player]: start player', LOGNOTICE)
         xbmcPlayer = XstreamPlayer()
         monitor = xbmc.Monitor()
         while (not monitor.abortRequested()) & (not xbmcPlayer.streamFinished):

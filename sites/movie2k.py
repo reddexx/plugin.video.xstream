@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 import re
 import sys
 
@@ -13,16 +16,23 @@ from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 from json import loads
 
+SITE_IDENTIFIER = 'movie2k'
+SITE_NAME = 'Movie2K'
+SITE_ICON = 'movie2k.png'
 
-SITE_IDENTIFIER = 'kinokiste'
-SITE_NAME = 'KinoKiste'
-SITE_ICON = 'kinokiste.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://api.tmdb.club/data/browse/?lang=%s&type=%s&order_by=%s&page=%s'     # 2 = deutsch / 3 = englisch / all = Alles
+URL_MAIN = 'https://api.tmdb.club/data/browse/?lang=%s&type=%s&order_by=%s&page=%s'     #lang=%s 2 = deutsch / 3 = englisch / all = Alles
 URL_SEARCH = 'https://api.tmdb.club/data/browse/?lang=%s&keyword=%s&page=%s'
 URL_THUMBNAIL = 'https://image.tmdb.org/t/p/w300%s'
 URL_WATCH = 'https://api.tmdb.club/data/watch/?_id=%s'
-ORIGIN = 'https://www1.movie2k.ch'
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie2k.at')
+ORIGIN = 'https://' + DOMAIN + '/'
+#ORIGIN = 'https://movie2k.at/'
 REFERER = ORIGIN + '/'
 
 
@@ -30,17 +40,20 @@ def load():
     logger.info('Load %s' % SITE_NAME)
     params = ParameterHandler()
     sLanguage = cConfig().getSetting('prefLanguage')
-    # remap language
-    if sLanguage == '0':
-        sLanguage = '2'
-    elif sLanguage == '1':
-        sLanguage = '3'
-    else:
-        sLanguage = 'all'
-    params.setParam('sLanguage', sLanguage)
-    cGui().addFolder(cGuiElement('Filme', SITE_IDENTIFIER, 'showMovieMenu'), params)
-    cGui().addFolder(cGuiElement('Serien', SITE_IDENTIFIER, 'showSeriesMenu'), params)
-    cGui().addFolder(cGuiElement('Suche', SITE_IDENTIFIER, 'showSearch'), params)
+    # Änderung des Sprachcodes nach voreigestellter Sprache
+    if sLanguage == '0':    # prefLang Alle Sprachen
+        sLang = 'all'
+    if sLanguage == '1':    #  prefLang Deutsch
+        sLang = '2'
+    if sLanguage == '2':    #  prefLang Englisch
+        sLang = '3'
+    elif sLanguage == '3':    #  prefLang Japanisch
+        sLang = cGui().showLanguage()
+        return
+    params.setParam('sLanguage', sLang)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502), SITE_IDENTIFIER, 'showMovieMenu'), params)    # Movies
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511), SITE_IDENTIFIER, 'showSeriesMenu'), params)   # Series
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'), params)       # Search
     cGui().setEndOfDirectory()
 
 
@@ -67,21 +80,21 @@ def showMovieMenu():
     params = ParameterHandler()
     sLanguage = params.getValue('sLanguage')
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'featured', '1'))
-    cGui().addFolder(cGuiElement('Kinofilme', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30530), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'releases', '1'))
-    cGui().addFolder(cGuiElement('Filme (neu)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30531), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'trending', '1'))
-    cGui().addFolder(cGuiElement('Filme (trend)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30532), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'updates', '1'))
-    cGui().addFolder(cGuiElement('Filme (aktualisiert)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30533), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'requested', '1'))
-    cGui().addFolder(cGuiElement('Filme (nachgefragt)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30534), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'rating', '1'))
-    cGui().addFolder(cGuiElement('Filme (IMDB)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30535), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'votes', '1'))
-    cGui().addFolder(cGuiElement('Filme (bewertung)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30536), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'movies', 'views', '1'))
-    cGui().addFolder(cGuiElement('Filme (aufrufe)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30502) + cConfig().getLocalizedString(30537), SITE_IDENTIFIER, 'showEntries'), params)
     cGui().setEndOfDirectory()
 
 
@@ -89,19 +102,19 @@ def showSeriesMenu():
     params = ParameterHandler()
     sLanguage = params.getValue('sLanguage')
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'releases', '1'))
-    cGui().addFolder(cGuiElement('Serien (neu)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30531), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'trending', '1'))
-    cGui().addFolder(cGuiElement('Serien (trend)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30532), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'updates', '1'))
-    cGui().addFolder(cGuiElement('Serien (aktualisiert)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30533), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'requested', '1'))
-    cGui().addFolder(cGuiElement('Serien (nachgefragt)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30534), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'rating', '1'))
-    cGui().addFolder(cGuiElement('Serien (IMDB)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30535), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'votes', '1'))
-    cGui().addFolder(cGuiElement('Serien (bewertung)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30536), SITE_IDENTIFIER, 'showEntries'), params)
     params.setParam('sUrl', URL_MAIN % (sLanguage, 'tvseries', 'views', '1'))
-    cGui().addFolder(cGuiElement('Serien (aufrufe)', SITE_IDENTIFIER, 'showEntries'), params)
+    cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30511) + cConfig().getLocalizedString(30537), SITE_IDENTIFIER, 'showEntries'), params)
     cGui().setEndOfDirectory()
 
 
@@ -114,6 +127,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not entryUrl: entryUrl = params.getValue('sUrl')
     try:
         oRequest = cRequestHandler(entryUrl)
+        if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+            oRequest.cacheTime = 60 * 60 * 6  # HTML Cache Zeit 6 Stunden
         oRequest.addHeaderEntry('Referer', REFERER)
         oRequest.addHeaderEntry('Origin', ORIGIN)
         sJson = oRequest.request()
@@ -161,9 +176,9 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         if 'rating' in movie:
             oGuiElement.addItemValue('rating', movie['rating'].replace(',', '.'))
         if 'lang' in movie:
-            if (sLanguage != '3' and movie['lang'] == 2):
+            if (sLanguage != '1' and movie['lang'] == 2):   # Deutsch
                 oGuiElement.setLanguage('DE')
-            elif (sLanguage != '2' and movie['lang'] == 3):
+            if (sLanguage != '2' and movie['lang'] == 3): # Englisch
                 oGuiElement.setLanguage('EN')
         oGuiElement.setMediaType('tvshows' if isTvshow else 'movie')
         if 'runtime' in movie:
@@ -192,6 +207,8 @@ def showEpisodes():
     sThumbnail = params.getValue("sThumbnail")
     try:
         oRequest = cRequestHandler(sUrl)
+        if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+            oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
         oRequest.addHeaderEntry('Referer', REFERER)
         oRequest.addHeaderEntry('Origin', ORIGIN)
         sJson = oRequest.request()
@@ -241,14 +258,15 @@ def showHosters():
         if 'streams' in aJson:
             i = 0
             for stream in aJson['streams']:
-                if (('e' not in stream) or (str(sEpisode) == str(stream['e']))):
+                if (('e' not in stream) or (str(sEpisode) == str(stream['e']))):    
                     sHoster = str(i) + ':'
                     isMatch, aName = cParser.parse(stream['stream'], '//([^/]+)/')
                     if isMatch:
                         sName = aName[0][:aName[0].rindex('.')]
+                        if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
                         sHoster = sHoster + ' ' + sName
                     if 'release' in stream:
-                        sHoster = sHoster + ' [' + _getQuality(stream['release']) + ']'
+                        sHoster = sHoster + ' [' + _getQuality(stream['release']) + ']'  
                     hoster = {'link': stream['stream'], 'name': sHoster}
                     hosters.append(hoster)
                     i += 1
@@ -269,5 +287,12 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    sLanguage = ParameterHandler().getValue('sLanguage')
-    showEntries(URL_SEARCH % (sLanguage, cParser().quotePlus(sSearchText), '1'), oGui, sSearchText)
+    params = ParameterHandler()
+    sLanguage = cConfig().getSetting('prefLanguage')
+    if sLanguage == '0':    # prefLang Alle Sprachen
+        sLang = 'all'
+    if sLanguage == '1':    #  prefLang Deutsch
+        sLang = '2'
+    if sLanguage == '2':    #  prefLang Englisch
+        sLang = '3'
+    showEntries(URL_SEARCH % (sLang, cParser().quotePlus(sSearchText), '1'), oGui, sSearchText)

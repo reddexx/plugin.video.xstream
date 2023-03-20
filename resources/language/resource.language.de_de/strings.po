@@ -37,7 +37,7 @@ msgstr "Cachezeit für Webseiten in Sekunden"
 
 msgctxt "#30007"
 msgid "Maximum number in hosterlist"
-msgstr "Maximale Anzahl von Einträgen in der Hoster-Liste"
+msgstr "Max. Anzahl von Einträgen in der Hoster-Liste"
 
 msgctxt "#30008"
 msgid "TMDB handler replaces information of websites"
@@ -116,8 +116,8 @@ msgid "Hoster Settings"
 msgstr "Hoster Einstellungen"
 
 msgctxt "#30035"
-msgid "Network Settings"
-msgstr "Netzwerk Einstellungen"
+msgid "Network and Cache Settings"
+msgstr "Netzwerk und Cache Einstellungen"
 
 msgctxt "#30040"
 msgid "Global Search"
@@ -524,16 +524,16 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 msgctxt "#30164"
-msgid ""
-msgstr ""
+msgid "Clear HTML cache after (X) day(s)"
+msgstr "HTML Cache nach (X) Tag(e) löschen"
 
 msgctxt "#30165"
-msgid ""
-msgstr ""
+msgid "Delete HTML cache now"
+msgstr "HTML Cache jetzt löschen"
 
 msgctxt "#30166"
-msgid ""
-msgstr ""
+msgid "[xStream]"
+msgstr "[xStream]"
 
 msgctxt "#30167"
 msgid "Choose xStream Github Branch"
@@ -909,8 +909,8 @@ msgid "Your ISP censors your Internet access"
 msgstr "Ihr Internetanbieter zensiert ihren Internetzugang"
 
 msgctxt "#30261"
-msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. "Change Fritzbox DNS Server""
-msgstr "Um sich vor der Zensur zu schützen, empfehlen wir euren DNS Server auf die von Google 8.8.8.8 und 8.8.4.4 oder Cloudflare 1.1.1.1 und 1.0.0.1 umzustellen. Anleitungen finden sie per Googlesuche z.B. "Fritzbox DNS Server ändern""
+msgid "To protect yourself from censorship, we recommend changing your DNS server to Google 8.8.8.8 and 8.8.4.4 or Cloudflare 1.1.1.1 and 1.0.0.1. Instructions can be found with a Google search, e.g. 'Change Fritzbox DNS Server'"
+msgstr "Um sich vor der Zensur zu schützen, empfehlen wir euren DNS Server auf die von Google 8.8.8.8 und 8.8.4.4 oder Cloudflare 1.1.1.1 und 1.0.0.1 umzustellen. Anleitungen finden sie per Googlesuche z.B. 'Fritzbox DNS Server ändern'"
 
 msgctxt "#30262"
 msgid "[COLOR red]This page requires a free user account. Please register at http://flimmerstube.com and enter your account details in the xStream settings.[/COLOR]"
@@ -972,6 +972,15 @@ msgctxt "#30276"
 msgid "Show changelog now"
 msgstr "Änderungsprotokoll jetzt anzeigen"
 
+msgctxt "#30277"
+msgid "Automatic update the domain & global search"
+msgstr "Autom. Aktualisierung der Domain (Globale Suche wird aktiviert)"
+
+msgctxt "#30278"
+msgid "Currently used domain"
+msgstr "Derzeitig verwendete Domain"
+
+
 msgctxt "#30302"
 msgid "Seasons german"
 msgstr "Staffeln Deutsch"
@@ -1009,8 +1018,12 @@ msgid "Countries"
 msgstr "Länder"
 
 msgctxt "#30403"
-msgid "No hoster available in the selected language!"
-msgstr "Kein Hoster in der ausgewählten Sprache verfügbar!"
+msgid "No entry available in the selected language!"
+msgstr "Kein Eintrag in der ausgewählten Sprache verfügbar!"
+
+msgctxt "#30404"
+msgid "Exclude specific hosters (separate with a comma)"
+msgstr "Bestimmte Hoster ausschließen (mit Komma trennen)"
 
 ############### Scaper Language ###############
 
@@ -1127,16 +1140,48 @@ msgid "Exclude specific hosters (separate with a comma)"
 msgstr "Bestimmte Hoster ausschließen (mit Komma trennen)"
 
 msgctxt "#30528"
-msgid ""
-msgstr ""
+msgid "Movies Genre"
+msgstr "Film Genre"
 
 msgctxt "#30529"
-msgid ""
-msgstr ""
+msgid "Series Genre"
+msgstr "Serien Genre"
 
 msgctxt "#30530"
-msgid ""
-msgstr ""
+msgid " (featured)"
+msgstr " (vorgestellt)"
+
+msgctxt "#30531"
+msgid " (releases)"
+msgstr " (veröffentlicht)"
+
+msgctxt "#30532"
+msgid " (trending)"
+msgstr " (im Trend)"
+
+msgctxt "#30533"
+msgid " (updates)"
+msgstr " (aktualisiert)"
+
+msgctxt "#30534"
+msgid " (requested)"
+msgstr " (angefordert)"
+
+msgctxt "#30535"
+msgid " (rating)"
+msgstr " (Bewertung)"
+
+msgctxt "#30536"
+msgid " (votes)"
+msgstr " (Stimmen)"
+
+msgctxt "#30537"
+msgid " (views)"
+msgstr " (Ansichten)"
+
+msgctxt "#30538"
+msgid " Country"
+msgstr " Land"
 
 ############### Site Plugins ###############
 
@@ -1157,7 +1202,7 @@ msgid "Flimmerstube"
 msgstr ""
 
 msgctxt "#30704"
-msgid "HD-Filme Top"
+msgid "HD-Filme"
 msgstr ""
 
 msgctxt "#30705"
@@ -1165,11 +1210,11 @@ msgid "KinoFox"
 msgstr ""
 
 msgctxt "#30706"
-msgid "Kinokiste Tech"
+msgid "Kinokiste"
 msgstr ""
 
 msgctxt "#30707"
-msgid "Kinomax.me"
+msgid "Kino"
 msgstr ""
 
 msgctxt "#30708"
@@ -1185,7 +1230,7 @@ msgid "Megakino"
 msgstr ""
 
 msgctxt "#30711"
-msgid "Movie4k Click"
+msgid "Movie4k"
 msgstr ""
 
 msgctxt "#30712"
@@ -1205,7 +1250,7 @@ msgid "Streamworld"
 msgstr ""
 
 msgctxt "#30716"
-msgid "XCine Top"
+msgid "xCine"
 msgstr ""
 
 msgctxt "#30717"
@@ -1222,4 +1267,24 @@ msgstr ""
 
 msgctxt "#30720"
 msgid "Cinemathek"
+msgstr ""
+
+msgctxt "#30721"
+msgid "StreamCloud"
+msgstr ""
+
+msgctxt "#30722"
+msgid "Streamen"
+msgstr ""
+
+msgctxt "#30723"
+msgid "Movie2k"
+msgstr ""
+
+msgctxt "#30724"
+msgid "Streamkiste"
+msgstr ""
+
+msgctxt "#30725"
+msgid "Streamcloud"
 msgstr ""

@@ -20,8 +20,14 @@ from itertools import zip_longest as ziplist
 SITE_IDENTIFIER = 'kinoger'
 SITE_NAME = 'Kinoger'
 SITE_ICON = 'kinoger.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-URL_MAIN = 'https://' + cConfig().getSetting('kinoger-domain')
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+URL_MAIN = 'https://' + cConfig().getSetting('plugin_kinoger.domain')
 URL_SERIES = URL_MAIN + '/stream/serie/'
 
 
@@ -36,10 +42,14 @@ def load(): # Menu structure of the site plugin
     cGui().addFolder(cGuiElement(cConfig().getLocalizedString(30520), SITE_IDENTIFIER, 'showSearch'))   # Search
     cGui().setEndOfDirectory()
 
-
+#Todo HTML Cache einbauen
 def showGenre():
     params = ParameterHandler()
-    sHtmlContent = cRequestHandler(URL_MAIN).request()
+    #sHtmlContent = cRequestHandler(URL_MAIN).request()
+    oRequest = cRequestHandler(URL_MAIN)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request()
     pattern = '<li[^>]class="links"><a href="([^"]+).*?/>([^<]+)</a>'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
@@ -56,7 +66,10 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
+    #oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     if sSearchText:
         oRequest.addParameters('story', sSearchText)
         oRequest.addParameters('do', 'search')
@@ -360,7 +373,7 @@ def get_streamsburl(host, media_id):
     c2 = binascii.hexlify(x.encode('utf8')).decode('utf8')
     x = '{0}||{1}||{2}||streamsb'.format(makeid(12), c2, makeid(12))
     c3 = binascii.hexlify(x.encode('utf8')).decode('utf8')
-    return 'https://{0}/sources50/{1}/{2}'.format(host, c1, c3)
+    return 'https://{0}/sources15/{1}/{2}'.format(host, c1, c3)
 
 
 def toString(number, base):

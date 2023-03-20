@@ -1,10 +1,63 @@
 * Plugin Handler.py für neue settings.xml überarbeiten, Definition im PluginHandler derzeit deaktiviert
 * Cloudflare Scraper einbauen
 * Scraper
-	-	Kinoger Hoster .ru , Csst
-	- 	Cinemathek
-	- 	MovieDream
-	-	Streamworld.in Serien
-	- 	Topstreamfilm
-* Blocked Hoster siehe Kinox Zeile 609 if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
-	in die restlichen Sitplugins einbauen.
+	- Kinoger Hoster .ru
+	- Kino.ws
+	- MovieDream (showHoster AES Crypted)
+	- Movieking Serien verfügbar (In Arbeit)
+	- Streamworld.in Serien verfügbar
+	- Topstreamfilm (Resolver nicht verfügbar)
+* Blocked Hoster siehe Kinox Zeile 609 if cConfig().isBlockedHoster(sHoster, checkResolver=True): continue # Hoster aus settings.xml
+	Fertige Sitplugins
+	- Aniworld
+	- Filmpalast
+	- HDFilme
+	- Kinofox
+	- Kinokiste
+	- Kinox
+	- KKiste
+	- Megakino
+	- Movie2k
+	- Movie4k
+	- Movieking
+	- s.to
+	- xCine
+	
+* Langzeit HTML Cache in die Sitplugins einbauen
+	oRequest = cRequestHandler(sUrl)
+    oRequest.cacheTime = 60 * 60 * 24 # HTML Cache Zeit 1 Tag	Sekunden*Minuten*Stunden
+	Genre = 48 Stunden
+	Alle Serien = 24 Stunden
+	showEntries = 6 Stunden
+	showEpisodes = 4 Stunden
+    sHtmlContent = oRequest.request()
+	Fertige Siteplugins
+	- Aniworld
+	- Cinemathek
+	- Filmpalast
+	- Flimmerstube
+	- HDFilme
+	- Kino.ws
+	- Kinofox
+	- Kinokiste
+	- Kkiste
+	- Megakino
+	- Movie2k
+	- Movie4k
+	- Movieking
+	- s.to
+	- Streamworld
+	- xCine
+	
+* Scraper mit Sprachauswahl
+	Fertige Siteplugins
+	- Aniworld (Hoster DE/JP+DESub/JP+ENSub)
+	- Filmpalast (Menü DE/EN)
+	- HDFilme (showEntries DE/EN)
+	- Kinokiste (showEntries DE/EN)
+	- KKiste (showEntries DE/EN)
+	- Kinox (Menü DE/EN)
+	- Movie2k (Menü DE/EN)
+	- Movie4k (showEntries DE/EN)
+	- s.to (Hoster DE/EN+DESub)
+	- xcine (showEntries DE/EN)

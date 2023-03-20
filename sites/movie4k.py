@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # Python 3
 # Always pay attention to the translations in the menu!
-
+# HTML LangzeitCache hinzugefügt
+    #showValue:     48 Stunden
+    #showEntries:    6 Stunden
+    #showEpisodes:   4 Stunden
+    
 from resources.lib.handler.ParameterHandler import ParameterHandler
 from resources.lib.handler.requestHandler import cRequestHandler
 from resources.lib.tools import logger, cParser
@@ -9,27 +13,23 @@ from resources.lib.gui.guiElement import cGuiElement
 from resources.lib.config import cConfig
 from resources.lib.gui.gui import cGui
 
-SITE_IDENTIFIER = 'movie4k_click'
-SITE_NAME = 'Movie4k Click'
+SITE_IDENTIFIER = 'movie4k'
+SITE_NAME = 'Movie4k'
 SITE_ICON = 'movie4k_click.png'
-#SITE_GLOBAL_SEARCH = False     # Global search function is thus deactivated!
-#URL_MAIN = 'https://movie4k.pics'
-URL_MAIN = str(cConfig().getSetting('movie4k-domain', 'https://movie4k.pics/'))
+
+#Global search function is thus deactivated!
+if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
+    SITE_GLOBAL_SEARCH = False
+    logger.info('-> [SitePlugin]: globalSearch for %s is deactivated.' % SITE_NAME)
+
+# Domain Abfrage
+DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'movie4k.pics')
+URL_MAIN = 'https://' + DOMAIN + '/'
+#URL_MAIN = 'https://movie4k.pics/'
 URL_KINO = URL_MAIN + 'aktuelle-kinofilme-im-kino'
 URL_MOVIES = URL_MAIN + 'kinofilme-online'
 URL_SERIES = URL_MAIN + 'serienstream-deutsch'
-
-
-def checkDomain():
-    oRequest = cRequestHandler(URL_MAIN, caching=False)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if oRequest.getStatus() == '301':
-        url = oRequest.getRealUrl()
-        if not url.startswith('http'):
-            url = 'https://' + url
-        # Setzt aktuelle Domain in der settings.xml
-        cConfig().setSetting('movie4k-domain', str(url))
+URL_SEARCH = URL_MAIN + 'index.php?do=search&subaction=search&search_start=0&full_search=0&result_from=1&story=%s'
 
 
 def load(): # Menu structure of the site plugin
@@ -53,7 +53,11 @@ def load(): # Menu structure of the site plugin
 
 def showValue():
     params = ParameterHandler()
-    sHtmlContent = cRequestHandler(URL_MAIN).request()
+    #sHtmlContent = cRequestHandler(URL_MAIN).request()
+    oRequest = cRequestHandler(URL_MAIN)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 48 # 48 Stunden
+    sHtmlContent = oRequest.request()    
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, '%s<.*?</ul>' % params.getValue('sCont'))
     if isMatch:
         pattern = 'href="([^"]+).*?true">([^"]+)</a>'
@@ -75,21 +79,17 @@ def showValue():
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
-    # >>>> Domain Check <<<<<
-    oRequest = cRequestHandler(URL_MAIN, ignoreErrors=True)
-    oRequest.request()
-    Domain = str(oRequest.getStatus())
-    if not Domain == '200':
-        checkDomain()
-    # >>>> Ende Domain Check <<<<<     
     if not entryUrl: entryUrl = params.getValue('sUrl')
     oRequest = cRequestHandler(entryUrl, ignoreErrors=(sGui is not False))
-    if sSearchText:
-        oRequest.addParameters('story', sSearchText)
-        oRequest.addParameters('do', 'search')
-        oRequest.addParameters('subaction', 'search')
-    sHtmlContent = oRequest.request() 
-    pattern = 'movie-item.*?href="([^"]+).*?<h3>([^<]+).*?<ul><li>([^<]+).*?white">([^<]+).*?data-src="/([^"]+)'
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
+    sHtmlContent = oRequest.request()
+    pattern = 'movie-item.*?'               # Container Start
+    pattern += 'href="([^"]+).*?'           # URL
+    pattern += '<h3>([^<]+).*?'             # Name
+    pattern += '<li>([^<]+).*?'             # Quality
+    pattern += 'white">([^<]+).*?'          # Year
+    pattern += 'data-src="([^"]+).*?'          # Thumb
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         if not sGui: oGui.showInfo()
@@ -97,9 +97,18 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
 
     total = len(aResult)
     for sUrl, sName, sQuality, sYear, sThumbnail in aResult:
-        sThumbnail = URL_MAIN + sThumbnail
         if sSearchText and not cParser().search(sSearchText, sName):
             continue
+        # Abfrage der voreingestellten Sprache
+        sLanguage = cConfig().getSetting('prefLanguage')
+        if (sLanguage == '1' and 'English*' in sName):   # Deutsch
+            continue
+        if (sLanguage == '2' and not 'English*' in sName):   # English
+            continue
+        elif sLanguage == '3':    # Japanisch
+            cGui().showLanguage()
+            continue
+        sThumbnail = URL_MAIN + sThumbnail
         isTvshow = True if 'taffel' in sName else False
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showEpisodes' if isTvshow else 'showHosters')
         oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
@@ -110,6 +119,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         params.setParam('sName', sName)
         params.setParam('sThumbnail', sThumbnail)
         oGui.addFolder(oGuiElement, params, isTvshow, total)
+        
     if not sGui:
         isMatchNextPage, sNextUrl = cParser().parseSingleResult(sHtmlContent, 'Nächste[^>]Seite">[^>]*<a[^>]href="([^"]+)')
         if isMatchNextPage:
@@ -124,7 +134,11 @@ def showEpisodes():
     params = ParameterHandler()
     sThumbnail = params.getValue('sThumbnail')
     entryUrl = params.getValue('entryUrl')
-    sHtmlContent = cRequestHandler(entryUrl).request()
+    #sHtmlContent = cRequestHandler(entryUrl).request()
+    oRequest = cRequestHandler(entryUrl)
+    if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
+        oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
+    sHtmlContent = oRequest.request()    
     pattern = 'id="serie-(\d+)[^>](\d+).*?href="#">([^<]+)'
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
@@ -161,7 +175,7 @@ def showHosters():
     isMatch, aResult = cParser().parse(sHtmlContent, 'link="([^"]+)">([^<]+)')
     if isMatch:
         for sUrl, sName in aResult:
-            if cConfig().isBlockedHoster(sName, checkResolver=True): continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
+            if cConfig().isBlockedHoster(sName)[0]: continue # Hoster aus settings.xml oder deaktivierten Resolver ausschließen
             if 'railer' in sName: 
                 continue
             elif 'vod' in sUrl:
@@ -187,4 +201,4 @@ def showSearch():
 
 
 def _search(oGui, sSearchText):
-    showEntries(URL_MAIN, oGui, sSearchText)
+    showEntries(URL_SEARCH % cParser.quotePlus(sSearchText), oGui, sSearchText)
