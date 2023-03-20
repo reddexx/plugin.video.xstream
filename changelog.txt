@@ -1,4 +1,10 @@
-[B]Version: 4.0.4~Nightly16[/B]
+[B]Version: 4.0.4~Nightly17[/B]
+
+20.03.2023
+
+ - [Streamcloud] Neues Site plugin
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 19.03.2023
 

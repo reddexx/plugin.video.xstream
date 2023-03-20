@@ -1288,3 +1288,7 @@ msgstr ""
 msgctxt "#30724"
 msgid "Streamkiste"
 msgstr ""
+
+msgctxt "#30725"
+msgid "Streamcloud"
+msgstr ""
