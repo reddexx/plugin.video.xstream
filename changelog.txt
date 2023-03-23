@@ -1,4 +1,10 @@
-[B]Version: 4.0.4~Release[/B]
+[B]Version: 4.0.5~Nightly1[/B]
+
+23.03.2023
+
+ - [Streamen] Neues Siteplugin hinzugefügt
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 13.02.2023 - 20.03.2023
 

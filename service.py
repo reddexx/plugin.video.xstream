@@ -128,7 +128,7 @@ def checkDomain(): #ToDo Domains aus dem jeweiligen Siteplugin lesen oder in der
     # Domains mit wechselbarer Domain
     domains += [('kinoger', cConfig().getSetting('plugin_kinoger.domain')), ('kinox', 'www15.kinoz.to'), ('serienstream', cConfig().getSetting('plugin_serienstream.domain'))]
     # Domains die wenig wechseln
-    domains += [('kinofox', 'kinofox.su'), ('kino', 'kino.ws'), ('megakino', 'megakino.co'), ('movie2k', 'movie2k.at'), ('movieking', 'movieking.cc'), ('streamcloud', 'streamcloud.best')]
+    domains += [('kinofox', 'kinofox.su'), ('kino', 'kino.ws'), ('megakino', 'megakino.co'), ('movie2k', 'movie2k.at'), ('movieking', 'movieking.cc'), ('streamcloud', 'streamcloud.best'), ('streamen', 'wwv.streamen.cx')]
     # Domains die häufig wechseln
     domains += [('hdfilme', 'hdfilme.haus'), ('kkiste', 'kkiste.house'), ('kinokiste', 'kinokiste.cloud'), ('movie4k', 'movie4k.rocks'), ('xcine', 'xcine.click'), ('streamkiste', 'streamkiste.watch')]
 
