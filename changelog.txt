@@ -6,6 +6,7 @@
  - [Streamkiste] Fix TMDb Handler, Suche nach Ländern deaktivert da auf Site inaktiv
  - [Streamcloud] Fix TMDb Handler
  - [Streamen] fix Regex der Beschreibung
+ - [Kino] Quality entfernt
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
