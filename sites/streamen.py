@@ -121,7 +121,7 @@ def showSeasons():
         cGui().showInfo()
         return
     
-    isDesc, sDesc = cParser.parseSingleResult(sHtmlContent, 'fsynopsis">.*?<p>\s(.*?)</p>') # Staffel Beschreibung
+    isDesc, sDesc = cParser.parseSingleResult(sHtmlContent, 'fsynopsis">\s<p>\s([^"]*)</p>') # Staffel Beschreibung
     total = len(aResult)
     for sUrl, sThumbnail, sSeason in aResult:
         oGuiElement = cGuiElement('Staffel ' + sSeason, SITE_IDENTIFIER, 'showEpisodes')

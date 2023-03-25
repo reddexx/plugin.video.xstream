@@ -2,9 +2,10 @@
 
 25.03.2023
 
- - [Flimmerstube] Fix TMDb Handle
+ - [Flimmerstube] Fix TMDb Handler
  - [Streamkiste] Fix TMDb Handler, Suche nach Ländern deaktivert da auf Site inaktiv
  - [Streamcloud] Fix TMDb Handler
+ - [Streamen] fix Regex der Beschreibung
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
