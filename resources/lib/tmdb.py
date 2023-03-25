@@ -24,6 +24,7 @@ class cTMDB:
 
     def search_movie_name(self, name, year='', page=1, advanced='false'):
         name = re.sub(' +', ' ', name)
+        #name = re.sub('(....)', ' ', name) #ToDo Jahr in sName muss gefiltert werden für korrekte tmdb abfrage
         if year:
             term = quote_plus(name) + '&year=' + year
         else:

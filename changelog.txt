@@ -1,4 +1,12 @@
-[B]Version: 4.0.5~Nightly1[/B]
+[B]Version: 4.0.5~Nightly2[/B]
+
+25.03.2023
+
+ - [Flimmerstube] Fix TMDb Handle
+ - [Streamkiste] Fix TMDb Handler, Suche nach Ländern deaktivert da auf Site inaktiv
+ - [Streamcloud] Fix TMDb Handler
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 23.03.2023
 

@@ -79,6 +79,8 @@ def showGenre():
 
 
 def showEntries(entryUrl=False, sGui=False, sSearchText=False):
+    #import pydevd_pycharm
+    #pydevd_pycharm.settrace('localhost', port=12345, stdoutToServer=True, stderrToServer=True)
     oGui = sGui if sGui else cGui()
     params = ParameterHandler()
     if not entryUrl: entryUrl = params.getValue('sUrl')
@@ -94,8 +96,8 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         else:
             oRequest.addParameters('c', '')
     sHtmlContent = oRequest.request()
-    pattern = 've-screen.*?title="([^"]+).*?url[^>]([^")]+).*?href="([^">]+)'
-    #pattern = 'vep-title.*?">([^"]+)</h1.*?src=\\\'([^\\]+).*?img src="([^"]+)'
+    #pattern = 've-screen.*?title="([^"]+).*?url[^>]([^")]+).*?href="([^">]+)' #alt
+    pattern = 've-screen.*?title="([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #inklusive sYear
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     
     if not isMatch:
@@ -103,7 +105,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         return
 
     total = len(aResult)
-    for sName, sThumbnail, sUrl in aResult:
+    for sName, sYear, sThumbnail, sUrl in aResult: #syear neu
         sName = sName.replace('(HD)', '')
         if sSearchText and not cParser().search(sSearchText, sName):
             continue
@@ -112,6 +114,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showHosters')
         oGuiElement.setThumbnail(sThumbnail)
         oGuiElement.setMediaType('movie')
+        #oGuiElement.setYear(sYear) #ToDo sYear erzeugt falschen Suchstring in tmdb.py (re.sub in tmdb.py9
         params.setParam('entryUrl', URL_MAIN + sUrl)
         oGui.addFolder(oGuiElement, params, False, total)
     if not sGui:
