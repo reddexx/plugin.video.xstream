@@ -1,4 +1,10 @@
-[B]Version: 4.0.5~Nightly3[/B]
+[B]Version: 4.0.5~Nightly4[/B]
+
+30.03.2023
+
+- [Kinoger] Fsst.Online fix (aktuellster Resolver wird benötigt)
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 28.03.2023
 

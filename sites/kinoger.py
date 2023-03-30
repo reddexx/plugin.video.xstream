@@ -345,6 +345,9 @@ def getHosterUrl(sUrl=False):
     if sUrl.startswith('//'):
         sUrl = 'https:' + sUrl
     if sUrl.endswith('DIREKT'):
+        Request = cRequestHandler(sUrl, caching=False)
+        Request.request()
+        sUrl = Request.getRealUrl()  # hole reale URL von der Umleitung
         return [{'streamUrl': sUrl[:-6], 'resolved': False}]
     else:
         return [{'streamUrl': sUrl, 'resolved': True}]
