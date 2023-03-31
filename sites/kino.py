@@ -76,7 +76,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oRequest.cacheTime = 60 * 60 * 6  # 6 Stunden
     sHtmlContent = oRequest.request()
     pattern = 'class="film-.*?'  # container start
-    #pattern += '#">([^<]+)</a>.*?'  # Quality funktioniert nur bei Filmen man könnte showSeries einfügen
+    #pattern += '#">([^<]+)</a>'  # Quality funktioniert nur bei Filmen man könnte showSeries einfügen
     pattern += 'href="(http[^"]+).*?'  # url
     pattern += 'src="([^"]+).*?'  # sThumbnail
     pattern += 'short-title">([^<]+)'  # name

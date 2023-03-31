@@ -3,6 +3,11 @@
 31.03.2023
 
  - [tmdb] Fix für den TMDb Handler - Jahreszahlen im Namen und daher keine Beschreibung
+ - [checkDomain] verschoben in Pluginhandler holt Domains aus Siteplugin
+ - [Changelog] verschoben in Tools
+ - [service] bereinigt
+ - [cPluginInfo] erstellt und Def überarbeitet
+ - [xstream] Globale Suche wenn false dann auch ausblenden, Imports angepasst
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
