@@ -148,7 +148,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showEpisodes' if isTvshow else 'showHosters')
         oGuiElement.setThumbnail(URL_MAIN + sThumbnail)
         oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
-        #oGuiElement.setYear(sYear) #ToDo sYear erzeugt falschen Suchstring in tmdb.py (re.sub in tmdb.py)
+        oGuiElement.setYear(sYear)
         params.setParam('entryUrl', sUrl)
         params.setParam('sName', sName)
         params.setParam('sThumbnail', sThumbnail)
