@@ -97,11 +97,14 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     #pattern = 've-screen.*?title="([^"]+).*?url[^>]([^")]+).*?href="([^">]+)' #alt
     pattern = 've-screen.*?title="([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #inklusive sYear
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
-    
+    pattern = 've-screen.*?title.*?D\)([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #weiterer Pattern für Einträge beginnend mit (OmU...)
+    isMatch, aResult2 = cParser.parse(sHtmlContent, pattern)
+
     if not isMatch:
         if not sGui: oGui.showInfo()
         return
 
+    aResult = aResult + aResult2
     total = len(aResult)
     for sName, sYear, sThumbnail, sUrl in aResult:
         sName = sName.replace('(HD)', '')

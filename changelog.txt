@@ -1,4 +1,13 @@
-[B]Version: 4.0.5~Nightly5[/B]
+[B]Version: 4.0.5~Nightly6[/B]
+
+01.04.2023
+
+ - [Flimmerstube] Es werden nun wieder alle Filme angezeigt
+ - [Disney+] Neues plugin
+ - [Paramount+] Neues Plugin
+ - [Sky] Neues Plugin
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 31.03.2023
 
