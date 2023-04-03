@@ -94,10 +94,9 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         else:
             oRequest.addParameters('c', '')
     sHtmlContent = oRequest.request()
-    #pattern = 've-screen.*?title="([^"]+).*?url[^>]([^")]+).*?href="([^">]+)' #alt
-    pattern = 've-screen.*?title="([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #inklusive sYear
+    pattern = 've-screen..title="([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #inklusive sYear
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
-    pattern = 've-screen.*?title.*?D\)([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #weiterer Pattern für Einträge beginnend mit (OmU...)
+    pattern = 'class="ve-screen..title="\(.*?D\)([^(]+).(....).*?url[^>]([^")]+).*?href="([^">]+)' #weiterer Pattern für Einträge beginnend mit (OmU...)
     isMatch, aResult2 = cParser.parse(sHtmlContent, pattern)
 
     if not isMatch:
