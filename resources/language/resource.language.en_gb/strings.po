@@ -906,7 +906,7 @@ msgid "Error getting url:"
 msgstr ""
 
 msgctxt "#30260"
-msgid "Your ISP censors your Internet access"
+msgid "Your ISP censors your Internet access!"
 msgstr ""
 
 msgctxt "#30261"

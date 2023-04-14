@@ -1,4 +1,11 @@
-[B]Version: 4.0.5~Nightly7[/B]
+[B]Version: 4.0.5~Nightly8[/B]
+
+
+14.04.2023
+
+ - [RequestHandler] Anzeige Internetzensur überarbeitet
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 03.04.2023
 
