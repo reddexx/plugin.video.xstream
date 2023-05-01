@@ -39,10 +39,13 @@ class cTMDB:
                     movie = meta['results'][0]
                 else:
                     for searchMovie in meta['results']:
-                        if searchMovie['genre_ids'] and 99 not in searchMovie['genre_ids']:
-                            if searchMovie['title'].lower() == name.lower():
-                                movie = searchMovie
-                                break
+                        try: # Exception Handling notwendig da TMDb in seltenen Fällen keine genre_ids mitliefert
+                            if searchMovie['genre_ids'] and 99 not in searchMovie['genre_ids']:
+                                if searchMovie['title'].lower() == name.lower():
+                                    movie = searchMovie
+                                    break
+                        except Exception:
+                            break
                     if not movie:
                         for searchMovie in meta['results']:
                             if searchMovie['genre_ids'] and 99 not in searchMovie['genre_ids']:

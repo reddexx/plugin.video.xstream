@@ -3,6 +3,7 @@
 01.05.2023
 
  - [Aniworld + s.to] Fix Anzeige Serienname   THX @ Mirko
+ - [TMDb] Fehler im Handler korrigiert welcher einen key_error erzeugte bei fehlenden Genres
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 
