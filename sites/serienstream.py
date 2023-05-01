@@ -401,6 +401,7 @@ def SSsearch(sGui=False, sSearchText=False):
             oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
             oGuiElement.setThumbnail(sThumbnail)
             oGuiElement.setDescription(sDescription)
+            oGuiElement.setTVShowTitle(title)
             oGuiElement.setMediaType('tvshow')
             params.setParam('sUrl', URL_MAIN + link)
             params.setParam('sName', title)
