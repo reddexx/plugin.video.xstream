@@ -1,5 +1,10 @@
-[B]Version: 4.0.5~Nightly8[/B]
+[B]Version: 4.0.5~Nightly9[/B]
 
+01.05.2023
+
+ - [Aniworld + s.to] Fix Anzeige Serienname   THX @ Mirko
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 14.04.2023
 
