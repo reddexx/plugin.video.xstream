@@ -27,9 +27,9 @@ if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'false':
 DOMAIN = cConfig().getSetting('plugin_'+ SITE_IDENTIFIER +'.domain', 'cinemathek.net')
 URL_MAIN = 'https://' + DOMAIN + '/'
 #URL_MAIN = 'https://cinemathek.net/'
-URL_MOVIES = URL_MAIN + 'movies/'
-URL_SERIES = URL_MAIN + 'tvshows/'
-URL_NEW_EPISODES = URL_MAIN + 'episodes/'
+URL_MOVIES = URL_MAIN + 'filme/'
+URL_SERIES = URL_MAIN + 'serien/'
+URL_NEW_EPISODES = URL_MAIN + 'episoden/'
 URL_SEARCH = URL_MAIN + '?s=%s'
 
 
@@ -56,9 +56,14 @@ def showGenre():
     if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
         oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
     sHtmlContent = oRequest.request()
-    pattern = '<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-243">.*?</ul>'
-    isMatch, aResult = cParser.parseSingleResult(sHtmlContent, '<li class="menu-item menu-item-type-taxonomy.*?href="(https[^"]+).*?>([^<]+)')
-    
+    pattern = '<ul class="sub-menu"><li id="menu-item-23517".*?</ul>'
+    isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
+    if isMatch:
+        isMatch, aResult = cParser.parse(sHtmlContainer, 'href="([^"]+).*?>([^<]+)')
+    if not isMatch:
+        cGui().showInfo()
+        return
+
     for sUrl, sName in aResult:
         if sUrl.startswith('/'):
             sUrl = URL_MAIN + sUrl
@@ -78,7 +83,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     sHtmlContent = oRequest.request()
     # Für Filme und Serien Content
     pattern = '<article id=.*?'  # container start
-    pattern += '<img src="([^"]+).*?'  # sThumbnail
+    pattern += 'data-lazy-src="([^"]+).*?'  # sThumbnail
     pattern += 'href="([^"]+).*?'  # url  
     pattern += '>([^<]+).*?'  # name 
     pattern += '<div class="texto">([^<]+).*?'  # desc
@@ -86,7 +91,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     if not isMatch:
         # Für die Suche von Filme und Serien
         pattern = '<article.*?'  # container start
-        pattern += '<img src="([^"]+).*?'  # sThumbnail
+        pattern += 'data-lazy-src="([^"]+).*?'  # sThumbnail
         pattern += 'href="([^"]+).*?'  # url  
         pattern += '>([^<]+).*?'  # name
         isMatch, sResult = cParser.parse(sHtmlContent, pattern) #sResult = Suchresultat ohne Desc
@@ -100,7 +105,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         for sThumbnail, sUrl, sName in sResult:  # for sThumbnail, sUrl, sName, sDesc in aResult:
             if sSearchText and not cParser.search(sSearchText, sName):
                 continue
-            isTvshow, aResult = cParser.parse(sUrl, 'tvshows')  # Muss nur im Serien Content auffindbar sein
+            isTvshow, aResult = cParser.parse(sUrl, 'serien')  # Muss nur im Serien Content auffindbar sein
             oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
             oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
             oGuiElement.setThumbnail(sThumbnail)
@@ -115,7 +120,7 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
         for sThumbnail, sUrl, sName, sDesc in aResult:
             if sSearchText and not cParser.search(sSearchText, sName):
                 continue
-            isTvshow, aResult = cParser.parse(sUrl, 'tvshows') # Muss nur im Serien Content auffindbar sein
+            isTvshow, aResult = cParser.parse(sUrl, 'serien') # Muss nur im Serien Content auffindbar sein
             oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
             oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
             oGuiElement.setThumbnail(sThumbnail)
@@ -139,7 +144,7 @@ def showSeasons():
     params = ParameterHandler()
     entryUrl = params.getValue('entryUrl')
     sHtmlContent = cRequestHandler(entryUrl).request()
-    isMatch, aResult = cParser.parse(sHtmlContent, 'Staffel ([\d]+)') # Sucht den Staffel Eintrag und d fügt die Anzahl hinzu
+    isMatch, aResult = cParser.parse(sHtmlContent, 'Season ([\d]+)') # Sucht den Staffel Eintrag und d fügt die Anzahl hinzu
     if not isMatch:
         cGui().showInfo()
         return
@@ -168,7 +173,7 @@ def showEpisodes(): # einfache Abfrage wird wenn es mal funktioniert erweitert f
     if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
         oRequest.cacheTime = 60 * 60 * 4  # HTML Cache Zeit 4 Stunden
     sHtmlContent = oRequest.request()
-    pattern = '>Staffel %s <i>.*?</ul>' % sSeason
+    pattern = '>Season %s <i>.*?</ul>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
         pattern = '''<li class='mark-([\d]+).*?<img src='([^']+).*?<a href='([^']+).*?>([^<]+)'''
@@ -195,17 +200,13 @@ def showHosters():
     hosters = []
     sUrl = ParameterHandler().getValue('entryUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
-    pattern = "player-option-\d.*?type.*?'([^']+).*?(\d+).*?(\d)"
+    #pattern = "player-option-\d.*?type.*?'([^']+).*?(\d+).*?(\d)"
+    pattern = 'player-option-\d.*?type="([^"]+).*?(\d+).*?(\d)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if isMatch:
         for i in aResult:
             sUrl = 'https://cinemathek.net/wp-json/dooplayer/v2/%s/%s/%s' % (i[1], i[0], i[2])
-            if i[2] == '1':
-                sName = 'Filemoon'
-            else:
-                sName = 'StreamSB'
-            #hoster = {'link': sUrl, 'name': 'Cinemathek '+ i[2]} #Gibt den richtigen Hosternamen an
-            hoster = {'link': sUrl, 'name': sName}
+            hoster = {'link': sUrl, 'name': 'Hoster ' + i[2]}
             hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')

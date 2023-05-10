@@ -89,6 +89,7 @@ def checkDependence(ADDONID):
 # Starte xStream Update wenn auf Github verfügbar
 if os.path.isfile(NIGHTLY_UPDATE) == False or Addon().getSetting('githubUpdateXstream') == 'true'  or Addon().getSetting('enforceUpdate') == 'true':
     status1 = updateManager.xStreamUpdate(True)
+    cRequestHandler('').clearCache()  # Cache löschen
     if Addon().getSetting('update.notification') == 'full': # Benachrichtung xStream vollständig
         infoDialog(cConfig().getLocalizedString(30112), sound=False, icon='INFO', time=10000)   # Suche Updates
         if status1 == True: infoDialog(cConfig().getLocalizedString(30113), sound=False, icon='INFO', time=6000)
