@@ -176,7 +176,7 @@ def showEpisodes(): # einfache Abfrage wird wenn es mal funktioniert erweitert f
     pattern = '>Season %s <i>.*?</ul>' % sSeason
     isMatch, sContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
-        pattern = '''<li class='mark-([\d]+).*?<img src='([^']+).*?<a href='([^']+).*?>([^<]+)'''
+        pattern = '''<li class="mark-([\d]+).*?data-lazy-src="([^"]+).*?<a href="([^"]+).*?>([^<]+)'''
         isMatch, aResult = cParser.parse(sContainer, pattern)
 
     isDesc, sDesc = cParser.parseSingleResult(sHtmlContent, 'class="wp-content">(.*?)</p>') # Staffel Beschreibung
