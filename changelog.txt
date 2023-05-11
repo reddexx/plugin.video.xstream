@@ -1,4 +1,10 @@
-[B]Version: 4.0.5~Nightly9[/B]
+[B]Version: 4.0.5~Nightly10[/B]
+
+11.05.2023
+
+ - [Cinemathek] Temporär deaktiviert bis die neue Seite komplett fertig gestellt ist
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 01.05.2023
 
