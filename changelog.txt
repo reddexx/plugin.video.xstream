@@ -1,4 +1,11 @@
-[B]Version: 4.0.5~Nightly10[/B]
+[B]Version: 4.0.5~Nightly11[/B]
+
+16.05.2023
+
+ - [Kinoger] Kinoger.pw (StreamSB) überarbeitet
+ !!! Aktueller Resolver wird benötigt !!!
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 11.05.2023
 
