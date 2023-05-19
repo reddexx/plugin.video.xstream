@@ -364,7 +364,7 @@ def SSsearch(sGui=False, sSearchText=False):
             continue
         else:
             #get images thumb / descr pro call. (optional)
-            try;
+            try:
                 sThumbnail, sDescription = getMetaInfo(link, title)
                 oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
                 oGuiElement.setThumbnail(URL_MAIN + sThumbnail)
