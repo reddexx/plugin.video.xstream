@@ -2,7 +2,7 @@
 
 19.05.2023
 
- - [Serienstream] Error-Handling für Suche korrigiert
+ - [Serienstream + Aniworld] Error-Handling für Suche korrigiert
 
 [COLOR cyan]________________________________________________________________________________________[/COLOR]
 

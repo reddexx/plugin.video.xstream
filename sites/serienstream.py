@@ -398,8 +398,6 @@ def SSsearch(sGui=False, sSearchText=False):
             continue
         else:
             #get images thumb / descr pro call. (optional)
-            #import pydevd_pycharm
-            #pydevd_pycharm.settrace('127.0.0.1', port=12345, stdoutToServer=True, stderrToServer=True)
             try:
                 sThumbnail, sDescription = getMetaInfo(link, title)
                 oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
