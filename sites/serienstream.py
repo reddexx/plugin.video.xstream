@@ -398,15 +398,27 @@ def SSsearch(sGui=False, sSearchText=False):
             continue
         else:
             #get images thumb / descr pro call. (optional)
-            sThumbnail, sDescription = getMetaInfo(link, title)
-            oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
-            oGuiElement.setThumbnail(URL_MAIN + sThumbnail)
-            oGuiElement.setDescription(sDescription)
-            oGuiElement.setTVShowTitle(title)
-            oGuiElement.setMediaType('tvshow')
-            params.setParam('sUrl', URL_MAIN + link)
-            params.setParam('sName', title)
-            oGui.addFolder(oGuiElement, params, True, total)
+            #import pydevd_pycharm
+            #pydevd_pycharm.settrace('127.0.0.1', port=12345, stdoutToServer=True, stderrToServer=True)
+            try:
+                sThumbnail, sDescription = getMetaInfo(link, title)
+                oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
+                oGuiElement.setThumbnail(URL_MAIN + sThumbnail)
+                oGuiElement.setDescription(sDescription)
+                oGuiElement.setTVShowTitle(title)
+                oGuiElement.setMediaType('tvshow')
+                params.setParam('sUrl', URL_MAIN + link)
+                params.setParam('sName', title)
+                oGui.addFolder(oGuiElement, params, True, total)
+            except Exception:
+                oGuiElement = cGuiElement(title, SITE_IDENTIFIER, 'showSeasons')
+                oGuiElement.setTVShowTitle(title)
+                oGuiElement.setMediaType('tvshow')
+                params.setParam('sUrl', URL_MAIN + link)
+                params.setParam('sName', title)
+                oGui.addFolder(oGuiElement, params, True, total)
+
+
         if not sGui:
             oGui.setView('tvshows')
 
@@ -429,7 +441,6 @@ def getMetaInfo(link, title):   # Setzen von Metadata in Suche:
     aResult = oParser.parse(sHtmlContent, pattern)
 
     if not aResult[0]:
-        oGui.showInfo()
         return
 
     for sImg, sDescr in aResult[1]:

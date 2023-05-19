@@ -56,10 +56,10 @@ def showGenre():
     if cConfig().getSetting('global_search_' + SITE_IDENTIFIER) == 'true':
         oRequest.cacheTime = 60 * 60 * 48  # 48 Stunden
     sHtmlContent = oRequest.request()
-    pattern = '<ul class="sub-menu"><li id="menu-item-23517".*?</ul>'
+    pattern = '<ul class="sub-menu"><li id="menu-item-23517".*?</ul>' # Alle Einträge in dem Bereich
     isMatch, sHtmlContainer = cParser.parseSingleResult(sHtmlContent, pattern)
     if isMatch:
-        isMatch, aResult = cParser.parse(sHtmlContainer, 'href="([^"]+).*?>([^<]+)')
+        isMatch, aResult = cParser.parse(sHtmlContainer, 'href="([^"]+).*?>([^<]+)') # sUrl + sName
     if not isMatch:
         cGui().showInfo()
         return
@@ -86,49 +86,57 @@ def showEntries(entryUrl=False, sGui=False, sSearchText=False):
     pattern += 'data-lazy-src="([^"]+).*?'  # sThumbnail
     pattern += 'href="([^"]+).*?'  # url  
     pattern += '>([^<]+).*?'  # name 
-    pattern += '<div class="texto">([^<]+).*?'  # desc
+    pattern += '(.*?)</article>'  # dummy
     isMatch, aResult = cParser.parse(sHtmlContent, pattern)
     if not isMatch:
         # Für die Suche von Filme und Serien
         pattern = '<article.*?'  # container start
-        pattern += 'data-lazy-src="([^"]+).*?'  # sThumbnail
-        pattern += 'href="([^"]+).*?'  # url  
+        pattern += 'data-lazy-src="([^"]+).*?'  # sThumbnail neu
+        pattern += 'href="([^"]+).*?'  # url
         pattern += '>([^<]+).*?'  # name
-        isMatch, sResult = cParser.parse(sHtmlContent, pattern) #sResult = Suchresultat ohne Desc
+        pattern += '(.*?)</article>'  # dummy
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern) # Suchresultat
     if not isMatch:
-        if not sGui: oGui.showInfo()
-        return
+        # Für die Suche von Neue Episoden
+        pattern = '<article.*?'  # container start
+        pattern += '<img src="([^"]+).*?'  # sThumbnail alt
+        pattern += 'href="([^"]+).*?'  # url
+        pattern += '>([^<]+).*?'  # name
+        pattern += '(.*?)</article>'  # dummy
+        isMatch, aResult = cParser.parse(sHtmlContent, pattern)  # neue Episoden
 
-    if not aResult:
-        total = len(sResult)
+    total = len(aResult)
+    for sThumbnail, sUrl, sName, sDummy in aResult:
+        if sSearchText and not cParser.search(sSearchText, sName):
+            continue
+        isTvshow, aResult = cParser.parse(sUrl, 'serien') # Muss nur im Serien Content auffindbar sein
+        isDesc, sDesc = cParser.parseSingleResult(sDummy, '<div class="texto">([^<]+)') # Beschreibung
+        if not isDesc:
+            isDesc, sDesc = cParser.parseSingleResult(sDummy, 'class="contenido"><p>([^<]+)\s') # Beschreibung in der Suche
+        isYear, sYear = cParser.parseSingleResult(sDummy, 'class="imdb">\S+.*?\S+.*?<span>([\d]+)') # Release Jahr
+        if not isYear:
+            isYear, sYear = cParser.parseSingleResult(sDummy, 'class="year">([\d]+)') # Release Jahr in der Suche
+        isDuration, sDuration = cParser.parseSingleResult(sDummy, '<span class="imdb">\S+.*?\S+.*?\S+.*?\S([\d]+)') # Laufzeit
 
-        for sThumbnail, sUrl, sName in sResult:  # for sThumbnail, sUrl, sName, sDesc in aResult:
-            if sSearchText and not cParser.search(sSearchText, sName):
-                continue
-            isTvshow, aResult = cParser.parse(sUrl, 'serien')  # Muss nur im Serien Content auffindbar sein
-            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
-            oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
-            oGuiElement.setThumbnail(sThumbnail)
-            params.setParam('sThumbnail', sThumbnail)
-            params.setParam('entryUrl', sUrl)
-            params.setParam('sName', sName)
-            oGui.addFolder(oGuiElement, params, isTvshow, total)
-
-    else:
-        total = len(aResult)
-
-        for sThumbnail, sUrl, sName, sDesc in aResult:
-            if sSearchText and not cParser.search(sSearchText, sName):
-                continue
-            isTvshow, aResult = cParser.parse(sUrl, 'serien') # Muss nur im Serien Content auffindbar sein
-            oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
-            oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
-            oGuiElement.setThumbnail(sThumbnail)
+        isRating, sRating = cParser.parseSingleResult(sDummy, 'IMDb:([^<]+)') # IMDb Bewertung
+        if not isRating:
+            isRating, sRating = cParser.parseSingleResult(sDummy, 'IMDb\s([^<]+)')# IMDb Bewertung in der Suche
+        oGuiElement = cGuiElement(sName, SITE_IDENTIFIER, 'showSeasons' if isTvshow else 'showHosters')
+        oGuiElement.setMediaType('tvshow' if isTvshow else 'movie')
+        oGuiElement.setThumbnail(sThumbnail)
+        if isDesc:
             oGuiElement.setDescription(sDesc)
-            params.setParam('sThumbnail', sThumbnail)
-            params.setParam('entryUrl', sUrl)
-            params.setParam('sName', sName)
-            oGui.addFolder(oGuiElement, params, isTvshow, total)
+        if isYear:
+            oGuiElement.setYear(sYear)
+        if isTvshow is False:
+            if isDuration:
+                oGuiElement.addItemValue('duration', sDuration)
+        if isRating:
+            oGuiElement.addItemValue('rating', sRating)
+        params.setParam('sThumbnail', sThumbnail)
+        params.setParam('entryUrl', sUrl)
+        params.setParam('sName', sName)
+        oGui.addFolder(oGuiElement, params, isTvshow, total)
 
     if not sGui and not sSearchText:
         isMatchNextPage, sNextUrl = cParser.parseSingleResult(sHtmlContent, '<link[^>]*rel="next"[^>]*href="([^"]+)"') # Nächste Seite
@@ -201,12 +209,13 @@ def showHosters():
     sUrl = ParameterHandler().getValue('entryUrl')
     sHtmlContent = cRequestHandler(sUrl).request()
     #pattern = "player-option-\d.*?type.*?'([^']+).*?(\d+).*?(\d)"
-    pattern = 'player-option-\d.*?type="([^"]+).*?(\d+).*?(\d)'
+    #pattern = 'player-option-\d.*?type="([^"]+).*?(\d+).*?(\d)'
+    pattern = 'player-option-\d.*?type="([^"]+).*?(\d+).*?(\d).*?starten!\s([^<]+)'
     isMatch, aResult = cParser().parse(sHtmlContent, pattern)
     if isMatch:
         for i in aResult:
             sUrl = 'https://cinemathek.net/wp-json/dooplayer/v2/%s/%s/%s' % (i[1], i[0], i[2])
-            hoster = {'link': sUrl, 'name': 'Hoster ' + i[2]}
+            hoster = {'link': sUrl, 'name': i[3]}
             hosters.append(hoster)
     if hosters:
         hosters.append('getHosterUrl')
@@ -215,6 +224,9 @@ def showHosters():
 
 def getHosterUrl(sUrl=False):
     sUrl = json.loads(cRequestHandler(sUrl).request()).get("embed_url")
+    Request = cRequestHandler(sUrl, caching=False)
+    Request.request()
+    sUrl = Request.getRealUrl() # hole reale URL von der Umleitung
     return [{'streamUrl': sUrl, 'resolved': False}]
 
 

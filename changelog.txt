@@ -1,4 +1,10 @@
-[B]Version: 4.0.5~Nightly12[/B]
+[B]Version: 4.0.5~Nightly13[/B]
+
+19.05.2023
+
+ - [Serienstream] Error-Handling für Suche korrigiert
+
+[COLOR cyan]________________________________________________________________________________________[/COLOR]
 
 18.05.2023
 
